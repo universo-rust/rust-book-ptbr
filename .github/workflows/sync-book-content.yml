@@ -1,0 +1,55 @@
+name: Sync Book Content
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "**/*.md"
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Build sync payload
+        run: |
+          bun -e '
+            const fs = require("node:fs");
+            const path = require("node:path");
+
+            function walk(dir) {
+              const out = [];
+              for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+                const full = path.join(dir, entry.name);
+                if (entry.isDirectory()) out.push(...walk(full));
+                else if (entry.isFile() && entry.name.endsWith(".md")) out.push(full);
+              }
+              return out;
+            }
+
+            const files = walk(process.cwd());
+            const documents = files.map((file) => ({
+              path: path.relative(process.cwd(), file).replaceAll("\\\\", "/"),
+              markdown: fs.readFileSync(file, "utf8")
+            }));
+
+            fs.writeFileSync(
+              "payload.json",
+              JSON.stringify({ full_sync: true, documents }, null, 2)
+            );
+          '
+
+      - name: POST sync
+        env:
+          SYNC_URL: ${{ secrets.BOOK_SYNC_URL }}
+          SYNC_TOKEN: ${{ secrets.BOOK_SYNC_TOKEN }}
+        run: |
+          curl -fsS -X POST "$SYNC_URL/api/sync" \
+            -H "Authorization: Bearer $SYNC_TOKEN" \
+            -H "Content-Type: application/json" \
+            --data-binary @payload.json
