@@ -5,8 +5,6 @@ summary: Construção
 order: 9999
 ---
 
-# Construção
-
-Estamos traduzindo o livro The Rust Programming Language para o português
+Estamos traduzindo o livro The Rust Programming Language para o português.
 
 Em breve teremos novidades!
