@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - "**/*.md"
+      - "!README.md"
 
 jobs:
   sync:
@@ -33,10 +34,25 @@ jobs:
             }
 
             const files = walk(process.cwd());
-            const documents = files.map((file) => ({
-              path: path.relative(process.cwd(), file).replaceAll("\\\\", "/"),
-              markdown: fs.readFileSync(file, "utf8")
-            }));
+            const documents = files
+              .map((file) => {
+                const markdown = fs.readFileSync(file, "utf8");
+                const firstLine = markdown.split(/\r?\n/, 1)[0]?.trim() ?? "";
+
+                if (firstLine !== "---") {
+                  return null;
+                }
+
+                return {
+                  path: path.relative(process.cwd(), file).replaceAll("\\\\", "/"),
+                  markdown
+                };
+              })
+              .filter(Boolean);
+
+            if (documents.length === 0) {
+              throw new Error("Nenhum markdown com frontmatter YAML foi encontrado para sincronizar.");
+            }
 
             fs.writeFileSync(
               "payload.json",
