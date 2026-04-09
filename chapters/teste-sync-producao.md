@@ -1,14 +1,12 @@
 ---
-slug: teste-sync-producao
-title: Teste de sincronizacao em producao
-summary: Capitulo temporario para validar deploy e pipeline
+slug: construcao
+title: Construção
+summary: Construção
 order: 9999
 ---
 
-# Teste de sincronizacao
+# Construção
 
-Este capitulo esta em construcao.
+Estamos traduzindo o livro The Rust Programming Language para o português
 
-Estamos preparando conteudo novo para esta secao.
-
-Volte em breve.
+Em breve teremos novidades!
