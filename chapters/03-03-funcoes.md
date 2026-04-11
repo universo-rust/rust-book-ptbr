@@ -1,4 +1,5 @@
 ---
+title: "Funções"
 chapter_code: 03-03
 slug: funcoes
 ---

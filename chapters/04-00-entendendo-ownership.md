@@ -1,4 +1,5 @@
 ---
+title: "Entendendo ownership"
 chapter_code: 04-00
 slug: entendendo-ownership
 ---

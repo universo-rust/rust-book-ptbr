@@ -1,4 +1,5 @@
 ---
+title: "Variáveis e mutabilidade"
 chapter_code: 03-01
 slug: variaveis-e-mutabilidade
 ---

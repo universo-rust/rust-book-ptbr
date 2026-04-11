@@ -1,4 +1,5 @@
 ---
+title: "A linguagem de programação Rust"
 chapter_code: 00-00
 slug: a-linguagem-de-programacao-rust
 ---

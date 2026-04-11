@@ -1,4 +1,5 @@
 ---
+title: "Tipos de dados"
 chapter_code: 03-02
 slug: tipos-de-dados
 ---

@@ -1,4 +1,5 @@
 ---
+title: "Programando um jogo de adivinhação"
 chapter_code: 02-00
 slug: programando-um-jogo-de-adivinhacao
 ---

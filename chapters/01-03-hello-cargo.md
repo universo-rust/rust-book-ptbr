@@ -1,4 +1,5 @@
 ---
+title: "Hello, Cargo!"
 chapter_code: 01-03
 slug: hello-cargo
 ---

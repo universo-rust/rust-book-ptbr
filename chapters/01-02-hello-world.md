@@ -1,4 +1,5 @@
 ---
+title: "Hello, world!"
 chapter_code: 01-02
 slug: hello-world
 ---

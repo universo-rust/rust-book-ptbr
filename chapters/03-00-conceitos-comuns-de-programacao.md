@@ -1,4 +1,5 @@
 ---
+title: "Conceitos comuns de programação"
 chapter_code: 03-00
 slug: conceitos-comuns-de-programacao
 ---
