@@ -12,8 +12,6 @@ Como ownership é um conceito novo para muitos programadores, leva algum tempo p
 
 Quando você entende ownership, passa a ter uma base sólida para compreender as funcionalidades que tornam Rust único. Neste capítulo, você aprenderá ownership trabalhando com alguns exemplos que focam em uma estrutura de dados muito comum: _strings_.
 
----
-
 ## A _stack_ e a _heap_
 
 Muitas linguagens de programação não exigem que você pense com frequência sobre a _stack_ e a _heap_. Porém, em uma linguagem de programação de sistemas como Rust, o fato de um valor estar na stack ou na heap afeta o comportamento da linguagem e explica por que certas decisões precisam ser tomadas. Partes do sistema de ownership serão descritas em relação à stack e à heap mais adiante neste capítulo, então aqui vai uma breve explicação como preparação.
