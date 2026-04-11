@@ -29,5 +29,3 @@ Acessar dados na heap geralmente é mais lento do que acessar dados na stack, po
 Quando o seu código chama uma função, os valores passados para essa função (incluindo, potencialmente, ponteiros para dados na heap) e as variáveis locais da função são colocados na stack. Quando a função termina, esses valores são removidos da stack.
 
 Acompanhar quais partes do código estão usando quais dados na heap, minimizar a quantidade de dados duplicados na heap e limpar dados não utilizados na heap para que você não fique sem espaço são todos problemas que o sistema de ownership resolve. Depois que você entende ownership, não precisará pensar na stack e na heap com muita frequência. Ainda assim, saber que o principal objetivo do ownership é gerenciar dados na heap ajuda a explicar por que ele funciona da maneira que funciona.
-
-Teste
