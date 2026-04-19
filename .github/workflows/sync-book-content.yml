@@ -65,7 +65,7 @@ jobs:
           SYNC_URL: ${{ secrets.BOOK_SYNC_URL }}
           SYNC_TOKEN: ${{ secrets.BOOK_SYNC_TOKEN }}
         run: |
-          curl -fsS -X POST "$SYNC_URL/api/sync" \
+          curl -fsS -X POST "$SYNC_URL/book/sync" \
             -H "Authorization: Bearer $SYNC_TOKEN" \
             -H "Content-Type: application/json" \
             --data-binary @payload.json
