@@ -8,7 +8,7 @@ slug: a-linguagem-de-programacao-rust
 
 *por Steve Klabnik, Carol Nichols e Chris Krycho, com contribuições da Comunidade Rust*
 
-Esta versão do texto pressupõe que você esteja usando Rust 1.90.0 (lançado em 18/09/2025) ou posterior com `edition = "2024"` no arquivo *Cargo.toml* de todos os projetos para configurá-los para usar os padrões da edição Rust 2024. Consulte a seção ["Instalação" do Capítulo 1](https://universorust.com.br/area-membro/livro-rust/1-1-instalacao) para instruções sobre como instalar ou atualizar o Rust, e veja o [Apêndice E](#) para informações sobre edições.
+Esta versão do texto pressupõe que você esteja usando Rust 1.90.0 (lançado em 18/09/2025) ou posterior com `edition = "2024"` no arquivo *Cargo.toml* de todos os projetos. Consulte a seção ["Instalação" do Capítulo 1](https://universorust.com.br/area-membro/livro-rust/1-1-instalacao) para instruções sobre como instalar ou atualizar o Rust, e veja o [Apêndice E](#) para informações sobre edições.
 
 O formato HTML está disponível online em [https://doc.rust-lang.org/stable/book/](https://doc.rust-lang.org/stable/book/) e offline com instalações do Rust feitas com `rustup`; execute `rustup doc --book` para abrir.
 
