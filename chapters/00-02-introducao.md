@@ -76,11 +76,30 @@ Não existe uma forma errada de ler este livro: se você quiser pular adiante, v
 
 Uma parte importante do processo de aprender Rust é aprender a ler as mensagens de erro exibidas pelo compilador: elas irão guiá-lo em direção a um código que funcione. Assim, forneceremos muitos exemplos que não compilam, juntamente com a mensagem de erro que o compilador mostrará em cada situação. Saiba que, se você digitar e executar um exemplo aleatório, ele pode não compilar! Certifique-se de ler o texto ao redor para ver se o exemplo que você está tentando executar foi feito para gerar erro. Na maioria das situações, nós o conduziremos à versão correta de qualquer código que não compile. Ferris também ajudará você a distinguir códigos que não foram feitos para funcionar:
 
-| Ferris | Significado |
-|--------|-------------|
-| ![Ferris com um ponto de interrogação](https://doc.rust-lang.org/book/img/ferris/does_not_compile.svg) | Este código não compila! |
-| ![Ferris com expressão de pânico](https://doc.rust-lang.org/book/img/ferris/panics.svg) | Este código entra em pânico! |
-| ![Ferris com uma garra levantada, dando de ombros](https://doc.rust-lang.org/book/img/ferris/not_desired_behavior.svg) | Este código não produz o comportamento desejado. |
+<div class="book-ferris-legend" role="region" aria-label="Legenda dos ícones do Ferris">
+<table>
+<thead>
+<tr>
+<th scope="col">Ferris</th>
+<th scope="col">Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://doc.rust-lang.org/book/img/ferris/does_not_compile.svg" width="100" alt="Ferris com interrogação: exemplo que não compila." loading="lazy" decoding="async" /></td>
+<td>Este código não compila!</td>
+</tr>
+<tr>
+<td><img src="https://doc.rust-lang.org/book/img/ferris/panics.svg" width="100" alt="Ferris em pânico: exemplo que entra em pânico em tempo de execução." loading="lazy" decoding="async" /></td>
+<td>Este código entra em pânico!</td>
+</tr>
+<tr>
+<td><img src="https://doc.rust-lang.org/book/img/ferris/not_desired_behavior.svg" width="100" alt="Ferris encolhendo os ombros: exemplo com comportamento indesejado." loading="lazy" decoding="async" /></td>
+<td>Este código não produz o comportamento desejado.</td>
+</tr>
+</tbody>
+</table>
+</div>
 
 Na maioria das situações, vamos guiá-lo para a versão correta de qualquer código que não compile.
 
