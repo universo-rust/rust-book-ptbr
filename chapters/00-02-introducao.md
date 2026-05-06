@@ -78,9 +78,9 @@ Uma parte importante do processo de aprender Rust é aprender a ler as mensagens
 
 | Ferris | Significado |
 |--------|-------------|
-| ![Ferris com um ponto de interrogação](https://cdn.universorust.com.br/assets/ferris-1.svg) | Este código não compila! |
-| ![Ferris jogando as mãos para cima](https://cdn.universorust.com.br/assets/ferris-2.svg) | Este código entra em pânico! |
-| ![Ferris com uma garra levantada, dando de ombros](https://cdn.universorust.com.br/assets/ferris-3.svg) | Este código não produz o comportamento desejado. |
+| ![Ferris com um ponto de interrogação](https://doc.rust-lang.org/book/img/ferris/does_not_compile.svg) | Este código não compila! |
+| ![Ferris com expressão de pânico](https://doc.rust-lang.org/book/img/ferris/panics.svg) | Este código entra em pânico! |
+| ![Ferris com uma garra levantada, dando de ombros](https://doc.rust-lang.org/book/img/ferris/not_desired_behavior.svg) | Este código não produz o comportamento desejado. |
 
 Na maioria das situações, vamos guiá-lo para a versão correta de qualquer código que não compile.
 
