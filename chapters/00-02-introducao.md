@@ -64,7 +64,7 @@ O **Capítulo 10** aprofunda-se em generics, traits e lifetimes, que dão a voc�
 
 O **Capítulo 13** explora closures e iteradores: recursos do Rust que vêm de linguagens de programação funcional. No **Capítulo 14**, examinaremos o Cargo com mais profundidade e falaremos sobre boas práticas para compartilhar suas bibliotecas com outras pessoas. O **Capítulo 15** discute os smart pointers que a biblioteca padrão fornece e as traits que habilitam sua funcionalidade.
 
-No **Capítulo 16**, percorreremos diferentes modelos de programação concorrente e falaremos sobre como o Rust ajuda você a programar com múltiplas threads sem medo. No **Capítulo 17**, avançamos a partir disso explorando a sintaxe async e await do Rust, juntamente com tarefas, futures e streams, e o modelo de concorrência leve que eles possibilitam.
+No **Capítulo 16**, percorreremos diferentes modelos de programação concorrente e falaremos sobre como o Rust ajuda você a programar com múltiplas threads sem medo. No **Capítulo 17**, avançamos a partir disso explorando a sintaxe async e await do Rust, juntamente com tasks, futures e streams, e o modelo de concorrência leve que eles possibilitam.
 
 O **Capítulo 18** analisa como os idiomas do Rust se comparam aos princípios de programação orientada a objetos com os quais você talvez esteja familiarizado. O **Capítulo 19** é uma referência sobre padrões e pattern matching, que são formas poderosas de expressar ideias em programas Rust. O **Capítulo 20** contém um verdadeiro banquete de tópicos avançados de interesse, incluindo Rust unsafe, macros e mais detalhes sobre lifetimes, traits, tipos, funções e closures.
 
