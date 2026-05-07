@@ -42,7 +42,7 @@ Rust é para pessoas que desejam construir a linguagem Rust, sua comunidade, fer
 
 Rust é para quem busca velocidade e estabilidade em uma linguagem. Por velocidade, queremos dizer tanto o quão rápido o código Rust pode ser executado quanto a rapidez com que Rust permite escrever programas. As verificações do compilador garantem estabilidade durante a adição de funcionalidades e refatorações. Isso contrasta com códigos legados frágeis em linguagens que não possuem essas verificações, nas quais desenvolvedores muitas vezes têm receio de fazer mudanças. Ao buscar abstrações de custo zero — recursos de alto nível que compilam para código de baixo nível tão rápido quanto código escrito manualmente — Rust se esforça para que código seguro também seja código rápido.
 
-A linguagem Rust espera atender muitos outros usuários; os mencionados aqui são apenas alguns dos principais públicos. No geral, a maior ambição do Rust é eliminar os compromissos que programadores aceitaram por décadas, oferecendo segurança *e* produtividade, velocidade *e* ergonomia. Experimente Rust e veja se suas escolhas funcionam para você.
+A linguagem Rust espera atender muitos outros usuários; os mencionados aqui são apenas alguns dos principais públicos. No geral, a maior ambição do Rust é eliminar os compromissos que programadores aceitaram por décadas, oferecendo segurança *e* produtividade, velocidade *e* ergonomia. Experimente Rust e veja se essas escolhas funcionam para você.
 
 ## Para quem é este livro
 
