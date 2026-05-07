@@ -20,7 +20,7 @@ Rust tem se mostrado uma ferramenta produtiva para colaboração entre grandes e
 
 Rust também traz ferramentas modernas de desenvolvimento para o mundo da programação de sistemas:
 
-- Cargo, o gerenciador de dependências e ferramenta de build incluído, torna simples, consistente e indolor adicionar, compilar e gerenciar dependências em todo o ecossistema Rust.
+- Cargo, o gerenciador de dependências e ferramenta de build, torna simples, consistente e indolor adicionar, compilar e gerenciar dependências em todo o ecossistema Rust.
 - A ferramenta de formatação `rustfmt` garante um estilo de código consistente entre desenvolvedores.
 - O Rust Language Server oferece integração com ambientes de desenvolvimento (IDEs), com autocomplete de código e mensagens de erro inline.
 
