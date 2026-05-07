@@ -66,7 +66,7 @@ O **Capítulo 13** explora closures e iteradores: recursos do Rust que vêm de l
 
 No **Capítulo 16**, percorreremos diferentes modelos de programação concorrente e falaremos sobre como o Rust ajuda você a programar com múltiplas threads sem medo. No **Capítulo 17**, avançamos a partir disso explorando a sintaxe async e await do Rust, juntamente com tasks, futures e streams, e o modelo de concorrência leve que eles possibilitam.
 
-O **Capítulo 18** examina como os padrões de programação do Rust se comparam aos princípios da programação orientada a objetos com os quais você já pode estar familiarizado. . O **Capítulo 19** é uma referência sobre padrões e pattern matching, que são formas poderosas de expressar ideias em programas Rust. O **Capítulo 20** contém um verdadeiro banquete de tópicos avançados de interesse, incluindo Rust unsafe, macros e mais detalhes sobre lifetimes, traits, tipos, funções e closures.
+O **Capítulo 18** examina como os padrões de programação do Rust se comparam aos princípios da programação orientada a objetos com os quais você já pode estar familiarizado. O **Capítulo 19** é uma referência sobre padrões e pattern matching, que são formas poderosas de expressar ideias em programas Rust. O **Capítulo 20** contém um verdadeiro banquete de tópicos avançados de interesse, incluindo Rust unsafe, macros e mais detalhes sobre lifetimes, traits, tipos, funções e closures.
 
 No **Capítulo 21**, concluiremos um projeto no qual implementaremos um servidor web de baixo nível e multithread!
 
