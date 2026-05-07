@@ -10,4 +10,4 @@ Vamos começar sua jornada com Rust! Há muito o que aprender, mas toda jornada 
 
 - Instalação do Rust no Linux, macOS e Windows
 - Escrita de um programa que imprime `Hello, world!`
-- Uso do `cargo`, o gerenciador de pacotes e sistema de build do Rust
+- Uso do `cargo`, o gerenciador de pacotes e sistema de compilação do Rust
