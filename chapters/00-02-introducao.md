@@ -86,4 +86,4 @@ Na maioria das situações, vamos guiá-lo para a versão correta de qualquer c�
 
 ## Código fonte
 
-Os arquivos fonte dos quais este livro é gerado podem ser encontrados no [Github](https://github.com/rust-lang/book/tree/main/src) (em inglês).
+Os arquivos fonte dos quais este livro é gerado podem ser encontrados no [Github](https://github.com/universo-rust/rust-book-ptbr/tree/main/chapters).
