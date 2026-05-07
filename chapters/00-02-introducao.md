@@ -32,7 +32,7 @@ Rust é para estudantes e para quem tem interesse em aprender conceitos de siste
 
 ### Empresas
 
-Centenas de empresas, grandes e pequenas, utilizam Rust em produção para uma grande variedade de tarefas, incluindo ferramentas de linha de comando, serviços web, ferramentas de DevOps, dispositivos embarcados, análise e transcodificação de áudio e vídeo, criptomoedas, bioinformática, motores de busca, aplicações de Internet das Coisas, machine learning e até partes importantes do navegador Firefox.
+Centenas de empresas, grandes e pequenas, utilizam Rust em produção para uma grande variedade de tarefas, incluindo ferramentas de linha de comando, serviços web, ferramentas de DevOps, dispositivos embarcados, análise e transcodificação de áudio e vídeo, criptomoedas, bioinformática, motores de busca, aplicações de internet das coisas, machine learning e até partes importantes do navegador Firefox.
 
 ### Desenvolvedores Open Source
 
