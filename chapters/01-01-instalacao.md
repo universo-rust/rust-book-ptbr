@@ -80,7 +80,7 @@ No Linux e macOS:
 $ echo $PATH
 ```
 
-Se tudo estiver correto e o Rust ainda não funcionar, há vários lugares onde você pode obter ajuda. Veja como entrar em contato com outros Rustaceans (um apelido divertido que usamos) na página da comunidade [(em inglês)](https://www.rust-lang.org/community) ou [(em português)](https://universorust.com/comunidade).
+Se tudo estiver correto e o Rust ainda não funcionar, há vários lugares onde você pode obter ajuda. Veja como entrar em contato com outros Rustáceos (um apelido divertido que usamos) na página da comunidade [(em inglês)](https://www.rust-lang.org/community) ou [(em português)](https://universorust.com/comunidade).
 
 ### Atualização e desinstalação
 

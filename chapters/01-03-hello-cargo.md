@@ -6,7 +6,7 @@ slug: hello-cargo
 
 # Hello, Cargo!
 
-Cargo é o sistema de build e o gerenciador de pacotes do Rust. A maioria dos Rustaceans usa essa ferramenta para gerenciar seus projetos em Rust porque o Cargo cuida de muitas tarefas para você, como compilar seu código, baixar as bibliotecas das quais seu código depende e compilar essas bibliotecas. (Chamamos as bibliotecas de que seu código precisa de *dependências*.)
+Cargo é o sistema de build e o gerenciador de pacotes do Rust. A maioria dos Rustáceos usa essa ferramenta para gerenciar seus projetos em Rust porque o Cargo cuida de muitas tarefas para você, como compilar seu código, baixar as bibliotecas das quais seu código depende e compilar essas bibliotecas. (Chamamos as bibliotecas de que seu código precisa de *dependências*.)
 
 Os programas mais simples em Rust, como o que escrevemos até agora, não têm dependências. Se tivéssemos criado o projeto "Hello, world!" com o Cargo, ele usaria apenas a parte do Cargo responsável por compilar o código. À medida que você escreve programas mais complexos em Rust, você adicionará dependências, e se iniciar um projeto usando o Cargo, adicionar dependências será muito mais fácil.
 
@@ -119,7 +119,7 @@ $ cargo check
     Finished dev [unoptimized + debuginfo] target(s) in 0.32 secs
 ```
 
-Por que você não iria querer um executável? Muitas vezes, `cargo check` é muito mais rápido que `cargo build`, porque ele pula a etapa de geração do executável. Se você estiver verificando constantemente seu trabalho enquanto escreve o código, usar `cargo check` acelera o processo de saber se o projeto ainda está compilando. Por isso, muitos *Rustaceans* executam `cargo check` periodicamente enquanto escrevem seus programas. Depois, quando estão prontos para usar o executável, executam `cargo build`.
+Por que você não iria querer um executável? Muitas vezes, `cargo check` é muito mais rápido que `cargo build`, porque ele pula a etapa de geração do executável. Se você estiver verificando constantemente seu trabalho enquanto escreve o código, usar `cargo check` acelera o processo de saber se o projeto ainda está compilando. Por isso, muitos *Rustáceos* executam `cargo check` periodicamente enquanto escrevem seus programas. Depois, quando estão prontos para usar o executável, executam `cargo build`.
 
 Vamos recapitular o que aprendemos até agora sobre o Cargo:
 
