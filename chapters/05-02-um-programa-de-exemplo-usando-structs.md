@@ -28,6 +28,8 @@ fn area(width: u32, height: u32) -> u32 {
 }
 ```
 
+<a id="listagem-5-8"></a>
+
 [Listagem 5-8](#listagem-5-8): Calculando a área de um retângulo especificado por variáveis separadas de largura e altura
 
 Agora, execute este programa com `cargo run`:
@@ -73,6 +75,8 @@ fn area(dimensions: (u32, u32)) -> u32 {
 }
 ```
 
+<a id="listagem-5-9"></a>
+
 [Listagem 5-9](#listagem-5-9): Especificando a largura e a altura do retângulo com uma tupla
 
 De certa forma, este programa é melhor. As tuplas nos permitem adicionar um pouco de estrutura, e agora passamos apenas um argumento. Mas, de outra forma, esta versão é menos clara: tuplas não nomeiam seus elementos, então precisamos indexar as partes da tupla, o que torna nosso cálculo menos óbvio.
@@ -108,6 +112,8 @@ fn area(rectangle: &Rectangle) -> u32 {
 }
 ```
 
+<a id="listagem-5-10"></a>
+
 [Listagem 5-10](#listagem-5-10): Definindo uma struct `Rectangle`
 
 Aqui, definimos uma struct e a nomeamos `Rectangle`. Dentro das chaves, definimos os campos `width` e `height`, ambos do tipo `u32`. Em seguida, em `main`, criamos uma instância particular de `Rectangle` com largura `30` e altura `50`.
@@ -137,6 +143,8 @@ fn main() {
     println!("rect1 is {rect1}");
 }
 ```
+
+<a id="listagem-5-11"></a>
 
 [Listagem 5-11](#listagem-5-11): Tentando imprimir uma instância de `Rectangle`
 
@@ -188,6 +196,8 @@ fn main() {
     println!("rect1 is {rect1:?}");
 }
 ```
+
+<a id="listagem-5-12"></a>
 
 [Listagem 5-12](#listagem-5-12): Adicionando o atributo para derivar a trait `Debug` e imprimindo a instância de `Rectangle` usando formatação de depuração
 

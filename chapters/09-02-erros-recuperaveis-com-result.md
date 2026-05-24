@@ -31,6 +31,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-9-3"></a>
+
 [Listagem 9-3](#listagem-9-3): Abrindo um arquivo
 
 O tipo de retorno de `File::open` é um `Result<T, E>`. O parâmetro genérico `T` foi preenchido pela implementação de `File::open` com o tipo do valor de sucesso, `std::fs::File`, que é um handle de arquivo. O tipo de `E` usado no valor de erro é `std::io::Error`. Este tipo de retorno significa que a chamada a `File::open` pode ter sucesso e retornar um handle de arquivo do qual podemos ler ou escrever. A chamada de função também pode falhar: por exemplo, o arquivo pode não existir, ou podemos não ter permissão para acessar o arquivo. A função `File::open` precisa ter uma forma de nos dizer se teve sucesso ou falhou e, ao mesmo tempo, nos dar o handle de arquivo ou informações de erro. Essa informação é exatamente o que o enum `Result` transmite.
@@ -53,6 +55,8 @@ fn main() {
     };
 }
 ```
+
+<a id="listagem-9-4"></a>
 
 [Listagem 9-4](#listagem-9-4): Usando uma expressão `match` para lidar com as variantes `Result` que podem ser retornadas
 
@@ -102,6 +106,8 @@ fn main() {
     };
 }
 ```
+
+<a id="listagem-9-5"></a>
 
 [Listagem 9-5](#listagem-9-5): Lidando com diferentes tipos de erros de formas diferentes
 
@@ -210,6 +216,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-9-6"></a>
+
 [Listagem 9-6](#listagem-9-6): Uma função que retorna erros ao código chamador usando `match`
 
 Esta função pode ser escrita de forma muito mais curta, mas vamos começar fazendo muito dela manualmente para explorar o tratamento de erros; no final, mostraremos o caminho mais curto. Vamos olhar primeiro o tipo de retorno da função: `Result<String, io::Error>`. Isso significa que a função retorna um valor do tipo `Result<T, E>`, onde o parâmetro genérico `T` foi preenchido com o tipo concreto `String` e o tipo genérico `E` foi preenchido com o tipo concreto `io::Error`.
@@ -246,6 +254,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-9-7"></a>
+
 [Listagem 9-7](#listagem-9-7): Uma função que retorna erros ao código chamador usando o operador `?`
 
 O `?` colocado após um valor `Result` é definido para funcionar de quase a mesma forma que as expressões `match` que definimos para lidar com os valores `Result` na Listagem 9-6. Se o valor do `Result` for um `Ok`, o valor dentro do `Ok` será retornado desta expressão e o programa continuará. Se o valor for um `Err`, o `Err` será retornado de toda a função como se tivéssemos usado a palavra-chave `return`, para que o valor de erro seja propagado ao código chamador.
@@ -277,6 +287,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-9-8"></a>
+
 [Listagem 9-8](#listagem-9-8): Encadeando chamadas de método após o operador `?`
 
 Movemos a criação da nova `String` em `username` para o início da função; essa parte não mudou. Em vez de criar uma variável `username_file`, encadeamos a chamada a `read_to_string` diretamente no resultado de `File::open("hello.txt")?`. Ainda temos um `?` no final da chamada a `read_to_string`, e ainda retornamos um valor `Ok` contendo `username` quando tanto `File::open` quanto `read_to_string` têm sucesso em vez de retornar erros. A funcionalidade é novamente a mesma das Listagens 9-6 e 9-7; esta é apenas uma forma diferente e mais ergonômica de escrevê-la.
@@ -298,6 +310,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-9-9"></a>
+
 [Listagem 9-9](#listagem-9-9): Usando `fs::read_to_string` em vez de abrir e depois ler o arquivo
 
 Ler um arquivo em uma string é uma operação bastante comum, então a biblioteca padrão fornece a função conveniente `fs::read_to_string` que abre o arquivo, cria uma nova `String`, lê o conteúdo do arquivo, coloca o conteúdo nessa `String` e a retorna. Claro, usar `fs::read_to_string` não nos dá a oportunidade de explicar todo o tratamento de erros, então fizemos do jeito mais longo primeiro.
@@ -317,6 +331,8 @@ fn main() {
     let greeting_file = File::open("hello.txt")?;
 }
 ```
+
+<a id="listagem-9-10"></a>
 
 [Listagem 9-10](#listagem-9-10): Tentar usar `?` na função `main` que retorna `()` não compilará
 
@@ -368,6 +384,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-9-11"></a>
+
 [Listagem 9-11](#listagem-9-11): Usando o operador `?` em um valor `Option<T>`
 
 Esta função retorna `Option<char>` porque é possível que haja um caractere ali, mas também é possível que não haja. Este código recebe o argumento fatia de string `text` e chama o método `lines` nele, que retorna um iterador sobre as linhas na string. Como esta função quer examinar a primeira linha, chama `next` no iterador para obter o primeiro valor do iterador. Se `text` for a string vazia, esta chamada a `next` retornará `None`, caso em que usamos `?` para parar e retornar `None` de `last_char_of_first_line`. Se `text` não for a string vazia, `next` retornará um valor `Some` contendo uma fatia de string da primeira linha em `text`.
@@ -392,6 +410,8 @@ fn main() -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 ```
+
+<a id="listagem-9-12"></a>
 
 [Listagem 9-12](#listagem-9-12): Alterar `main` para retornar `Result<(), E>` permite o uso do operador `?` em valores `Result`
 

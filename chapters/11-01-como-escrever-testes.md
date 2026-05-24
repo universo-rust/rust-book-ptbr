@@ -51,6 +51,8 @@ mod tests {
 }
 ```
 
+<a id="listagem-11-1"></a>
+
 [Listagem 11-1](#listagem-11-1): O código gerado automaticamente por `cargo new`
 
 O arquivo começa com uma função de exemplo `add` para que tenhamos algo para testar.
@@ -78,6 +80,8 @@ running 0 tests
 
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 ```
+
+<a id="listagem-11-2"></a>
 
 [Listagem 11-2](#listagem-11-2): A saída de executar o teste gerado automaticamente
 
@@ -156,6 +160,8 @@ mod tests {
 }
 ```
 
+<a id="listagem-11-3"></a>
+
 [Listagem 11-3](#listagem-11-3): Adicionando um segundo teste que falhará porque chamamos a macro `panic!`
 
 Execute os testes novamente com `cargo test`. A saída deve parecer com a Listagem 11-4, que mostra que nosso teste `exploration` passou e `another` falhou.
@@ -187,6 +193,8 @@ test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; 
 error: test failed, to rerun pass `--lib`
 ```
 
+<a id="listagem-11-4"></a>
+
 [Listagem 11-4](#listagem-11-4): Resultados de teste quando um teste passa e outro falha
 
 Em vez de `ok`, a linha `test tests::another` mostra `FAILED`. Duas novas seções aparecem entre os resultados individuais e o resumo: a primeira exibe o motivo detalhado de cada falha de teste. Neste caso, obtemos os detalhes de que `tests::another` falhou porque entrou em pânico com a mensagem `Make this test fail` na linha 17 do arquivo _src/lib.rs_. A seção seguinte lista apenas os nomes de todos os testes que falharam, o que é útil quando há muitos testes e muita saída detalhada de falhas. Podemos usar o nome de um teste que falhou para executar apenas esse teste e depurá-lo mais facilmente; falaremos mais sobre formas de executar testes na seção Controlando como os testes são executados.
@@ -216,6 +224,8 @@ impl Rectangle {
     }
 }
 ```
+
+<a id="listagem-11-5"></a>
 
 [Listagem 11-5](#listagem-11-5): A struct `Rectangle` e seu método `can_hold` do Capítulo 5
 
@@ -255,6 +265,8 @@ mod tests {
     }
 }
 ```
+
+<a id="listagem-11-6"></a>
 
 [Listagem 11-6](#listagem-11-6): Um teste para `can_hold` que verifica se um retângulo maior pode de fato conter um menor
 
@@ -388,6 +400,8 @@ mod tests {
     }
 }
 ```
+
+<a id="listagem-11-7"></a>
 
 [Listagem 11-7](#listagem-11-7): Testando a função `add_two` usando a macro `assert_eq!`
 
@@ -608,6 +622,8 @@ mod tests {
 }
 ```
 
+<a id="listagem-11-8"></a>
+
 [Listagem 11-8](#listagem-11-8): Testando que uma condição causará `panic!`
 
 Colocamos o atributo `#[should_panic]` após o atributo `#[test]` e antes da função de teste a que se aplica. Vejamos o resultado quando este teste passa:
@@ -708,6 +724,8 @@ mod tests {
     }
 }
 ```
+
+<a id="listagem-11-9"></a>
 
 [Listagem 11-9](#listagem-11-9): Testando `panic!` com mensagem de pânico contendo uma substring especificada
 

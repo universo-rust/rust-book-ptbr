@@ -73,6 +73,8 @@ fn change(some_string: &String) {
 }
 ```
 
+<a id="listagem-4-6"></a>
+
 [Listagem 4-6](#listagem-4-6): Tentando modificar um valor emprestado
 
 Veja o erro:

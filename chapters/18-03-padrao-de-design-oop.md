@@ -46,6 +46,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-18-11"></a>
+
 [Listagem 18-11](#listagem-18-11): Código que demonstra o comportamento desejado do crate `blog`
 
 `Post::new` cria rascunho; `add_text` adiciona texto; antes da aprovação `content` retorna vazio. Depois revisão e aprovação, `content` retorna o texto. Só interagimos com `Post`, que usa o padrão state internamente — usuários não gerenciam estados nem cometem erros como publicar sem revisar.
@@ -78,6 +80,8 @@ struct Draft {}
 impl State for Draft {}
 ```
 
+<a id="listagem-18-12"></a>
+
 [Listagem 18-12](#listagem-18-12): `Post`, `new`, trait `State` e struct `Draft`
 
 Estados `Draft`, `PendingReview` e `Published` implementarão `State`. Por ora só `Draft` — estado inicial. `state` privado impede criar `Post` em outro estado.
@@ -92,6 +96,8 @@ Estados `Draft`, `PendingReview` e `Published` implementarão `State`. Por ora s
     }
 ```
 
+<a id="listagem-18-13"></a>
+
 [Listagem 18-13](#listagem-18-13): `add_text` para adicionar texto ao `content`
 
 Não depende do estado; não faz parte do padrão state, mas faz parte do comportamento desejado.
@@ -105,6 +111,8 @@ Não depende do estado; não faz parte do padrão state, mas faz parte do compor
         ""
     }
 ```
+
+<a id="listagem-18-14"></a>
 
 [Listagem 18-14](#listagem-18-14): Implementação provisória de `content` que sempre retorna string vazia
 
@@ -141,6 +149,8 @@ impl State for PendingReview {
     }
 }
 ```
+
+<a id="listagem-18-15"></a>
 
 [Listagem 18-15](#listagem-18-15): `request_review` em `Post` e na trait `State`
 
@@ -199,6 +209,8 @@ impl State for Published {
 }
 ```
 
+<a id="listagem-18-16"></a>
+
 [Listagem 18-16](#listagem-18-16): `approve` em `Post` e na trait `State`
 
 `approve` em `Draft` não faz nada; em `PendingReview` vira `Published`; `Published` permanece.
@@ -212,6 +224,8 @@ Atualizamos `content` para delegar ao estado:
         self.state.as_ref().unwrap().content(self)
     }
 ```
+
+<a id="listagem-18-17"></a>
 
 [Listagem 18-17](#listagem-18-17): `content` em `Post` delega a `content` em `State`
 
@@ -247,6 +261,8 @@ impl State for Published {
     }
 }
 ```
+
+<a id="listagem-18-18"></a>
 
 [Listagem 18-18](#listagem-18-18): Método `content` na trait `State`
 
@@ -306,6 +322,8 @@ impl DraftPost {
 }
 ```
 
+<a id="listagem-18-19"></a>
+
 [Listagem 18-19](#listagem-18-19): `Post` com `content`, `DraftPost` sem `content`
 
 `Post::new` retorna `DraftPost`; sem função que retorne `Post`, não criamos publicado diretamente. Posts começam rascunho; rascunho não exibe conteúdo.
@@ -342,6 +360,8 @@ impl PendingReviewPost {
 }
 ```
 
+<a id="listagem-18-20"></a>
+
 [Listagem 18-20](#listagem-18-20): `PendingReviewPost`, `request_review` e `approve`
 
 Métodos consomem `self` — não sobram `DraftPost` após `request_review`. Só `approve` em `PendingReviewPost` produz `Post` com `content`; só `request_review` em `DraftPost` produz `PendingReviewPost`. Fluxo no sistema de tipos.
@@ -363,6 +383,8 @@ fn main() {
     assert_eq!("I ate a salad for lunch today", post.content());
 }
 ```
+
+<a id="listagem-18-21"></a>
 
 [Listagem 18-21](#listagem-18-21): `main` com a nova implementação do fluxo do blog
 

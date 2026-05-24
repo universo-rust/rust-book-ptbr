@@ -20,6 +20,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-13-10"></a>
+
 [Listagem 13-10](#listagem-13-10): Criando um iterator
 
 O iterator é armazenado na variável `v1_iter`. Depois de criar um iterator, podemos usá-lo de várias formas. Na Listagem 3-5, iteramos sobre um array usando um loop `for` para executar algum código em cada item. Por baixo dos panos, isso criou e consumiu implicitamente um iterator, mas até agora não detalhamos exatamente como isso funciona.
@@ -39,6 +41,8 @@ fn main() {
     }
 }
 ```
+
+<a id="listagem-13-11"></a>
 
 [Listagem 13-11](#listagem-13-11): Usando um iterator em um loop `for`
 
@@ -85,6 +89,8 @@ mod tests {
 }
 ```
 
+<a id="listagem-13-12"></a>
+
 [Listagem 13-12](#listagem-13-12): Chamando o método `next` em um iterator
 
 Note que precisamos tornar `v1_iter` mutável: chamar o método `next` em um iterator altera o estado interno que o iterator usa para rastrear onde está na sequência. Em outras palavras, este código _consome_, ou usa, o iterator. Cada chamada a `next` consome um item do iterator. Não precisamos tornar `v1_iter` mutável quando usamos um loop `for`, porque o loop tomou posse de `v1_iter` e o tornou mutável nos bastidores.
@@ -115,6 +121,8 @@ mod tests {
 }
 ```
 
+<a id="listagem-13-13"></a>
+
 [Listagem 13-13](#listagem-13-13): Chamando o método `sum` para obter o total de todos os itens do iterator
 
 Não podemos usar `v1_iter` depois da chamada a `sum`, porque `sum` toma posse do iterator em que é chamado.
@@ -134,6 +142,8 @@ fn main() {
     v1.iter().map(|x| x + 1);
 }
 ```
+
+<a id="listagem-13-14"></a>
 
 [Listagem 13-14](#listagem-13-14): Chamando o adapter de iterator `map` para criar um novo iterator
 
@@ -177,6 +187,8 @@ fn main() {
     assert_eq!(v2, vec![2, 3, 4]);
 }
 ```
+
+<a id="listagem-13-15"></a>
 
 [Listagem 13-15](#listagem-13-15): Chamando o método `map` para criar um novo iterator e depois o método `collect` para consumir o novo iterator e criar um vetor
 
@@ -244,6 +256,8 @@ mod tests {
     }
 }
 ```
+
+<a id="listagem-13-16"></a>
 
 [Listagem 13-16](#listagem-13-16): Usando o método `filter` com uma closure que captura `shoe_size`
 

@@ -52,6 +52,8 @@ async fn page_title(url: &str) -> Option<String> {
 }
 ```
 
+<a id="listagem-17-1"></a>
+
 [Listagem 17-1](#listagem-17-1): Definindo uma função async para obter o elemento título de uma página HTML
 
 Primeiro definimos `page_title` e a marcamos com `async`. Depois usamos `trpl::get` para buscar a URL passada e `await` para aguardar a resposta. Para obter o texto da `response`, chamamos `text` e de novo `await`. Ambos os passos são assíncronos. Para `get`, precisamos esperar o servidor enviar a primeira parte da resposta (cabeçalhos HTTP, cookies etc., que podem chegar separados do corpo). Se o corpo for grande, pode demorar para chegar tudo. Como precisamos esperar a resposta _inteira_, `text` também é async.
@@ -69,6 +71,8 @@ Note que `await` em Rust vem _depois_ da expressão aguardada, não antes: é um
 ```rust
     let response_text = trpl::get(url).await.text().await;
 ```
+
+<a id="listagem-17-2"></a>
 
 [Listagem 17-2](#listagem-17-2): Encadeando com a palavra-chave `await`
 
@@ -119,6 +123,8 @@ async fn main() {
 }
 ```
 
+<a id="listagem-17-3"></a>
+
 [Listagem 17-3](#listagem-17-3): Chamando `page_title` a partir de `main` com argumento da linha de comando
 
 Seguimos o padrão de Aceitar argumentos da linha de comando do Capítulo 12. Passamos a URL para `page_title` e aguardamos o resultado. Como a future produz `Option<String>`, usamos `match` para imprimir mensagens conforme haja ou não `<title>`.
@@ -156,6 +162,8 @@ fn main() {
     })
 }
 ```
+
+<a id="listagem-17-4"></a>
 
 [Listagem 17-4](#listagem-17-4): Aguardando um bloco async com `trpl::block_on`
 
@@ -227,6 +235,8 @@ async fn page_title(url: &str) -> (&str, Option<String>) {
     (url, title)
 }
 ```
+
+<a id="listagem-17-5"></a>
 
 [Listagem 17-5](#listagem-17-5): Chamando `page_title` para duas URLs para ver qual retorna primeiro
 

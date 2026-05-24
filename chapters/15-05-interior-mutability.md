@@ -127,6 +127,8 @@ where
 }
 ```
 
+<a id="listagem-15-20"></a>
+
 [Listagem 15-20](#listagem-15-20): Uma biblioteca para rastrear quão próximo um valor está de um valor máximo e avisar quando o valor atinge certos níveis
 
 Uma parte importante deste código é que a trait `Messenger` tem um método chamado `send` que recebe uma referência imutável a `self` e o texto da mensagem. Esta trait é a interface que nosso mock object precisa implementar para que o mock possa ser usado da mesma forma que um objeto real. A outra parte importante é que queremos testar o comportamento do método `set_value` em `LimitTracker`. Podemos mudar o que passamos para o parâmetro `value`, mas `set_value` não retorna nada para fazermos asserções. Queremos poder dizer que, se criarmos um `LimitTracker` com algo que implemente a trait `Messenger` e um valor particular para `max`, o messenger é informado para enviar as mensagens apropriadas quando passamos números diferentes para `value`.
@@ -208,6 +210,8 @@ mod tests {
     }
 }
 ```
+
+<a id="listagem-15-21"></a>
 
 [Listagem 15-21](#listagem-15-21): Uma tentativa de implementar um `MockMessenger` que o borrow checker não permite
 
@@ -320,6 +324,8 @@ mod tests {
 }
 ```
 
+<a id="listagem-15-22"></a>
+
 [Listagem 15-22](#listagem-15-22): Usando `RefCell<T>` para mutar um valor interior enquanto o valor externo é considerado imutável
 
 O campo `sent_messages` agora é do tipo `RefCell<Vec<String>>` em vez de `Vec<String>`. Na função `new`, criamos uma nova instância `RefCell<Vec<String>>` em torno do vetor vazio.
@@ -419,6 +425,8 @@ mod tests {
 }
 ```
 
+<a id="listagem-15-23"></a>
+
 [Listagem 15-23](#listagem-15-23): Criando duas referências mutáveis no mesmo escopo para ver que `RefCell<T>` entrará em pânico
 
 Criamos uma variável `one_borrow` para o smart pointer `RefMut<T>` retornado por `borrow_mut`. Depois, criamos outro empréstimo mutável da mesma forma na variável `two_borrow`. Isso faz duas referências mutáveis no mesmo escopo, o que não é permitido. Quando executamos os testes de nossa biblioteca, o código na Listagem 15-23 compilará sem erros, mas o teste falhará:
@@ -487,6 +495,8 @@ fn main() {
     println!("c after = {c:?}");
 }
 ```
+
+<a id="listagem-15-24"></a>
 
 [Listagem 15-24](#listagem-15-24): Usando `Rc<RefCell<i32>>` para criar uma `List` que podemos mutar
 

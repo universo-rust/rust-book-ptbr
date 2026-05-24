@@ -46,6 +46,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-16-12"></a>
+
 [Listagem 16-12](#listagem-16-12): Explorando a API de `Mutex<T>` em contexto de thread única, por simplicidade
 
 Como muitos tipos, criamos um `Mutex<T>` usando a função associada `new`. Para acessar os dados dentro do mutex, usamos o método `lock` para adquirir o lock. Essa chamada bloqueará a thread atual para que ela não possa fazer nenhum trabalho até ser nossa vez de ter o lock.
@@ -88,6 +90,8 @@ fn main() {
     println!("Result: {}", *counter.lock().unwrap());
 }
 ```
+
+<a id="listagem-16-13"></a>
 
 [Listagem 16-13](#listagem-16-13): Dez threads, cada uma incrementando um contador guardado por um `Mutex<T>`
 
@@ -160,6 +164,8 @@ fn main() {
     println!("Result: {}", *counter.lock().unwrap());
 }
 ```
+
+<a id="listagem-16-14"></a>
 
 [Listagem 16-14](#listagem-16-14): Tentativa de usar `Rc<T>` para permitir que várias threads possuam o `Mutex<T>`
 
@@ -235,6 +241,8 @@ fn main() {
     println!("Result: {}", *counter.lock().unwrap());
 }
 ```
+
+<a id="listagem-16-15"></a>
 
 [Listagem 16-15](#listagem-16-15): Usando um `Arc<T>` para envolver o `Mutex<T>` e compartilhar ownership entre várias threads
 

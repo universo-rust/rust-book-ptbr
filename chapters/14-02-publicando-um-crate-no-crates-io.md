@@ -34,6 +34,8 @@ pub fn add_one(x: i32) -> i32 {
 }
 ```
 
+<a id="listagem-14-1"></a>
+
 [Listagem 14-1](#listagem-14-1): Um comentário de documentação para uma função
 
 Aqui, damos uma descrição do que a função `add_one` faz, iniciamos uma seção com o título `Examples` e então fornecemos código que demonstra como usar a função `add_one`. Podemos gerar a documentação HTML a partir deste comentário de documentação executando `cargo doc`. Este comando executa a ferramenta `rustdoc` distribuída com o Rust e coloca a documentação HTML gerada no diretório _target/doc_.
@@ -98,6 +100,8 @@ pub fn add_one(x: i32) -> i32 {
 }
 ```
 
+<a id="listagem-14-2"></a>
+
 [Listagem 14-2](#listagem-14-2): A documentação do crate `my_crate` como um todo
 
 Observe que não há código após a última linha que começa com `//!`. Como começamos os comentários com `//!` em vez de `///`, estamos documentando o item que contém este comentário, em vez de um item que segue este comentário. Neste caso, esse item é o arquivo _src/lib.rs_, que é a raiz do crate. Esses comentários descrevem o crate inteiro.
@@ -154,6 +158,8 @@ pub mod utils {
 }
 ```
 
+<a id="listagem-14-3"></a>
+
 [Listagem 14-3](#listagem-14-3): Uma biblioteca `art` com itens organizados nos módulos `kinds` e `utils`
 
 A Figura 14-3 mostra como seria a página inicial da documentação deste crate gerada por `cargo doc`.
@@ -178,6 +184,8 @@ fn main() {
     mix(red, yellow);
 }
 ```
+
+<a id="listagem-14-4"></a>
 
 [Listagem 14-4](#listagem-14-4): Um crate usando os itens do crate `art` com sua estrutura interna exportada
 
@@ -223,6 +231,8 @@ pub mod utils {
 }
 ```
 
+<a id="listagem-14-5"></a>
+
 [Listagem 14-5](#listagem-14-5): Adicionando instruções `pub use` para reexportar itens
 
 A documentação da API que `cargo doc` gera para este crate agora listará e vinculará reexportações na página inicial, como mostrado na Figura 14-4, tornando os tipos `PrimaryColor` e `SecondaryColor` e a função `mix` mais fáceis de encontrar.
@@ -245,6 +255,8 @@ fn main() {
     mix(red, yellow);
 }
 ```
+
+<a id="listagem-14-6"></a>
 
 [Listagem 14-6](#listagem-14-6): Um programa usando os itens reexportados do crate `art`
 

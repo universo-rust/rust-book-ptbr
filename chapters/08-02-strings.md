@@ -28,6 +28,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-8-11"></a>
+
 [Listagem 8-11](#listagem-8-11): Criando uma nova `String` vazia
 
 Esta linha cria uma nova string vazia chamada `s`, na qual podemos então carregar dados. Frequentemente, teremos alguns dados iniciais com os quais queremos começar a string. Para isso, usamos o método `to_string`, que está disponível em qualquer tipo que implementa a trait `Display`, como literais de string fazem. A Listagem 8-12 mostra dois exemplos.
@@ -45,6 +47,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-8-12"></a>
+
 [Listagem 8-12](#listagem-8-12): Usando o método `to_string` para criar uma `String` a partir de um literal de string
 
 Este código cria uma string contendo `initial contents`.
@@ -58,6 +62,8 @@ fn main() {
     let s = String::from("initial contents");
 }
 ```
+
+<a id="listagem-8-13"></a>
 
 [Listagem 8-13](#listagem-8-13): Usando a função `String::from` para criar uma `String` a partir de um literal de string
 
@@ -83,6 +89,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-8-14"></a>
+
 [Listagem 8-14](#listagem-8-14): Armazenando saudações em diferentes idiomas em strings
 
 Todos estes são valores `String` válidos.
@@ -104,6 +112,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-8-15"></a>
+
 [Listagem 8-15](#listagem-8-15): Acrescentando uma fatia de string a uma `String` usando o método `push_str`
 
 Depois dessas duas linhas, `s` conterá `foobar`. O método `push_str` recebe uma fatia de string porque não queremos necessariamente tomar ownership do parâmetro. Por exemplo, no código da Listagem 8-16, queremos poder usar `s2` depois de acrescentar seu conteúdo a `s1`.
@@ -119,6 +129,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-8-16"></a>
+
 [Listagem 8-16](#listagem-8-16): Usando uma fatia de string depois de acrescentar seu conteúdo a uma `String`
 
 Se o método `push_str` tomasse ownership de `s2`, não poderíamos imprimir seu valor na última linha. Porém, este código funciona como esperaríamos!
@@ -133,6 +145,8 @@ fn main() {
     s.push('l');
 }
 ```
+
+<a id="listagem-8-17"></a>
 
 [Listagem 8-17](#listagem-8-17): Adicionando um caractere a um valor `String` usando `push`
 
@@ -151,6 +165,8 @@ fn main() {
     let s3 = s1 + &s2; // note que s1 foi movida aqui e não pode mais ser usada
 }
 ```
+
+<a id="listagem-8-18"></a>
 
 [Listagem 8-18](#listagem-8-18): Usando o operador `+` para combinar dois valores `String` em um novo valor `String`
 
@@ -210,6 +226,8 @@ fn main() {
     let h = s1[0];
 }
 ```
+
+<a id="listagem-8-19"></a>
 
 [Listagem 8-19](#listagem-8-19): Tentando usar sintaxe de indexação com uma `String`
 

@@ -61,6 +61,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-19-1"></a>
+
 [Listagem 19-1](#listagem-19-1): Usando um padrão para desestruturar uma tupla e criar três variáveis de uma vez
 
 Aqui, casamos uma tupla com um padrão. Rust compara o valor `(1, 2, 3)` com o padrão `(x, y, z)` e vê que o valor casa com o padrão — ou seja, vê que o número de elementos é o mesmo em ambos — então Rust liga `1` a `x`, `2` a `y` e `3` a `z`. Você pode pensar neste padrão de tupla como aninhar três padrões de variável individuais dentro dele.
@@ -74,6 +76,8 @@ fn main() {
     let (x, y) = (1, 2, 3);
 }
 ```
+
+<a id="listagem-19-2"></a>
 
 [Listagem 19-2](#listagem-19-2): Construindo incorretamente um padrão cujas variáveis não correspondem ao número de elementos na tupla
 
@@ -131,6 +135,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-19-3"></a>
+
 [Listagem 19-3](#listagem-19-3): Misturando `if let`, `else if`, `else if let` e `else`
 
 Se o usuário especificar uma cor favorita, essa cor é usada como fundo. Se nenhuma cor favorita for especificada e hoje for terça-feira, a cor de fundo é verde. Caso contrário, se o usuário especificar sua idade como uma string e conseguirmos fazer o parse dela como número com sucesso, a cor é roxa ou laranja dependendo do valor do número. Se nenhuma dessas condições se aplicar, a cor de fundo é azul.
@@ -162,6 +168,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-19-4"></a>
+
 [Listagem 19-4](#listagem-19-4): Usando um loop `while let` para imprimir valores enquanto `rx.recv()` retorna `Ok`
 
 Este exemplo imprime `1`, `2` e depois `3`. O método `recv` tira a primeira mensagem do lado receptor do channel e retorna um `Ok(value)`. Quando vimos `recv` pela primeira vez no Capítulo 16, desembrulhamos o erro diretamente, ou interagimos com ele como um iterador usando um loop `for`. Como a Listagem 19-4 mostra, porém, também podemos usar `while let`, porque o método `recv` retorna um `Ok` cada vez que uma mensagem chega, enquanto o sender existir, e então produz um `Err` quando o lado sender desconecta.
@@ -181,6 +189,8 @@ fn main() {
     }
 }
 ```
+
+<a id="listagem-19-5"></a>
 
 [Listagem 19-5](#listagem-19-5): Usando um padrão em um loop `for` para desestruturar uma tupla
 
@@ -210,6 +220,8 @@ fn foo(x: i32) {
 }
 ```
 
+<a id="listagem-19-6"></a>
+
 [Listagem 19-6](#listagem-19-6): Uma assinatura de função usando padrões nos parâmetros
 
 A parte `x` é um padrão! Como fizemos com `let`, poderíamos casar uma tupla nos argumentos de uma função com o padrão. A Listagem 19-7 separa os valores em uma tupla conforme a passamos para uma função.
@@ -226,6 +238,8 @@ fn main() {
     print_coordinates(&point);
 }
 ```
+
+<a id="listagem-19-7"></a>
 
 [Listagem 19-7](#listagem-19-7): Uma função com parâmetros que desestruturam uma tupla
 

@@ -102,6 +102,8 @@ mod front_of_house {
 }
 ```
 
+<a id="listagem-7-1"></a>
+
 [Listagem 7-1](#listagem-7-1): Um módulo `front_of_house` contendo outros módulos que então contêm funções
 
 Definimos um módulo com a palavra-chave `mod` seguida do nome do módulo (neste caso, `front_of_house`). O corpo do módulo vai dentro de chaves. Dentro de módulos, podemos colocar outros módulos, como neste caso com os módulos `hosting` e `serving`. Módulos também podem conter definições de outros itens, como structs, enums, constantes, traits e, como na Listagem 7-1, funções.
@@ -111,6 +113,8 @@ Usando módulos, podemos agrupar definições relacionadas e nomear por que est�
 Mencionamos antes que _src/main.rs_ e _src/lib.rs_ são chamados de _raízes do crate_. O motivo do nome é que o conteúdo de qualquer um desses dois arquivos forma um módulo chamado `crate` na raiz da estrutura de módulos do crate, conhecida como _árvore de módulos_.
 
 A Listagem 7-2 mostra a árvore de módulos para a estrutura da Listagem 7-1.
+
+<a id="listagem-7-2"></a>
 
 [Listagem 7-2](#listagem-7-2): A árvore de módulos para o código da Listagem 7-1
 

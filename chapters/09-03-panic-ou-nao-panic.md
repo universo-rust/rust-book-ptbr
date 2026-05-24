@@ -129,6 +129,8 @@ impl Guess {
 }
 ```
 
+<a id="listagem-9-13"></a>
+
 [Listagem 9-13](#listagem-9-13): Um tipo `Guess` que só continuará com valores entre 1 e 100
 
 Observe que este código em _src/guessing_game.rs_ depende de adicionar uma declaração de módulo `mod guessing_game;` em _src/lib.rs_ que não mostramos aqui. Dentro do arquivo deste novo módulo, definimos uma struct chamada `Guess` que tem um campo chamado `value` que contém um `i32`. É aqui que o número será armazenado.

@@ -23,6 +23,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-19-8"></a>
+
 [Listagem 19-8](#listagem-19-8): Tentativa de usar um padrão refutável com `let`
 
 Se `some_option_value` fosse um valor `None`, ele falharia ao casar com o padrão `Some(x)`, o que significa que o padrão é refutável. No entanto, a instrução `let` só pode aceitar um padrão irrefutável porque não há nada válido que o código possa fazer com um valor `None`. Em tempo de compilação, Rust reclamará que tentamos usar um padrão refutável onde um padrão irrefutável é exigido:
@@ -63,6 +65,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-19-9"></a>
+
 [Listagem 19-9](#listagem-19-9): Usando `let...else` e um bloco com padrões refutáveis em vez de `let`
 
 Demos uma saída ao código! Este código é perfeitamente válido, embora signifique que não podemos usar um padrão irrefutável sem receber um aviso. Se dermos a `let...else` um padrão que sempre casará, como `x`, como mostrado na Listagem 19-10, o compilador emitirá um aviso.
@@ -76,6 +80,8 @@ fn main() {
     };
 }
 ```
+
+<a id="listagem-19-10"></a>
 
 [Listagem 19-10](#listagem-19-10): Tentativa de usar um padrão irrefutável com `let...else`
 

@@ -47,6 +47,8 @@ Pick three.";
 }
 ```
 
+<a id="listagem-12-15"></a>
+
 [Listagem 12-15](#listagem-12-15): Criando um teste que falha para a função `search` com a funcionalidade que desejamos
 
 Este teste busca pela string `"duct"`. O texto que estamos pesquisando tem três linhas, apenas uma das quais contém `"duct"` (observe que a barra invertida após a aspas dupla de abertura diz ao Rust para não colocar um caractere de nova linha no início do conteúdo deste literal de string). Afirmamos que o valor retornado pela função `search` contém apenas a linha que esperamos.
@@ -76,6 +78,8 @@ Pick three.";
     }
 }
 ```
+
+<a id="listagem-12-16"></a>
 
 [Listagem 12-16](#listagem-12-16): Definindo apenas o suficiente da função `search` para que chamá-la não entre em pânico
 
@@ -134,6 +138,8 @@ pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
 }
 ```
 
+<a id="listagem-12-17"></a>
+
 [Listagem 12-17](#listagem-12-17): Iterando por cada linha em `contents`
 
 O método `lines` retorna um iterator. Falaremos sobre iterators em profundidade no Capítulo 13. Mas lembre-se de que você viu esta forma de usar um iterator na Listagem 3-5, onde usamos um loop `for` com um iterator para executar algum código em cada item de uma coleção.
@@ -153,6 +159,8 @@ pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
     }
 }
 ```
+
+<a id="listagem-12-18"></a>
 
 [Listagem 12-18](#listagem-12-18): Adicionando funcionalidade para ver se a linha contém a string em `query`
 
@@ -177,6 +185,8 @@ pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
     results
 }
 ```
+
+<a id="listagem-12-19"></a>
 
 [Listagem 12-19](#listagem-12-19): Armazenando as linhas que correspondem para podermos retorná-las
 

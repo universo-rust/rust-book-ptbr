@@ -72,6 +72,8 @@ fn handle_connection(mut stream: TcpStream) {
 }
 ```
 
+<a id="listagem-21-10"></a>
+
 [Listagem 21-10](#listagem-21-10): Simulando uma requisição lenta dormindo por cinco segundos
 
 Mudamos de `if` para `match` agora que temos três casos. Precisamos casar explicitamente com um slice de `request_line` para fazer pattern matching contra os valores literais de string; `match` não faz referenciamento e desreferenciamento automáticos, como o método de igualdade faz.
@@ -124,6 +126,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-21-11"></a>
+
 [Listagem 21-11](#listagem-21-11): Criando uma nova thread para cada stream
 
 Como você aprendeu no Capítulo 16, `thread::spawn` criará uma nova thread e então executará o código no closure na nova thread. Se você executar este código e carregar _/sleep_ no navegador, depois _/_ em mais duas abas do navegador, verá de fato que as requisições para _/_ não precisam esperar _/sleep_ terminar. No entanto, como mencionamos, isso eventualmente sobrecarregará o sistema porque você estaria criando novas threads sem qualquer limite.
@@ -154,6 +158,8 @@ fn main() {
     }
 }
 ```
+
+<a id="listagem-21-12"></a>
 
 [Listagem 21-12](#listagem-21-12): Nossa interface ideal de `ThreadPool`
 
@@ -198,6 +204,8 @@ Em seguida, edite o arquivo _main.rs_ para trazer `ThreadPool` para o escopo a p
 use hello::ThreadPool;
 ```
 
+<a id="listagem-no-listing-01"></a>
+
 [Listagem no-listing-01](#listagem-no-listing-01): Definindo a struct `ThreadPool` no crate de biblioteca
 
 Este código ainda não funcionará, mas vamos verificá-lo novamente para obter o próximo erro que precisamos resolver:
@@ -228,6 +236,8 @@ impl ThreadPool {
     }
 }
 ```
+
+<a id="listagem-no-listing-02"></a>
 
 [Listagem no-listing-02](#listagem-no-listing-02): Implementando a função associada `new` para `ThreadPool`
 
@@ -283,6 +293,8 @@ impl ThreadPool {
 }
 ```
 
+<a id="listagem-no-listing-03"></a>
+
 [Listagem no-listing-03](#listagem-no-listing-03): Definindo o método `execute` em `ThreadPool`
 
 Ainda usamos `()` depois de `FnOnce` porque este `FnOnce` representa um closure que não recebe parâmetros e retorna o tipo unitário `()`. Assim como nas definições de função, o tipo de retorno pode ser omitido da assinatura, mas mesmo que não tenhamos parâmetros, ainda precisamos dos parênteses.
@@ -324,6 +336,8 @@ impl ThreadPool {
 
     // --snip--
 ```
+
+<a id="listagem-21-13"></a>
 
 [Listagem 21-13](#listagem-21-13): Implementando `ThreadPool::new` para entrar em pânico se `size` for zero
 
@@ -388,6 +402,8 @@ impl ThreadPool {
     }
 }
 ```
+
+<a id="listagem-21-14"></a>
 
 [Listagem 21-14](#listagem-21-14): Criando um vetor para `ThreadPool` armazenar as threads
 
@@ -472,6 +488,8 @@ impl Worker {
 }
 ```
 
+<a id="listagem-21-15"></a>
+
 [Listagem 21-15](#listagem-21-15): Modificando `ThreadPool` para conter instâncias de `Worker` em vez de conter threads diretamente
 
 Mudamos o nome do campo em `ThreadPool` de `threads` para `workers` porque agora ele contém instâncias de `Worker` em vez de instâncias de `JoinHandle<()>`. Usamos o contador no loop `for` como argumento para `Worker::new`, e armazenamos cada novo `Worker` no vetor chamado `workers`.
@@ -554,6 +572,8 @@ impl Worker {
 }
 ```
 
+<a id="listagem-21-16"></a>
+
 [Listagem 21-16](#listagem-21-16): Modificando `ThreadPool` para armazenar o sender de um channel que transmite instâncias de `Job`
 
 Em `ThreadPool::new`, criamos nosso novo channel e fazemos o pool manter o sender. Isso compilará com sucesso.
@@ -610,6 +630,8 @@ impl Worker {
     }
 }
 ```
+
+<a id="listagem-21-17"></a>
 
 [Listagem 21-17](#listagem-21-17): Passando o receiver para cada `Worker`
 
@@ -720,6 +742,8 @@ impl Worker {
 }
 ```
 
+<a id="listagem-21-18"></a>
+
 [Listagem 21-18](#listagem-21-18): Compartilhando o receiver entre as instâncias de `Worker` usando `Arc` e `Mutex`
 
 Em `ThreadPool::new`, colocamos o receiver em um `Arc` e um `Mutex`. Para cada novo `Worker`, clonamos o `Arc` para aumentar a contagem de referências para que as instâncias de `Worker` possam compartilhar a propriedade do receiver.
@@ -766,6 +790,8 @@ impl ThreadPool {
 }
 ```
 
+<a id="listagem-21-19"></a>
+
 [Listagem 21-19](#listagem-21-19): Criando um alias de tipo `Job` para um `Box` que contém cada closure e então enviando o job pelo channel
 
 Depois de criar uma nova instância de `Job` usando o closure que recebemos em `execute`, enviamos esse job pela extremidade de envio do channel. Estamos chamando `unwrap` em `send` para o caso de o envio falhar. Isso pode acontecer se, por exemplo, pararmos todas as nossas threads de executar, o que significa que a extremidade de recebimento parou de receber novas mensagens. No momento, não podemos parar nossas threads de executar: nossas threads continuam executando enquanto o pool existir. O motivo de usarmos `unwrap` é que sabemos que o caso de falha não acontecerá, mas o compilador não sabe disso.
@@ -793,6 +819,8 @@ impl Worker {
     }
 }
 ```
+
+<a id="listagem-21-20"></a>
 
 [Listagem 21-20](#listagem-21-20): Recebendo e executando os jobs na thread da instância de `Worker`
 
@@ -869,6 +897,8 @@ impl Worker {
     }
 }
 ```
+
+<a id="listagem-21-21"></a>
 
 [Listagem 21-21](#listagem-21-21): Uma implementação alternativa de `Worker::new` usando `while let`
 

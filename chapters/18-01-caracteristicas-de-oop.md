@@ -31,6 +31,8 @@ pub struct AveragedCollection {
 }
 ```
 
+<a id="listagem-18-1"></a>
+
 [Listagem 18-1](#listagem-18-1): Struct `AveragedCollection` que mantém lista de inteiros e média dos itens
 
 A struct é `pub`, mas os campos permanecem privados. Queremos que, ao adicionar ou remover da lista, a média seja atualizada. Implementamos `add`, `remove` e `average` na Listagem 18-2.
@@ -65,6 +67,8 @@ impl AveragedCollection {
     }
 }
 ```
+
+<a id="listagem-18-2"></a>
 
 [Listagem 18-2](#listagem-18-2): Implementações públicas de `add`, `remove` e `average` em `AveragedCollection`
 

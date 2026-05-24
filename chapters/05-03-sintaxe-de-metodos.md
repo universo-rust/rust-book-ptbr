@@ -40,6 +40,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-5-13"></a>
+
 [Listagem 5-13](#listagem-5-13): Definindo um método `area` na struct `Rectangle`
 
 Para definir a função no contexto de `Rectangle`, iniciamos um bloco `impl` (_implementation_) para `Rectangle`. Tudo dentro deste bloco `impl` estará associado ao tipo `Rectangle`. Em seguida, movemos a função `area` para dentro das chaves do `impl` e alteramos o primeiro (e, neste caso, único) parâmetro para `self` na assinatura e em todo o corpo. Em `main`, onde chamávamos a função `area` e passávamos `rect1` como argumento, podemos usar a _sintaxe de método_ para chamar o método `area` na nossa instância de `Rectangle`. A sintaxe de método vem depois de uma instância: adicionamos um ponto seguido do nome do método, parênteses e quaisquer argumentos.
@@ -140,6 +142,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-5-14"></a>
+
 [Listagem 5-14](#listagem-5-14): Usando o método `can_hold`, ainda não escrito
 
 A saída esperada seria parecida com o seguinte, porque ambas as dimensões de `rect2` são menores que as dimensões de `rect1`, mas `rect3` é mais largo que `rect1`:
@@ -188,6 +192,8 @@ fn main() {
     println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3));
 }
 ```
+
+<a id="listagem-5-15"></a>
 
 [Listagem 5-15](#listagem-5-15): Implementando o método `can_hold` em `Rectangle`, que recebe outra instância de `Rectangle` como parâmetro
 
@@ -269,6 +275,8 @@ fn main() {
     println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3));
 }
 ```
+
+<a id="listagem-5-16"></a>
 
 [Listagem 5-16](#listagem-5-16): Reescrevendo a Listagem 5-15 usando vários blocos `impl`
 

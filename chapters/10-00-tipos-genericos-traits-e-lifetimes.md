@@ -40,6 +40,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-10-1"></a>
+
 [Listagem 10-1](#listagem-10-1): Encontrando o maior número em uma lista de números
 
 Armazenamos uma lista de inteiros na variável `number_list` e colocamos uma referência ao primeiro número da lista em uma variável chamada `largest`. Em seguida, iteramos por todos os números da lista e, se o número atual for maior que o número armazenado em `largest`, substituímos a referência nessa variável. Porém, se o número atual for menor ou igual ao maior número visto até então, a variável não muda e o código passa para o próximo número da lista. Depois de considerar todos os números da lista, `largest` deve referenciar o maior número, que neste caso é 100.
@@ -76,6 +78,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-10-2"></a>
+
 [Listagem 10-2](#listagem-10-2): Código para encontrar o maior número em _duas_ listas de números
 
 Embora este código funcione, duplicar código é tedioso e propenso a erros. Também precisamos lembrar de atualizar o código em vários lugares quando quisermos alterá-lo.
@@ -111,6 +115,8 @@ fn main() {
     println!("The largest number is {result}");
 }
 ```
+
+<a id="listagem-10-3"></a>
 
 [Listagem 10-3](#listagem-10-3): Código abstraído para encontrar o maior número em duas listas
 

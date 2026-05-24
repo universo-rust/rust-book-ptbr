@@ -88,6 +88,8 @@ Na Listagem 17-13 usamos `join!` para três futures. É comum ter um `Vec` de fu
         trpl::join_all(futures).await;
 ```
 
+<a id="listagem-17-23"></a>
+
 [Listagem 17-23](#listagem-17-23): Aguardando futures numa coleção
 
 Cada future em `Box` como _trait object_ (como em Retornar erros de `run` no Capítulo 12; trait objects no Capítulo 18). Tipos anônimos de cada bloco `async` são enums diferentes do compilador, mesmo com `Output = ()`.
@@ -221,6 +223,8 @@ use std::pin::{Pin, pin};
 
         trpl::join_all(futures).await;
 ```
+
+<a id="listagem-17-24"></a>
 
 [Listagem 17-24](#listagem-17-24): Fixando futures para movê-las para o vetor
 

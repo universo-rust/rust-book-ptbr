@@ -24,6 +24,8 @@ Podemos criar stream a partir de iterator e chamar `next` com await (Listagem 17
         }
 ```
 
+<a id="listagem-17-21"></a>
+
 [Listagem 17-21](#listagem-17-21): Criando stream a partir de iterator e imprimindo valores
 
 Erro típico:
@@ -73,6 +75,8 @@ fn main() {
     });
 }
 ```
+
+<a id="listagem-17-22"></a>
 
 [Listagem 17-22](#listagem-17-22): Usando iterator como base de stream com sucesso
 

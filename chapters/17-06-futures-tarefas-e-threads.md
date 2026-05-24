@@ -48,6 +48,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-17-25"></a>
+
 [Listagem 17-25](#listagem-17-25): Enviar com código bloqueante numa thread e aguardar mensagens num bloco async
 
 Channel async, thread com `move` no sender enviando 1..10 com `sleep` de um segundo, e `block_on` com bloco async que aguarda as mensagens.

@@ -31,6 +31,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-10-16"></a>
+
 [Listagem 10-16](#listagem-10-16): Tentativa de usar uma referência cujo valor saiu de escopo
 
 > Nota: Os exemplos nas Listagens 10-16, 10-17 e 10-23 declaram variáveis sem dar um valor inicial, de modo que o nome da variável existe no escopo externo. À primeira vista, isso pode parecer conflitar com o Rust não ter valores nulos. Porém, se tentarmos usar uma variável antes de dar um valor a ela, obteremos um erro em tempo de compilação, o que mostra que de fato o Rust não permite valores nulos.
@@ -78,6 +80,8 @@ fn main() {
 }                         // ---------+
 ```
 
+<a id="listagem-10-17"></a>
+
 [Listagem 10-17](#listagem-10-17): Anotações dos lifetimes de `r` e `x`, nomeados `'a` e `'b`, respectivamente
 
 Aqui, anotamos o lifetime de `r` com `'a` e o lifetime de `x` com `'b`. Como você pode ver, o bloco interno `'b` é muito menor que o bloco de lifetime externo `'a`. Em tempo de compilação, o Rust compara o tamanho dos dois lifetimes e vê que `r` tem lifetime `'a`, mas se refere a memória com lifetime `'b`. O programa é rejeitado porque `'b` é mais curto que `'a`: o assunto da referência não vive tanto quanto a referência.
@@ -96,6 +100,8 @@ fn main() {
                           // --+       |
 }                         // ----------+
 ```
+
+<a id="listagem-10-18"></a>
 
 [Listagem 10-18](#listagem-10-18): Uma referência válida porque os dados têm lifetime maior que a referência
 
@@ -123,6 +129,8 @@ fn longest(x: &str, y: &str) -> &str {
 }
 ```
 
+<a id="listagem-10-19"></a>
+
 [Listagem 10-19](#listagem-10-19): Uma função `main` que chama a função `longest` para encontrar o maior de dois slices de string
 
 Observe que queremos que a função receba slices de string, que são referências, em vez de `String`, porque não queremos que `longest` tome ownership de seus parâmetros. Consulte a seção String slices como parâmetros do Capítulo 4 para mais discussão sobre por que os parâmetros que usamos na Listagem 10-19 são os que queremos.
@@ -144,6 +152,8 @@ fn longest(x: &str, y: &str) -> &str {
     if x.len() > y.len() { x } else { y }
 }
 ```
+
+<a id="listagem-10-20"></a>
 
 [Listagem 10-20](#listagem-10-20): Uma implementação da função `longest` que retorna o maior de dois slices de string, mas ainda não compila
 
@@ -210,6 +220,8 @@ fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
 }
 ```
 
+<a id="listagem-10-21"></a>
+
 [Listagem 10-21](#listagem-10-21): Definição da função `longest` especificando que todas as referências na assinatura devem ter o mesmo lifetime `'a`
 
 Este código deve compilar e produzir o resultado que queremos quando usado com a função `main` da Listagem 10-19.
@@ -242,6 +254,8 @@ fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
 }
 ```
 
+<a id="listagem-10-22"></a>
+
 [Listagem 10-22](#listagem-10-22): Usando a função `longest` com referências a valores `String` que têm lifetimes concretos diferentes
 
 Neste exemplo, `string1` é válida até o fim do escopo externo, `string2` é válida até o fim do escopo interno e `result` referencia algo válido até o fim do escopo interno. Execute este código e verá que o borrow checker aprova; compilará e imprimirá `The longest string is long string is long`.
@@ -265,6 +279,8 @@ fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
     if x.len() > y.len() { x } else { y }
 }
 ```
+
+<a id="listagem-10-23"></a>
 
 [Listagem 10-23](#listagem-10-23): Tentativa de usar `result` depois que `string2` saiu de escopo
 
@@ -378,6 +394,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-10-24"></a>
+
 [Listagem 10-24](#listagem-10-24): Uma struct que armazena uma referência, exigindo anotação de lifetime
 
 Esta struct tem o único campo `part` que armazena um slice de string, que é uma referência. Como com tipos de dados genéricos, declaramos o nome do parâmetro de lifetime genérico dentro de colchetes angulares após o nome da struct para podermos usar o parâmetro de lifetime no corpo da definição da struct. Esta anotação significa que uma instância de `ImportantExcerpt` não pode viver mais que a referência que armazena no campo `part`.
@@ -419,6 +437,8 @@ fn main() {
     let word = first_word(my_string_literal);
 }
 ```
+
+<a id="listagem-10-25"></a>
 
 [Listagem 10-25](#listagem-10-25): Uma função que definimos na Listagem 4-9 e que compilou sem anotações de lifetime, embora o parâmetro e o tipo de retorno sejam referências
 

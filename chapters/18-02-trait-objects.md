@@ -28,6 +28,8 @@ pub trait Draw {
 }
 ```
 
+<a id="listagem-18-3"></a>
+
 [Listagem 18-3](#listagem-18-3): Definição da trait `Draw`
 
 A Listagem 18-4 define `Screen` com `components: Vec<Box<dyn Draw>>` — trait object; qualquer tipo em `Box` que implemente `Draw`.
@@ -39,6 +41,8 @@ pub struct Screen {
     pub components: Vec<Box<dyn Draw>>,
 }
 ```
+
+<a id="listagem-18-4"></a>
 
 [Listagem 18-4](#listagem-18-4): `Screen` com vetor de trait objects que implementam `Draw`
 
@@ -55,6 +59,8 @@ impl Screen {
     }
 }
 ```
+
+<a id="listagem-18-5"></a>
 
 [Listagem 18-5](#listagem-18-5): Método `run` em `Screen` que chama `draw` em cada componente
 
@@ -78,6 +84,8 @@ where
     }
 }
 ```
+
+<a id="listagem-18-6"></a>
 
 [Listagem 18-6](#listagem-18-6): Implementação alternativa de `Screen` com genéricos e trait bounds
 
@@ -105,6 +113,8 @@ impl Draw for Button {
 }
 ```
 
+<a id="listagem-18-7"></a>
+
 [Listagem 18-7](#listagem-18-7): Struct `Button` que implementa `Draw`
 
 `TextField` poderia ter `placeholder` além de largura e altura. Cada tipo implementa `draw` à sua maneira. `Button` pode ter outro `impl` com métodos de clique que não se aplicam a `TextField`.
@@ -128,6 +138,8 @@ impl Draw for SelectBox {
     }
 }
 ```
+
+<a id="listagem-18-8"></a>
 
 [Listagem 18-8](#listagem-18-8): Outro crate usando `gui` e implementando `Draw` em `SelectBox`
 
@@ -174,6 +186,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-18-9"></a>
+
 [Listagem 18-9](#listagem-18-9): Trait objects para armazenar tipos diferentes que implementam a mesma trait
 
 Ao escrever a biblioteca não sabíamos de `SelectBox`, mas `Screen` opera nele porque implementa `Draw`.
@@ -197,6 +211,8 @@ fn main() {
     screen.run();
 }
 ```
+
+<a id="listagem-18-10"></a>
 
 [Listagem 18-10](#listagem-18-10): Tentativa de usar tipo que não implementa a trait do trait object
 

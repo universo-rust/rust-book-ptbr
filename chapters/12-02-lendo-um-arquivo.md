@@ -22,6 +22,8 @@ To tell your name the livelong day
 To an admiring bog!
 ```
 
+<a id="listagem-12-3"></a>
+
 [Listagem 12-3](#listagem-12-3): Um poema de Emily Dickinson serve como bom caso de teste
 
 Com o texto no lugar, edite _src/main.rs_ e adicione código para ler o arquivo, como mostrado na Listagem 12-4.
@@ -47,6 +49,8 @@ fn main() {
     println!("With text:\n{contents}");
 }
 ```
+
+<a id="listagem-12-4"></a>
 
 [Listagem 12-4](#listagem-12-4): Lendo o conteúdo do arquivo especificado pelo segundo argumento
 

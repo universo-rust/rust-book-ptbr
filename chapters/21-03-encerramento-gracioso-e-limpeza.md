@@ -30,6 +30,8 @@ impl Drop for ThreadPool {
 }
 ```
 
+<a id="listagem-21-22"></a>
+
 [Listagem 21-22](#listagem-21-22): Fazendo join em cada thread quando o pool de threads sai de escopo
 
 Primeiro, fazemos loop por cada um dos `workers` do pool de threads. Usamos `&mut` para isso porque `self` é uma referência mutável e também precisamos poder mutar `worker`. Para cada `worker`, imprimimos uma mensagem dizendo que esta instância particular de `Worker` está encerrando e, em seguida, chamamos `join` na thread da instância `Worker`. Se a chamada a `join` falhar, usamos `unwrap` para fazer o Rust entrar em pânico e ir para um encerramento não gracioso.
@@ -130,6 +132,8 @@ impl Drop for ThreadPool {
 }
 ```
 
+<a id="listagem-21-23"></a>
+
 [Listagem 21-23](#listagem-21-23): Descartando explicitamente `sender` antes de fazer join nas threads `Worker`
 
 Descartar `sender` fecha o canal, o que indica que não serão enviadas mais mensagens. Quando isso acontece, todas as chamadas a `recv` que as instâncias `Worker` fazem no loop infinito retornarão um erro. Na Listagem 21-24, alteramos o loop de `Worker` para sair graciosamente do loop nesse caso, o que significa que as threads terminarão quando a implementação de `drop` de `ThreadPool` chamar `join` nelas.
@@ -162,6 +166,8 @@ impl Worker {
 }
 ```
 
+<a id="listagem-21-24"></a>
+
 [Listagem 21-24](#listagem-21-24): Saindo explicitamente do loop quando `recv` retorna um erro
 
 Para ver este código em ação, vamos modificar `main` para aceitar apenas duas requisições antes de encerrar graciosamente o servidor, conforme mostrado na Listagem 21-25.
@@ -184,6 +190,8 @@ fn main() {
     println!("Shutting down.");
 }
 ```
+
+<a id="listagem-21-25"></a>
 
 [Listagem 21-25](#listagem-21-25): Encerrando o servidor depois de atender duas requisições saindo do loop
 

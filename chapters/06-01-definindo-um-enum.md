@@ -89,6 +89,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-6-1"></a>
+
 [Listagem 6-1](#listagem-6-1): Armazenando os dados e a variante `IpAddrKind` de um endereço IP usando uma `struct`
 
 Aqui, definimos uma struct `IpAddr` que tem dois campos: um campo `kind` do tipo `IpAddrKind` (o enum que definimos antes) e um campo `address` do tipo `String`. Temos duas instâncias dessa struct. A primeira é `home`, e tem o valor `IpAddrKind::V4` como `kind` com dados de endereço associados `127.0.0.1`. A segunda instância é `loopback`. Ela tem a outra variante de `IpAddrKind` como valor de `kind`, `V6`, e tem o endereço `::1` associado. Usamos uma struct para agrupar os valores `kind` e `address`, de modo que agora a variante está associada ao valor.
@@ -162,6 +164,8 @@ enum Message {
     ChangeColor(i32, i32, i32),
 }
 ```
+
+<a id="listagem-6-2"></a>
 
 [Listagem 6-2](#listagem-6-2): Um enum `Message` cujas variantes armazenam quantidades e tipos diferentes de valores
 

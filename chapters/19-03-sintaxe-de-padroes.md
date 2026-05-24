@@ -50,6 +50,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-19-11"></a>
+
 [Listagem 19-11](#listagem-19-11): Uma expressão `match` com um braço que introduz uma nova variável que faz shadow de uma variável `y` existente
 
 Vamos percorrer o que acontece quando a expressão `match` é executada. O padrão no primeiro braço do `match` não casa com o valor definido de `x`, então o código continua.
@@ -153,6 +155,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-19-12"></a>
+
 [Listagem 19-12](#listagem-19-12): Desestruturando os campos de uma struct em variáveis separadas
 
 Este código cria as variáveis `a` e `b` que casam com os valores dos campos `x` e `y` da struct `p`. Este exemplo mostra que os nomes das variáveis no padrão não precisam coincidir com os nomes dos campos da struct. Porém, é comum fazer os nomes das variáveis coincidirem com os dos campos para facilitar lembrar de quais campos cada variável veio. Por causa desse uso comum, e porque escrever `let Point { x: x, y: y } = p;` contém muita duplicação, Rust tem uma forma abreviada para padrões que casam com campos de struct: você só precisa listar o nome do campo da struct, e as variáveis criadas a partir do padrão terão os mesmos nomes. A Listagem 19-13 se comporta da mesma forma que o código da Listagem 19-12, mas as variáveis criadas no padrão `let` são `x` e `y` em vez de `a` e `b`.
@@ -173,6 +177,8 @@ fn main() {
     assert_eq!(7, y);
 }
 ```
+
+<a id="listagem-19-13"></a>
 
 [Listagem 19-13](#listagem-19-13): Desestruturando campos de struct usando a forma abreviada de campos de struct
 
@@ -202,6 +208,8 @@ fn main() {
     }
 }
 ```
+
+<a id="listagem-19-14"></a>
 
 [Listagem 19-14](#listagem-19-14): Desestruturando e casando com valores literais em um padrão
 
@@ -251,6 +259,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-19-15"></a>
+
 [Listagem 19-15](#listagem-19-15): Desestruturando variantes de enum que armazenam diferentes tipos de valores
 
 Este código imprimirá `Change color to red 0, green 160, and blue 255`. Tente alterar o valor de `msg` para ver o código dos outros braços ser executado.
@@ -298,6 +308,8 @@ fn main() {
     }
 }
 ```
+
+<a id="listagem-19-16"></a>
 
 [Listagem 19-16](#listagem-19-16): Casando com enums aninhados
 
@@ -352,6 +364,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-19-17"></a>
+
 [Listagem 19-17](#listagem-19-17): Usando `_` em uma assinatura de função
 
 Este código ignorará completamente o valor `3` passado como primeiro argumento e imprimirá `This code only uses the y parameter: 4`.
@@ -386,6 +400,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-19-18"></a>
+
 [Listagem 19-18](#listagem-19-18): Usando um underscore dentro de padrões que casam com variantes `Some` quando não precisamos usar o valor dentro do `Some`
 
 Este código imprimirá `Can't overwrite an existing customized value` e depois `setting is Some(5)`. No primeiro braço do `match`, não precisamos casar com ou usar os valores dentro de nenhuma das variantes `Some`, mas precisamos testar o caso em que `setting_value` e `new_setting_value` são a variante `Some`. Nesse caso, imprimimos o motivo de não alterar `setting_value`, e ela não é alterada.
@@ -408,6 +424,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-19-19"></a>
+
 [Listagem 19-19](#listagem-19-19): Ignorando várias partes de uma tupla
 
 Este código imprimirá `Some numbers: 2, 8, 32`, e os valores `4` e `16` serão ignorados.
@@ -429,6 +447,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-19-20"></a>
+
 [Listagem 19-20](#listagem-19-20): Começando o nome de uma variável com underscore para evitar avisos de variável não usada
 
 Aqui, recebemos um aviso por não usar a variável `y`, mas não recebemos aviso por não usar `_x`.
@@ -449,6 +469,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-19-21"></a>
+
 [Listagem 19-21](#listagem-19-21): Uma variável não usada cujo nome começa com underscore ainda liga o valor, o que pode tomar posse do valor
 
 Receberemos um erro porque o valor `s` ainda será movido para `_s`, o que nos impede de usar `s` novamente. Porém, usar o underscore sozinho nunca se liga ao valor. A Listagem 19-22 compilará sem erros porque `s` não é movido para `_`.
@@ -466,6 +488,8 @@ fn main() {
     println!("{s:?}");
 }
 ```
+
+<a id="listagem-19-22"></a>
 
 [Listagem 19-22](#listagem-19-22): Usar um underscore não liga o valor
 
@@ -495,6 +519,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-19-23"></a>
+
 [Listagem 19-23](#listagem-19-23): Ignorando todos os campos de um `Point` exceto `x` usando `..`
 
 Listamos o valor `x` e então incluímos apenas o padrão `..`. Isso é mais rápido do que ter que listar `y: _` e `z: _`, particularmente quando estamos trabalhando com structs que têm muitos campos em situações em que apenas um ou dois campos são relevantes.
@@ -515,6 +541,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-19-24"></a>
+
 [Listagem 19-24](#listagem-19-24): Casando apenas com o primeiro e o último valores em uma tupla e ignorando todos os outros
 
 Neste código, o primeiro e o último valores casam com `first` e `last`. O `..` casará e ignorará tudo no meio.
@@ -534,6 +562,8 @@ fn main() {
     }
 }
 ```
+
+<a id="listagem-19-25"></a>
 
 [Listagem 19-25](#listagem-19-25): Uma tentativa de usar `..` de forma ambígua
 
@@ -579,6 +609,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-19-26"></a>
+
 [Listagem 19-26](#listagem-19-26): Adicionando um match guard a um padrão
 
 Este exemplo imprimirá `The number 4 is even`. Quando `num` é comparado ao padrão no primeiro braço, ele casa porque `Some(4)` casa com `Some(x)`. Então, o match guard verifica se o resto da divisão de `x` por 2 é igual a 0, e como é, o primeiro braço é selecionado.
@@ -606,6 +638,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-19-27"></a>
+
 [Listagem 19-27](#listagem-19-27): Usando um match guard para testar igualdade com uma variável externa
 
 Este código agora imprimirá `Default case, x = Some(5)`. O padrão no segundo braço do `match` não introduz uma nova variável `y` que faria shadow da `y` externa, o que significa que podemos usar a `y` externa no match guard. Em vez de especificar o padrão como `Some(y)`, o que faria shadow da `y` externa, especificamos `Some(n)`. Isso cria uma nova variável `n` que não faz shadow de nada porque não há variável `n` fora do `match`.
@@ -627,6 +661,8 @@ fn main() {
     }
 }
 ```
+
+<a id="listagem-19-28"></a>
 
 [Listagem 19-28](#listagem-19-28): Combinando vários padrões com um match guard
 
@@ -673,6 +709,8 @@ fn main() {
     }
 }
 ```
+
+<a id="listagem-19-29"></a>
 
 [Listagem 19-29](#listagem-19-29): Usando `@` para ligar a um valor em um padrão enquanto também o testa
 

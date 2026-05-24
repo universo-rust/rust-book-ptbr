@@ -56,6 +56,8 @@ mod tests {
 }
 ```
 
+<a id="listagem-11-10"></a>
+
 [Listagem 11-10](#listagem-11-10): Testes para uma função que chama `println!`
 
 Quando executamos esses testes com `cargo test`, veremos a seguinte saída:
@@ -175,6 +177,8 @@ mod tests {
     }
 }
 ```
+
+<a id="listagem-11-11"></a>
 
 [Listagem 11-11](#listagem-11-11): Três testes com três nomes diferentes
 

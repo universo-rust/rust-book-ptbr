@@ -20,6 +20,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-6-6"></a>
+
 [Listagem 6-6](#listagem-6-6): Um `match` que só se importa em executar código quando o valor é `Some`
 
 Se o valor for `Some`, imprimimos o valor na variante `Some` fazendo bind do valor à variável `max` no padrão. Não queremos fazer nada com o valor `None`. Para satisfazer a expressão `match`, temos que adicionar `_ => ()` depois de processar apenas uma variante, o que é código boilerplate irritante de adicionar.
@@ -175,6 +177,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-6-7"></a>
+
 [Listagem 6-7](#listagem-6-7): Verificando se um estado existia em 1900 usando condicionais aninhados dentro de um `if let`
 
 Isso resolve o problema, mas empurrou o trabalho para o corpo da declaração `if let`, e se o trabalho a ser feito for mais complicado, pode ser difícil acompanhar exatamente como os ramos de nível superior se relacionam. Também poderíamos aproveitar o fato de que expressões produzem um valor para produzir o `state` a partir do `if let` ou retornar cedo, como na Listagem 6-8. (Você poderia fazer algo semelhante com um `match` também.)
@@ -226,6 +230,8 @@ fn main() {
     }
 }
 ```
+
+<a id="listagem-6-8"></a>
 
 [Listagem 6-8](#listagem-6-8): Usando `if let` para produzir um valor ou retornar cedo
 
@@ -280,6 +286,8 @@ fn main() {
     }
 }
 ```
+
+<a id="listagem-6-9"></a>
 
 [Listagem 6-9](#listagem-6-9): Usando `let...else` para esclarecer o fluxo pela função
 

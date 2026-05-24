@@ -29,6 +29,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-8-20"></a>
+
 [Listagem 8-20](#listagem-8-20): Criando um novo hash map e inserindo algumas chaves e valores
 
 Observe que precisamos primeiro fazer `use` de `HashMap` da parte de coleções da biblioteca padrão. Das nossas três coleções comuns, esta é a menos usada, então não está incluída nos recursos trazidos automaticamente para o escopo no prelude. Hash maps também têm menos suporte da biblioteca padrão; não há macro embutida para construí-los, por exemplo.
@@ -54,6 +56,8 @@ fn main() {
     let score = scores.get(&team_name).copied().unwrap_or(0);
 }
 ```
+
+<a id="listagem-8-21"></a>
 
 [Listagem 8-21](#listagem-8-21): Acessando a pontuação da equipe Blue armazenada no hash map
 
@@ -105,6 +109,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-8-22"></a>
+
 [Listagem 8-22](#listagem-8-22): Mostrando que chaves e valores pertencem ao hash map depois de inseridos
 
 Não podemos usar as variáveis `field_name` e `field_value` depois que foram movidas para o hash map com a chamada a `insert`.
@@ -136,6 +142,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-8-23"></a>
+
 [Listagem 8-23](#listagem-8-23): Substituindo um valor armazenado com uma chave particular
 
 Este código imprimirá `{"Blue": 25}`. O valor original de `10` foi sobrescrito.
@@ -161,6 +169,8 @@ fn main() {
     println!("{scores:?}");
 }
 ```
+
+<a id="listagem-8-24"></a>
 
 [Listagem 8-24](#listagem-8-24): Usando o método `entry` para inserir apenas se a chave ainda não tiver um valor
 
@@ -190,6 +200,8 @@ fn main() {
     println!("{map:?}");
 }
 ```
+
+<a id="listagem-8-25"></a>
 
 [Listagem 8-25](#listagem-8-25): Contando ocorrências de palavras usando um hash map que armazena palavras e contagens
 

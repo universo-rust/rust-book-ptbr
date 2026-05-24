@@ -43,6 +43,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-16-1"></a>
+
 [Listagem 16-1](#listagem-16-1): Criando uma nova thread para imprimir uma coisa enquanto a thread principal imprime outra
 
 Note que, quando a thread principal de um programa Rust termina, todas as threads criadas são encerradas, tenham ou não terminado de executar. A saída deste programa pode ser um pouco diferente a cada vez, mas se parecerá com o seguinte:
@@ -91,6 +93,8 @@ fn main() {
     handle.join().unwrap();
 }
 ```
+
+<a id="listagem-16-2"></a>
 
 [Listagem 16-2](#listagem-16-2): Salvando um `JoinHandle<T>` de `thread::spawn` para garantir que a thread execute até o fim
 
@@ -181,6 +185,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-16-3"></a>
+
 [Listagem 16-3](#listagem-16-3): Tentativa de usar um vetor criado pela thread principal em outra thread
 
 A closure usa `v`, então capturará `v` e o tornará parte do ambiente da closure. Como `thread::spawn` executa esta closure em uma nova thread, deveríamos poder acessar `v` dentro dessa nova thread. Mas quando compilamos este exemplo, obtemos o seguinte erro:
@@ -235,6 +241,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-16-4"></a>
+
 [Listagem 16-4](#listagem-16-4): Uma thread com uma closure que tenta capturar uma referência a `v` de uma thread principal que descarta `v`
 
 Se o Rust nos permitisse executar este código, há a possibilidade de que a thread criada fosse imediatamente colocada em segundo plano sem executar. A thread criada tem uma referência a `v` dentro, mas a thread principal descarta `v` imediatamente, usando a função `drop` que discutimos no Capítulo 15. Depois, quando a thread criada começa a executar, `v` não é mais válido, então uma referência a ele também é inválida. Que pena!
@@ -265,6 +273,8 @@ fn main() {
     handle.join().unwrap();
 }
 ```
+
+<a id="listagem-16-5"></a>
 
 [Listagem 16-5](#listagem-16-5): Usando a palavra-chave `move` para forçar uma closure a tomar ownership dos valores que usa
 

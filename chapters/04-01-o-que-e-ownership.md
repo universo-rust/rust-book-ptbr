@@ -60,6 +60,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-4-1"></a>
+
 [Listagem 4-1](#listagem-4-1): Uma variável e o escopo no qual ela é válida
 
 Em outras palavras, há dois momentos importantes aqui:
@@ -144,6 +146,8 @@ fn main() {
     let y = x;
 }
 ```
+
+<a id="listagem-4-2"></a>
 
 [Listagem 4-2](#listagem-4-2): Atribuindo o valor inteiro da variável `x` a `y`
 
@@ -329,6 +333,8 @@ fn makes_copy(some_integer: i32) { // some_integer entra em escopo
 } // aqui, some_integer sai de escopo. Nada especial acontece.
 ```
 
+<a id="listagem-4-3"></a>
+
 [Listagem 4-3](#listagem-4-3): Funções com ownership e escopo anotados
 
 Se tentássemos usar `s` depois da chamada a `takes_ownership`, Rust geraria um erro em tempo de compilação. Essas verificações estáticas nos protegem de erros. Tente adicionar código em `main` que use `s` e `x` para ver onde você pode usá-los e onde as regras de ownership impedem isso.
@@ -369,6 +375,8 @@ fn takes_and_gives_back(a_string: String) -> String { // a_string entra
 }
 ```
 
+<a id="listagem-4-4"></a>
+
 [Listagem 4-4](#listagem-4-4): Transferindo ownership de valores de retorno
 
 O ownership de uma variável segue o mesmo padrão sempre: atribuir um valor a outra variável o move. Quando uma variável que inclui dados na heap sai de escopo, o valor será limpo por `drop`, a menos que o ownership dos dados tenha sido movido para outra variável.
@@ -394,6 +402,8 @@ fn calculate_length(s: String) -> (String, usize) {
     (s, length)
 }
 ```
+
+<a id="listagem-4-5"></a>
 
 [Listagem 4-5](#listagem-4-5): Devolvendo ownership dos parâmetros
 

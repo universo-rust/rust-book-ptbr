@@ -36,6 +36,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-17-6"></a>
+
 [Listagem 17-6](#listagem-17-6): Criando uma nova tarefa para imprimir uma coisa enquanto a tarefa principal imprime outra
 
 A partir daqui, cada exemplo inclui `trpl::block_on` em `main` como acima; muitas vezes omitiremos esse trecho, como fazemos com `main` em geral.
@@ -75,6 +77,8 @@ Esta versão para quando o `for` do bloco async principal termina, porque a tare
 
         handle.await.unwrap();
 ```
+
+<a id="listagem-17-7"></a>
 
 [Listagem 17-7](#listagem-17-7): Usando `await` com join handle para executar uma tarefa até o fim
 
@@ -122,6 +126,8 @@ Em Aguardando todas as threads terminarem, usamos `join` em `JoinHandle` de `thr
         trpl::join(fut1, fut2).await;
 ```
 
+<a id="listagem-17-8"></a>
+
 [Listagem 17-8](#listagem-17-8): Usando `trpl::join` para aguardar duas futures anônimas
 
 Aguardamos o resultado de `trpl::join`, não cada future em sequência.
@@ -164,6 +170,8 @@ Compartilhar dados entre futures também usa passagem de mensagens, com tipos e 
         println!("received '{received}'");
 ```
 
+<a id="listagem-17-9"></a>
+
 [Listagem 17-9](#listagem-17-9): Criando um channel async e atribuindo as metades a `tx` e `rx`
 
 Usamos `trpl::channel`, versão async do channel vários-produtores / um-consumidor do Capítulo 16. A API async difere pouco: o receptor `rx` é mutável, e `recv` produz uma future a ser aguardada. Podemos enviar sem thread ou tarefa separada — basta `await` em `rx.recv`.
@@ -197,6 +205,8 @@ Na Listagem 17-10 enviamos várias mensagens com `sleep` entre elas.
             println!("received '{value}'");
         }
 ```
+
+<a id="listagem-17-10"></a>
 
 [Listagem 17-10](#listagem-17-10): Enviando e recebendo várias mensagens no channel async com `await` entre cada envio
 
@@ -241,6 +251,8 @@ Para atraso entre mensagens, separamos envio e recepção em blocos `async` dist
 
         trpl::join(tx_fut, rx_fut).await;
 ```
+
+<a id="listagem-17-11"></a>
 
 [Listagem 17-11](#listagem-17-11): Separando `send` e `recv` em blocos `async` e aguardando com `join`
 
@@ -287,6 +299,8 @@ O bloco de envio só _empresta_ `tx`. Com `async move` (Capturando referências 
 
         trpl::join(tx_fut, rx_fut).await;
 ```
+
+<a id="listagem-17-12"></a>
 
 [Listagem 17-12](#listagem-17-12): Revisão da Listagem 17-11 que encerra corretamente ao terminar
 
@@ -338,6 +352,8 @@ O channel async também é multi-produtor: `clone` em `tx` e vários blocos `asy
 
         trpl::join!(tx1_fut, tx_fut, rx_fut);
 ```
+
+<a id="listagem-17-13"></a>
 
 [Listagem 17-13](#listagem-17-13): Vários produtores com blocos async
 

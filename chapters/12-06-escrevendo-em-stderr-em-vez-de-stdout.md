@@ -52,6 +52,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-12-24"></a>
+
 [Listagem 12-24](#listagem-12-24): Escrevendo mensagens de erro em erro padrão em vez de saída padrão usando `eprintln!`
 
 Vamos agora executar o programa novamente da mesma forma, sem argumentos e redirecionando saída padrão com `>`:

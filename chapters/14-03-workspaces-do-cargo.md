@@ -123,6 +123,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-14-7"></a>
+
 [Listagem 14-7](#listagem-14-7): Usando o crate de biblioteca `add_one` a partir do crate `adder`
 
 Vamos compilar o workspace executando `cargo build` no diretório _add_ de nível superior!

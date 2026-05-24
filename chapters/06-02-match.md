@@ -34,6 +34,8 @@ fn value_in_cents(coin: Coin) -> u8 {
 fn main() {}
 ```
 
+<a id="listagem-6-3"></a>
+
 [Listagem 6-3](#listagem-6-3): Um enum e uma expressão `match` que tem as variantes do enum como seus padrões
 
 Vamos analisar o `match` na função `value_in_cents`. Primeiro, listamos a palavra-chave `match` seguida de uma expressão, que neste caso é o valor `coin`. Isso parece muito semelhante a uma expressão condicional usada com `if`, mas há uma grande diferença: com `if`, a condição precisa avaliar para um valor booleano, mas aqui pode ser de qualquer tipo. O tipo de `coin` neste exemplo é o enum `Coin` que definimos na primeira linha.
@@ -94,6 +96,8 @@ enum Coin {
     Quarter(UsState),
 }
 ```
+
+<a id="listagem-6-4"></a>
 
 [Listagem 6-4](#listagem-6-4): Um enum `Coin` em que a variante `Quarter` também contém um valor `UsState`
 
@@ -161,6 +165,8 @@ fn main() {
     let none = plus_one(None);
 }
 ```
+
+<a id="listagem-6-5"></a>
 
 [Listagem 6-5](#listagem-6-5): Uma função que usa uma expressão `match` em um `Option<i32>`
 

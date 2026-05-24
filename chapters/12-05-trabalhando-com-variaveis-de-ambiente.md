@@ -48,6 +48,8 @@ Trust me.";
 }
 ```
 
+<a id="listagem-12-20"></a>
+
 [Listagem 12-20](#listagem-12-20): Adicionando um novo teste que falha para a função sem distinção de maiúsculas que estamos prestes a adicionar
 
 Observe que também editamos o `contents` do teste antigo. Adicionamos uma nova linha com o texto `"Duct tape."` usando um _D_ maiúsculo que não deve corresponder à consulta `"duct"` quando buscamos de forma sensível a maiúsculas. Mudar o teste antigo assim ajuda a garantir que não quebraremos acidentalmente a funcionalidade de busca sensível a maiúsculas que já implementamos. Este teste deve passar agora e deve continuar passando enquanto trabalhamos na busca sem distinção de maiúsculas.
@@ -77,6 +79,8 @@ pub fn search_case_insensitive<'a>(
     results
 }
 ```
+
+<a id="listagem-12-21"></a>
 
 [Listagem 12-21](#listagem-12-21): Definindo a função `search_case_insensitive` para colocar em minúsculas a consulta e a linha antes de compará-las
 
@@ -135,6 +139,8 @@ fn run(config: Config) -> Result<(), Box<dyn Error>> {
 }
 ```
 
+<a id="listagem-12-22"></a>
+
 [Listagem 12-22](#listagem-12-22): Chamando `search` ou `search_case_insensitive` com base no valor em `config.ignore_case`
 
 Por fim, precisamos verificar a variável de ambiente. As funções para trabalhar com variáveis de ambiente estão no módulo `env` da biblioteca padrão, que já está no escopo no topo de _src/main.rs_. Usaremos a função `var` do módulo `env` para verificar se algum valor foi definido para uma variável de ambiente chamada `IGNORE_CASE`, como mostrado na Listagem 12-23.
@@ -161,6 +167,8 @@ impl Config {
     }
 }
 ```
+
+<a id="listagem-12-23"></a>
 
 [Listagem 12-23](#listagem-12-23): Verificando se há algum valor na variável de ambiente chamada `IGNORE_CASE`
 

@@ -26,6 +26,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-15-6"></a>
+
 [Listagem 15-6](#listagem-15-6): Usando o operador de dereferência para seguir uma referência a um valor `i32`
 
 A variável `x` guarda um valor `i32` `5`. Definimos `y` igual a uma referência a `x`. Podemos afirmar que `x` é igual a `5`. No entanto, se quisermos fazer uma asserção sobre o valor em `y`, temos que usar `*y` para seguir a referência ao valor para o qual aponta (daí, _dereference_) para que o compilador possa comparar o valor real. Depois de dereferenciar `y`, temos acesso ao valor inteiro para o qual `y` aponta e podemos compará-lo com `5`.
@@ -66,6 +68,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-15-7"></a>
+
 [Listagem 15-7](#listagem-15-7): Usando o operador de dereferência em um `Box<i32>`
 
 A principal diferença entre a Listagem 15-7 e a Listagem 15-6 é que aqui definimos `y` como uma instância de uma box apontando para uma cópia do valor de `x` em vez de uma referência apontando para o valor de `x`. Na última asserção, podemos usar o operador de dereferência para seguir o ponteiro da box da mesma forma que fizemos quando `y` era uma referência. Em seguida, exploraremos o que há de especial em `Box<T>` que nos permite usar o operador de dereferência definindo nosso próprio tipo de box.
@@ -92,6 +96,8 @@ impl<T> MyBox<T> {
 fn main() {}
 ```
 
+<a id="listagem-15-8"></a>
+
 [Listagem 15-8](#listagem-15-8): Definindo um tipo `MyBox<T>`
 
 Definimos uma struct chamada `MyBox` e declaramos um parâmetro genérico `T` porque queremos que nosso tipo guarde valores de qualquer tipo. O tipo `MyBox` é uma tuple struct com um elemento do tipo `T`. A função `MyBox::new` recebe um parâmetro do tipo `T` e retorna uma instância `MyBox` que guarda o valor passado.
@@ -117,6 +123,8 @@ fn main() {
     assert_eq!(5, *y);
 }
 ```
+
+<a id="listagem-15-9"></a>
 
 [Listagem 15-9](#listagem-15-9): Tentativa de usar `MyBox<T>` da mesma forma que usamos referências e `Box<T>`
 
@@ -171,6 +179,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-15-10"></a>
+
 [Listagem 15-10](#listagem-15-10): Implementando `Deref` em `MyBox<T>`
 
 A sintaxe `type Target = T;` define um tipo associado para a trait `Deref` usar. Tipos associados são uma forma ligeiramente diferente de declarar um parâmetro genérico, mas você não precisa se preocupar com eles por agora; cobriremos em mais detalhes no Capítulo 20.
@@ -209,6 +219,8 @@ fn hello(name: &str) {
 fn main() {}
 ```
 
+<a id="listagem-15-11"></a>
+
 [Listagem 15-11](#listagem-15-11): Uma função `hello` que tem o parâmetro `name` do tipo `&str`
 
 Podemos chamar a função `hello` com um string slice como argumento, como `hello("Rust");`, por exemplo. A coerção de deref torna possível chamar `hello` com uma referência a um valor do tipo `MyBox<String>`, como mostrado na Listagem 15-12.
@@ -243,6 +255,8 @@ fn main() {
     hello(&m);
 }
 ```
+
+<a id="listagem-15-12"></a>
 
 [Listagem 15-12](#listagem-15-12): Chamando `hello` com uma referência a um valor `MyBox<String>`, o que funciona por causa da coerção de deref
 
@@ -280,6 +294,8 @@ fn main() {
     hello(&(*m)[..]);
 }
 ```
+
+<a id="listagem-15-13"></a>
 
 [Listagem 15-13](#listagem-15-13): O código que teríamos que escrever se o Rust não tivesse coerção de deref
 

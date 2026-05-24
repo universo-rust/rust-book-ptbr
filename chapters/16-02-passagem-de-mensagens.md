@@ -28,6 +28,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-16-6"></a>
+
 [Listagem 16-6](#listagem-16-6): Criando um channel e atribuindo as duas metades a `tx` e `rx`
 
 Criamos um novo channel usando a função `mpsc::channel`; `mpsc` significa _multiple producer, single consumer_ (vários produtores, um consumidor). Em resumo, a forma como a biblioteca padrão do Rust implementa channels significa que um channel pode ter várias extremidades _enviadoras_ que produzem valores, mas apenas uma extremidade _receptora_ que consome esses valores. Imagine vários riachos fluindo juntos em um grande rio: tudo enviado por qualquer um dos riachos acabará em um rio no final. Começaremos com um único produtor por agora, mas adicionaremos vários produtores quando este exemplo estiver funcionando.
@@ -51,6 +53,8 @@ fn main() {
     });
 }
 ```
+
+<a id="listagem-16-7"></a>
 
 [Listagem 16-7](#listagem-16-7): Movendo `tx` para uma thread criada e enviando `"hi"`
 
@@ -78,6 +82,8 @@ fn main() {
     println!("Got: {received}");
 }
 ```
+
+<a id="listagem-16-8"></a>
 
 [Listagem 16-8](#listagem-16-8): Recebendo o valor `"hi"` na thread principal e imprimindo-o
 
@@ -118,6 +124,8 @@ fn main() {
     println!("Got: {received}");
 }
 ```
+
+<a id="listagem-16-9"></a>
 
 [Listagem 16-9](#listagem-16-9): Tentativa de usar `val` depois de enviá-lo pelo channel
 
@@ -179,6 +187,8 @@ fn main() {
     }
 }
 ```
+
+<a id="listagem-16-10"></a>
 
 [Listagem 16-10](#listagem-16-10): Enviando várias mensagens e pausando entre cada uma
 
@@ -245,6 +255,8 @@ fn main() {
     }
 }
 ```
+
+<a id="listagem-16-11"></a>
 
 [Listagem 16-11](#listagem-16-11): Enviando várias mensagens de vários produtores
 

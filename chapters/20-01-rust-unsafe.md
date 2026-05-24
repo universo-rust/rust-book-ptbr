@@ -62,6 +62,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-20-1"></a>
+
 [Listagem 20-1](#listagem-20-1): Criando ponteiros brutos com os operadores de borrow bruto
 
 Note que não incluímos a palavra-chave `unsafe` neste código. Podemos criar ponteiros brutos em código seguro; só não podemos desreferenciar ponteiros brutos fora de um bloco _unsafe_, como veremos em seguida.
@@ -78,6 +80,8 @@ fn main() {
     let r = address as *const i32;
 }
 ```
+
+<a id="listagem-20-2"></a>
 
 [Listagem 20-2](#listagem-20-2): Criando um ponteiro bruto para um endereço de memória arbitrário
 
@@ -98,6 +102,8 @@ fn main() {
     }
 }
 ```
+
+<a id="listagem-20-3"></a>
 
 [Listagem 20-3](#listagem-20-3): Desreferenciando ponteiros brutos dentro de um bloco `unsafe`
 
@@ -165,6 +171,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-20-4"></a>
+
 [Listagem 20-4](#listagem-20-4): Usando a função segura `split_at_mut`
 
 Não podemos implementar esta função usando apenas Rust seguro. Uma tentativa poderia ser como na Listagem 20-5, que não compilará. Por simplicidade, implementaremos `split_at_mut` como função em vez de método e apenas para slices de valores `i32`, em vez de um tipo genérico `T`.
@@ -180,6 +188,8 @@ fn split_at_mut(values: &mut [i32], mid: usize) -> (&mut [i32], &mut [i32]) {
     (&mut values[..mid], &mut values[mid..])
 }
 ```
+
+<a id="listagem-20-5"></a>
 
 [Listagem 20-5](#listagem-20-5): Uma tentativa de implementação de `split_at_mut` usando apenas Rust seguro
 
@@ -235,6 +245,8 @@ fn split_at_mut(values: &mut [i32], mid: usize) -> (&mut [i32], &mut [i32]) {
 }
 ```
 
+<a id="listagem-20-6"></a>
+
 [Listagem 20-6](#listagem-20-6): Usando código _unsafe_ na implementação da função `split_at_mut`
 
 Lembre-se, na seção “O tipo slice” do Capítulo 4, que um slice é um ponteiro para alguns dados e o comprimento do slice. Usamos o método `len` para obter o comprimento de um slice e o método `as_mut_ptr` para acessar o ponteiro bruto de um slice. Neste caso, como temos um slice mutável de valores `i32`, `as_mut_ptr` retorna um ponteiro bruto do tipo `*mut i32`, que armazenamos na variável `ptr`.
@@ -260,6 +272,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-20-7"></a>
+
 [Listagem 20-7](#listagem-20-7): Criando um slice a partir de um local de memória arbitrário
 
 Não possuímos a memória neste local arbitrário, e não há garantia de que o slice que este código cria contenha valores `i32` válidos. Tentar usar `values` como se fosse um slice válido resulta em comportamento indefinido.
@@ -284,6 +298,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-20-8"></a>
+
 [Listagem 20-8](#listagem-20-8): Declarando e chamando uma função `extern` definida em outra linguagem
 
 Dentro do bloco `unsafe extern "C"`, listamos os nomes e assinaturas das funções externas de outra linguagem que queremos chamar. A parte `"C"` define qual _application binary interface (ABI)_ a função externa usa: a ABI define como chamar a função no nível de assembly. A ABI `"C"` é a mais comum e segue a ABI da linguagem de programação C. Informações sobre todas as ABIs que Rust suporta estão disponíveis [na Referência do Rust](https://doc.rust-lang.org/reference/items/external-blocks.html#abi).
@@ -301,6 +317,8 @@ fn main() {
     println!("Absolute value of -3 according to C: {}", abs(-3));
 }
 ```
+
+<a id="listagem-20-9"></a>
 
 [Listagem 20-9](#listagem-20-9): Marcando explicitamente uma função como `safe` dentro de um bloco `unsafe extern` e chamando-a com segurança
 
@@ -337,6 +355,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-20-10"></a>
+
 [Listagem 20-10](#listagem-20-10): Definindo e usando uma variável estática imutável
 
 Variáveis estáticas são semelhantes a constantes, que discutimos na seção “Declarando constantes” do Capítulo 3. Os nomes de variáveis estáticas usam `SCREAMING_SNAKE_CASE` por convenção. Variáveis estáticas só podem armazenar referências com lifetime `'static`, o que significa que o compilador Rust consegue deduzir o lifetime e não precisamos anotá-lo explicitamente. Acessar uma variável estática imutável é seguro.
@@ -366,6 +386,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-20-11"></a>
+
 [Listagem 20-11](#listagem-20-11): Ler ou escrever em uma variável estática mutável é _unsafe_
 
 Como variáveis comuns, especificamos mutabilidade usando a palavra-chave `mut`. Qualquer código que leia ou escreva em `COUNTER` deve estar dentro de um bloco `unsafe`. O código da Listagem 20-11 compila e imprime `COUNTER: 3` como esperado porque é single-threaded. Ter várias threads acessando `COUNTER` provavelmente resultaria em condições de corrida, então é comportamento indefinido. Portanto, precisamos marcar a função inteira como `unsafe` para que quem chamar a função saiba o que pode e não pode fazer com segurança.
@@ -391,6 +413,8 @@ unsafe impl Foo for i32 {
     // method implementations go here
 }
 ```
+
+<a id="listagem-20-12"></a>
 
 [Listagem 20-12](#listagem-20-12): Definindo e implementando uma _trait unsafe_
 

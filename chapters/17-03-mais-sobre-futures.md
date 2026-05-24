@@ -21,6 +21,8 @@ fn slow(name: &str, ms: u64) {
 }
 ```
 
+<a id="listagem-17-14"></a>
+
 [Listagem 17-14](#listagem-17-14): Usando `thread::sleep` para simular operações lentas
 
 Usamos `std::thread::sleep` em vez de `trpl::sleep` para bloquear a thread atual — útil para representar trabalho longo e bloqueante.
@@ -51,6 +53,8 @@ Na Listagem 17-15, `slow` em um par de futures.
 
         trpl::select(a, b).await;
 ```
+
+<a id="listagem-17-15"></a>
 
 [Listagem 17-15](#listagem-17-15): Chamando `slow` para simular operações lentas
 
@@ -105,6 +109,8 @@ Na Listagem 17-16, `trpl::sleep` entre cada `slow`.
         trpl::select(a, b).await;
 ```
 
+<a id="listagem-17-16"></a>
+
 [Listagem 17-16](#listagem-17-16): Usando `trpl::sleep` para alternar progresso
 
 Agora o trabalho se intercala:
@@ -155,6 +161,8 @@ Não queremos _dormir_ de verdade — queremos progredir o mais rápido possíve
         trpl::select(a, b).await;
 ```
 
+<a id="listagem-17-17"></a>
+
 [Listagem 17-17](#listagem-17-17): Usando `yield_now` para alternar progresso
 
 Fica mais claro e pode ser bem mais rápido que `sleep`: timers costumam ter granularidade mínima (ex.: 1 ms mesmo com `Duration` de 1 ns).
@@ -183,6 +191,8 @@ Podemos compor futures em novos padrões — por exemplo, `timeout` com blocos q
         }
 ```
 
+<a id="listagem-17-18"></a>
+
 [Listagem 17-18](#listagem-17-18): Usando o `timeout` imaginado com limite de tempo
 
 API de `timeout`:
@@ -203,6 +213,8 @@ async fn timeout<F: Future>(
 }
 ```
 
+<a id="listagem-17-19"></a>
+
 [Listagem 17-19](#listagem-17-19): Assinatura de `timeout`
 
 Corremos a future passada contra um timer com `trpl::sleep` e `trpl::select` (Listagem 17-20).
@@ -222,6 +234,8 @@ async fn timeout<F: Future>(
     }
 }
 ```
+
+<a id="listagem-17-20"></a>
 
 [Listagem 17-20](#listagem-17-20): Definindo `timeout` com `select` e `sleep`
 

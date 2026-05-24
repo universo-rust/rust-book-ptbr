@@ -39,6 +39,8 @@ pub fn eat_at_restaurant() {
 }
 ```
 
+<a id="listagem-7-3"></a>
+
 [Listagem 7-3](#listagem-7-3): Chamando a função `add_to_waitlist` usando caminhos absolutos e relativos
 
 Na primeira vez que chamamos a função `add_to_waitlist` em `eat_at_restaurant`, usamos um caminho absoluto. A função `add_to_waitlist` é definida no mesmo crate que `eat_at_restaurant`, o que significa que podemos usar a palavra-chave `crate` para iniciar um caminho absoluto. Em seguida, incluímos cada um dos módulos sucessivos até chegarmos a `add_to_waitlist`. Você pode imaginar um sistema de arquivos com a mesma estrutura: especificaríamos o caminho `/front_of_house/hosting/add_to_waitlist` para executar o programa `add_to_waitlist`; usar o nome `crate` para começar da raiz do crate é como usar `/` para começar da raiz do sistema de arquivos no seu shell.
@@ -48,6 +50,8 @@ Na segunda vez que chamamos `add_to_waitlist` em `eat_at_restaurant`, usamos um 
 Escolher se usar um caminho relativo ou absoluto é uma decisão que você tomará com base no seu projeto, e depende se é mais provável mover o código de definição do item separadamente do código que usa o item ou junto com ele. Por exemplo, se movêssemos o módulo `front_of_house` e a função `eat_at_restaurant` para um módulo chamado `customer_experience`, precisaríamos atualizar o caminho absoluto para `add_to_waitlist`, mas o caminho relativo ainda seria válido. Porém, se movêssemos a função `eat_at_restaurant` separadamente para um módulo chamado `dining`, o caminho absoluto para a chamada a `add_to_waitlist` permaneceria o mesmo, mas o caminho relativo precisaria ser atualizado. Nossa preferência em geral é especificar caminhos absolutos porque é mais provável que queiramos mover definições de código e chamadas de itens independentemente uns dos outros.
 
 Vamos tentar compilar a Listagem 7-3 e descobrir por que ainda não compila! Os erros que obtemos são mostrados na Listagem 7-4.
+
+<a id="listagem-7-4"></a>
 
 [Listagem 7-4](#listagem-7-4): Erros do compilador ao compilar o código da Listagem 7-3
 
@@ -114,9 +118,13 @@ pub fn eat_at_restaurant() {
 }
 ```
 
+<a id="listagem-7-5"></a>
+
 [Listagem 7-5](#listagem-7-5): Declarando o módulo `hosting` como `pub` para usá-lo a partir de `eat_at_restaurant`
 
 Infelizmente, o código da Listagem 7-5 ainda resulta em erros do compilador, como mostrado na Listagem 7-6.
+
+<a id="listagem-7-6"></a>
 
 [Listagem 7-6](#listagem-7-6): Erros do compilador ao compilar o código da Listagem 7-5
 
@@ -175,6 +183,8 @@ pub fn eat_at_restaurant() {
 }
 ```
 
+<a id="listagem-7-7"></a>
+
 [Listagem 7-7](#listagem-7-7): Adicionar a palavra-chave `pub` a `mod hosting` e `fn add_to_waitlist` nos permite chamar a função a partir de `eat_at_restaurant`
 
 Agora o código compilará! Para ver por que adicionar a palavra-chave `pub` nos permite usar esses caminhos em `eat_at_restaurant` em relação às regras de privacidade, vamos olhar o caminho absoluto e o relativo.
@@ -213,6 +223,8 @@ mod back_of_house {
     fn cook_order() {}
 }
 ```
+
+<a id="listagem-7-8"></a>
 
 [Listagem 7-8](#listagem-7-8): Chamando uma função usando um caminho relativo começando com `super`
 
@@ -254,6 +266,8 @@ pub fn eat_at_restaurant() {
 }
 ```
 
+<a id="listagem-7-9"></a>
+
 [Listagem 7-9](#listagem-7-9): Uma struct com alguns campos públicos e alguns privados
 
 Como o campo `toast` na struct `back_of_house::Breakfast` é público, em `eat_at_restaurant` podemos escrever e ler o campo `toast` usando notação de ponto. Observe que não podemos usar o campo `seasonal_fruit` em `eat_at_restaurant`, porque `seasonal_fruit` é privado. Tente descomentar a linha que modifica o valor do campo `seasonal_fruit` para ver qual erro você obtém!
@@ -277,6 +291,8 @@ pub fn eat_at_restaurant() {
     let order2 = back_of_house::Appetizer::Salad;
 }
 ```
+
+<a id="listagem-7-10"></a>
 
 [Listagem 7-10](#listagem-7-10): Designar um enum como público torna todas as suas variantes públicas
 

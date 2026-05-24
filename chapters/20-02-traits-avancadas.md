@@ -26,6 +26,8 @@ pub trait Iterator {
 }
 ```
 
+<a id="listagem-20-13"></a>
+
 [Listagem 20-13](#listagem-20-13): Definição da trait `Iterator` com o tipo associado `Item`
 
 O tipo `Item` é um placeholder, e a definição de `next` mostra que retornará valores do tipo `Option<Self::Item>`. Quem implementa `Iterator` especifica o tipo concreto de `Item`, e `next` retorna um `Option` com valor desse tipo concreto.
@@ -53,6 +55,8 @@ pub trait Iterator<T> {
     fn next(&mut self) -> Option<T>;
 }
 ```
+
+<a id="listagem-20-14"></a>
 
 [Listagem 20-14](#listagem-20-14): Definição hipotética de `Iterator` usando generics
 
@@ -100,6 +104,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-20-15"></a>
+
 [Listagem 20-15](#listagem-20-15): Implementando a trait `Add` para sobrecarregar o operador `+` em instâncias de `Point`
 
 O método `add` soma os valores `x` de duas instâncias de `Point` e os valores `y` de duas instâncias de `Point` para criar um novo `Point`. A trait `Add` tem um tipo associado chamado `Output` que determina o tipo retornado por `add`.
@@ -136,6 +142,8 @@ impl Add<Meters> for Millimeters {
     }
 }
 ```
+
+<a id="listagem-20-16"></a>
 
 [Listagem 20-16](#listagem-20-16): Implementando a trait `Add` em `Millimeters` para somar `Millimeters` e `Meters`
 
@@ -188,6 +196,8 @@ impl Human {
 }
 ```
 
+<a id="listagem-20-17"></a>
+
 [Listagem 20-17](#listagem-20-17): Duas traits com método `fly` implementadas no tipo `Human`, e um método `fly` implementado diretamente em `Human`
 
 Quando chamamos `fly` em uma instância de `Human`, o compilador usa por padrão o método implementado diretamente no tipo, como na Listagem 20-18.
@@ -228,6 +238,8 @@ fn main() {
     person.fly();
 }
 ```
+
+<a id="listagem-20-18"></a>
 
 [Listagem 20-18](#listagem-20-18): Chamando `fly` em uma instância de `Human`
 
@@ -273,6 +285,8 @@ fn main() {
     person.fly();
 }
 ```
+
+<a id="listagem-20-19"></a>
 
 [Listagem 20-19](#listagem-20-19): Especificando qual método `fly` de trait queremos chamar
 
@@ -320,6 +334,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-20-20"></a>
+
 [Listagem 20-20](#listagem-20-20): Trait com função associada e tipo com função associada de mesmo nome que também implementa a trait
 
 Implementamos em `baby_name` associada a `Dog` a lógica de nomear todos os filhotes de Spot. O tipo `Dog` também implementa a trait `Animal`, que descreve características de todos os animais. Filhotes de cachorro são chamados de puppies, expresso na implementação de `Animal` para `Dog` na função `baby_name` associada à trait `Animal`.
@@ -361,6 +377,8 @@ fn main() {
     println!("A baby dog is called a {}", Animal::baby_name());
 }
 ```
+
+<a id="listagem-20-21"></a>
 
 [Listagem 20-21](#listagem-20-21): Tentativa de chamar `baby_name` da trait `Animal`, mas Rust não sabe qual implementação usar
 
@@ -415,6 +433,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-20-22"></a>
+
 [Listagem 20-22](#listagem-20-22): Usando sintaxe totalmente qualificada para chamar `baby_name` da trait `Animal` como implementada em `Dog`
 
 Fornecemos a Rust uma anotação de tipo entre colchetes angulares, indicando que queremos chamar `baby_name` da trait `Animal` como implementada em `Dog`, tratando o tipo `Dog` como `Animal` nesta chamada. Este código imprime o que queremos:
@@ -468,6 +488,8 @@ trait OutlinePrint: fmt::Display {
     }
 }
 ```
+
+<a id="listagem-20-23"></a>
 
 [Listagem 20-23](#listagem-20-23): Implementando a trait `OutlinePrint`, que exige funcionalidade de `Display`
 
@@ -585,6 +607,8 @@ fn main() {
     println!("w = {w}");
 }
 ```
+
+<a id="listagem-20-24"></a>
 
 [Listagem 20-24](#listagem-20-24): Criando um tipo `Wrapper` em torno de `Vec<String>` para implementar `Display`
 

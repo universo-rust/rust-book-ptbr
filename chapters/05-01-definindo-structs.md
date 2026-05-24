@@ -21,6 +21,8 @@ struct User {
 }
 ```
 
+<a id="listagem-5-1"></a>
+
 [Listagem 5-1](#listagem-5-1): Uma definição de struct `User`
 
 Para usar uma struct depois de defini-la, criamos uma _instância_ dessa struct especificando valores concretos para cada um dos campos. Criamos uma instância declarando o nome da struct e, em seguida, adicionando chaves contendo pares _`chave: valor`_, em que as chaves são os nomes dos campos e os valores são os dados que queremos armazenar nesses campos. Não precisamos especificar os campos na mesma ordem em que os declaramos na struct. Em outras palavras, a definição da struct é como um modelo geral para o tipo, e as instâncias preenchem esse modelo com dados particulares para criar valores do tipo. Por exemplo, podemos declarar um usuário específico como mostrado na Listagem 5-2.
@@ -44,6 +46,8 @@ fn main() {
     };
 }
 ```
+
+<a id="listagem-5-2"></a>
 
 [Listagem 5-2](#listagem-5-2): Criando uma instância da struct `User`
 
@@ -70,6 +74,8 @@ fn main() {
     user1.email = String::from("anotheremail@example.com");
 }
 ```
+
+<a id="listagem-5-3"></a>
 
 [Listagem 5-3](#listagem-5-3): Alterando o valor do campo `email` de uma instância de `User`
 
@@ -103,6 +109,8 @@ fn main() {
     );
 }
 ```
+
+<a id="listagem-5-4"></a>
 
 [Listagem 5-4](#listagem-5-4): Uma função `build_user` que recebe e-mail e nome de usuário e retorna uma instância de `User`
 
@@ -138,6 +146,8 @@ fn main() {
     );
 }
 ```
+
+<a id="listagem-5-5"></a>
 
 [Listagem 5-5](#listagem-5-5): Uma função `build_user` que usa o atalho de inicialização de campos porque os parâmetros `username` e `email` têm o mesmo nome dos campos da struct
 
@@ -176,6 +186,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-5-6"></a>
+
 [Listagem 5-6](#listagem-5-6): Criando uma nova instância de `User` usando todos os valores de `user1`, exceto um
 
 Usando a sintaxe de atualização de struct, podemos obter o mesmo efeito com menos código, como mostrado na Listagem 5-7. A sintaxe `..` especifica que os campos restantes não definidos explicitamente devem ter os mesmos valores dos campos da instância fornecida.
@@ -204,6 +216,8 @@ fn main() {
     };
 }
 ```
+
+<a id="listagem-5-7"></a>
 
 [Listagem 5-7](#listagem-5-7): Usando a sintaxe de atualização de struct para definir um novo valor de `email` em uma instância de `User`, mas reutilizar o restante dos valores de `user1`
 

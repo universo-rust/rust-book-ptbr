@@ -78,6 +78,9 @@ fn main() {
     println!("You guessed: {guess}");
 }
 ```
+
+<a id="listagem-2-1"></a>
+
 [Listagem 2-1](#listagem-2-1): Código que recebe um palpite do usuário e o imprime.
 
 Este código contém muita informação, então vamos analisá-lo linha por linha. Para obter a entrada do usuário e imprimir o resultado como saída, precisamos incluir a biblioteca de entrada/saída `io` no escopo. A biblioteca `io` vem da biblioteca padrão, conhecida como `std`:
@@ -290,6 +293,9 @@ $ cargo build
  Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
   Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.48s
 ```
+
+<a id="listagem-2-2"></a>
+
 [Listagem 2-2](#listagem-2-2): A saída de executar `cargo build` após adicionar o crate `rand` como uma dependência
 
 Você pode ver números de versão diferentes (mas todos serão compatíveis com o código, graças ao SemVer!) e linhas diferentes (dependendo do sistema operacional), e as linhas podem estar em uma ordem diferente.
@@ -372,6 +378,9 @@ fn main() {
     println!("You guessed: {guess}");
 }
 ```
+
+<a id="listagem-2-3"></a>
+
 [Listagem 2-3](#listagem-2-3): Adicionando código para gerar um número aleatório
 
 Primeiro, adicionamos a linha `use rand::Rng;`. A trait `Rng` define métodos que geradores de números aleatórios implementam, e essa trait deve estar no escopo para usarmos esses métodos. O Capítulo 10 cobrirá traits em detalhes.
@@ -428,6 +437,9 @@ fn main() {
   }
 }
 ```
+
+<a id="listagem-2-4"></a>
+
 [Listagem 2-4](#listagem-2-4): Tratando os possíveis valores de retorno de comparar dois números
 
 Primeiro, adicionamos outra declaração `use`, trazendo um tipo chamado `std::cmp::Ordering` para o escopo da biblioteca padrão. O tipo `Ordering` é outro enum e tem as variantes `Less`, `Greater` e `Equal`. Esses são os três resultados possíveis quando você compara dois valores.
@@ -629,6 +641,9 @@ Arquivo: src/main.rs
 
         // --snip--
 ```
+
+<a id="listagem-2-5"></a>
+
 [Listagem 2-5](#listagem-2-5): Ignorando um palpite não numérico e pedindo outro palpite em vez de travar o programa
 
 Mudamos de uma chamada `expect` para uma expressão `match` para passar de travar em um erro para tratar o erro. Lembre-se de que `parse` retorna um tipo `Result` e `Result` é um enum que tem as variantes `Ok` e `Err`. Estamos usando uma expressão `match` aqui, como fizemos com o resultado `Ordering` do método `cmp`.
@@ -703,6 +718,9 @@ fn main() {
     }
 }
 ```
+
+<a id="listagem-2-6"></a>
+
 [Listagem 2-6](#listagem-2-6): Código completo do jogo de adivinhação
 
 Neste ponto, você construiu com sucesso o jogo de adivinhação. Parabéns!

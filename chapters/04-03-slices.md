@@ -38,6 +38,8 @@ fn first_word(s: &String) -> usize {
 fn main() {}
 ```
 
+<a id="listagem-4-7"></a>
+
 [Listagem 4-7](#listagem-4-7): A função `first_word` que retorna um valor de índice de byte no parâmetro `String`
 
 Como precisamos percorrer a `String` elemento por elemento e verificar se um valor é um espaço, converteremos nossa `String` em um array de bytes usando o método `as_bytes`:
@@ -95,6 +97,8 @@ fn main() {
     // pudéssemos usar de forma significativa com o valor 5 — word está inválido!
 }
 ```
+
+<a id="listagem-4-8"></a>
 
 [Listagem 4-8](#listagem-4-8): Armazenando o resultado da chamada a `first_word` e depois alterando o conteúdo da `String`
 
@@ -278,6 +282,8 @@ fn first_word(s: &str) -> &str {
     &s[..]
 }
 ```
+
+<a id="listagem-4-9"></a>
 
 [Listagem 4-9](#listagem-4-9): Melhorando a função `first_word` usando um string slice como tipo do parâmetro `s`
 

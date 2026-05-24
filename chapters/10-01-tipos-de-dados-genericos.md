@@ -54,6 +54,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-10-4"></a>
+
 [Listagem 10-4](#listagem-10-4): Duas funções que diferem apenas nos nomes e nos tipos em suas assinaturas
 
 A função `largest_i32` é a que extraímos na Listagem 10-3 e que encontra o maior `i32` em um slice. A função `largest_char` encontra o maior `char` em um slice. Os corpos das funções têm o mesmo código; vamos eliminar a duplicação introduzindo um parâmetro de tipo genérico em uma única função.
@@ -97,6 +99,8 @@ fn main() {
     println!("The largest char is {result}");
 }
 ```
+
+<a id="listagem-10-5"></a>
 
 [Listagem 10-5](#listagem-10-5): A função `largest` usando parâmetros de tipo genérico; isso ainda não compila
 
@@ -142,6 +146,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-10-6"></a>
+
 [Listagem 10-6](#listagem-10-6): Uma struct `Point<T>` que armazena valores `x` e `y` do tipo `T`
 
 A sintaxe para usar generics em definições de struct é semelhante à usada em definições de função. Primeiro, declaramos o nome do parâmetro de tipo dentro de colchetes angulares logo após o nome da struct. Depois, usamos o tipo genérico na definição da struct onde, caso contrário, especificaríamos tipos de dados concretos.
@@ -160,6 +166,8 @@ fn main() {
     let wont_work = Point { x: 5, y: 4.0 };
 }
 ```
+
+<a id="listagem-10-7"></a>
 
 [Listagem 10-7](#listagem-10-7): Os campos `x` e `y` devem ser do mesmo tipo porque ambos têm o mesmo tipo de dado genérico `T`
 
@@ -194,6 +202,8 @@ fn main() {
     let integer_and_float = Point { x: 5, y: 4.0 };
 }
 ```
+
+<a id="listagem-10-8"></a>
 
 [Listagem 10-8](#listagem-10-8): Um `Point<T, U>` genérico sobre dois tipos para que `x` e `y` possam ser valores de tipos diferentes
 
@@ -250,6 +260,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-10-9"></a>
+
 [Listagem 10-9](#listagem-10-9): Implementando um método chamado `x` na struct `Point<T>` que retornará uma referência ao campo `x` do tipo `T`
 
 Aqui, definimos um método chamado `x` em `Point<T>` que retorna uma referência aos dados no campo `x`.
@@ -285,6 +297,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-10-10"></a>
+
 [Listagem 10-10](#listagem-10-10): Um bloco `impl` que se aplica apenas a uma struct com um tipo concreto particular para o parâmetro de tipo genérico `T`
 
 Este código significa que o tipo `Point<f32>` terá um método `distance_from_origin`; outras instâncias de `Point<T>` em que `T` não seja do tipo `f32` não terão este método definido. O método mede a que distância nosso ponto está do ponto nas coordenadas (0.0, 0.0) e usa operações matemáticas disponíveis apenas para tipos de ponto flutuante.
@@ -317,6 +331,8 @@ fn main() {
     println!("p3.x = {}, p3.y = {}", p3.x, p3.y);
 }
 ```
+
+<a id="listagem-10-11"></a>
 
 [Listagem 10-11](#listagem-10-11): Um método que usa tipos genéricos diferentes da definição de sua struct
 

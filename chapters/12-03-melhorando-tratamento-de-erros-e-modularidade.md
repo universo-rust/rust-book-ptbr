@@ -65,6 +65,8 @@ fn parse_config(args: &[String]) -> (&str, &str) {
 }
 ```
 
+<a id="listagem-12-5"></a>
+
 [Listagem 12-5](#listagem-12-5): Extraindo uma função `parse_config` de `main`
 
 Ainda estamos coletando os argumentos de linha de comando em um vetor, mas em vez de atribuir o valor do argumento no índice 1 à variável `query` e o valor no índice 2 à variável `file_path` dentro da função `main`, passamos o vetor inteiro para a função `parse_config`. A função `parse_config` então contém a lógica que determina qual argumento vai em qual variável e devolve os valores a `main`. Ainda criamos as variáveis `query` e `file_path` em `main`, mas `main` não tem mais a responsabilidade de determinar como os argumentos de linha de comando e as variáveis correspondem.
@@ -111,6 +113,8 @@ fn parse_config(args: &[String]) -> Config {
     Config { query, file_path }
 }
 ```
+
+<a id="listagem-12-6"></a>
 
 [Listagem 12-6](#listagem-12-6): Refatorando `parse_config` para retornar uma instância de struct `Config`
 
@@ -167,6 +171,8 @@ impl Config {
 }
 ```
 
+<a id="listagem-12-7"></a>
+
 [Listagem 12-7](#listagem-12-7): Mudando `parse_config` para `Config::new`
 
 Atualizamos `main` onde chamávamos `parse_config` para chamar `Config::new` em vez disso. Mudamos o nome de `parse_config` para `new` e o movemos para dentro de um bloco `impl`, que associa a função `new` a `Config`. Tente compilar este código novamente para garantir que funciona.
@@ -209,6 +215,8 @@ impl Config {
 }
 ```
 
+<a id="listagem-12-8"></a>
+
 [Listagem 12-8](#listagem-12-8): Adicionando uma verificação do número de argumentos
 
 Este código é semelhante à função `Guess::new` que escrevemos na Listagem 9-13, onde chamamos `panic!` quando o argumento `value` estava fora do intervalo de valores válidos. Em vez de verificar um intervalo de valores aqui, verificamos se o comprimento de `args` é pelo menos `3`, e o restante da função pode operar assumindo que esta condição foi atendida. Se `args` tiver menos de três itens, esta condição será `true` e chamaremos a macro `panic!` para encerrar o programa imediatamente.
@@ -250,6 +258,8 @@ impl Config {
     }
 }
 ```
+
+<a id="listagem-12-9"></a>
 
 [Listagem 12-9](#listagem-12-9): Retornando um `Result` de `Config::build`
 
@@ -305,6 +315,8 @@ impl Config {
     }
 }
 ```
+
+<a id="listagem-12-10"></a>
 
 [Listagem 12-10](#listagem-12-10): Saindo com código de erro se construir um `Config` falhar
 
@@ -375,6 +387,8 @@ impl Config {
 }
 ```
 
+<a id="listagem-12-11"></a>
+
 [Listagem 12-11](#listagem-12-11): Extraindo uma função `run` contendo o restante da lógica do programa
 
 A função `run` agora contém toda a lógica restante de `main`, começando pela leitura do arquivo. A função `run` recebe a instância de `Config` como argumento.
@@ -431,6 +445,8 @@ impl Config {
     }
 }
 ```
+
+<a id="listagem-12-12"></a>
 
 [Listagem 12-12](#listagem-12-12): Mudando a função `run` para retornar `Result`
 
@@ -505,6 +521,8 @@ pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
 }
 ```
 
+<a id="listagem-12-13"></a>
+
 [Listagem 12-13](#listagem-12-13): Definindo a função `search` em _src/lib.rs_
 
 Usamos a palavra-chave `pub` na definição da função para designar `search` como parte da API pública da nossa crate de biblioteca. Agora temos uma crate de biblioteca que podemos usar a partir da nossa crate binária e que podemos testar!
@@ -526,6 +544,8 @@ fn run(config: Config) -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 ```
+
+<a id="listagem-12-14"></a>
 
 [Listagem 12-14](#listagem-12-14): Usando a função `search` da crate de biblioteca `minigrep` em _src/main.rs_
 

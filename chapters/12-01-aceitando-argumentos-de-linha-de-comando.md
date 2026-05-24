@@ -39,6 +39,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-12-1"></a>
+
 [Listagem 12-1](#listagem-12-1): Coletando os argumentos de linha de comando em um vetor e imprimindo-os
 
 Primeiro, trazemos o módulo `std::env` para o escopo com uma instrução `use` para podermos usar sua função `args`. Observe que a função `std::env::args` está aninhada em dois níveis de módulos. Como discutimos no Capítulo 7, em casos em que a função desejada está aninhada em mais de um módulo, escolhemos trazer o módulo pai para o escopo em vez da função. Ao fazer isso, podemos usar facilmente outras funções de `std::env`. Também é menos ambíguo do que adicionar `use std::env::args` e então chamar a função apenas com `args`, porque `args` poderia facilmente ser confundida com uma função definida no módulo atual.
@@ -94,6 +96,8 @@ fn main() {
     println!("In file {file_path}");
 }
 ```
+
+<a id="listagem-12-2"></a>
 
 [Listagem 12-2](#listagem-12-2): Criando variáveis para guardar o argumento de consulta e o argumento de caminho do arquivo
 

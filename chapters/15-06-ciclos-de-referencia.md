@@ -37,6 +37,8 @@ impl List {
 fn main() {}
 ```
 
+<a id="listagem-15-25"></a>
+
 [Listagem 15-25](#listagem-15-25): Uma definição de cons list que guarda um `RefCell<T>` para podermos modificar a que uma variante `Cons` se refere
 
 Estamos usando outra variação da definição de `List` da Listagem 15-5. O segundo elemento na variante `Cons` agora é `RefCell<Rc<List>>`, o que significa que, em vez de ter a capacidade de modificar o valor `i32` como fizemos na Listagem 15-24, queremos modificar o valor `List` para o qual uma variante `Cons` aponta. Também estamos adicionando um método `tail` para nos facilitar acessar o segundo item se tivermos uma variante `Cons`.
@@ -89,6 +91,8 @@ fn main() {
     // println!("a next item = {:?}", a.tail());
 }
 ```
+
+<a id="listagem-15-26"></a>
 
 [Listagem 15-26](#listagem-15-26): Criando um ciclo de referência de dois valores `List` apontando um para o outro
 
@@ -182,6 +186,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-15-27"></a>
+
 [Listagem 15-27](#listagem-15-27): Criando um nó `leaf` sem filhos e um nó `branch` com `leaf` como um de seus filhos
 
 Clonamos o `Rc<Node>` em `leaf` e armazenamos isso em `branch`, o que significa que o `Node` em `leaf` agora tem dois donos: `leaf` e `branch`. Podemos ir de `branch` para `leaf` através de `branch.children`, mas não há como ir de `leaf` para `branch`. A razão é que `leaf` não tem referência a `branch` e não sabe que estão relacionados. Queremos que `leaf` saiba que `branch` é seu pai. Faremos isso a seguir.
@@ -243,6 +249,8 @@ fn main() {
     println!("leaf parent = {:?}", leaf.parent.borrow().upgrade());
 }
 ```
+
+<a id="listagem-15-28"></a>
 
 [Listagem 15-28](#listagem-15-28): Um nó `leaf` com uma referência fraca ao seu nó pai, `branch`
 
@@ -326,6 +334,8 @@ fn main() {
     );
 }
 ```
+
+<a id="listagem-15-29"></a>
 
 [Listagem 15-29](#listagem-15-29): Criando `branch` em um escopo interno e examinando contagens de referências fortes e fracas
 

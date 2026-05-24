@@ -35,6 +35,8 @@ impl Config {
 }
 ```
 
+<a id="listagem-13-17"></a>
+
 [Listagem 13-17](#listagem-13-17): Reprodução da função `Config::build` da Listagem 12-23
 
 Na época, dissemos para não se preocupar com as chamadas ineficientes a `clone` porque as removeríamos no futuro. Bem, esse momento chegou!
@@ -85,6 +87,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-13-18"></a>
+
 [Listagem 13-18](#listagem-13-18): Passando o valor de retorno de `env::args` para `Config::build`
 
 A função `env::args` retorna um iterator! Em vez de coletar os valores do iterator em um vetor e então passar um slice para `Config::build`, agora estamos passando diretamente a posse do iterator retornado por `env::args` para `Config::build`.
@@ -115,6 +119,8 @@ impl Config {
     }
 }
 ```
+
+<a id="listagem-13-19"></a>
 
 [Listagem 13-19](#listagem-13-19): Atualizando a assinatura de `Config::build` para esperar um iterator
 
@@ -158,6 +164,8 @@ impl Config {
 }
 ```
 
+<a id="listagem-13-20"></a>
+
 [Listagem 13-20](#listagem-13-20): Mudando o corpo de `Config::build` para usar métodos de iterator
 
 Lembre-se de que o primeiro valor no valor de retorno de `env::args` é o nome do programa. Queremos ignorar isso e ir para o próximo valor, então primeiro chamamos `next` e não fazemos nada com o valor de retorno. Depois, chamamos `next` para obter o valor que queremos colocar no campo `query` de `Config`. Se `next` retornar `Some`, usamos um `match` para extrair o valor. Se retornar `None`, significa que não foram dados argumentos suficientes, e retornamos cedo com um valor `Err`. Fazemos a mesma coisa para o valor `file_path`.
@@ -182,6 +190,8 @@ pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
 }
 ```
 
+<a id="listagem-13-21"></a>
+
 [Listagem 13-21](#listagem-13-21): A implementação da função `search` da Listagem 12-19
 
 Podemos escrever este código de forma mais concisa usando métodos adapter de iterator. Isso também nos permite evitar ter um vetor intermediário mutável `results`. O estilo de programação funcional prefere minimizar a quantidade de estado mutável para deixar o código mais claro. Remover o estado mutável pode permitir uma melhoria futura para fazer a busca em paralelo, porque não precisaríamos gerenciar acesso concorrente ao vetor `results`. A Listagem 13-22 mostra essa mudança.
@@ -196,6 +206,8 @@ pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
         .collect()
 }
 ```
+
+<a id="listagem-13-22"></a>
 
 [Listagem 13-22](#listagem-13-22): Usando métodos adapter de iterator na implementação da função `search`
 

@@ -59,6 +59,8 @@ macro_rules! vec {
 }
 ```
 
+<a id="listagem-20-35"></a>
+
 [Listagem 20-35](#listagem-20-35): Uma versão simplificada da definição da macro `vec!`
 
 > **Nota:** A definição real da macro `vec!` na biblioteca padrão inclui código para pré-alocar a quantidade correta de memória antecipadamente. Esse código é uma otimização que não incluímos aqui, para tornar o exemplo mais simples.
@@ -109,6 +111,8 @@ pub fn some_name(input: TokenStream) -> TokenStream {
 }
 ```
 
+<a id="listagem-20-36"></a>
+
 [Listagem 20-36](#listagem-20-36): Um exemplo de definição de macro procedural
 
 A função que define uma macro procedural recebe um `TokenStream` como entrada e produz um `TokenStream` como saída. O tipo `TokenStream` é definido pelo crate `proc_macro` que vem com Rust e representa uma sequência de tokens. Este é o núcleo da macro: o código-fonte sobre o qual a macro está operando compõe o `TokenStream` de entrada, e o código que a macro produz é o `TokenStream` de saída. A função também tem um atributo anexado a ela que especifica que tipo de macro procedural estamos criando. Podemos ter múltiplos tipos de macros procedurais no mesmo crate.
@@ -135,6 +139,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-20-37"></a>
+
 [Listagem 20-37](#listagem-20-37): O código que um usuário do nosso crate poderá escrever ao usar nossa macro procedural
 
 Este código imprimirá `Hello, Macro! My name is Pancakes!` quando terminarmos. O primeiro passo é fazer um novo crate de biblioteca, assim:
@@ -152,6 +158,8 @@ pub trait HelloMacro {
     fn hello_macro();
 }
 ```
+
+<a id="listagem-20-38"></a>
 
 [Listagem 20-38](#listagem-20-38): Uma trait simples que usaremos com a macro `derive`
 
@@ -174,6 +182,8 @@ fn main() {
     Pancakes::hello_macro();
 }
 ```
+
+<a id="listagem-20-39"></a>
 
 [Listagem 20-39](#listagem-20-39): Como ficaria se os usuários escrevessem uma implementação manual da trait `HelloMacro`
 
@@ -221,6 +231,8 @@ pub fn hello_macro_derive(input: TokenStream) -> TokenStream {
 }
 ```
 
+<a id="listagem-20-40"></a>
+
 [Listagem 20-40](#listagem-20-40): Código que a maioria dos crates de macro procedural exigirá para processar código Rust
 
 Observe que dividimos o código na função `hello_macro_derive`, que é responsável por fazer parse do `TokenStream`, e na função `impl_hello_macro`, que é responsável por transformar a árvore de sintaxe: isso torna escrever uma macro procedural mais conveniente. O código na função externa (`hello_macro_derive` neste caso) será o mesmo para quase todo crate de macro procedural que você ver ou criar. O código que você especifica no corpo da função interna (`impl_hello_macro` neste caso) será diferente dependendo do propósito da sua macro procedural.
@@ -253,6 +265,8 @@ DeriveInput {
 }
 ```
 
+<a id="listagem-20-41"></a>
+
 [Listagem 20-41](#listagem-20-41): A instância de `DeriveInput` que obtemos ao fazer parse do código que tem o atributo da macro na Listagem 20-37
 
 Os campos desta struct mostram que o código Rust que parseamos é uma unit struct com o `ident` (_identificador_, ou seja, o nome) de `Pancakes`. Há mais campos nesta struct para descrever todo tipo de código Rust; consulte a [documentação de `syn` para `DeriveInput`][syn-docs] para mais informações.
@@ -278,6 +292,8 @@ fn impl_hello_macro(ast: &syn::DeriveInput) -> TokenStream {
     generated.into()
 }
 ```
+
+<a id="listagem-20-42"></a>
 
 [Listagem 20-42](#listagem-20-42): Implementando a trait `HelloMacro` usando o código Rust parseado
 

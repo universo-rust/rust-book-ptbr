@@ -58,6 +58,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-9-1"></a>
+
 [Listagem 9-1](#listagem-9-1): Tentando acessar um elemento além do fim de um vetor, o que causará uma chamada a `panic!`
 
 Aqui, estamos tentando acessar o 100º elemento do nosso vetor (que está no índice 99 porque a indexação começa em zero), mas o vetor tem apenas três elementos. Nesta situação, o Rust entrará em pânico. Usar `[]` deveria retornar um elemento, mas se você passar um índice inválido, não há elemento que o Rust pudesse retornar aqui que seria correto.
@@ -80,6 +82,8 @@ note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 Este erro aponta para a linha 4 do nosso _main.rs_, onde tentamos acessar o índice 99 do vetor em `v`.
 
 A linha `note:` nos diz que podemos definir a variável de ambiente `RUST_BACKTRACE` para obter um backtrace de exatamente o que aconteceu para causar o erro. Um _backtrace_ é uma lista de todas as funções que foram chamadas para chegar a este ponto. Backtraces em Rust funcionam como em outras linguagens: a chave para ler o backtrace é começar do topo e ler até ver arquivos que você escreveu. Esse é o ponto onde o problema se originou. As linhas acima desse ponto são código que seu código chamou; as linhas abaixo são código que chamou seu código. Essas linhas antes e depois podem incluir código principal do Rust, código da biblioteca padrão ou crates que você está usando. Vamos tentar obter um backtrace definindo a variável de ambiente `RUST_BACKTRACE` para qualquer valor exceto `0`. A Listagem 9-2 mostra saída semelhante ao que você verá.
+
+<a id="listagem-9-2"></a>
 
 [Listagem 9-2](#listagem-9-2): O backtrace gerado por uma chamada a `panic!` exibido quando a variável de ambiente `RUST_BACKTRACE` está definida
 

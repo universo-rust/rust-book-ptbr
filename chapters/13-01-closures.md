@@ -71,6 +71,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-13-1"></a>
+
 [Listagem 13-1](#listagem-13-1): Situação de brinde da empresa de camisetas
 
 O `store` definido em `main` tem duas camisetas azuis e uma vermelha restantes para distribuir nesta promoção de edição limitada. Chamamos o método `giveaway` para um usuário com preferência por camiseta vermelha e para um usuário sem preferência.
@@ -136,6 +138,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-13-2"></a>
+
 [Listagem 13-2](#listagem-13-2): Adicionando anotações de tipo opcionais do parâmetro e do valor de retorno na closure
 
 Com anotações de tipo adicionadas, a sintaxe de closures se parece mais com a sintaxe de funções. Aqui, definimos uma função que adiciona 1 ao seu parâmetro e uma closure com o mesmo comportamento, para comparação. Adicionamos alguns espaços para alinhar as partes relevantes. Isso ilustra como a sintaxe de closure é semelhante à sintaxe de função, exceto pelo uso de barras verticais e pela quantidade de sintaxe que é opcional:
@@ -161,6 +165,8 @@ fn main() {
     let n = example_closure(5);
 }
 ```
+
+<a id="listagem-13-3"></a>
 
 [Listagem 13-3](#listagem-13-3): Tentativa de chamar uma closure cujos tipos foram inferidos com dois tipos diferentes
 
@@ -221,6 +227,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-13-4"></a>
+
 [Listagem 13-4](#listagem-13-4): Definindo e chamando uma closure que captura uma referência imutável
 
 Este exemplo também ilustra que uma variável pode se ligar a uma definição de closure, e podemos depois chamar a closure usando o nome da variável e parênteses como se o nome da variável fosse um nome de função.
@@ -253,6 +261,8 @@ fn main() {
     println!("After calling closure: {list:?}");
 }
 ```
+
+<a id="listagem-13-5"></a>
 
 [Listagem 13-5](#listagem-13-5): Definindo e chamando uma closure que captura uma referência mutável
 
@@ -287,6 +297,8 @@ fn main() {
         .unwrap();
 }
 ```
+
+<a id="listagem-13-6"></a>
 
 [Listagem 13-6](#listagem-13-6): Usando `move` para forçar a closure da thread a tomar posse de `list`
 
@@ -351,6 +363,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-13-7"></a>
+
 [Listagem 13-7](#listagem-13-7): Usando `sort_by_key` para ordenar retângulos por largura
 
 Este código imprime:
@@ -407,6 +421,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-13-8"></a>
+
 [Listagem 13-8](#listagem-13-8): Tentativa de usar uma closure `FnOnce` com `sort_by_key`
 
 Esta é uma forma contorcida e artificial (que não funciona) de tentar contar quantas vezes `sort_by_key` chama a closure ao ordenar `list`. Este código tenta fazer essa contagem empurrando `value`—um `String` do ambiente da closure—no vetor `sort_operations`. A closure captura `value` e então move `value` para fora da closure transferindo a posse de `value` para o vetor `sort_operations`. Esta closure pode ser chamada uma vez; tentar chamá-la uma segunda vez não funcionaria, porque `value` não estaria mais no ambiente para ser empurrado para `sort_operations` novamente! Portanto, esta closure só implementa `FnOnce`. Quando tentamos compilar este código, obtemos este erro de que `value` não pode ser movido para fora da closure porque a closure deve implementar `FnMut`:
@@ -462,6 +478,8 @@ fn main() {
     println!("{list:#?}, sorted in {num_sort_operations} operations");
 }
 ```
+
+<a id="listagem-13-9"></a>
 
 [Listagem 13-9](#listagem-13-9): Usar uma closure `FnMut` com `sort_by_key` é permitido
 

@@ -32,6 +32,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-20-28"></a>
+
 [Listagem 20-28](#listagem-20-28): Usando o tipo `fn` para aceitar um ponteiro de função como argumento
 
 Este código imprime `The answer is: 12`. Especificamos que o parâmetro `f` em `do_twice` é um `fn` que recebe um parâmetro do tipo `i32` e retorna um `i32`. Podemos então chamar `f` no corpo de `do_twice`. Em `main`, podemos passar o nome da função `add_one` como o primeiro argumento para `do_twice`.
@@ -54,6 +56,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-20-29"></a>
+
 [Listagem 20-29](#listagem-20-29): Usando uma closure com o método `map` para converter números em strings
 
 Ou poderíamos nomear uma função como argumento de `map` em vez da closure. A Listagem 20-30 mostra como isso ficaria.
@@ -67,6 +71,8 @@ fn main() {
         list_of_numbers.iter().map(ToString::to_string).collect();
 }
 ```
+
+<a id="listagem-20-30"></a>
 
 [Listagem 20-30](#listagem-20-30): Usando a função `String::to_string` com o método `map` para converter números em strings
 
@@ -89,6 +95,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-20-31"></a>
+
 [Listagem 20-31](#listagem-20-31): Usando um inicializador de enum com o método `map` para criar uma instância de `Status` a partir de números
 
 Aqui, criamos instâncias de `Status::Value` usando cada valor `u32` no intervalo sobre o qual `map` é chamado, usando a função inicializadora de `Status::Value`. Algumas pessoas preferem este estilo e outras preferem usar closures. Elas compilam para o mesmo código, então use o estilo que for mais claro para você.
@@ -106,6 +114,8 @@ fn returns_closure() -> impl Fn(i32) -> i32 {
     |x| x + 1
 }
 ```
+
+<a id="listagem-20-32"></a>
 
 [Listagem 20-32](#listagem-20-32): Retornando uma closure de uma função usando a sintaxe `impl Trait`
 
@@ -130,6 +140,8 @@ fn returns_initialized_closure(init: i32) -> impl Fn(i32) -> i32 {
     move |x| x + init
 }
 ```
+
+<a id="listagem-20-33"></a>
 
 [Listagem 20-33](#listagem-20-33): Criando um `Vec<T>` de closures definidas por funções que retornam tipos `impl Fn`
 
@@ -182,6 +194,8 @@ fn returns_initialized_closure(init: i32) -> Box<dyn Fn(i32) -> i32> {
     Box::new(move |x| x + init)
 }
 ```
+
+<a id="listagem-20-34"></a>
 
 [Listagem 20-34](#listagem-20-34): Criando um `Vec<T>` de closures definidas por funções que retornam `Box<dyn Fn>` para que tenham o mesmo tipo
 

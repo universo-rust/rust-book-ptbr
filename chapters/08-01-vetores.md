@@ -20,6 +20,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-8-1"></a>
+
 [Listagem 8-1](#listagem-8-1): Criando um novo vetor vazio para armazenar valores do tipo `i32`
 
 Observe que adicionamos uma anotação de tipo aqui. Como não estamos inserindo valores neste vetor, o Rust não sabe que tipo de elementos pretendemos armazenar. Este é um ponto importante. Vetores são implementados usando generics; cobriremos como usar generics com seus próprios tipos no Capítulo 10. Por enquanto, saiba que o tipo `Vec<T>` fornecido pela biblioteca padrão pode conter qualquer tipo. Quando criamos um vetor para armazenar um tipo específico, podemos especificar o tipo entre colchetes angulares. Na Listagem 8-1, dissemos ao Rust que o `Vec<T>` em `v` armazenará elementos do tipo `i32`.
@@ -33,6 +35,8 @@ fn main() {
     let v = vec![1, 2, 3];
 }
 ```
+
+<a id="listagem-8-2"></a>
 
 [Listagem 8-2](#listagem-8-2): Criando um novo vetor contendo valores
 
@@ -54,6 +58,8 @@ fn main() {
     v.push(8);
 }
 ```
+
+<a id="listagem-8-3"></a>
 
 [Listagem 8-3](#listagem-8-3): Usando o método `push` para adicionar valores a um vetor
 
@@ -82,6 +88,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-8-4"></a>
+
 [Listagem 8-4](#listagem-8-4): Usando sintaxe de indexação e o método `get` para acessar um item em um vetor
 
 Observe alguns detalhes aqui. Usamos o valor de índice `2` para obter o terceiro elemento porque vetores são indexados por número, começando em zero. Usar `&` e `[]` nos dá uma referência ao elemento no valor do índice. Quando usamos o método `get` com o índice passado como argumento, obtemos um `Option<&T>` que podemos usar com `match`.
@@ -98,6 +106,8 @@ fn main() {
     let does_not_exist = v.get(100);
 }
 ```
+
+<a id="listagem-8-5"></a>
 
 [Listagem 8-5](#listagem-8-5): Tentando acessar o elemento no índice 100 em um vetor contendo cinco elementos
 
@@ -120,6 +130,8 @@ fn main() {
     println!("The first element is: {first}");
 }
 ```
+
+<a id="listagem-8-6"></a>
 
 [Listagem 8-6](#listagem-8-6): Tentando adicionar um elemento a um vetor enquanto mantém uma referência a um item
 
@@ -163,6 +175,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-8-7"></a>
+
 [Listagem 8-7](#listagem-8-7): Imprimindo cada elemento em um vetor iterando sobre os elementos usando um loop `for`
 
 Também podemos iterar sobre referências mutáveis a cada elemento em um vetor mutável para fazer alterações em todos os elementos. O loop `for` na Listagem 8-8 adicionará `50` a cada elemento.
@@ -177,6 +191,8 @@ fn main() {
     }
 }
 ```
+
+<a id="listagem-8-8"></a>
 
 [Listagem 8-8](#listagem-8-8): Iterando sobre referências mutáveis a elementos em um vetor
 
@@ -208,6 +224,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-8-9"></a>
+
 [Listagem 8-9](#listagem-8-9): Definindo um enum para armazenar valores de tipos diferentes em um vetor
 
 O Rust precisa saber quais tipos estarão no vetor em tempo de compilação para saber exatamente quanta memória na heap será necessária para armazenar cada elemento. Também precisamos ser explícitos sobre quais tipos são permitidos neste vetor. Se o Rust permitisse que um vetor contivesse qualquer tipo, haveria chance de um ou mais dos tipos causarem erros com as operações realizadas nos elementos do vetor. Usar um enum mais uma expressão `match` significa que o Rust garantirá em tempo de compilação que todo caso possível é tratado, como discutido no Capítulo 6.
@@ -231,6 +249,8 @@ fn main() {
     } // <- v sai de escopo e é liberado aqui
 }
 ```
+
+<a id="listagem-8-10"></a>
 
 [Listagem 8-10](#listagem-8-10): Mostrando onde o vetor e seus elementos são descartados
 

@@ -26,6 +26,8 @@ pub fn eat_at_restaurant() {
 }
 ```
 
+<a id="listagem-7-11"></a>
+
 [Listagem 7-11](#listagem-7-11): Trazendo um módulo para o escopo com `use`
 
 Adicionar `use` e um caminho em um escopo é semelhante a criar um link simbólico no sistema de arquivos. Ao adicionar `use crate::front_of_house::hosting` na raiz do crate, `hosting` agora é um nome válido nesse escopo, como se o módulo `hosting` tivesse sido definido na raiz do crate. Caminhos trazidos para o escopo com `use` também verificam privacidade, como qualquer outro caminho.
@@ -49,6 +51,8 @@ mod customer {
     }
 }
 ```
+
+<a id="listagem-7-12"></a>
 
 [Listagem 7-12](#listagem-7-12): Uma declaração `use` só se aplica no escopo em que está
 
@@ -104,6 +108,8 @@ pub fn eat_at_restaurant() {
 }
 ```
 
+<a id="listagem-7-13"></a>
+
 [Listagem 7-13](#listagem-7-13): Trazendo a função `add_to_waitlist` para o escopo com `use`, o que não é idiomático
 
 Embora tanto a Listagem 7-11 quanto a Listagem 7-13 realizem a mesma tarefa, a Listagem 7-11 é a forma idiomática de trazer uma função para o escopo com `use`. Trazer o módulo pai da função para o escopo com `use` significa que temos que especificar o módulo pai ao chamar a função. Especificar o módulo pai ao chamar a função deixa claro que a função não está definida localmente, enquanto ainda minimiza a repetição do caminho completo. O código da Listagem 7-13 é pouco claro sobre onde `add_to_waitlist` está definida.
@@ -120,6 +126,8 @@ fn main() {
     map.insert(1, 2);
 }
 ```
+
+<a id="listagem-7-14"></a>
 
 [Listagem 7-14](#listagem-7-14): Trazendo `HashMap` para o escopo de forma idiomática
 
@@ -141,6 +149,8 @@ fn function2() -> io::Result<()> {
     Ok(())
 }
 ```
+
+<a id="listagem-7-15"></a>
 
 [Listagem 7-15](#listagem-7-15): Trazer dois tipos com o mesmo nome para o mesmo escopo exige usar seus módulos pais
 
@@ -164,6 +174,8 @@ fn function2() -> IoResult<()> {
     Ok(())
 }
 ```
+
+<a id="listagem-7-16"></a>
 
 [Listagem 7-16](#listagem-7-16): Renomeando um tipo quando ele é trazido para o escopo com a palavra-chave `as`
 
@@ -190,6 +202,8 @@ pub fn eat_at_restaurant() {
     hosting::add_to_waitlist();
 }
 ```
+
+<a id="listagem-7-17"></a>
 
 [Listagem 7-17](#listagem-7-17): Tornando um nome disponível para qualquer código usar a partir de um novo escopo com `pub use`
 
@@ -251,6 +265,8 @@ use rand::Rng;
 use std::{cmp::Ordering, io};
 ```
 
+<a id="listagem-7-18"></a>
+
 [Listagem 7-18](#listagem-7-18): Especificando um caminho aninhado para trazer vários itens com o mesmo prefixo para o escopo
 
 Em programas maiores, trazer muitos itens para o escopo do mesmo crate ou módulo usando caminhos aninhados pode reduzir muito o número de declarações `use` separadas necessárias!
@@ -264,6 +280,8 @@ use std::io;
 use std::io::Write;
 ```
 
+<a id="listagem-7-19"></a>
+
 [Listagem 7-19](#listagem-7-19): Duas declarações `use` em que uma é um subcaminho da outra
 
 A parte comum desses dois caminhos é `std::io`, e esse é o primeiro caminho completo. Para mesclar esses dois caminhos em uma declaração `use`, podemos usar `self` no caminho aninhado, como mostrado na Listagem 7-20.
@@ -273,6 +291,8 @@ A parte comum desses dois caminhos é `std::io`, e esse é o primeiro caminho co
 ```rust
 use std::io::{self, Write};
 ```
+
+<a id="listagem-7-20"></a>
 
 [Listagem 7-20](#listagem-7-20): Combinando os caminhos da Listagem 7-19 em uma declaração `use`
 

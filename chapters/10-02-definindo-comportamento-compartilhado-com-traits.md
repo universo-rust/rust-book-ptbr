@@ -26,6 +26,8 @@ pub trait Summary {
 }
 ```
 
+<a id="listagem-10-12"></a>
+
 [Listagem 10-12](#listagem-10-12): Uma trait `Summary` que consiste no comportamento fornecido por um método `summarize`
 
 Aqui, declaramos uma trait usando a palavra-chave `trait` e depois o nome da trait, que neste caso é `Summary`. Também declaramos a trait como `pub` para que crates que dependem desta crate possam usar esta trait também, como veremos em alguns exemplos. Dentro das chaves, declaramos as assinaturas de método que descrevem os comportamentos dos tipos que implementam esta trait, que neste caso é `fn summarize(&self) -> String`.
@@ -71,6 +73,8 @@ impl Summary for SocialPost {
     }
 }
 ```
+
+<a id="listagem-10-13"></a>
 
 [Listagem 10-13](#listagem-10-13): Implementando a trait `Summary` nos tipos `NewsArticle` e `SocialPost`
 
@@ -140,6 +144,8 @@ impl Summary for SocialPost {
     }
 }
 ```
+
+<a id="listagem-10-14"></a>
 
 [Listagem 10-14](#listagem-10-14): Definindo uma trait `Summary` com implementação padrão do método `summarize`
 
@@ -493,6 +499,8 @@ impl<T: Display + PartialOrd> Pair<T> {
     }
 }
 ```
+
+<a id="listagem-10-15"></a>
 
 [Listagem 10-15](#listagem-10-15): Implementando métodos condicionalmente em um tipo genérico dependendo de trait bounds
 

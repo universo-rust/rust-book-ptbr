@@ -40,6 +40,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-21-1"></a>
+
 [Listagem 21-1](#listagem-21-1): Escutando streams de entrada e imprimindo uma mensagem quando recebemos um stream
 
 Usando `TcpListener`, podemos escutar conexões TCP no endereço `127.0.0.1:7878`. No endereço, a seção antes dos dois pontos é um endereço IP que representa seu computador (isso é o mesmo em todo computador e não representa especificamente o computador dos autores), e `7878` é a porta. Escolhemos esta porta por dois motivos: HTTP normalmente não é aceito nesta porta, então nosso servidor provavelmente não entrará em conflito com nenhum outro servidor web que você possa ter rodando em sua máquina, e 7878 é _rust_ digitado em um telefone.
@@ -104,6 +106,8 @@ fn handle_connection(mut stream: TcpStream) {
     println!("Request: {http_request:#?}");
 }
 ```
+
+<a id="listagem-21-2"></a>
 
 [Listagem 21-2](#listagem-21-2): Lendo do `TcpStream` e imprimindo os dados
 
@@ -210,6 +214,8 @@ fn handle_connection(mut stream: TcpStream) {
 }
 ```
 
+<a id="listagem-21-3"></a>
+
 [Listagem 21-3](#listagem-21-3): Escrevendo uma resposta HTTP de sucesso minúscula no stream
 
 A primeira nova linha define a variável `response` que contém os dados da mensagem de sucesso. Em seguida, chamamos `as_bytes` em nossa `response` para converter os dados da string em bytes. O método `write_all` em `stream` recebe um `&[u8]` e envia esses bytes diretamente pela conexão. Como a operação `write_all` pode falhar, usamos `unwrap` em qualquer resultado de erro como antes. Novamente, em uma aplicação real, você adicionaria tratamento de erros aqui.
@@ -235,6 +241,8 @@ Vamos implementar a funcionalidade para retornar mais do que uma página em bran
   </body>
 </html>
 ```
+
+<a id="listagem-21-4"></a>
 
 [Listagem 21-4](#listagem-21-4): Um arquivo HTML de exemplo para retornar em uma resposta
 
@@ -278,6 +286,8 @@ fn handle_connection(mut stream: TcpStream) {
 }
 ```
 
+<a id="listagem-21-5"></a>
+
 [Listagem 21-5](#listagem-21-5): Enviando o conteúdo de *hello.html* como corpo da resposta
 
 Adicionamos `fs` à instrução `use` para trazer o módulo de sistema de arquivos da biblioteca padrão para o escopo. O código para ler o conteúdo de um arquivo em uma string deve parecer familiar; usamos isso quando lemos o conteúdo de um arquivo para nosso projeto de E/S na Listagem 12-4.
@@ -317,6 +327,8 @@ fn handle_connection(mut stream: TcpStream) {
 }
 ```
 
+<a id="listagem-21-6"></a>
+
 [Listagem 21-6](#listagem-21-6): Tratando requisições para */* de forma diferente das demais requisições
 
 Estaremos olhando apenas para a primeira linha da requisição HTTP, então, em vez de ler toda a requisição em um vetor, estamos chamando `next` para obter o primeiro item do iterador. O primeiro `unwrap` cuida do `Option` e para o programa se o iterador não tiver itens. O segundo `unwrap` trata o `Result` e tem o mesmo efeito do `unwrap` que estava no `map` adicionado na Listagem 21-2.
@@ -346,6 +358,8 @@ Agora vamos adicionar o código da Listagem 21-7 ao bloco `else` para retornar u
     }
 ```
 
+<a id="listagem-21-7"></a>
+
 [Listagem 21-7](#listagem-21-7): Respondendo com código de status 404 e uma página de erro se algo diferente de */* foi requisitado
 
 Aqui, nossa resposta tem uma linha de status com código de status 404 e a frase de razão `NOT FOUND`. O corpo da resposta será o HTML no arquivo _404.html_. Você precisará criar um arquivo _404.html_ ao lado de _hello.html_ para a página de erro; novamente, sinta-se à vontade para usar qualquer HTML que quiser, ou use o HTML de exemplo da Listagem 21-8.
@@ -365,6 +379,8 @@ Aqui, nossa resposta tem uma linha de status com código de status 404 e a frase
   </body>
 </html>
 ```
+
+<a id="listagem-21-8"></a>
 
 [Listagem 21-8](#listagem-21-8): Conteúdo de exemplo para a página a enviar de volta com qualquer resposta 404
 
@@ -414,6 +430,8 @@ fn handle_connection(mut stream: TcpStream) {
     stream.write_all(response.as_bytes()).unwrap();
 }
 ```
+
+<a id="listagem-21-9"></a>
 
 [Listagem 21-9](#listagem-21-9): Refatorando os blocos `if` e `else` para conter apenas o código que difere entre os dois casos
 

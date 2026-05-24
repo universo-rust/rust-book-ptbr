@@ -68,6 +68,8 @@ mod tests {
 }
 ```
 
+<a id="listagem-11-12"></a>
+
 [Listagem 11-12](#listagem-11-12): Testando uma função privada
 
 Observe que a função `internal_adder` não está marcada como `pub`. Testes são apenas código Rust, e o módulo `tests` é apenas outro módulo. Como discutimos em Caminhos para referenciar um item na árvore de módulos, itens em módulos filhos podem usar os itens em seus módulos ancestrais. Neste teste, trazemos todos os itens pertencentes ao pai do módulo `tests` para o escopo com `use super::*`, e então o teste pode chamar `internal_adder`. Se você não acha que funções privadas devem ser testadas, não há nada em Rust que o obrigue a fazê-lo.
@@ -105,6 +107,8 @@ fn it_adds_two() {
     assert_eq!(result, 4);
 }
 ```
+
+<a id="listagem-11-13"></a>
 
 [Listagem 11-13](#listagem-11-13): Um teste de integração de uma função na crate `adder`
 

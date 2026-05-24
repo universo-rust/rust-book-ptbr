@@ -24,6 +24,8 @@ pub fn eat_at_restaurant() {
 }
 ```
 
+<a id="listagem-7-21"></a>
+
 [Listagem 7-21](#listagem-7-21): Declarando o módulo `front_of_house` cujo corpo estará em _src/front_of_house.rs_
 
 Em seguida, coloque o código que estava nas chaves em um novo arquivo chamado _src/front_of_house.rs_, como mostrado na Listagem 7-22. O compilador sabe procurar neste arquivo porque encontrou a declaração do módulo na raiz do crate com o nome `front_of_house`.
@@ -35,6 +37,8 @@ pub mod hosting {
     pub fn add_to_waitlist() {}
 }
 ```
+
+<a id="listagem-7-22"></a>
 
 [Listagem 7-22](#listagem-7-22): Definições dentro do módulo `front_of_house` em _src/front_of_house.rs_
 

@@ -63,6 +63,8 @@ fn main() {
 }
 ```
 
+<a id="listagem-20-25"></a>
+
 [Listagem 20-25](#listagem-20-25): Usando um tipo longo em muitos lugares
 
 Um alias de tipo torna o código mais gerenciável ao reduzir repetição. Na Listagem 20-26 introduzimos um alias `Thunk` para o tipo verboso e substituímos todos os usos pelo alias mais curto `Thunk`.
@@ -84,6 +86,8 @@ fn main() {
     }
 }
 ```
+
+<a id="listagem-20-26"></a>
 
 [Listagem 20-26](#listagem-20-26): Introduzindo o alias de tipo `Thunk` para reduzir repetição
 
@@ -164,6 +168,8 @@ Mas qual a utilidade de um tipo para o qual nunca criamos valores? Lembre-se do 
 
         // --snip--
 ```
+
+<a id="listagem-20-27"></a>
 
 [Listagem 20-27](#listagem-20-27): Um `match` com braço que termina em `continue`
 
