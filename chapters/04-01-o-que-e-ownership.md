@@ -12,21 +12,21 @@ Como ownership é um conceito novo para muitos programadores, leva algum tempo p
 
 Quando você entende ownership, passa a ter uma base sólida para compreender as funcionalidades que tornam Rust único. Neste capítulo, você aprenderá ownership trabalhando com alguns exemplos que focam em uma estrutura de dados muito comum: _strings_.
 
-## A _stack_ e a _heap_
-
-Muitas linguagens de programação não exigem que você pense com frequência sobre a _stack_ e a _heap_. Porém, em uma linguagem de programação de sistemas como Rust, o fato de um valor estar na stack ou na heap afeta o comportamento da linguagem e explica por que certas decisões precisam ser tomadas. Partes do sistema de ownership serão descritas em relação à stack e à heap mais adiante neste capítulo, então aqui vai uma breve explicação como preparação.
-
-Tanto a stack quanto a heap são partes da memória disponíveis para o seu código usar em tempo de execução, mas elas são estruturadas de formas diferentes. A stack armazena valores na ordem em que os recebe e remove os valores na ordem inversa. Isso é conhecido como _last in, first out (LIFO)_, ou "último a entrar, primeiro a sair". Pense em uma pilha de pratos: quando você adiciona mais pratos, coloca-os no topo da pilha, e quando precisa de um prato, tira um do topo. Adicionar ou remover pratos do meio ou da base não funcionaria tão bem! Adicionar dados é chamado de _push_ na stack, e remover dados é chamado de _pop_ da stack. Todos os dados armazenados na stack precisam ter um tamanho conhecido e fixo. Dados com tamanho desconhecido em tempo de compilação ou cujo tamanho pode mudar devem ser armazenados na heap.
-
-A heap é menos organizada: quando você coloca dados na heap, você solicita uma certa quantidade de espaço. O alocador de memória encontra um local vazio na heap que seja grande o suficiente, marca esse espaço como estando em uso e retorna um ponteiro, que é o endereço dessa localização. Esse processo é chamado de alocação na heap e, muitas vezes, é abreviado simplesmente como alocação (push de valores para a stack não é considerado alocação). Como o ponteiro para a heap tem um tamanho conhecido e fixo, você pode armazenar esse ponteiro na stack; porém, quando quiser acessar os dados reais, será necessário seguir o ponteiro. Pense em estar sendo acomodado em um restaurante: ao entrar, você informa o número de pessoas do seu grupo, e o anfitrião encontra uma mesa vazia que comporte todos e o conduz até ela. Se alguém do seu grupo chegar atrasado, essa pessoa pode perguntar onde vocês estão sentados para encontrá-los.
-
-Colocar dados na stack é mais rápido do que alocar na heap, porque o alocador nunca precisa procurar um local para armazenar novos dados; esse local está sempre no topo da stack. Em comparação, alocar espaço na heap exige mais trabalho, pois o alocador primeiro precisa encontrar um espaço grande o suficiente para conter os dados e, depois, realizar tarefas de controle para preparar a próxima alocação.
-
-Acessar dados na heap geralmente é mais lento do que acessar dados na stack, porque é necessário seguir um ponteiro para chegar até eles. Processadores modernos são mais rápidos quando precisam "pular" menos pela memória. Continuando a analogia, imagine um garçom em um restaurante anotando pedidos de várias mesas. É mais eficiente pegar todos os pedidos de uma mesa antes de ir para a próxima. Anotar um pedido da mesa A, depois um da mesa B, depois outro da A e outro da B seria um processo bem mais lento. Da mesma forma, um processador normalmente consegue executar melhor seu trabalho quando lida com dados que estão próximos uns dos outros (como acontece na stack), em vez de dados mais distantes (como pode ocorrer na heap).
-
-Quando o seu código chama uma função, os valores passados para essa função (incluindo, potencialmente, ponteiros para dados na heap) e as variáveis locais da função são colocados na stack. Quando a função termina, esses valores são removidos da stack.
-
-Acompanhar quais partes do código estão usando quais dados na heap, minimizar a quantidade de dados duplicados na heap e limpar dados não utilizados na heap para que você não fique sem espaço são todos problemas que o sistema de ownership resolve. Depois que você entende ownership, não precisará pensar na stack e na heap com muita frequência. Ainda assim, saber que o principal objetivo do ownership é gerenciar dados na heap ajuda a explicar por que ele funciona da maneira que funciona.
+> ### A _stack_ e a _heap_
+>
+> Muitas linguagens de programação não exigem que você pense com frequência sobre a _stack_ e a _heap_. Porém, em uma linguagem de programação de sistemas como Rust, o fato de um valor estar na stack ou na heap afeta o comportamento da linguagem e explica por que certas decisões precisam ser tomadas. Partes do sistema de ownership serão descritas em relação à stack e à heap mais adiante neste capítulo, então aqui vai uma breve explicação como preparação.
+>
+> Tanto a stack quanto a heap são partes da memória disponíveis para o seu código usar em tempo de execução, mas elas são estruturadas de formas diferentes. A stack armazena valores na ordem em que os recebe e remove os valores na ordem inversa. Isso é conhecido como _last in, first out (LIFO)_, ou "último a entrar, primeiro a sair". Pense em uma pilha de pratos: quando você adiciona mais pratos, coloca-os no topo da pilha, e quando precisa de um prato, tira um do topo. Adicionar ou remover pratos do meio ou da base não funcionaria tão bem! Adicionar dados é chamado de _push_ na stack, e remover dados é chamado de _pop_ da stack. Todos os dados armazenados na stack precisam ter um tamanho conhecido e fixo. Dados com tamanho desconhecido em tempo de compilação ou cujo tamanho pode mudar devem ser armazenados na heap.
+>
+> A heap é menos organizada: quando você coloca dados na heap, você solicita uma certa quantidade de espaço. O alocador de memória encontra um local vazio na heap que seja grande o suficiente, marca esse espaço como estando em uso e retorna um ponteiro, que é o endereço dessa localização. Esse processo é chamado de alocação na heap e, muitas vezes, é abreviado simplesmente como alocação (push de valores para a stack não é considerado alocação). Como o ponteiro para a heap tem um tamanho conhecido e fixo, você pode armazenar esse ponteiro na stack; porém, quando quiser acessar os dados reais, será necessário seguir o ponteiro. Pense em estar sendo acomodado em um restaurante: ao entrar, você informa o número de pessoas do seu grupo, e o anfitrião encontra uma mesa vazia que comporte todos e o conduz até ela. Se alguém do seu grupo chegar atrasado, essa pessoa pode perguntar onde vocês estão sentados para encontrá-los.
+>
+> Colocar dados na stack é mais rápido do que alocar na heap, porque o alocador nunca precisa procurar um local para armazenar novos dados; esse local está sempre no topo da stack. Em comparação, alocar espaço na heap exige mais trabalho, pois o alocador primeiro precisa encontrar um espaço grande o suficiente para conter os dados e, depois, realizar tarefas de controle para preparar a próxima alocação.
+>
+> Acessar dados na heap geralmente é mais lento do que acessar dados na stack, porque é necessário seguir um ponteiro para chegar até eles. Processadores modernos são mais rápidos quando precisam "pular" menos pela memória. Continuando a analogia, imagine um garçom em um restaurante anotando pedidos de várias mesas. É mais eficiente pegar todos os pedidos de uma mesa antes de ir para a próxima. Anotar um pedido da mesa A, depois um da mesa B, depois outro da A e outro da B seria um processo bem mais lento. Da mesma forma, um processador normalmente consegue executar melhor seu trabalho quando lida com dados que estão próximos uns dos outros (como acontece na stack), em vez de dados mais distantes (como pode ocorrer na heap).
+>
+> Quando o seu código chama uma função, os valores passados para essa função (incluindo, potencialmente, ponteiros para dados na heap) e as variáveis locais da função são colocados na stack. Quando a função termina, esses valores são removidos da stack.
+>
+> Acompanhar quais partes do código estão usando quais dados na heap, minimizar a quantidade de dados duplicados na heap e limpar dados não utilizados na heap para que você não fique sem espaço são todos problemas que o sistema de ownership resolve. Depois que você entende ownership, não precisará pensar na stack e na heap com muita frequência. Ainda assim, saber que o principal objetivo do ownership é gerenciar dados na heap ajuda a explicar por que ele funciona da maneira que funciona.
 
 ## Regras de ownership
 
@@ -164,23 +164,17 @@ Isso parece muito semelhante, então podemos supor que funciona da mesma forma: 
 
 Observe a Figura 4-1 para ver o que acontece com `String` por baixo dos panos. Uma `String` é composta por três partes, mostradas à esquerda: um ponteiro para a memória que contém o conteúdo da string, um comprimento (_length_) e uma capacidade (_capacity_). Esse grupo de dados fica armazenado na stack. À direita está a memória na heap que contém o conteúdo.
 
-![Duas tabelas: a primeira contém a representação de s1 na stack, com comprimento (5), capacidade (5) e um ponteiro para o primeiro valor da segunda tabela. A segunda tabela contém a representação dos dados da string na heap, byte a byte.](https://doc.rust-lang.org/book/img/trpl04-01.svg)
-
-*Figura 4-1: A representação na memória de uma `String` com o valor `"hello"` associada a `s1`*
+*Figura 4-1: A representação na memória de uma `String` com o valor `"hello"` associada a `s1`. Duas tabelas: a primeira contém a representação de s1 na stack, com comprimento (5), capacidade (5) e um ponteiro para o primeiro valor da segunda tabela. A segunda tabela contém a representação dos dados da string na heap, byte a byte.*
 
 O comprimento é quanta memória, em bytes, o conteúdo da `String` está usando atualmente. A capacidade é a quantidade total de memória, em bytes, que a `String` recebeu do alocador. A diferença entre comprimento e capacidade importa, mas não neste contexto; por enquanto, podemos ignorar a capacidade.
 
 Quando atribuímos `s1` a `s2`, os dados da `String` são copiados — ou seja, copiamos o ponteiro, o comprimento e a capacidade que estão na stack. Não copiamos os dados na heap aos quais o ponteiro se refere. Em outras palavras, a representação dos dados na memória fica como na Figura 4-2.
 
-![Três tabelas: as tabelas s1 e s2 representam essas strings na stack, respectivamente, e ambas apontam para os mesmos dados da string na heap.](https://doc.rust-lang.org/book/img/trpl04-02.svg)
-
-*Figura 4-2: A representação na memória da variável `s2`, que tem uma cópia do ponteiro, do comprimento e da capacidade de `s1`*
+*Figura 4-2: A representação na memória da variável `s2`, que tem uma cópia do ponteiro, do comprimento e da capacidade de `s1`. Três tabelas: as tabelas s1 e s2 representam essas strings na stack, respectivamente, e ambas apontam para os mesmos dados da string na heap.*
 
 A representação _não_ fica como na Figura 4-3, que é como a memória seria se Rust copiasse também os dados na heap. Se Rust fizesse isso, a operação `s2 = s1` poderia ser muito custosa em tempo de execução se os dados na heap fossem grandes.
 
-![Quatro tabelas: duas tabelas representam os dados na stack de s1 e s2, e cada uma aponta para sua própria cópia dos dados da string na heap.](https://doc.rust-lang.org/book/img/trpl04-03.svg)
-
-*Figura 4-3: Outra possibilidade do que `s2 = s1` poderia fazer se Rust copiasse também os dados na heap*
+*Figura 4-3: Outra possibilidade do que `s2 = s1` poderia fazer se Rust copiasse também os dados na heap. Quatro tabelas: duas tabelas representam os dados na stack de s1 e s2, e cada uma aponta para sua própria cópia dos dados da string na heap.*
 
 Como dissemos antes, quando uma variável sai de escopo, Rust chama automaticamente a função `drop` e limpa a memória na heap dessa variável. Mas a Figura 4-2 mostra ambos os ponteiros de dados apontando para o mesmo local. Isso é um problema: quando `s2` e `s1` saírem de escopo, ambos tentarão liberar a mesma memória. Isso é conhecido como erro de _double free_ e é um dos bugs de segurança de memória que mencionamos antes. Liberar memória duas vezes pode levar à corrupção de memória, o que pode resultar em vulnerabilidades de segurança.
 
@@ -225,9 +219,7 @@ error: could not compile `ownership` (bin "ownership") due to 1 previous error
 
 Se você já ouviu os termos _cópia superficial_ (_shallow copy_) e _cópia profunda_ (_deep copy_) em outras linguagens, o conceito de copiar o ponteiro, o comprimento e a capacidade sem copiar os dados provavelmente soa como uma cópia superficial. Mas, como o Rust também invalida a primeira variável, em vez de ser chamada de cópia superficial, isso é conhecido como _move_. Neste exemplo, diríamos que `s1` foi _movida_ (_moved_) para `s2`. O que realmente acontece é mostrado na Figura 4-4.
 
-![Três tabelas: as tabelas s1 e s2 representam essas strings na stack, respectivamente, e ambas apontam para os mesmos dados da string na heap. A tabela s1 está acinzentada porque s1 não é mais válida; apenas s2 pode ser usada para acessar os dados na heap.](https://doc.rust-lang.org/book/img/trpl04-04.svg)
-
-*Figura 4-4: A representação na memória depois que `s1` foi invalidada*
+*Figura 4-4: A representação na memória depois que `s1` foi invalidada. Três tabelas: as tabelas s1 e s2 representam essas strings na stack, respectivamente, e ambas apontam para os mesmos dados da string na heap. A tabela s1 está acinzentada porque s1 não é mais válida; apenas s2 pode ser usada para acessar os dados na heap.*
 
 Isso resolve nosso problema! Com apenas `s2` válida, quando ela sair de escopo liberará a memória sozinha, e pronto.
 
@@ -250,9 +242,7 @@ fn main() {
 
 Inicialmente declaramos uma variável `s` e a associamos a uma `String` com o valor `"hello"`. Em seguida, criamos imediatamente uma nova `String` com o valor `"ahoy"` e a atribuímos a `s`. Nesse ponto, nada mais se refere ao valor original na heap. A Figura 4-5 ilustra os dados na stack e na heap agora:
 
-![Uma tabela representa o valor da string na stack, apontando para o segundo trecho de dados da string (ahoy) na heap, com os dados originais da string (hello) acinzentados porque não podem mais ser acessados.](https://doc.rust-lang.org/book/img/trpl04-05.svg)
-
-*Figura 4-5: A representação na memória depois que o valor inicial foi substituído por completo*
+*Figura 4-5: A representação na memória depois que o valor inicial foi substituído por completo. Uma tabela representa o valor da string na stack, apontando para o segundo trecho de dados da string (ahoy) na heap, com os dados originais da string (hello) acinzentados porque não podem mais ser acessados.*
 
 A string original assim sai de escopo imediatamente. Rust executa a função `drop` nela e sua memória é liberada na hora. Quando imprimimos o valor no final, será `"ahoy, world!"`.
 

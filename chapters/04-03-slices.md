@@ -127,11 +127,7 @@ fn main() {
 
 Em vez de uma referência à `String` inteira, `hello` é uma referência a uma porção da `String`, especificada no trecho extra `[0..5]`. Criamos slices usando um intervalo entre colchetes, especificando `[índice_inicial..índice_final]`, em que _`índice_inicial`_ é a primeira posição no slice e _`índice_final`_ é um a mais que a última posição no slice. Internamente, a estrutura de dados do slice armazena a posição inicial e o comprimento do slice, que corresponde a _`índice_final`_ menos _`índice_inicial`_. Assim, no caso de `let world = &s[6..11];`, `world` seria um slice que contém um ponteiro para o byte no índice 6 de `s` com um valor de comprimento 5.
 
-A Figura 4-7 mostra isso em um diagrama.
-
-![Três tabelas: uma tabela representa os dados na stack de s, que aponta para o byte no índice 0 em uma tabela dos dados da string "hello world" na heap. A terceira tabela representa os dados na stack do slice world, que tem um valor de comprimento 5 e aponta para o byte 6 da tabela de dados na heap.](https://doc.rust-lang.org/book/img/trpl04-07.svg)
-
-*Figura 4-7: Um string slice referenciando parte de uma `String`*
+*Figura 4-7: Um string slice referenciando parte de uma `String`. Três tabelas: uma tabela representa os dados na stack de s, que aponta para o byte no índice 0 em uma tabela dos dados da string "hello world" na heap. A terceira tabela representa os dados na stack do slice world, que tem um valor de comprimento 5 e aponta para o byte 6 da tabela de dados na heap.*
 
 Com a sintaxe de intervalo `..` do Rust, se você quiser começar no índice 0, pode omitir o valor antes dos dois pontos. Em outras palavras, estes são iguais:
 
