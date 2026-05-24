@@ -6,15 +6,13 @@ slug: refutabilidade-se-um-padrao-pode-falhar-ao-casar
 
 # Refutabilidade: Se um Padrão Pode Falhar ao Casar
 
-Padrões têm duas formas: refutáveis e irrefutáveis. Padrões que casam com qualquer valor possível são _irrefutáveis_ — por exemplo `x` em `let x = 5;`, porque `x` casa com tudo e não pode falhar.
+Padrões vêm em duas formas: refutáveis e irrefutáveis. Padrões que casarão com qualquer valor possível passado são _irrefutáveis_. Um exemplo seria `x` na instrução `let x = 5;`, porque `x` casa com qualquer coisa e, portanto, não pode falhar ao casar. Padrões que podem falhar ao casar para algum valor possível são _refutáveis_. Um exemplo seria `Some(x)` na expressão `if let Some(x) = a_value`, porque se o valor na variável `a_value` for `None` em vez de `Some`, o padrão `Some(x)` não casará.
 
-Padrões que podem falhar para algum valor são _refutáveis_ — por exemplo `Some(x)` em `if let Some(x) = a_value`, porque se `a_value` for `None`, `Some(x)` não casa.
+Parâmetros de função, instruções `let` e loops `for` só podem aceitar padrões irrefutáveis porque o programa não pode fazer nada significativo quando os valores não casam. As expressões `if let` e `while let` e a instrução `let...else` aceitam padrões refutáveis e irrefutáveis, mas o compilador avisa contra padrões irrefutáveis porque, por definição, elas são destinadas a lidar com possível falha: A funcionalidade de uma condicional está em sua capacidade de se comportar de forma diferente dependendo do sucesso ou da falha.
 
-Parâmetros de função, `let` e loops `for` só aceitam padrões irrefutáveis, porque o programa não tem o que fazer de útil quando o valor não casa. `if let`, `while let` e `let...else` aceitam refutáveis e irrefutáveis, mas o compilador avisa com padrões irrefutáveis — a ideia é lidar com sucesso ou falha.
+Em geral, você não deveria precisar se preocupar com a distinção entre padrões refutáveis e irrefutáveis; no entanto, você precisa estar familiarizado com o conceito de refutabilidade para poder responder quando vê-lo em uma mensagem de erro. Nesses casos, você precisará mudar ou o padrão ou a construção com a qual está usando o padrão, dependendo do comportamento pretendido do código.
 
-Em geral não precisa decorar a distinção, mas precisa reconhecê-la em mensagens de erro e ajustar padrão ou construção conforme o comportamento desejado.
-
-A Listagem 19-8 usa padrão refutável `Some(x)` em `let`, que não compila.
+Vamos ver um exemplo do que acontece quando tentamos usar um padrão refutável onde Rust exige um padrão irrefutável e vice-versa. A Listagem 19-8 mostra uma instrução `let`, mas para o padrão, especificamos `Some(x)`, um padrão refutável. Como você pode esperar, este código não compilará.
 
 **Arquivo: src/main.rs (Este código não compila!)**
 
@@ -25,9 +23,9 @@ fn main() {
 }
 ```
 
-[Listagem 19-8](#listagem-19-8): Tentativa de usar padrão refutável com `let`
+[Listagem 19-8](#listagem-19-8): Tentativa de usar um padrão refutável com `let`
 
-Se `some_option_value` for `None`, não casa com `Some(x)` — refutável. `let` só aceita irrefutável porque não há o que fazer com `None`:
+Se `some_option_value` fosse um valor `None`, ele falharia ao casar com o padrão `Some(x)`, o que significa que o padrão é refutável. No entanto, a instrução `let` só pode aceitar um padrão irrefutável porque não há nada válido que o código possa fazer com um valor `None`. Em tempo de compilação, Rust reclamará que tentamos usar um padrão refutável onde um padrão irrefutável é exigido:
 
 ```bash
 $ cargo run
@@ -50,9 +48,9 @@ For more information about this error, try `rustc --explain E0005`.
 error: could not compile `patterns` (bin "patterns") due to 1 previous error
 ```
 
-Como `Some(x)` não cobre todos os valores, o compilador acusa erro.
+Como não cobrimos (e não poderíamos cobrir!) todo valor válido com o padrão `Some(x)`, Rust corretamente produz um erro de compilador.
 
-Use `let...else` em vez de `let` quando precisar de refutável onde se exige irrefutável (Listagem 19-9).
+Se temos um padrão refutável onde um padrão irrefutável é necessário, podemos corrigir mudando o código que usa o padrão: Em vez de usar `let`, podemos usar `let...else`. Então, se o padrão não casar, o código entre chaves tratará o valor. A Listagem 19-9 mostra como corrigir o código da Listagem 19-8.
 
 **Arquivo: src/main.rs**
 
@@ -65,9 +63,9 @@ fn main() {
 }
 ```
 
-[Listagem 19-9](#listagem-19-9): `let...else` com bloco para padrões refutáveis
+[Listagem 19-9](#listagem-19-9): Usando `let...else` e um bloco com padrões refutáveis em vez de `let`
 
-Código válido. `let...else` com padrão que sempre casa, como `x`, gera aviso (Listagem 19-10).
+Demos uma saída ao código! Este código é perfeitamente válido, embora signifique que não podemos usar um padrão irrefutável sem receber um aviso. Se dermos a `let...else` um padrão que sempre casará, como `x`, como mostrado na Listagem 19-10, o compilador emitirá um aviso.
 
 **Arquivo: src/main.rs**
 
@@ -79,7 +77,9 @@ fn main() {
 }
 ```
 
-[Listagem 19-10](#listagem-19-10): Tentativa de padrão irrefutável com `let...else`
+[Listagem 19-10](#listagem-19-10): Tentativa de usar um padrão irrefutável com `let...else`
+
+Rust reclama que não faz sentido usar `let...else` com um padrão irrefutável:
 
 ```bash
 $ cargo run
@@ -99,6 +99,6 @@ warning: `patterns` (bin "patterns") generated 1 warning
      Running `target/debug/patterns`
 ```
 
-Braços de `match` devem ser refutáveis, exceto o último, que deve ser irrefutável (catch-all). Rust permite irrefutável em `match` de um braço só, mas `let` seria mais simples.
+Por essa razão, braços de match devem usar padrões refutáveis, exceto o último braço, que deve casar com quaisquer valores restantes com um padrão irrefutável. Rust nos permite usar um padrão irrefutável em um `match` com apenas um braço, mas esta sintaxe não é particularmente útil e poderia ser substituída por uma instrução `let` mais simples.
 
-Agora cobrimos onde usar padrões e refutabilidade; em seguida, toda a sintaxe de padrões.
+Agora que você sabe onde usar padrões e a diferença entre padrões refutáveis e irrefutáveis, vamos cobrir toda a sintaxe que podemos usar para criar padrões.
