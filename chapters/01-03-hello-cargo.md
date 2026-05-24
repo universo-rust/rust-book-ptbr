@@ -46,13 +46,15 @@ edition = "2024"
  
 [dependencies]
 ```
-[Listagem 1-2](#): Conteúdo do arquivo *Cargo.toml* gerado pelo comando `cargo new`
+<a id="listagem-1-2"></a>
+
+[Listagem 1-2](#listagem-1-2): Conteúdo do arquivo *Cargo.toml* gerado pelo comando `cargo new`
 
 Esse arquivo utiliza o formato [*TOML*](https://toml.io/) (Tom's Obvious, Minimal Language), que é o formato de configuração do Cargo.
 
 A primeira linha, `[package]`, indica que as declarações seguintes estão configurando um pacote. À medida que adicionarmos mais informações a esse arquivo, novas seções serão incluídas.
 
-As três linhas seguintes definem as informações necessárias para o Cargo compilar seu programa: o nome, a versão e a edition do Rust utilizada. Falaremos mais sobre a chave `edition` no [Apêndice E](#).
+As três linhas seguintes definem as informações necessárias para o Cargo compilar seu programa: o nome, a versão e a edition do Rust utilizada. Falaremos mais sobre a chave `edition` no [Apêndice E](/livro/cap22-05-edicoes).
 
 A seção `[dependencies]` é onde você lista as dependências do projeto. Em Rust, pacotes de código são chamados de *crates*. Não precisaremos de dependências neste projeto, mas usaremos essa seção no primeiro projeto do Capítulo 2.
 

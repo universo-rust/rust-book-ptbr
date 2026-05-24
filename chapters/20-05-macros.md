@@ -16,7 +16,7 @@ Falaremos sobre cada um deles por turno, mas primeiro, vamos ver por que precisa
 
 ## A Diferença Entre Macros e Funções
 
-Fundamentalmente, macros são uma forma de escrever código que escreve outro código, o que é conhecido como _metaprogramação_. No Apêndice C, discutimos o atributo `derive`, que gera uma implementação de várias traits para você. Também usamos as macros `println!` e `vec!` ao longo do livro. Todas essas macros _expandem_ para produzir mais código do que o código que você escreveu manualmente.
+Fundamentalmente, macros são uma forma de escrever código que escreve outro código, o que é conhecido como _metaprogramação_. No [Apêndice C](/livro/cap22-03-traits-derivaveis), discutimos o atributo `derive`, que gera uma implementação de várias traits para você. Também usamos as macros `println!` e `vec!` ao longo do livro. Todas essas macros _expandem_ para produzir mais código do que o código que você escreveu manualmente.
 
 Metaprogramação é útil para reduzir a quantidade de código que você precisa escrever e manter, que também é um dos papéis das funções. Porém, macros têm alguns poderes adicionais que funções não têm.
 

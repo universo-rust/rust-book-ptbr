@@ -406,7 +406,7 @@ A ação final que funciona apenas com `unsafe` é acessar campos de uma _union_
 
 Ao escrever código _unsafe_, você pode querer verificar se o que escreveu realmente é seguro e correto. Uma das melhores formas de fazer isso é usar Miri, uma ferramenta oficial do Rust para detectar comportamento indefinido. Enquanto o borrow checker é uma ferramenta _estática_ que funciona em tempo de compilação, Miri é uma ferramenta _dinâmica_ que funciona em tempo de execução. Ela verifica seu código executando seu programa, ou sua suíte de testes, e detectando quando você viola as regras que ela entende sobre como Rust deve funcionar.
 
-Usar Miri exige uma build nightly do Rust (sobre a qual falamos mais no Apêndice G: Como o Rust é feito e “Nightly Rust”). Você pode instalar tanto uma versão nightly do Rust quanto a ferramenta Miri digitando `rustup +nightly component add miri`. Isso não altera qual versão do Rust seu projeto usa; só adiciona a ferramenta ao seu sistema para você usar quando quiser. Você pode executar Miri em um projeto digitando `cargo +nightly miri run` ou `cargo +nightly miri test`.
+Usar Miri exige uma build nightly do Rust (sobre a qual falamos mais no [Apêndice G: Como o Rust é feito e “Nightly Rust”](/livro/cap22-07-como-o-rust-e-feito-e-nightly-rust)). Você pode instalar tanto uma versão nightly do Rust quanto a ferramenta Miri digitando `rustup +nightly component add miri`. Isso não altera qual versão do Rust seu projeto usa; só adiciona a ferramenta ao seu sistema para você usar quando quiser. Você pode executar Miri em um projeto digitando `cargo +nightly miri run` ou `cargo +nightly miri test`.
 
 Para um exemplo de quão útil isso pode ser, considere o que acontece quando a executamos contra a Listagem 20-7.
 

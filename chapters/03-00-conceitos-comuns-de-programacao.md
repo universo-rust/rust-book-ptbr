@@ -16,4 +16,4 @@ Especificamente, você vai aprender sobre variáveis, tipos básicos, funções,
 >
 > A maioria dessas palavras-chave tem significados especiais, e você vai utilizá-las para realizar diversas tarefas nos seus programas em Rust. Algumas delas ainda não têm uma funcionalidade associada no momento, mas foram reservadas para possíveis recursos que podem ser adicionados à linguagem no futuro.
 >
-> Você pode encontrar a lista completa de palavras-chave no [Apêndice A](#).
+> Você pode encontrar a lista completa de palavras-chave no [Apêndice A](/livro/cap22-01-palavras-chave).

@@ -71,6 +71,8 @@ A Tabela B-1 contém os operadores em Rust, um exemplo de como o operador aparec
 | <code>&vert;&vert;</code> | <code>expr &vert;&vert; expr</code> | OR lógico de curto-circuito | |
 | `?` | `expr?` | Propagação de erro | |
 
+<a id="tabela-b-1"></a>
+
 [Tabela B-1](#tabela-b-1): Operadores
 
 ### Símbolos que não são operadores
@@ -93,6 +95,8 @@ A Tabela B-2 mostra símbolos que aparecem sozinhos e são válidos em uma varie
 | `!` | Tipo bottom sempre vazio para funções divergentes |
 | `_` | Binding de padrão “ignorado”; também usado para tornar literais inteiros legíveis |
 
+<a id="tabela-b-2"></a>
+
 [Tabela B-2](#tabela-b-2): Sintaxe isolada
 
 A Tabela B-3 mostra símbolos que aparecem no contexto de um caminho pela hierarquia de módulos até um item.
@@ -109,6 +113,8 @@ A Tabela B-3 mostra símbolos que aparecem no contexto de um caminho pela hierar
 | `type::method(...)` | Desambiguação de chamada de método nomeando o tipo para o qual está definido |
 | `<type as trait>::method(...)` | Desambiguação de chamada de método nomeando a trait e o tipo |
 
+<a id="tabela-b-3"></a>
+
 [Tabela B-3](#tabela-b-3): Sintaxe relacionada a caminhos
 
 A Tabela B-4 mostra símbolos que aparecem no contexto do uso de parâmetros de tipo genérico.
@@ -124,6 +130,8 @@ A Tabela B-4 mostra símbolos que aparecem no contexto do uso de parâmetros de 
 | `for<...> type` | Limites de lifetime de ordem superior |
 | `type<ident=type>` | Um tipo genérico em que um ou mais tipos associados têm atribuições específicas (por exemplo, `Iterator<Item=T>`) |
 
+<a id="tabela-b-4"></a>
+
 [Tabela B-4](#tabela-b-4): Genéricos
 
 A Tabela B-5 mostra símbolos que aparecem no contexto de restringir parâmetros de tipo genérico com trait bounds.
@@ -136,6 +144,8 @@ A Tabela B-5 mostra símbolos que aparecem no contexto de restringir parâmetros
 | `'b: 'a` | Lifetime genérico `'b` deve sobreviver ao lifetime `'a` |
 | `T: ?Sized` | Permite que o parâmetro de tipo genérico seja um tipo de tamanho dinâmico |
 | `'a + trait`, `trait + trait` | Restrição de tipo composto |
+
+<a id="tabela-b-5"></a>
 
 [Tabela B-5](#tabela-b-5): Restrições de trait bound
 
@@ -150,6 +160,8 @@ A Tabela B-6 mostra símbolos que aparecem no contexto de chamar ou definir macr
 | `$(...)...` | Repetição de macro |
 | `ident!(...)`, `ident!{...}`, `ident![...]` | Invocação de macro |
 
+<a id="tabela-b-6"></a>
+
 [Tabela B-6](#tabela-b-6): Macros e atributos
 
 A Tabela B-7 mostra símbolos que criam comentários.
@@ -162,6 +174,8 @@ A Tabela B-7 mostra símbolos que criam comentários.
 | `/*...*/` | Comentário de bloco |
 | `/*!...*/` | Comentário de documentação de bloco interno |
 | `/**...*/` | Comentário de documentação de bloco externo |
+
+<a id="tabela-b-7"></a>
 
 [Tabela B-7](#tabela-b-7): Comentários
 
@@ -177,6 +191,8 @@ A Tabela B-8 mostra os contextos em que parênteses são usados.
 | `(type, ...)` | Tipo de tupla |
 | `expr(expr, ...)` | Expressão de chamada de função; também usada para inicializar `struct`s tupla e variantes de `enum` tupla |
 
+<a id="tabela-b-8"></a>
+
 [Tabela B-8](#tabela-b-8): Parênteses
 
 A Tabela B-9 mostra os contextos em que chaves são usadas.
@@ -185,6 +201,8 @@ A Tabela B-9 mostra os contextos em que chaves são usadas.
 | ------------ | ---------------- |
 | `{...}` | Expressão de bloco |
 | `Type {...}` | Struct literal |
+
+<a id="tabela-b-9"></a>
 
 [Tabela B-9](#tabela-b-9): Chaves
 
@@ -197,5 +215,7 @@ A Tabela B-10 mostra os contextos em que colchetes são usados.
 | `[type; len]` | Tipo de array contendo `len` instâncias de `type` |
 | `expr[expr]` | Indexação de coleção; sobrecarregável (`Index`, `IndexMut`) |
 | `expr[..]`, `expr[a..]`, `expr[..b]`, `expr[a..b]` | Indexação de coleção simulando fatiamento de coleção, usando `Range`, `RangeFrom`, `RangeTo` ou `RangeFull` como o “índice” |
+
+<a id="tabela-b-10"></a>
 
 [Tabela B-10](#tabela-b-10): Colchetes

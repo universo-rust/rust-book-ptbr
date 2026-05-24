@@ -8,7 +8,7 @@ slug: hello-world
 
 Agora que você instalou o Rust, é hora de escrever seu primeiro programa em Rust. É tradicional, ao aprender uma nova linguagem, escrever um pequeno programa que imprime o texto `Hello, world!` na tela, então faremos o mesmo aqui!
 
-> **Nota:** Este livro assume familiaridade básica com a linha de comando. O Rust não faz exigências específicas sobre qual editor ou ferramenta você deve usar ou onde seu código deve ficar, então, se você preferir usar uma IDE em vez da linha de comando, sinta-se à vontade para usar sua IDE favorita. Muitas IDEs já oferecem algum nível de suporte ao Rust; consulte a documentação da IDE para mais detalhes. A equipe do Rust tem se concentrado em oferecer um excelente suporte a IDEs por meio do `rust-analyzer`. Veja o [Apêndice D](#) para mais detalhes.
+> **Nota:** Este livro assume familiaridade básica com a linha de comando. O Rust não faz exigências específicas sobre qual editor ou ferramenta você deve usar ou onde seu código deve ficar, então, se você preferir usar uma IDE em vez da linha de comando, sinta-se à vontade para usar sua IDE favorita. Muitas IDEs já oferecem algum nível de suporte ao Rust; consulte a documentação da IDE para mais detalhes. A equipe do Rust tem se concentrado em oferecer um excelente suporte a IDEs por meio do `rust-analyzer`. Veja o [Apêndice D](/livro/cap22-04-ferramentas-de-desenvolvimento-uteis) para mais detalhes.
 
 ### Configuração do diretório do projeto
 

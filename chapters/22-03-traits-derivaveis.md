@@ -22,7 +22,7 @@ As traits listadas aqui são as únicas definidas pela biblioteca padrão que po
 
 Um exemplo de trait que não pode ser derivada é `Display`, que lida com formatação para usuários finais. Você deve sempre considerar a forma apropriada de exibir um tipo para um usuário final. Quais partes do tipo um usuário final deve poder ver? Quais partes seriam relevantes para ele? Qual formato dos dados seria mais relevante? O compilador Rust não tem essa percepção, então não pode fornecer comportamento padrão apropriado para você.
 
-A lista de traits deriváveis fornecida neste apêndice não é exaustiva: bibliotecas podem implementar `derive` para suas próprias traits, tornando a lista de traits com as quais você pode usar `derive` verdadeiramente aberta. Implementar `derive` envolve usar uma macro procedural, que é abordada na seção [“Macros `derive` customizadas”](#macros-derive-customizadas) do Capítulo 20.
+A lista de traits deriváveis fornecida neste apêndice não é exaustiva: bibliotecas podem implementar `derive` para suas próprias traits, tornando a lista de traits com as quais você pode usar `derive` verdadeiramente aberta. Implementar `derive` envolve usar uma macro procedural, que é abordada na seção [“Macros `derive` customizadas”](/livro/cap20-05-macros#macros-derive-personalizadas) do Capítulo 20.
 
 ### `Debug` para saída do programador
 
@@ -60,13 +60,13 @@ Um exemplo de quando `Ord` é necessária é ao armazenar valores em um `BTreeSe
 
 ### `Clone` e `Copy` para duplicar valores
 
-A trait `Clone` permite criar explicitamente uma cópia profunda de um valor, e o processo de duplicação pode envolver executar código arbitrário e copiar dados no heap. Consulte a seção [“Variáveis e dados interagindo com Clone”](#variaveis-e-dados-interagindo-com-clone) do Capítulo 4 para mais informações sobre `Clone`.
+A trait `Clone` permite criar explicitamente uma cópia profunda de um valor, e o processo de duplicação pode envolver executar código arbitrário e copiar dados no heap. Consulte a seção [“Variáveis e dados interagindo com Clone”](/livro/cap04-01-o-que-e-ownership#variáveis-e-dados-interagindo-com-clone) do Capítulo 4 para mais informações sobre `Clone`.
 
 Derivar `Clone` implementa o método `clone`, que, quando implementado para o tipo inteiro, chama `clone` em cada uma das partes do tipo. Isso significa que todos os campos ou valores no tipo também devem implementar `Clone` para derivar `Clone`.
 
 Um exemplo de quando `Clone` é necessária é ao chamar o método `to_vec` em uma fatia. A fatia não tem ownership das instâncias do tipo que contém, mas o vetor retornado por `to_vec` precisará ter ownership de suas instâncias, então `to_vec` chama `clone` em cada item. Assim, o tipo armazenado na fatia deve implementar `Clone`.
 
-A trait `Copy` permite duplicar um valor apenas copiando bits armazenados na pilha; nenhum código arbitrário é necessário. Consulte a seção [“Dados apenas na pilha: Copy”](#dados-apenas-na-pilha-copy) do Capítulo 4 para mais informações sobre `Copy`.
+A trait `Copy` permite duplicar um valor apenas copiando bits armazenados na pilha; nenhum código arbitrário é necessário. Consulte a seção [“Dados somente na pilha: Copy”](/livro/cap04-01-o-que-e-ownership#dados-somente-na-pilha-copy) do Capítulo 4 para mais informações sobre `Copy`.
 
 A trait `Copy` não define nenhum método para impedir que programadores sobrecarreguem esses métodos e violem a suposição de que nenhum código arbitrário está sendo executado. Dessa forma, todos os programadores podem assumir que copiar um valor será muito rápido.
 
@@ -86,6 +86,6 @@ Um exemplo de quando `Hash` é necessária é ao armazenar chaves em um `HashMap
 
 A trait `Default` permite criar um valor padrão para um tipo. Derivar `Default` implementa a função `default`. A implementação derivada da função `default` chama a função `default` em cada parte do tipo, o que significa que todos os campos ou valores no tipo também devem implementar `Default` para derivar `Default`.
 
-A função `Default::default` é comumente usada em combinação com a sintaxe de atualização de struct discutida na seção [“Criando instâncias a partir de outras instâncias com sintaxe de atualização de struct”](#criando-instancias-a-partir-de-outras-instancias-com-sintaxe-de-atualizacao-de-struct) do Capítulo 5. Você pode personalizar alguns campos de uma struct e então definir e usar um valor padrão para o restante dos campos usando `..Default::default()`.
+A função `Default::default` é comumente usada em combinação com a sintaxe de atualização de struct discutida na seção [“Criando instâncias com sintaxe de atualização de struct”](/livro/cap05-01-definindo-structs#criando-instâncias-com-sintaxe-de-atualização-de-struct) do Capítulo 5. Você pode personalizar alguns campos de uma struct e então definir e usar um valor padrão para o restante dos campos usando `..Default::default()`.
 
 A trait `Default` é necessária quando você usa o método `unwrap_or_default` em instâncias de `Option<T>`, por exemplo. Se o `Option<T>` for `None`, o método `unwrap_or_default` retornará o resultado de `Default::default` para o tipo `T` armazenado no `Option<T>`.

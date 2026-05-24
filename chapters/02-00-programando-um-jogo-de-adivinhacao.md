@@ -122,7 +122,7 @@ Agora o programa está ficando interessante! Há muito acontecendo nesta pequena
 let apples = 5;
 ```
 
-Esta linha cria uma nova variável chamada `apples` e a atribui o valor 5. Em Rust, variáveis são imutáveis por padrão, o que significa que uma vez que damos à variável um valor, o valor não mudará. Discutiremos este conceito em detalhes na seção [Variáveis e Mutabilidade](#) no Capítulo 3. Para tornar uma variável mutável, adicionamos `mut` antes do nome da variável:
+Esta linha cria uma nova variável chamada `apples` e a atribui o valor 5. Em Rust, variáveis são imutáveis por padrão, o que significa que uma vez que damos à variável um valor, o valor não mudará. Discutiremos este conceito em detalhes na seção [Variáveis e Mutabilidade](/livro/cap03-01-variaveis-e-mutabilidade) no Capítulo 3. Para tornar uma variável mutável, adicionamos `mut` antes do nome da variável:
 
 ```rust
 let apples = 5; // imutável

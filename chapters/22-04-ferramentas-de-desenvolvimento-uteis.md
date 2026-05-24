@@ -71,7 +71,7 @@ fn main() {
 
 A variável `x` agora é imutável, e o aviso não aparece mais.
 
-Você também pode usar o comando `cargo fix` para migrar seu código entre diferentes edições do Rust. As edições são abordadas no Apêndice E.
+Você também pode usar o comando `cargo fix` para migrar seu código entre diferentes edições do Rust. As edições são abordadas no [Apêndice E](/livro/cap22-05-edicoes).
 
 ### Mais lints com o Clippy
 

@@ -21,7 +21,9 @@ fn main() {
     println!("The value of x is: {x}");
 }
 ```
-[Listagem 1](#): Exemplo de código tentando alterar uma variável imutável
+<a id="listagem-3-1"></a>
+
+[Listagem 3-1](#listagem-3-1): Exemplo de código tentando alterar uma variável imutável
 
 Salve o arquivo e execute o programa com:
 
@@ -43,7 +45,7 @@ Você recebeu a mensagem de erro *cannot assign twice to immutable variable `x`*
 
 É importante que esse tipo de erro seja detectado em tempo de compilação, porque essa situação pode facilmente levar a bugs. Imagine que uma parte do código assume que um valor nunca vai mudar, enquanto outra parte altera esse valor. O compilador do Rust garante que, quando você diz que um valor não vai mudar, ele realmente não muda, o que torna o código mais fácil de entender e de manter.
 
-Por outro lado, a mutabilidade pode ser muito útil e tornar o código mais conveniente de escrever. Embora as variáveis sejam imutáveis por padrão, você pode torná-las mutáveis adicionando a palavra-chave `mut` antes do nome da variável, como você fez no [Capítulo 2](https://universorust.com.br/area-membro/livro-rust/2-programando-um-jogo-de-adivinhacao). Isso também deixa clara a sua intenção para quem for ler o código no futuro.
+Por outro lado, a mutabilidade pode ser muito útil e tornar o código mais conveniente de escrever. Embora as variáveis sejam imutáveis por padrão, você pode torná-las mutáveis adicionando a palavra-chave `mut` antes do nome da variável, como você fez no [Capítulo 2](/livro/cap02-00-programando-um-jogo-de-adivinhacao). Isso também deixa clara a sua intenção para quem for ler o código no futuro.
 
 Veja o exemplo abaixo:
 
@@ -56,7 +58,9 @@ fn main() {
     println!("The value of x is: {x}");
 }
 ```
-[Listagem 2](#): Exemplo usando uma variável mutável
+<a id="listagem-3-2"></a>
+
+[Listagem 3-2](#listagem-3-2): Exemplo usando uma variável mutável
 
 Ao executar o programa, o resultado será:
 
@@ -71,7 +75,7 @@ Nesse caso, é permitido alterar o valor associado a `x` de 5 para 6 porque usam
 
 Assim como as variáveis imutáveis, constantes são valores associados a um nome e não podem ser alterados. Porém, existem algumas diferenças importantes entre constantes e variáveis.
 
-Primeiro, não é permitido usar `mut` com constantes. As constantes não são apenas imutáveis por padrão — elas são sempre imutáveis. Para declarar uma constante, usamos a palavra-chave `const` em vez de `let`, e o tipo do valor deve ser informado obrigatoriamente. Vamos falar mais sobre tipos e anotações de tipo na próxima seção, [Tipos de dados](https://universorust.com.br/area-membro/livro-rust/3-2-tipos-de-dados), então não se preocupe com os detalhes agora. Por enquanto, basta saber que o tipo sempre precisa ser declarado.
+Primeiro, não é permitido usar `mut` com constantes. As constantes não são apenas imutáveis por padrão — elas são sempre imutáveis. Para declarar uma constante, usamos a palavra-chave `const` em vez de `let`, e o tipo do valor deve ser informado obrigatoriamente. Vamos falar mais sobre tipos e anotações de tipo na próxima seção, [Tipos de dados](/livro/cap03-02-tipos-de-dados), então não se preocupe com os detalhes agora. Por enquanto, basta saber que o tipo sempre precisa ser declarado.
 
 Constantes podem ser declaradas em qualquer escopo, inclusive no escopo global. Isso as torna muito úteis para valores que precisam ser conhecidos por várias partes do código.
 
@@ -83,7 +87,9 @@ Exemplo de constante em Rust
 ```rust
 const THREE_HOURS_IN_SECONDS: u32 = 60 * 60 * 3;
 ```
-[Listagem 1](#): Declaração de uma constante com expressão avaliada em tempo de compilação
+<a id="listagem-3-3"></a>
+
+[Listagem 3-3](#listagem-3-3): Declaração de uma constante com expressão avaliada em tempo de compilação
 
 O nome da constante é `THREE_HOURS_IN_SECONDS`, e seu valor é definido multiplicando 60 (segundos em um minuto) por 60 (minutos em uma hora) por 3 (o número de horas que queremos representar).
 
@@ -118,7 +124,9 @@ fn main() {
     println!("The value of x is: {x}");
 }
 ```
-[Listagem 1](#): Exemplo de sombreamento de variáveis em diferentes escopos
+<a id="listagem-3-4"></a>
+
+[Listagem 3-4](#listagem-3-4): Exemplo de sombreamento de variáveis em diferentes escopos
 
 Nesse programa, primeiro associamos o valor `5` à variável `x`. Em seguida, criamos uma **nova variável `x`** usando novamente `let x =`, pegando o valor anterior e somando 1, o que faz com que `x` passe a valer `6`.
 
@@ -145,7 +153,9 @@ Exemplo de mudança de tipo com sombreamento
 let spaces = "   ";
 let spaces = spaces.len();
 ```
-[Listagem 2](#): Uso de sombreamento para mudar o tipo da variável
+<a id="listagem-3-5"></a>
+
+[Listagem 3-5](#listagem-3-5): Uso de sombreamento para mudar o tipo da variável
 
 A primeira variável `spaces` é do tipo texto (`&str`), enquanto a segunda é um número (`usize`). Isso evita a necessidade de nomes diferentes, como `spaces_str` e `spaces_num`.
 
@@ -156,7 +166,9 @@ Arquivo: src/main.rs (Este código não compila!)
 let mut spaces = "   ";
 spaces = spaces.len();
 ```
-[Listagem 3](#): Erro ao tentar alterar o tipo de uma variável mutável
+<a id="listagem-3-6"></a>
+
+[Listagem 3-6](#listagem-3-6): Erro ao tentar alterar o tipo de uma variável mutável
 
 O erro ocorre porque **não é permitido alterar o tipo de uma variável**.
 

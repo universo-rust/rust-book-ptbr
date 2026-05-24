@@ -288,7 +288,7 @@ O motivo é que tipos como inteiros, que têm tamanho conhecido em tempo de comp
 
 Rust tem uma anotação especial chamada trait `Copy` que podemos colocar em tipos armazenados na stack, como os inteiros (falaremos mais sobre traits no Capítulo 10). Se um tipo implementa a trait `Copy`, variáveis que o usam não fazem _move_, mas sim são copiadas trivialmente, permanecendo válidas após atribuição a outra variável.
 
-Rust não nos deixa anotar um tipo com `Copy` se o tipo, ou qualquer parte dele, implementou a trait `Drop`. Se o tipo precisa de algo especial quando o valor sai de escopo e adicionamos a anotação `Copy` a esse tipo, obteremos um erro em tempo de compilação. Para aprender como adicionar a anotação `Copy` ao seu tipo para implementar a trait, veja o Apêndice C.
+Rust não nos deixa anotar um tipo com `Copy` se o tipo, ou qualquer parte dele, implementou a trait `Drop`. Se o tipo precisa de algo especial quando o valor sai de escopo e adicionamos a anotação `Copy` a esse tipo, obteremos um erro em tempo de compilação. Para aprender como adicionar a anotação `Copy` ao seu tipo para implementar a trait, veja o [Apêndice C](/livro/cap22-03-traits-derivaveis).
 
 Então, quais tipos implementam a trait `Copy`? Você pode consultar a documentação do tipo em questão para ter certeza, mas, como regra geral, qualquer grupo de valores escalares simples pode implementar `Copy`, e nada que exija alocação ou seja alguma forma de recurso pode implementar `Copy`. Estes são alguns dos tipos que implementam `Copy`:
 

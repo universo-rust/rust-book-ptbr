@@ -8,7 +8,7 @@ slug: tipos-de-dados
 
 Todo valor em Rust possui um tipo de dado específico, que informa ao Rust que tipo de informação está sendo usada para que ele saiba como trabalhar com esses dados. Vamos analisar dois subconjuntos de tipos de dados: escalares e compostos.
 
-Tenha em mente que Rust é uma linguagem estaticamente tipada, o que significa que ela precisa conhecer os tipos de todas as variáveis em tempo de compilação. O compilador geralmente consegue inferir qual tipo queremos usar com base no valor atribuído e na forma como esse valor é utilizado. Em casos em que vários tipos são possíveis — como quando convertemos uma `String` para um tipo numérico usando `parse`, como vimos na seção [Comparando o palpite com o número secreto](https://universorust.com.br/area-membro/livro-rust/2-programando-um-jogo-de-adivinhacao#comparando-o-palpite-com-o-numero-secreto) no Capítulo 2 — precisamos adicionar uma anotação de tipo, como no exemplo a seguir:
+Tenha em mente que Rust é uma linguagem estaticamente tipada, o que significa que ela precisa conhecer os tipos de todas as variáveis em tempo de compilação. O compilador geralmente consegue inferir qual tipo queremos usar com base no valor atribuído e na forma como esse valor é utilizado. Em casos em que vários tipos são possíveis — como quando convertemos uma `String` para um tipo numérico usando `parse`, como vimos na seção [Comparando o palpite com o número secreto](/livro/cap02-00-programando-um-jogo-de-adivinhacao#comparando-o-palpite-com-o-numero-secreto) no Capítulo 2 — precisamos adicionar uma anotação de tipo, como no exemplo a seguir:
 
 ```rust
 let guess: u32 = "42".parse().expect("Not a number!");
@@ -145,7 +145,7 @@ fn main() {
 }
 ```
 
-Cada expressão nessas instruções utiliza um operador matemático e é avaliada para um único valor, que em seguida é associado a uma variável. O [Apêndice B](#) contém uma lista completa de todos os operadores que o Rust disponibiliza.
+Cada expressão nessas instruções utiliza um operador matemático e é avaliada para um único valor, que em seguida é associado a uma variável. O [Apêndice B](/livro/cap22-02-operadores-e-simbolos) contém uma lista completa de todos os operadores que o Rust disponibiliza.
 
 ### O tipo booleano
 
@@ -162,7 +162,7 @@ fn main() {
 }
 ```
 
-A principal forma de utilizar valores booleanos é por meio de estruturas condicionais, como uma expressão `if`. Veremos como as expressões `if` funcionam em Rust na seção [fluxo de controle](#).
+A principal forma de utilizar valores booleanos é por meio de estruturas condicionais, como uma expressão `if`. Veremos como as expressões `if` funcionam em Rust na seção [fluxo de controle](/livro/cap03-05-fluxo-de-controle).
 
 ### O tipo caractere
 
@@ -181,7 +181,7 @@ Note que os literais do tipo `char` são definidos usando aspas simples, diferen
 
 Letras acentuadas, caracteres chineses, japoneses e coreanos, emojis e até espaços de largura zero são todos valores válidos do tipo `char` em Rust. Os valores escalares Unicode variam de `U+0000` a `U+D7FF` e de `U+E000` a `U+10FFFF`, inclusive.
 
-No entanto, o conceito de "caractere" não é exatamente bem definido no Unicode, então a intuição humana sobre o que é um "caractere" pode não corresponder exatamente ao que um `char` representa em Rust. Vamos discutir esse assunto em mais detalhes na seção [armazenando texto codificado em UTF-8 com Strings](#), no capítulo 8.
+No entanto, o conceito de "caractere" não é exatamente bem definido no Unicode, então a intuição humana sobre o que é um "caractere" pode não corresponder exatamente ao que um `char` representa em Rust. Vamos discutir esse assunto em mais detalhes na seção [armazenando texto codificado em UTF-8 com Strings](/livro/cap08-02-strings), no capítulo 8.
 
 ## Tipos compostos
 
@@ -247,9 +247,9 @@ fn main() {
 }
 ```
 
-Arrays são úteis quando você quer que seus dados sejam alocados na stack, assim como os outros tipos que vimos até agora, em vez da heap (falaremos mais sobre stack e heap no [Capítulo 4](#)), ou quando você quer garantir que sempre haverá um número fixo de elementos.
+Arrays são úteis quando você quer que seus dados sejam alocados na stack, assim como os outros tipos que vimos até agora, em vez da heap (falaremos mais sobre stack e heap no [Capítulo 4](/livro/cap04-00-entendendo-ownership)), ou quando você quer garantir que sempre haverá um número fixo de elementos.
 
-No entanto, um array não é tão flexível quanto o tipo `vector`. Um vector é um tipo de coleção semelhante, fornecido pela biblioteca padrão, que pode crescer ou diminuir de tamanho, pois seu conteúdo fica armazenado na heap. Se você não tiver certeza se deve usar um array ou um vector, na maioria dos casos a melhor escolha será um vector. O [Capítulo 8](#) aborda os vectors com mais detalhes.
+No entanto, um array não é tão flexível quanto o tipo `vector`. Um vector é um tipo de coleção semelhante, fornecido pela biblioteca padrão, que pode crescer ou diminuir de tamanho, pois seu conteúdo fica armazenado na heap. Se você não tiver certeza se deve usar um array ou um vector, na maioria dos casos a melhor escolha será um vector. O [Capítulo 8](/livro/cap08-01-vetores) aborda os vectors com mais detalhes.
 
 Ainda assim, arrays são mais apropriados quando você sabe que o número de elementos não precisará mudar. Por exemplo, se você estivesse usando os nomes dos meses em um programa, provavelmente usaria um array em vez de um vector, pois sabe que ele sempre conterá exatamente 12 elementos:
 
@@ -334,4 +334,4 @@ O programa resultou em um erro em tempo de execução no momento em que tentou u
 
 Quando você tenta acessar um elemento usando indexação, o Rust verifica se o índice informado é menor que o tamanho do array. Se o índice for maior ou igual ao tamanho do array, o Rust entra em panic (interrompe a execução do programa com erro). Essa verificação precisa acontecer em tempo de execução, especialmente neste caso, porque o compilador não tem como saber antecipadamente qual valor o usuário vai informar quando o código for executado.
 
-Esse comportamento é um exemplo dos princípios de segurança de memória do Rust em ação. Em muitas linguagens de baixo nível, esse tipo de verificação não é feito, e ao fornecer um índice incorreto, o programa pode acabar acessando uma região de memória inválida. O Rust protege você contra esse tipo de erro encerrando o programa imediatamente, em vez de permitir o acesso indevido à memória e continuar a execução. O [Capítulo 9](#) aborda com mais detalhes o tratamento de erros em Rust e mostra como você pode escrever um código legível e seguro, que não entre em panic nem permita acessos inválidos à memória.
+Esse comportamento é um exemplo dos princípios de segurança de memória do Rust em ação. Em muitas linguagens de baixo nível, esse tipo de verificação não é feito, e ao fornecer um índice incorreto, o programa pode acabar acessando uma região de memória inválida. O Rust protege você contra esse tipo de erro encerrando o programa imediatamente, em vez de permitir o acesso indevido à memória e continuar a execução. O [Capítulo 9](/livro/cap09-00-tratamento-de-erros) aborda com mais detalhes o tratamento de erros em Rust e mostra como você pode escrever um código legível e seguro, que não entre em panic nem permita acessos inválidos à memória.
