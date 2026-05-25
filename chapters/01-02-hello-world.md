@@ -101,15 +101,16 @@ Terceiro, a linha termina com um ponto e vírgula (`;`), indicando o fim da expr
 
 Você acabou de executar um programa recém-criado, então vamos examinar cada etapa desse processo.
 
-Antes de executar um programa Rust, é necessário compilá-lo usando o compilador Rust com o comando `rustc`, passando o nome do arquivo-fonte:
+Antes de executar um programa em Rust, você precisa compilá-lo usando o compilador Rust, digitando o comando `rustc` e passando o nome do arquivo-fonte, assim:
 
 ```bash
 $ rustc main.rs
 ```
 
-Se você tem experiência com C ou C++, perceberá que isso é semelhante ao uso do `gcc` ou `clang`. Após a compilação bem-sucedida, o Rust gera um executável binário.
+Se você vem de C ou C++, perceberá que isso é semelhante ao `gcc` ou `clang`. Após uma compilação bem-sucedida, o Rust gera um executável binário.
 
-No Linux, macOS e PowerShell no Windows, você pode ver o executável usando o comando `ls`:
+No Linux, macOS e PowerShell no Windows, você pode ver o executável usando o comando `ls` no terminal:
+
 
 ```bash
 $ ls
@@ -119,7 +120,7 @@ main  main.rs
 No CMD do Windows, você verá:
 
 ```
-> dir /B
+> dir /B %= a opção /B faz com que apenas os nomes dos arquivos sejam exibidos =%
 main.exe
 main.pdb
 main.rs
