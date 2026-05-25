@@ -2,6 +2,8 @@
 title: "Hello, world!"
 chapter_code: 01-02
 slug: hello-world
+challenge_day: 1
+reading_minutes: 11
 ---
 
 # Hello, World!
