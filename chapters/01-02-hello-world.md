@@ -63,7 +63,7 @@ No Windows, use o comando `.\main` em vez de `./main`:
 Hello, world!
 ```
 
-Independentemente do seu sistema operacional, a string `Hello, world!` deve ser exibida no terminal. Se você não vir essa saída, volte à seção de "Solução de Problemas" da parte de Instalação para obter ajuda.
+Independentemente do seu sistema operacional, a string `Hello, world!` deve ser exibida no terminal. Se você não vir essa saída, volte à seção de [Solução de Problemas](/livro/cap01-01-instalacao#solução-de-problemas) da parte de Instalação para obter ajuda.
 
 Se `Hello, world!` foi exibido, parabéns! Você escreveu oficialmente um programa em Rust. Isso faz de você um programador Rust — seja bem-vindo!
 
