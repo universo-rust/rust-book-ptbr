@@ -126,7 +126,7 @@ main.pdb
 main.rs
 ```
 
-Isso mostra o arquivo-fonte (*.rs*), o executável (*main* ou *main.exe*) e, no Windows, um arquivo de depuração (*.pdb*). Para executar o programa:
+Isso mostra o arquivo-fonte (*.rs*), o executável (*main* ou *main.exe*) e, no Windows, um arquivo de depuração (*.pdb*). A partir daqui, você executa o arquivo *main* ou *main.exe*, assim:
 
 ```bash
 $ ./main   # ou .\main no Windows
