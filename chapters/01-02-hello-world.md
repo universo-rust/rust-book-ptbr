@@ -119,7 +119,7 @@ main  main.rs
 
 No CMD do Windows, você verá:
 
-```
+```cmd
 > dir /B %= a opção /B faz com que apenas os nomes dos arquivos sejam exibidos =%
 main.exe
 main.pdb
