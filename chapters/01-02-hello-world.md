@@ -36,7 +36,7 @@ Para o CMD do Windows, digite:
 
 ### Noções básicas de um programa Rust
 
-Em seguida, crie um novo arquivo de código-fonte e chame-o de *main.rs*. Arquivos Rust sempre terminam com a extensão *.rs*. Se você estiver usando mais de uma palavra no nome do arquivo, a convenção é usar um sublinhado para separá-las. Por exemplo, use *hello_world.rs* em vez de *helloworld.rs*.
+Em seguida, crie um novo arquivo de código-fonte e chame-o de *main.rs*. Arquivos Rust sempre terminam com a extensão *.rs*. Se você estiver usando mais de uma palavra no nome do arquivo, a convenção é usar um underline para separá-las. Por exemplo, use *hello_world.rs* em vez de *helloworld.rs*.
 
 Agora abra o arquivo *main.rs* que você acabou de criar e insira o código abaixo.
 
