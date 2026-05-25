@@ -2,6 +2,8 @@
 title: "Primeiros passos"
 chapter_code: 01-00
 slug: primeiros-passos
+challenge_day: 1
+reading_minutes: 1
 ---
 
 # Primeiros passos
