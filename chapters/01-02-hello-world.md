@@ -119,7 +119,7 @@ $ ls
 main  main.rs
 ```
 
-No CMD do Windows, você verá:
+No CMD do Windows, você pode ver o executável usando o comando `dir /B`:
 
 ```cmd
 > dir /B %= a opção /B faz com que apenas os nomes dos arquivos sejam exibidos =%
