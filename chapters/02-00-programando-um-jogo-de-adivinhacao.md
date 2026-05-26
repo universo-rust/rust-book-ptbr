@@ -595,7 +595,7 @@ Please type a number!: ParseIntError { kind: InvalidDigit }
 note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 ```
 
-Digitar `quit` sairá do jogo, mas como você notará, também sairá ao inserir qualquer outra entrada não numérica. Isso é subótimo, no mínimo; queremos que o jogo também pare quando o número correto for adivinhado.
+Digitar `quit` sairá do jogo, mas como você notará, também sairá ao inserir qualquer outra entrada não numérica. Isso é ótimo; queremos que o jogo também pare quando o número correto for adivinhado.
 
 ### Saindo após um palpite correto
 
