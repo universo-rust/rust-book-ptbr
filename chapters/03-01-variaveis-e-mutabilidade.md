@@ -69,7 +69,7 @@ fn main() {
 ```
 Ao executar o programa, o resultado será:
 
-```
+```bash
 The value of x is: 5
 The value of x is: 6
 ```
