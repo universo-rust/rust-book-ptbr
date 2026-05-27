@@ -99,9 +99,6 @@ Exemplo de constante em Rust
 ```rust
 const THREE_HOURS_IN_SECONDS: u32 = 60 * 60 * 3;
 ```
-<a id="listagem-3-3"></a>
-
-[Listagem 3-3](#listagem-3-3): Declaração de uma constante com expressão avaliada em tempo de compilação
 
 O nome da constante é `THREE_HOURS_IN_SECONDS`, e seu valor é definido multiplicando 60 (segundos em um minuto) por 60 (minutos em uma hora) por 3 (o número de horas que queremos representar).
 
