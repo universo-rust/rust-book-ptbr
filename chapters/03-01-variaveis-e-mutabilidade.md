@@ -10,7 +10,7 @@ Como mencionado na seção [Armazenando valores com variáveis](/livro/cap02-00-
 
 Quando uma variável é imutável, depois que um valor é associado a ela, esse valor não pode ser alterado. Para ilustrar isso, crie um novo projeto chamado `variables` dentro do diretório de projetos usando o comando: `cargo new variables`
 
-Em seguida, dentro do diretório `variables`, abra o arquivo `src/main.rs` e substitua o código pelo seguinte:
+Em seguida, dentro do diretório `variables`, abra o arquivo `src/main.rs` e substitua o código pelo seguinte (que ainda **não vai compilar**):
 
 Arquivo: src/main.rs (Este código não compila!)
 ```rust
