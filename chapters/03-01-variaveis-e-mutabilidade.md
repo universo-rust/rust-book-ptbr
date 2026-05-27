@@ -6,7 +6,7 @@ slug: variaveis-e-mutabilidade
 
 # Variáveis e mutabilidade
 
-Como mencionado na seção *"Armazenando valores com variáveis"*, por padrão, as variáveis em Rust são imutáveis. Esse é um dos vários "empurrõezinhos" que o Rust dá para incentivar você a escrever código que aproveite melhor a segurança e a facilidade de concorrência que a linguagem oferece. Ainda assim, você tem a opção de tornar suas variáveis mutáveis. Vamos explorar como e por que o Rust incentiva o uso da imutabilidade e por que, às vezes, você pode querer abrir mão disso.
+Como mencionado na seção [Armazenando valores com variáveis](/livro/cap02-00-programando-um-jogo-de-adivinhacao#armazenando-valores-com-variáveis), por padrão, as variáveis em Rust são imutáveis. Esse é um dos vários "empurrõezinhos" que o Rust dá para incentivar você a escrever código que aproveite melhor a segurança e a facilidade de concorrência que a linguagem oferece. Ainda assim, você tem a opção de tornar suas variáveis mutáveis. Vamos explorar como e por que o Rust incentiva o uso da imutabilidade e por que, às vezes, você pode querer abrir mão disso.
 
 Quando uma variável é imutável, depois que um valor é associado a um nome, esse valor não pode ser alterado. Para ilustrar isso, crie um novo projeto chamado `variables` dentro do diretório de projetos usando o comando: `cargo new variables`
 
