@@ -67,10 +67,6 @@ fn main() {
     println!("The value of x is: {x}");
 }
 ```
-<a id="listagem-3-2"></a>
-
-[Listagem 3-2](#listagem-3-2): Exemplo usando uma variável mutável
-
 Ao executar o programa, o resultado será:
 
 ```
