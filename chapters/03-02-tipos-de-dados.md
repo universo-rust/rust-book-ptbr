@@ -105,7 +105,7 @@ Rust também possui dois tipos primitivos para números de ponto flutuante, que 
 
 O tipo padrão é o `f64`, porque nos CPUs modernos ele tem praticamente a mesma performance que o `f32`, mas oferece maior precisão. Todos os tipos de ponto flutuante em Rust são com sinal, ou seja, podem representar tanto valores positivos quanto negativos.
 
-Veja um exemplo que mostra números de ponto flutuante em uso:
+Veja um exemplo que mostra números de ponto flutuante em ação:
 
 Arquivo: src/main.rs
 ```rust
