@@ -27,7 +27,7 @@ fn main() {
 
 Salve o arquivo e execute o programa com `cargo run`. Você deverá receber uma mensagem de erro relacionada à imutabilidade, parecida com esta:
 
-```
+```bash
 $ cargo run
    Compiling variables v0.1.0 (file:///projects/variables)
 error[E0384]: cannot assign twice to immutable variable `x`
