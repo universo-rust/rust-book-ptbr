@@ -2,6 +2,8 @@
 title: "Entendendo ownership"
 chapter_code: 04-00
 slug: entendendo-ownership
+challenge_day: 4
+reading_minutes: 1
 ---
 
 # Entendendo Ownership
