@@ -354,8 +354,7 @@ fn main() {
     }
 }
 ```
-
-_Listagem 3-4: Percorrendo cada elemento de uma coleção usando um loop `while`_
+[Listagem 3-4](#listagem-3-4): Percorrendo cada elemento de uma coleção usando um loop `while`.
 
 Neste código, a contagem é feita percorrendo os elementos do array. Começa no índice 0 e repete o processo até atingir o índice final do array (ou seja, quando a condição `index < 5` não for mais verdadeira). Executar este código imprimirá todos os elementos do array.
 
