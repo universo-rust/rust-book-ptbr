@@ -213,7 +213,7 @@ Como exemplo, altere o arquivo `src/main.rs` no diretório `loops` para ficar as
 ```rust
 fn main() {
     loop {
-        println!("again!");
+        println!("de novo!");
     }
 }
 ```
@@ -236,7 +236,7 @@ O símbolo `^C` representa o momento em que você pressionou `Ctrl`+`C`.
 
 Você pode ou não ver a palavra `again!` sendo impressa após o `^C`, dependendo de onde o código estava no loop no momento em que recebeu o sinal de interrupção.
 
-Felizmente, o Rust também oferece uma forma de sair de um loop usando código. Você pode colocar a palavra-chave `break` dentro do loop para dizer ao programa quando ele deve parar de executar o laço. Lembre-se de que fizemos isso no jogo de adivinhação, na seção "Saindo após um palpite correto" do Capítulo 2, para sair do programa quando o usuário acertava o número correto.
+Felizmente, o Rust também oferece uma forma de sair de um loop usando código. Você pode colocar a palavra-chave `break` dentro do loop para dizer ao programa quando ele deve parar de executar o laço. Lembre-se de que fizemos isso no jogo de adivinhação, na seção [Saindo após um palpite correto](/livro/cap02-00-programando-um-jogo-de-adivinhacao#saindo-apos-um-palpite-correto) do Capítulo 2, para sair do programa quando o usuário acertava o número correto.
 
 Também usamos `continue` no jogo de adivinhação, que dentro de um loop diz ao programa para pular o restante do código da iteração atual e ir diretamente para a próxima iteração.
 
@@ -331,8 +331,8 @@ fn main() {
     println!("LIFTOFF!!!");
 }
 ```
+[Listagem 3-3](#listagem-3-3): Usando um `while` para executar código enquanto uma condição é verdadeira.
 
-_Listagem 3-3: Usando um `while` para executar código enquanto uma condição é verdadeira_
 
 Essa construção elimina muitos aninhamentos que seriam necessários se você usasse `loops`, `if`, `else` e `break`, e é mais clara. Enquanto uma condição for avaliada como verdadeira, o código é executado; caso contrário, ele sai do `loop`.
 
