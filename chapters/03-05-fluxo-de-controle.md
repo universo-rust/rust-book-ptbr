@@ -389,7 +389,7 @@ fn main() {
     }
 }
 ```
-[Listagem 354](#listagem-3-5): Percorrendo cada elemento do array usando um loop `for`.
+[Listagem 3-5](#listagem-3-5): Percorrendo cada elemento do array usando um loop `for`.
 
 Ao executarmos este código, veremos a mesma saída que na Listagem 3-4. O ponto principal aqui é o ganho em segurança, eliminando bugs causados por acessos fora dos limites (out-of-bounds) ou iterações incompletas. O código de máquina gerado pelo `for` também pode ser mais eficiente, pois o índice não precisa ser comparado ao comprimento do array a cada iteração.
 
