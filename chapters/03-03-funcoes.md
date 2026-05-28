@@ -120,7 +120,7 @@ fn main() {
 }
 ```
 
-_Listagem 3-1: Exemplo de declaração da função `main` contendo uma única instrução._
+[Listagem 3-1](#listagem-3-1): Exemplo de declaração da função `main` contendo uma única instrução.
 
 Definições de funções também são declarações; ou seja, o exemplo acima inteiro é, ele próprio, uma declaração. (Como veremos em breve, chamar uma função não é uma declaração.)
 
