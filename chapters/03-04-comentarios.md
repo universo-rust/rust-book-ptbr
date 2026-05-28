@@ -2,6 +2,8 @@
 title: "Comentários"
 chapter_code: 03-04
 slug: comentarios
+challenge_day: 3
+reading_minutes: 1
 ---
 
 # Comentários
@@ -43,4 +45,4 @@ fn main() {
 }
 ```
 
-O Rust também possui outro tipo de comentário, chamado comentários de documentação, que serão discutidos na seção "Publicando um crate no crates.io" do Capítulo 14.
+O Rust também possui outro tipo de comentário, chamado comentários de documentação, que serão discutidos na seção [Publicando um crate no crates.io](/livro/cap14-02-publicando-um-crate-no-crates-io), no Capítulo 14.
