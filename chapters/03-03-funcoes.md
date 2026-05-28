@@ -263,4 +263,4 @@ For more information about this error, try `rustc --explain E0308`.
 error: could not compile `functions` (bin "functions") due to 1 previous error
 ```
 
-A mensagem de erro `mismatched types` revela o problema central do código. A definição da função `plus_one` diz que ela deve retornar um `i32`, mas as instruções não produzem um valor — elas resultam em `()`, o tipo unitário. Isso significa que nada está sendo retornado, o que contradiz a definição da função e gera o erro. O compilador do Rust sugere uma correção: remover o ponto e vírgula. Fazendo isso, a expressão passa a produzir um valor, e o erro desaparece.
+A mensagem de erro `mismatched types` revela o problema central do código. A definição da função `plus_one` diz que ela deve retornar um `i32`, mas as instruções não produzem um valor — elas resultam em `()`, o tipo *unit*. Isso significa que nada está sendo retornado, o que contradiz a definição da função e gera o erro. O compilador do Rust sugere uma correção: remover o ponto e vírgula. Fazendo isso, a expressão passa a produzir um valor, e o erro desaparece.
