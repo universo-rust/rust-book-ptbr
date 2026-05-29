@@ -170,7 +170,7 @@ Observe a Figura 4-1 para ver o que acontece com `String` por baixo dos panos. U
 
 ![Três tabelas: a tabela s1 na stack com ponteiro, comprimento e capacidade; seta do ponteiro para a heap com os bytes da string "hello".](https://doc.rust-lang.org/book/img/trpl04-01.svg)
 
-[Figura 4-1](#figura-4-1): A representação na memória de uma `String` com o valor `"hello"` associada a `s1`.
+*Figura 4-1: A representação na memória de uma `String` com o valor `"hello"` associada a `s1`.*
 
 O comprimento é quanta memória, em bytes, o conteúdo da `String` está usando atualmente. A capacidade é a quantidade total de memória, em bytes, que a `String` recebeu do alocador. A diferença entre comprimento e capacidade importa, mas não neste contexto; por enquanto, podemos ignorar a capacidade.
 
