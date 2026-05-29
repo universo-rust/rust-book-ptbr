@@ -176,12 +176,14 @@ O comprimento é quanta memória, em bytes, o conteúdo da `String` está usando
 
 Quando atribuímos `s1` a `s2`, os dados da `String` são copiados — ou seja, copiamos o ponteiro, o comprimento e a capacidade que estão na stack. Não copiamos os dados na heap aos quais o ponteiro se refere. Em outras palavras, a representação dos dados na memória fica como na Figura 4-2.
 
-https://doc.rust-lang.org/book/img/trpl04-03.svg
+![Três tabelas: s1 e s2 na stack, cada uma com ponteiro, comprimento e capacidade; ambos os ponteiros apontam para os mesmos dados da string na heap.](https://doc.rust-lang.org/book/img/trpl04-02.svg)
+
 *Figura 4-2: A representação na memória da variável `s2`, que tem uma cópia do ponteiro, do comprimento e da capacidade de `s1`.*
 
 A representação _não_ fica como na Figura 4-3, que é como a memória seria se Rust copiasse também os dados na heap. Se Rust fizesse isso, a operação `s2 = s1` poderia ser muito custosa em tempo de execução se os dados na heap fossem grandes.
 
-https://doc.rust-lang.org/book/img/trpl04-03.svg
+![Quatro tabelas: s1 e s2 na stack, cada uma apontando para sua própria cópia dos dados da string na heap.](https://doc.rust-lang.org/book/img/trpl04-03.svg)
+
 *Figura 4-3: Outra possibilidade do que `s2 = s1` poderia fazer se Rust copiasse também os dados na heap.*
 
 Como dissemos antes, quando uma variável sai de escopo, Rust chama automaticamente a função `drop` e limpa a memória na heap dessa variável. Mas a Figura 4-2 mostra ambos os ponteiros de dados apontando para o mesmo local. Isso é um problema: quando `s2` e `s1` saírem de escopo, ambos tentarão liberar a mesma memória. Isso é conhecido como erro de _double free_ e é um dos bugs de segurança de memória que mencionamos antes. Liberar memória duas vezes pode levar à corrupção de memória, o que pode resultar em vulnerabilidades de segurança.
@@ -227,7 +229,8 @@ error: could not compile `ownership` (bin "ownership") due to 1 previous error
 
 Se você já ouviu os termos _cópia superficial_ (_shallow copy_) e _cópia profunda_ (_deep copy_) em outras linguagens, o conceito de copiar o ponteiro, o comprimento e a capacidade sem copiar os dados provavelmente soa como uma cópia superficial. Mas, como o Rust também invalida a primeira variável, em vez de ser chamada de cópia superficial, isso é conhecido como _move_. Neste exemplo, diríamos que `s1` foi _movida_ (_moved_) para `s2`. O que realmente acontece é mostrado na Figura 4-4.
 
-https://doc.rust-lang.org/book/img/trpl04-04.svg
+![Três tabelas: s2 na stack apontando para os dados na heap; s1 na stack riscada ou invalidada.](https://doc.rust-lang.org/book/img/trpl04-04.svg)
+
 *Figura 4-4: A representação na memória depois que `s1` foi invalidada.*
 
 Isso resolve nosso problema! Com apenas `s2` válida, quando ela sair de escopo liberará a memória sozinha, e pronto.
@@ -251,7 +254,8 @@ fn main() {
 
 Inicialmente declaramos uma variável `s` e a associamos a uma `String` com o valor `"hello"`. Em seguida, criamos imediatamente uma nova `String` com o valor `"ahoy"` e a atribuímos a `s`. Nesse ponto, nada mais se refere ao valor original na heap. A Figura 4-5 ilustra os dados na stack e na heap agora:
 
-https://doc.rust-lang.org/book/img/trpl04-05.svg
+![Três tabelas: s na stack apontando para a heap com "ahoy"; a heap com "hello" sem referência.](https://doc.rust-lang.org/book/img/trpl04-05.svg)
+
 *Figura 4-5: A representação na memória depois que o valor inicial foi substituído por completo.*
 
 A string original assim sai de escopo imediatamente. Rust executa a função `drop` nela e sua memória é liberada na hora. Quando imprimimos o valor no final, será `"ahoy, world!"`.
