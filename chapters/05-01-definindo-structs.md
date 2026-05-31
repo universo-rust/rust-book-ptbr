@@ -6,7 +6,7 @@ slug: definindo-structs
 
 # Definindo e Instanciando Structs
 
-Structs são semelhantes às tuplas, discutidas na seção [O Tipo Tupla](/livro/cap03-02-tipos-de-dados#o-tipo-tupla-tuple), pois ambas armazenam múltiplos valores relacionados. Assim como nas tuplas, os elementos de uma struct podem ter tipos diferentes. No entanto, diferentemente das tuplas, em uma struct você dá um nome para cada parte dos dados, tornando claro o significado de cada valor. Esses nomes tornam as structs mais flexíveis do que as tuplas: você não precisa depender da ordem dos dados para especificar ou acessar os valores de uma instância.
+Structs são semelhantes às tuplas, discutidas na seção [O tipo tupla (tuple)](/livro/cap03-02-tipos-de-dados#o-tipo-tupla-tuple), pois ambas armazenam múltiplos valores relacionados. Assim como nas tuplas, os elementos de uma struct podem ter tipos diferentes. No entanto, diferentemente das tuplas, em uma struct você dá um nome para cada parte dos dados, tornando claro o significado de cada valor. Esses nomes tornam as structs mais flexíveis do que as tuplas: você não precisa depender da ordem dos dados para especificar ou acessar os valores de uma instância.
 
 Para definir uma struct, utilizamos a palavra-chave `struct` seguida do nome da struct. O nome da struct deve descrever o significado do conjunto de dados que está sendo agrupado. Em seguida, dentro de chaves (`{}`), definimos os nomes e os tipos dos dados que ela contém, chamados de _campos_ (_fields_). Por exemplo, a Listagem 5-1 mostra uma struct que armazena informações sobre uma conta de usuário.
 
