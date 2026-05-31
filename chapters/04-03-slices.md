@@ -116,7 +116,7 @@ Felizmente, Rust tem uma solução para esse problema: _string slices_.
 
 ## String slices
 
-Um _string slice_ é uma referência a uma sequência contígua dos elementos de uma `String`, e se parece com isto:
+Um _string slice_ é uma referência para uma sequência contínua de elementos de uma `String`, e sua sintaxe é a seguinte:
 
 **Arquivo: src/main.rs**
 
