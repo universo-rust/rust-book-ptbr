@@ -6,7 +6,7 @@ slug: slices
 
 # O tipo slice
 
-_Slices_ permitem que você faça referência a uma sequência contígua de elementos em uma coleção. Um slice é um tipo de referência e, portanto, não tem ownership.
+_Slices_ permitem acessar uma parte contínua de uma coleção (como uma String ou um array) sem copiar os dados. Como um slice é apenas uma referência, ele não é dono dos dados que aponta.
 
 Aqui está um pequeno problema de programação: escreva uma função que receba uma string de palavras separadas por espaços e retorne a primeira palavra que encontrar nessa string. Se a função não encontrar um espaço na string, a string inteira deve ser uma palavra, então a string inteira deve ser retornada.
 
