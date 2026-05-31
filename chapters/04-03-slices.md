@@ -135,7 +135,7 @@ A Figura 4-7 ilustra isso num diagrama.
 
 ![Três tabelas: s na stack apontando para a heap com "hello world"; world na stack com comprimento 5 apontando para o byte 6 na heap.](https://doc.rust-lang.org/book/img/trpl04-07.svg)
 
-*Figura 4-7: Um string slice referenciando parte de uma `String`. Três tabelas: uma tabela representa os dados na stack de s, que aponta para o byte no índice 0 em uma tabela dos dados da string "hello world" na heap. A terceira tabela representa os dados na stack do slice world, que tem um valor de comprimento 5 e aponta para o byte 6 da tabela de dados na heap.*
+*Figura 4-7: Um string slice referenciando parte de uma `String`. Três tabelas: uma tabela representa os dados na stack de s, que aponta para o byte no índice 0 em uma tabela dos dados da string "hello world" na heap.*
 
 Com a sintaxe de intervalo `..` do Rust, se você quiser começar no índice 0, pode omitir o valor antes dos dois pontos. Em outras palavras, estes são iguais:
 
