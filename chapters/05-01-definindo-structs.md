@@ -185,7 +185,7 @@ Observe que os valores `black` e `origin` são de tipos diferentes porque são i
 
 ### Definindo unit-like structs
 
-Você também pode definir structs que não têm nenhum campo! Essas são chamadas de _unit-like structs_, porque se comportam de forma semelhante a `()`, o tipo unitário que mencionamos na seção [O Tipo Tupla](/livro/cap03-02-tipos-de-dados#o-tipo-tupla-tuple). Unit-like structs podem ser úteis quando você precisa implementar uma trait em algum tipo, mas não tem dados que queira armazenar no próprio tipo. Falaremos sobre traits no Capítulo 10. Aqui está um exemplo de declaração e instanciação de uma unit struct chamada `AlwaysEqual`:
+Você também pode definir structs que não têm nenhum campo! Essas são chamadas de _unit-like structs_, porque se comportam de forma semelhante a `()`, o tipo unitário que mencionamos na seção [O tipo tupla (tuple)](/livro/cap03-02-tipos-de-dados#o-tipo-tupla-tuple). Unit-like structs podem ser úteis quando você precisa implementar uma trait em algum tipo, mas não tem dados que queira armazenar no próprio tipo. Falaremos sobre traits no Capítulo 10. Aqui está um exemplo de declaração e instanciação de uma unit struct chamada `AlwaysEqual`:
 
 **Arquivo: src/main.rs**
 
