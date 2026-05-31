@@ -2,7 +2,7 @@
 title: "Referências e Borrowing"
 chapter_code: 04-02
 slug: referencias-e-borrowing
-challenge_day: 6
+challenge_day: 5
 reading_minutes: 13
 ---
 
