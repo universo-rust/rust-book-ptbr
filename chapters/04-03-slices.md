@@ -2,6 +2,8 @@
 title: "O tipo slice"
 chapter_code: 04-03
 slug: slices
+challenge_day: 6
+reading_minutes: 22
 ---
 
 # O tipo slice
@@ -259,17 +261,17 @@ Lembre-se de que comentamos anteriormente que os literais de string são armazen
 let s = "Hello, world!";
 ```
 
-O tipo de s nesse caso é `&str`. Isso significa que `s` é um slice de string que aponta para uma região específica do binário onde o texto "Hello, world!" está armazenado. Essa também é a razão pela qual literais de string são imutáveis: &`&str` é uma referência imutável.
+O tipo de s nesse caso é `&str`. Isso significa que `s` é um slice de string que aponta para uma região específica do binário onde o texto "Hello, world!" está armazenado. Essa também é a razão pela qual literais de string são imutáveis: `&str` é uma referência imutável.
 
 ### String slices como parâmetros
 
-Saber que você pode obter slices de literais e valores `String` nos leva a mais uma melhoria em `first_word`: sua assinatura:
+Saber que é possível criar slices tanto de literais de string quanto de valores `String` nos leva a uma melhoria na função `first_word`, especificamente em sua assinatura.
 
 ```rust
 fn first_word(s: &String) -> &str {
 ```
 
-Um Rustacean mais experiente escreveria a assinatura mostrada na Listagem 4-9, porque ela permite usar a mesma função tanto em valores `&String` quanto em valores `&str`.
+Um Rustáceo mais experiente escreveria a assinatura mostrada na Listagem 4-9, porque ela permite usar a mesma função tanto em valores `&String` quanto em valores `&str`.
 
 **Arquivo: src/main.rs**
 
@@ -291,7 +293,7 @@ fn first_word(s: &str) -> &str {
 
 [Listagem 4-9](#listagem-4-9): Melhorando a função `first_word` usando um string slice como tipo do parâmetro `s`
 
-Se temos um string slice, podemos passá-lo diretamente. Se temos uma `String`, podemos passar um slice da `String` ou uma referência à `String`. Essa flexibilidade aproveita _deref coercions_, um recurso que veremos na seção Usando deref coercions em funções e métodos do Capítulo 15.
+Se temos um string slice, podemos passá-lo diretamente. Se temos uma `String`, podemos passar um slice da `String` ou uma referência à `String`. Essa flexibilidade aproveita _deref coercions_, um recurso que veremos na seção [Usando Coerção de Deref em Funções e Métodos](/livro/cap15-02-tratando-smart-pointers-como-referencias-com-a-trait-deref#usando-coerção-de-deref-em-funções-e-métodos) do Capítulo 15.
 
 Definir uma função para receber um string slice em vez de uma referência a `String` torna nossa API mais geral e útil sem perder funcionalidade:
 
