@@ -2,6 +2,8 @@
 title: "Métodos"
 chapter_code: 05-03
 slug: sintaxe-de-metodos
+challenge_day: 7
+reading_minutes: 26
 ---
 
 # Métodos
