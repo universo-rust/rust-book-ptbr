@@ -6,7 +6,7 @@ slug: sintaxe-de-metodos
 
 # Métodos
 
-Métodos são semelhantes a funções: declaramos com a palavra-chave `fn` e um nome, podem ter parâmetros e um valor de retorno, e contêm código que é executado quando o método é chamado de outro lugar. Diferentemente das funções, métodos são definidos no contexto de uma struct (ou de um enum ou de um trait object, que cobriremos no Capítulo 6 e no Capítulo 18, respectivamente), e seu primeiro parâmetro é sempre `self`, que representa a instância da struct na qual o método está sendo chamado.
+Métodos são semelhantes a funções: declaramos com a palavra-chave `fn` e um nome, podem ter parâmetros e um valor de retorno, e contêm algum código que é executado quando o método é chamado de outro lugar. Diferentemente das funções, métodos são definidos no contexto de uma struct (ou de um enum ou de um trait object, que cobriremos no [Capítulo 6](/livro/cap06-00-enums-e-pattern-matching) e no [Capítulo 18](/livro/cap18-00-recursos-de-programacao-orientada-a-objetos), respectivamente), e seu primeiro parâmetro é sempre `self`, que representa a instância da struct na qual o método está sendo chamado.
 
 ### Sintaxe de métodos
 
@@ -44,25 +44,19 @@ fn main() {
 
 [Listagem 5-13](#listagem-5-13): Definindo um método `area` na struct `Rectangle`
 
-Para definir a função no contexto de `Rectangle`, iniciamos um bloco `impl` (_implementation_) para `Rectangle`. Tudo dentro deste bloco `impl` estará associado ao tipo `Rectangle`. Em seguida, movemos a função `area` para dentro das chaves do `impl` e alteramos o primeiro (e, neste caso, único) parâmetro para `self` na assinatura e em todo o corpo. Em `main`, onde chamávamos a função `area` e passávamos `rect1` como argumento, podemos usar a _sintaxe de método_ para chamar o método `area` na nossa instância de `Rectangle`. A sintaxe de método vem depois de uma instância: adicionamos um ponto seguido do nome do método, parênteses e quaisquer argumentos.
+Para definir a função no contexto de `Rectangle`, iniciamos um bloco `impl` (_implementation_) para `Rectangle`. Tudo dentro deste bloco `impl` estará associado ao tipo `Rectangle`. Em seguida, movemos a função `area` para dentro das chaves do `impl` e alteramos o primeiro (e, neste caso, único) parâmetro para `self` na assinatura e em todo o corpo. Em `main`, onde chamávamos a função `area` e passávamos `rect1` como argumento, podemos, em vez disso, usar a _sintaxe de método_ para chamar o método `area` na nossa instância de `Rectangle`. A sintaxe de método vem depois de uma instância: adicionamos um ponto seguido do nome do método, parênteses e quaisquer argumentos.
 
 Na assinatura de `area`, usamos `&self` em vez de `rectangle: &Rectangle`. O `&self` é, na verdade, uma abreviação de `self: &Self`. Dentro de um bloco `impl`, o tipo `Self` é um alias para o tipo para o qual o bloco `impl` foi escrito. Métodos precisam ter um parâmetro chamado `self` do tipo `Self` como primeiro parâmetro, então o Rust permite abreviar isso usando apenas o nome `self` na primeira posição de parâmetro. Observe que ainda precisamos usar `&` na frente do atalho `self` para indicar que este método faz borrow da instância `Self`, assim como fizemos em `rectangle: &Rectangle`. Métodos podem tomar ownership de `self`, fazer borrow imutável de `self`, como fizemos aqui, ou fazer borrow mutável de `self`, assim como podem fazer com qualquer outro parâmetro.
 
 Escolhemos `&self` aqui pelo mesmo motivo de termos usado `&Rectangle` na versão com função: não queremos tomar ownership e queremos apenas ler os dados na struct, não escrever neles. Se quiséssemos alterar a instância na qual chamamos o método como parte do que o método faz, usaríamos `&mut self` como primeiro parâmetro. Ter um método que toma ownership da instância usando apenas `self` como primeiro parâmetro é raro; essa técnica costuma ser usada quando o método transforma `self` em outra coisa e você quer impedir que o chamador use a instância original depois da transformação.
 
-O principal motivo para usar métodos em vez de funções, além de fornecer sintaxe de método e não precisar repetir o tipo de `self` na assinatura de cada método, é a organização. Colocamos tudo o que podemos fazer com uma instância de um tipo em um bloco `impl`, em vez de fazer futuros usuários do nosso código procurarem capacidades de `Rectangle` em vários lugares da biblioteca que fornecemos.
+O principal motivo para usar métodos em vez de funções, além de fornecer sintaxe de método e não precisar repetir o tipo de `self` na assinatura de cada método, é a organização. Colocamos tudo o que podemos fazer com uma instância de um tipo em um bloco `impl`, em vez de fazer futuros usuários do nosso código procurarem as capacidades de `Rectangle` em vários lugares da biblioteca que fornecemos.
 
 Observe que podemos escolher dar a um método o mesmo nome de um dos campos da struct. Por exemplo, podemos definir um método em `Rectangle` que também se chama `width`:
 
 **Arquivo: src/main.rs**
 
 ```rust
-#[derive(Debug)]
-struct Rectangle {
-    width: u32,
-    height: u32,
-}
-
 impl Rectangle {
     fn width(&self) -> bool {
         self.width > 0
@@ -81,7 +75,7 @@ fn main() {
 }
 ```
 
-Aqui, escolhemos fazer o método `width` retornar `true` se o valor no campo `width` da instância for maior que `0` e `false` se o valor for `0`: podemos usar um campo dentro de um método de mesmo nome para qualquer finalidade. Em `main`, quando escrevemos `rect1.width` seguido de parênteses, o Rust sabe que queremos o método `width`. Quando não usamos parênteses, o Rust sabe que queremos o campo `width`.
+Aqui, escolhemos fazer o método `width` retornar `true` se o valor no campo `width` da instância for maior que `0` e `false` se o valor for `0`: podemos usar um campo dentro de um método de mesmo nome para qualquer finalidade. Em `main`, quando escrevemos `rect1.width()` com parênteses, o Rust sabe que queremos o método `width`. Quando não usamos parênteses, o Rust sabe que queremos o campo `width`.
 
 Muitas vezes, mas nem sempre, quando damos a um método o mesmo nome de um campo, queremos que ele apenas retorne o valor do campo e não faça mais nada. Métodos assim são chamados de _getters_, e o Rust não os implementa automaticamente para campos de struct como algumas outras linguagens fazem. Getters são úteis porque você pode tornar o campo privado, mas o método público, e assim permitir acesso somente leitura a esse campo como parte da API pública do tipo. Discutiremos o que são público e privado e como designar um campo ou método como público ou privado no Capítulo 7.
 
@@ -91,7 +85,7 @@ Muitas vezes, mas nem sempre, quando damos a um método o mesmo nome de um campo
 >
 > O Rust não tem um equivalente ao operador `->`; em vez disso, o Rust tem um recurso chamado _referenciamento e desreferenciamento automáticos_. Chamar métodos é um dos poucos lugares em Rust com esse comportamento.
 >
-> Veja como funciona: quando você chama um método com `object.something()`, o Rust adiciona automaticamente `&`, `&mut` ou `*` para que `object` corresponda à assinatura do método. Em outras palavras, o seguinte é equivalente:
+> Veja como funciona: quando você chama um método com `object.something()`, o Rust adiciona automaticamente `&`, `&mut` ou `*` para que `object` corresponda à assinatura do método. Em outras palavras, o seguinte é o mesmo:
 >
 > ```rust
 > # #[derive(Debug,Copy,Clone)]
@@ -118,7 +112,7 @@ Muitas vezes, mas nem sempre, quando damos a um método o mesmo nome de um campo
 
 ### Métodos com mais parâmetros
 
-Vamos praticar o uso de métodos implementando um segundo método na struct `Rectangle`. Desta vez, queremos que uma instância de `Rectangle` receba outra instância de `Rectangle` e retorne `true` se a segunda `Rectangle` couber completamente dentro de `self` (a primeira `Rectangle`); caso contrário, deve retornar `false`. Ou seja, depois de definirmos o método `can_hold`, queremos poder escrever o programa mostrado na Listagem 5-14.
+Vamos praticar o uso de métodos implementando um segundo método na struct `Rectangle`. Desta vez, queremos que uma instância de `Rectangle` receba outra instância de `Rectangle` e retorne `true` se a segunda `Rectangle` couber completamente dentro de `self` (a primeira `Rectangle`); caso contrário, deve retornar `false`. Ou seja, depois de definirmos o método `can_hold`, queremos poder escrever o programa da Listagem 5-14.
 
 **Arquivo: src/main.rs**
 
@@ -158,12 +152,6 @@ Sabemos que queremos definir um método, então ele ficará dentro do bloco `imp
 **Arquivo: src/main.rs**
 
 ```rust
-#[derive(Debug)]
-struct Rectangle {
-    width: u32,
-    height: u32,
-}
-
 impl Rectangle {
     fn area(&self) -> u32 {
         self.width * self.height
@@ -172,24 +160,6 @@ impl Rectangle {
     fn can_hold(&self, other: &Rectangle) -> bool {
         self.width > other.width && self.height > other.height
     }
-}
-
-fn main() {
-    let rect1 = Rectangle {
-        width: 30,
-        height: 50,
-    };
-    let rect2 = Rectangle {
-        width: 10,
-        height: 40,
-    };
-    let rect3 = Rectangle {
-        width: 60,
-        height: 45,
-    };
-
-    println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
-    println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3));
 }
 ```
 
@@ -203,17 +173,11 @@ Quando executamos este código com a função `main` da Listagem 5-14, obteremos
 
 Todas as funções definidas dentro de um bloco `impl` são chamadas de _funções associadas_ porque estão associadas ao tipo nomeado depois do `impl`. Podemos definir funções associadas que não têm `self` como primeiro parâmetro (e, portanto, não são métodos) porque não precisam de uma instância do tipo para funcionar. Já usamos uma função assim: a função `String::from`, definida no tipo `String`.
 
-Funções associadas que não são métodos costumam ser usadas como construtores que retornarão uma nova instância da struct. Muitas vezes são chamadas de `new`, mas `new` não é um nome especial e não está embutido na linguagem. Por exemplo, poderíamos fornecer uma função associada chamada `square` que teria um parâmetro de dimensão e usaria esse valor tanto para largura quanto para altura, facilitando a criação de um `Rectangle` quadrado em vez de especificar o mesmo valor duas vezes:
+Funções associadas que não são métodos costumam ser usadas como construtores que retornarão uma nova instância da struct. Muitas vezes são chamadas de `new`, mas `new` não é um nome especial e não está embutido na linguagem. Por exemplo, poderíamos fornecer uma função associada chamada `square` que teria um parâmetro de dimensão e usaria esse valor tanto para largura quanto para altura, facilitando a criação de um `Rectangle` quadrado em vez de ter que especificar o mesmo valor duas vezes:
 
 **Arquivo: src/main.rs**
 
 ```rust
-#[derive(Debug)]
-struct Rectangle {
-    width: u32,
-    height: u32,
-}
-
 impl Rectangle {
     fn square(size: u32) -> Self {
         Self {
@@ -221,10 +185,6 @@ impl Rectangle {
             height: size,
         }
     }
-}
-
-fn main() {
-    let sq = Rectangle::square(3);
 }
 ```
 
@@ -239,12 +199,6 @@ Cada struct pode ter vários blocos `impl`. Por exemplo, a Listagem 5-15 é equi
 **Arquivo: src/main.rs**
 
 ```rust
-#[derive(Debug)]
-struct Rectangle {
-    width: u32,
-    height: u32,
-}
-
 impl Rectangle {
     fn area(&self) -> u32 {
         self.width * self.height
@@ -255,24 +209,6 @@ impl Rectangle {
     fn can_hold(&self, other: &Rectangle) -> bool {
         self.width > other.width && self.height > other.height
     }
-}
-
-fn main() {
-    let rect1 = Rectangle {
-        width: 30,
-        height: 50,
-    };
-    let rect2 = Rectangle {
-        width: 10,
-        height: 40,
-    };
-    let rect3 = Rectangle {
-        width: 60,
-        height: 45,
-    };
-
-    println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
-    println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3));
 }
 ```
 
