@@ -249,7 +249,7 @@ For more information about this error, try `rustc --explain E0502`.
 error: could not compile `ownership` (bin "ownership") due to 1 previous error
 ```
 
-Lembre-se das regras de borrowing: se temos uma referência imutável a algo, não podemos também obter uma referência mutável. Como `clear` precisa truncar a `String`, precisa obter uma referência mutável. O `println!` depois da chamada a `clear` usa a referência em `word`, então a referência imutável ainda precisa estar ativa nesse ponto. Rust impede que a referência mutável em `clear` e a referência imutável em `word` existam ao mesmo tempo, e a compilação falha. Não só o Rust tornou nossa API mais fácil de usar, como também eliminou uma classe inteira de erros em tempo de compilação!
+Lembre-se das regras de borrowing: se temos uma referência imutável para um valor, não podemos obter uma referência mutável para esse mesmo valor ao mesmo tempo. Como o método `clear` precisa esvaziar a `String`, ele precisa receber uma referência mutável. Por outro lado, o `println!` executado após a chamada de `clear` ainda utiliza a referência armazenada em `word`, o que significa que essa referência imutável continua ativa naquele momento. O Rust não permite que a referência mutável usada por `clear` e a referência imutável armazenada em `word` coexistam ao mesmo tempo. Por isso, a compilação falha. Além de tornar a API mais fácil de usar, o Rust também elimina toda uma categoria de erros já em tempo de compilação.
 
 ### Literais de string como slices
 
