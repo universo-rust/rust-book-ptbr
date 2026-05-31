@@ -2,6 +2,8 @@
 title: "Enums e pattern matching"
 chapter_code: 06-00
 slug: enums-e-pattern-matching
+challenge_day: 7
+reading_minutes: 1
 ---
 
 # Enums e Pattern Matching
