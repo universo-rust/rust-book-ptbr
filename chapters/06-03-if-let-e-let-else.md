@@ -2,6 +2,8 @@
 title: "Controle de fluxo conciso com `if let` e `let...else`"
 chapter_code: 06-03
 slug: if-let-e-let-else
+challenge_day: 8
+reading_minutes: 11
 ---
 
 # Controle de Fluxo Conciso com `if let` e `let...else`
@@ -39,7 +41,7 @@ A sintaxe `if let` recebe um padrão e uma expressão separados por um sinal de 
 
 Usar `if let` significa menos digitação, menos indentação e menos código boilerplate. Porém, você perde a verificação exaustiva que o `match` impõe e que garante que você não está esquecendo de tratar algum caso. Escolher entre `match` e `if let` depende do que você está fazendo na sua situação particular e se ganhar concisão é uma troca apropriada por perder a verificação exaustiva.
 
-Em outras palavras, você pode pensar em `if let` como açúcar sintático para um `match` que executa código quando o valor corresponde a um padrão e então ignora todos os outros valores.
+Em outras palavras, o `if let` é uma forma simplificada de um `match` que executa código quando o valor corresponde a um padrão específico e ignora os demais.
 
 Podemos incluir um `else` com um `if let`. O bloco de código que acompanha o `else` é o mesmo que iria com o caso `_` na expressão `match` equivalente ao `if let` e `else`. Lembre-se da definição do enum `Coin` na [Listagem 6-4](/livro/cap06-01-definindo-um-enum#listagem-6-4), em que a variante `Quarter` também continha um valor `UsState`. Se quiséssemos contar todas as moedas que não são quarters que vemos enquanto também anunciamos o estado das quarters, poderíamos fazer isso com uma expressão `match`, assim:
 
