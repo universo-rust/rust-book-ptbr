@@ -2,6 +2,8 @@
 title: "Packages, crates e módulos"
 chapter_code: 07-00
 slug: packages-crates-e-modulos
+challenge_day: 8
+reading_minutes: 4
 ---
 
 # Packages, Crates e Módulos
