@@ -213,7 +213,7 @@ O problema com valores null é que, se você tentar usar um valor null como se n
 
 Porém, o conceito que null tenta expressar ainda é útil: um null é um valor que está inválido ou ausente por algum motivo.
 
-O problema não é realmente o conceito, mas a implementação particular. Assim, o Rust não tem nulls, mas tem um enum que pode codificar o conceito de um valor estar presente ou ausente. Esse enum é `Option<T>`, e é definido pela biblioteca padrão assim:
+O problema não é realmente o conceito, mas a implementação particular. Assim, o Rust não tem nulls, mas tem um enum que pode codificar o conceito de um valor estar presente ou ausente. Esse enum é `Option<T>`, e é [definido pela biblioteca padrão](https://doc.rust-lang.org/std/option/enum.Option.html) assim:
 
 ```rust
 enum Option<T> {
