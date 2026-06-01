@@ -2,6 +2,8 @@
 title: "A construção de fluxo de controle `match`"
 chapter_code: 06-02
 slug: match
+challenge_day: 8
+reading_minutes: 18
 ---
 
 # A Construção de Fluxo de Controle `match`
