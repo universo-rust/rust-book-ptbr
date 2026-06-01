@@ -117,7 +117,7 @@ let home = IpAddr::V4(127, 0, 0, 1);
 let loopback = IpAddr::V6(String::from("::1"));
 ```
 
-Mostramos várias formas diferentes de definir estruturas de dados para armazenar endereços IP de versão quatro e versão seis. Porém, como se vê, querer armazenar endereços IP e codificar de que tipo são é tão comum que a biblioteca padrão tem uma definição que podemos usar! Vejamos como a biblioteca padrão define `IpAddr`. Ela tem exatamente o enum e as variantes que definimos e usamos, mas incorpora os dados de endereço dentro das variantes na forma de duas structs diferentes, definidas de forma distinta para cada variante:
+Mostramos várias formas diferentes de definir estruturas de dados para armazenar endereços IP de versão quatro e versão seis. Porém, como se vê, querer armazenar endereços IP e codificar de que tipo são é tão comum que a biblioteca padrão tem [uma definição que podemos usar](https://doc.rust-lang.org/std/net/enum.IpAddr.html)! Vejamos como a biblioteca padrão define `IpAddr`. Ela tem exatamente o enum e as variantes que definimos e usamos, mas incorpora os dados de endereço dentro das variantes na forma de duas structs diferentes, definidas de forma distinta para cada variante:
 
 ```rust
 struct Ipv4Addr {
