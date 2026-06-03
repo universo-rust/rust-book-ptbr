@@ -224,7 +224,7 @@ rand = "0.8.5"
 
 Adicionar `rand` como dependência em _Cargo.toml_ diz ao Cargo para baixar o package `rand`, bem como suas dependências, de [crates.io](https://crates.io/), e tornar `rand` disponível para o projeto.
 
-Em seguida, para trazer definições de `rand` para o escopo do nosso package, adicionamos uma linha `use` começando com o nome do crate, `rand`, e listamos os itens que queríamos importar. Lembre-se de que, na seção "Gerando um número aleatório", do Capítulo 2, trouxemos a trait `Rng` para o escopo e chamamos a função `rand::thread_rng`:
+Em seguida, para trazer definições de `rand` para o escopo do nosso package, adicionamos uma linha `use` começando com o nome do crate, `rand`, e listamos os itens que queríamos importar. Lembre-se de que, na seção [Gerando um número aleatório](/livro/cap02-00-programando-um-jogo-de-adivinhacao#gerando-um-número-aleatório), do Capítulo 2, trouxemos a trait `Rng` para o escopo e chamamos a função `rand::thread_rng`:
 
 ```rust
 use rand::Rng;
@@ -308,4 +308,4 @@ use std::collections::*;
 
 Essa declaração `use` traz todos os itens públicos definidos em `std::collections` para o escopo atual. Tenha cuidado ao usar o operador glob! Ele pode dificultar saber quais nomes estão no escopo e onde um nome usado no programa foi definido. Além disso, se a dependência mudar suas definições, o que você importou também muda, e isso pode gerar erros de compilação ao atualizar a dependência, por exemplo, se ela adicionar uma definição com o mesmo nome de uma definição sua no mesmo escopo.
 
-O operador glob é frequentemente usado em testes para trazer tudo que está sob teste para o módulo `tests`; falaremos sobre isso em "Como escrever testes", no Capítulo 11. O operador glob também é às vezes usado como parte do padrão prelude: consulte a documentação da biblioteca padrão para mais informações sobre esse padrão.
+O operador glob é frequentemente usado em testes para trazer tudo que está sob teste para o módulo `tests`; falaremos sobre isso em [Como escrever testes](/livro/cap11-01-como-escrever-testes), no Capítulo 11. O operador glob também é às vezes usado como parte do padrão prelude: consulte a documentação da biblioteca padrão para mais informações sobre esse padrão.
