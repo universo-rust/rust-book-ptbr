@@ -23,9 +23,9 @@ Antes de entrarmos nos detalhes de módulos e caminhos, aqui vai uma referência
   - Inline, diretamente após `mod vegetables`, dentro de chaves em vez do ponto e vírgula
   - No arquivo _src/garden/vegetables.rs_
   - No arquivo _src/garden/vegetables/mod.rs_
-- **Caminhos para código em módulos**: depois que um módulo passa a fazer parte do seu crate, você pode referenciar código desse módulo de qualquer outro lugar no mesmo crate, desde que as regras de privacidade permitam, usando o caminho do código. Por exemplo, um tipo `Asparagus` no módulo `garden::vegetables` seria encontrado em `crate::garden::vegetables::Asparagus`.
+- **Caminhos para código em módulos**: depois que um módulo passa a fazer parte do seu crate, você pode referenciar código desse módulo de qualquer outro lugar no mesmo crate, desde que as regras de privacidade permitam, usando o caminho do código. Por exemplo, um tipo `Aspargo` no módulo `garden::vegetables` seria encontrado em `crate::garden::vegetables::Aspargo`.
 - **Privado vs. público**: por padrão, o código dentro de um módulo é privado para seus módulos pais. Para tornar um módulo público, declare-o com `pub mod` em vez de `mod`. Para tornar públicos também os itens dentro de um módulo público, use `pub` antes de suas declarações.
-- **A palavra-chave `use`**: dentro de um escopo, a palavra-chave `use` cria atalhos para itens, reduzindo a repetição de caminhos longos. Em qualquer escopo que possa referenciar `crate::garden::vegetables::Asparagus`, você pode criar um atalho com `use crate::garden::vegetables::Asparagus;` e, a partir daí, basta escrever `Asparagus` para usar esse tipo no escopo.
+- **A palavra-chave `use`**: dentro de um escopo, a palavra-chave `use` cria atalhos para itens, reduzindo a repetição de caminhos longos. Em qualquer escopo que possa referenciar `crate::garden::vegetables::Aspargo`, você pode criar um atalho com `use crate::garden::vegetables::Aspargo;` e, a partir daí, basta escrever `Aspargo` para usar esse tipo no escopo.
 
 Aqui, criamos um binary crate chamado `backyard` para ilustrar essas regras. O diretório do crate, também chamado _backyard_, contém estes arquivos e diretórios:
 
@@ -45,13 +45,13 @@ Neste caso, o arquivo de raiz do crate é _src/main.rs_, e ele contém:
 **Arquivo: src/main.rs**
 
 ```rust
-use crate::garden::vegetables::Asparagus;
+use crate::garden::vegetables::Aspargo;
 
 pub mod garden;
 
 fn main() {
-    let plant = Asparagus {};
-    println!("I'm growing {plant:?}!");
+    let plant = Aspargo {};
+    println!("Estou cultivando {plant:?}!");
 }
 ```
 
@@ -69,7 +69,7 @@ Aqui, `pub mod vegetables;` significa que o código em _src/garden/vegetables.rs
 
 ```rust
 #[derive(Debug)]
-pub struct Asparagus {}
+pub struct Aspargo {}
 ```
 
 Agora vamos entrar nos detalhes dessas regras e vê-las em ação!

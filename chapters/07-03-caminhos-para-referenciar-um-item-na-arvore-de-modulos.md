@@ -243,7 +243,7 @@ mod back_of_house {
         pub fn summer(toast: &str) -> Breakfast {
             Breakfast {
                 toast: String::from(toast),
-                seasonal_fruit: String::from("peaches"),
+                seasonal_fruit: String::from("pêssegos"),
             }
         }
     }
@@ -251,14 +251,14 @@ mod back_of_house {
 
 pub fn eat_at_restaurant() {
     // Pedir um café da manhã no verão com torrada de centeio.
-    let mut meal = back_of_house::Breakfast::summer("Rye");
+    let mut meal = back_of_house::Breakfast::summer("Centeio");
     // Mudar de ideia sobre qual pão queremos.
-    meal.toast = String::from("Wheat");
-    println!("I'd like {} toast please", meal.toast);
+    meal.toast = String::from("Trigo");
+    println!("Quero uma torrada de {}, por favor", meal.toast);
 
     // A próxima linha não compilará se descomentarmos; não temos permissão
     // para ver ou modificar a fruta da estação que vem com a refeição.
-    // meal.seasonal_fruit = String::from("blueberries");
+    // meal.seasonal_fruit = String::from("mirtilos");
 }
 ```
 
