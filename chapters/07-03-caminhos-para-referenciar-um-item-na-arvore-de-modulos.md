@@ -19,7 +19,7 @@ Voltando à Listagem 7-1, digamos que queremos chamar a função `add_to_waitlis
 
 Vamos mostrar duas formas de chamar a função `add_to_waitlist` a partir de uma nova função, `eat_at_restaurant`, definida na raiz do crate. Esses caminhos estão corretos, mas ainda existe outro problema que impede esse exemplo de compilar como está. Vamos explicar o motivo em seguida.
 
-A função `eat_at_restaurant` faz parte da API pública do nosso library crate, então a marcamos com a palavra-chave `pub`. Na seção "Expondo caminhos com a palavra-chave `pub`", vamos entrar em mais detalhes sobre `pub`.
+A função `eat_at_restaurant` faz parte da API pública do nosso library crate, então a marcamos com a palavra-chave `pub`. Na seção [Expondo caminhos com a palavra-chave `pub`](/livro/cap07-03-caminhos-para-referenciar-um-item-na-arvore-de-modulos#expondo-caminhos-com-a-palavra-chave-pub), vamos entrar em mais detalhes sobre `pub`.
 
 **Arquivo: src/lib.rs (Este código não compila!)**
 
