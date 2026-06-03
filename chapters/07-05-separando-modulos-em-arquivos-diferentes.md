@@ -2,6 +2,8 @@
 title: "Separando módulos em arquivos diferentes"
 chapter_code: 07-05
 slug: separando-modulos-em-arquivos-diferentes
+challenge_day: 9
+reading_minutes: 5
 ---
 
 # Separando Módulos em Arquivos Diferentes
@@ -42,7 +44,7 @@ pub mod hosting {
 
 [Listagem 7-22](#listagem-7-22): Definições dentro do módulo `front_of_house` em _src/front_of_house.rs_
 
-Observe que você só precisa carregar um arquivo com uma declaração `mod` _uma vez_ na árvore de módulos. Depois que o compilador sabe que o arquivo faz parte do projeto (e sabe onde ele está na árvore de módulos por causa de onde você colocou a declaração `mod`), os outros arquivos do projeto devem referenciar esse código por meio do caminho onde ele foi declarado, como vimos na seção "Caminhos para referenciar um item na árvore de módulos". Em outras palavras, `mod` _não_ é uma operação de "include", como em outras linguagens de programação.
+Observe que você só precisa carregar um arquivo com uma declaração `mod` _uma vez_ na árvore de módulos. Depois que o compilador sabe que o arquivo faz parte do projeto (e sabe onde ele está na árvore de módulos por causa de onde você colocou a declaração `mod`), os outros arquivos do projeto devem referenciar esse código por meio do caminho onde ele foi declarado, como vimos na seção [Caminhos para referenciar um item na árvore de módulos](/livro/cap07-03-caminhos-para-referenciar-um-item-na-arvore-de-modulos). Em outras palavras, `mod` _não_ é uma operação de "include", como em outras linguagens de programação.
 
 Em seguida, vamos extrair o módulo `hosting` para um arquivo próprio. O processo é um pouco diferente porque `hosting` é um módulo filho de `front_of_house`, e não do módulo raiz. Vamos colocar o arquivo de `hosting` em um novo diretório nomeado de acordo com seus ancestrais na árvore de módulos; neste caso, _src/front_of_house_.
 
