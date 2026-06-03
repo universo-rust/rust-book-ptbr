@@ -10,7 +10,7 @@ reading_minutes: 6
 
 As primeiras partes do sistema de módulos que vamos abordar são packages e crates.
 
-Um _crate_ é a menor unidade de código que o compilador Rust considera de cada vez. Mesmo se você executar `rustc` em vez de `cargo` e passar um único arquivo-fonte (como fizemos lá em ["Fundamentos de Programas em Rust"](/livro/cap01-02-hello-world#noções-básicas-de-um-programa-rust), no Capítulo 1), o compilador considera esse arquivo um crate. Crates podem conter módulos, e esses módulos podem ser definidos em outros arquivos compilados junto com o crate, como veremos nas próximas seções.
+Um _crate_ é a menor unidade de código que o compilador Rust considera de cada vez. Mesmo se você executar `rustc` em vez de `cargo` e passar um único arquivo-fonte (como fizemos lá em [Fundamentos de Programas em Rust](/livro/cap01-02-hello-world#noções-básicas-de-um-programa-rust), no Capítulo 1), o compilador considera esse arquivo um crate. Crates podem conter módulos, e esses módulos podem ser definidos em outros arquivos compilados junto com o crate, como veremos nas próximas seções.
 
 Um crate pode ter uma de duas formas: um binary crate ou um library crate. _Binary crates_ são programas que você pode compilar em um executável e rodar, como um programa de linha de comando ou um servidor. Cada um deles precisa ter uma função chamada `main`, que define o que acontece quando o executável é iniciado. Todos os crates que criamos até agora foram binary crates.
 

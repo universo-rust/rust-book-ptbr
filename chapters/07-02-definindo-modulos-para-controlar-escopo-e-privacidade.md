@@ -2,6 +2,8 @@
 title: "Controlar escopo e privacidade com módulos"
 chapter_code: 07-02
 slug: definindo-modulos-para-controlar-escopo-e-privacidade
+challenge_day: 8
+reading_minutes: 10
 ---
 
 # Controlar Escopo e Privacidade com Módulos
@@ -116,8 +118,6 @@ A Listagem 7-2 mostra a árvore de módulos da estrutura apresentada na Listagem
 
 <a id="listagem-7-2"></a>
 
-[Listagem 7-2](#listagem-7-2): A árvore de módulos para o código da Listagem 7-1
-
 ```text
 crate
  └── front_of_house
@@ -129,6 +129,8 @@ crate
          ├── serve_order
          └── take_payment
 ```
+[Listagem 7-2](#listagem-7-2): A árvore de módulos para o código da Listagem 7-1
+
 
 Essa árvore mostra como alguns módulos se aninham dentro de outros; por exemplo, `hosting` está aninhado em `front_of_house`. A árvore também mostra que alguns módulos são _irmãos_, isto é, definidos dentro do mesmo módulo: `hosting` e `serving` são irmãos definidos dentro de `front_of_house`. Se o módulo A está contido no módulo B, dizemos que o módulo A é _filho_ do módulo B e que o módulo B é _pai_ do módulo A. Observe que toda a árvore de módulos está enraizada sob o módulo implícito chamado `crate`.
 
