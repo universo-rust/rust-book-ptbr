@@ -2,6 +2,8 @@
 title: "Definindo comportamento compartilhado com traits"
 chapter_code: 10-02
 slug: definindo-comportamento-compartilhado-com-traits
+challenge_day: 12
+reading_minutes: 40
 ---
 
 # Definindo comportamento compartilhado com traits
@@ -363,9 +365,9 @@ impl<T> Pair<T> {
 impl<T: Display + PartialOrd> Pair<T> {
     fn cmp_display(&self) {
         if self.x >= self.y {
-            println!("O maior membro é x = {}", self.x);
+            println!("The largest member is x = {}", self.x);
         } else {
-            println!("O maior membro é y = {}", self.y);
+            println!("The largest member is y = {}", self.y);
         }
     }
 }
