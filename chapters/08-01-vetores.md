@@ -2,6 +2,8 @@
 title: "Vetores"
 chapter_code: 08-01
 slug: vetores
+challenge_day: 10
+reading_minutes: 17
 ---
 
 # Armazenando Listas de Valores com Vetores
@@ -146,7 +148,7 @@ error: could not compile `collections` (bin "collections") due to 1 previous err
 
 O código da Listagem 8-6 parece que deveria funcionar: por que uma referência ao primeiro elemento se importaria com mudanças no final do vetor? O erro vem de como vetores funcionam internamente: como eles guardam os valores lado a lado na memória, adicionar um elemento ao final pode exigir alocar nova memória e copiar os elementos antigos para o novo espaço, se não couber tudo onde o vetor está armazenado hoje. Nesse caso, a referência ao primeiro elemento apontaria para memória já desalocada. As regras de borrowing impedem que o programa chegue a essa situação.
 
-> **Nota:** Para saber mais sobre os detalhes de implementação do tipo `Vec<T>`, consulte o _Rustonomicon_.
+> **Nota:** Para saber mais sobre os detalhes de implementação do tipo `Vec<T>`, consulte o [_Rustonomicon_](https://doc.rust-lang.org/nomicon/vec/vec.html).
 
 ### Iterando sobre os valores em um vetor
 
@@ -180,7 +182,7 @@ for i in &mut v {
 
 [Listagem 8-8](#listagem-8-8): Iterando sobre referências mutáveis a elementos de um vetor
 
-Para alterar o valor referenciado, usamos o operador de dereferência `*` para chegar ao valor em `i` antes de aplicar `+=`. Falaremos mais sobre dereferenciação na seção Seguindo a referência ao valor, do Capítulo 15.
+Para alterar o valor referenciado, usamos o operador de dereferência `*` para chegar ao valor em `i` antes de aplicar `+=`. Falaremos mais sobre dereferenciação na seção [Seguindo a Referência até o Valor](/livro/cap15-02-tratando-smart-pointers-como-referencias-com-a-trait-deref#seguindo-a-referência-até-o-valor), do Capítulo 15.
 
 Iterar sobre um vetor — de forma imutável ou mutável — é seguro graças às regras do borrow checker. Se tentássemos inserir ou remover itens dentro dos loops `for` das Listagens 8-7 e 8-8, o compilador emitiria um erro parecido com o da Listagem 8-6. A referência ao vetor mantida pelo loop impede modificar o vetor inteiro ao mesmo tempo.
 
@@ -214,7 +216,7 @@ O Rust precisa saber, em tempo de compilação, quais tipos estarão no vetor pa
 
 Se você não conhece de antemão o conjunto completo de tipos que o programa receberá em tempo de execução, a técnica do enum não serve. Nesse caso, use um trait object — veremos isso no Capítulo 18.
 
-Agora que vimos algumas das formas mais comuns de usar vetores, vale revisar a documentação da API: a biblioteca padrão define muitos métodos úteis em `Vec<T>`. Além de `push`, por exemplo, o método `pop` remove e devolve o último elemento.
+Agora que vimos algumas das formas mais comuns de usar vetores, vale revisar a [documentação da API](https://doc.rust-lang.org/std/vec/struct.Vec.html): a biblioteca padrão define muitos métodos úteis em `Vec<T>`. Além de `push`, por exemplo, o método `pop` remove e devolve o último elemento.
 
 ### Descartar um vetor descarta seus elementos
 
