@@ -19,14 +19,12 @@ Uma forma de criar um hash map vazio é chamar `new` e adicionar elementos com `
 **Arquivo: src/main.rs**
 
 ```rust
-fn main() {
-    use std::collections::HashMap;
+use std::collections::HashMap;
 
-    let mut scores = HashMap::new();
+let mut scores = HashMap::new();
 
-    scores.insert(String::from("Blue"), 10);
-    scores.insert(String::from("Yellow"), 50);
-}
+scores.insert(String::from("Blue"), 10);
+scores.insert(String::from("Yellow"), 50);
 ```
 
 <a id="listagem-8-20"></a>
@@ -44,17 +42,15 @@ Para obter um valor, passamos a chave ao método `get`, como na Listagem 8-21.
 **Arquivo: src/main.rs**
 
 ```rust
-fn main() {
-    use std::collections::HashMap;
+use std::collections::HashMap;
 
-    let mut scores = HashMap::new();
+let mut scores = HashMap::new();
 
-    scores.insert(String::from("Blue"), 10);
-    scores.insert(String::from("Yellow"), 50);
+scores.insert(String::from("Blue"), 10);
+scores.insert(String::from("Yellow"), 50);
 
-    let team_name = String::from("Blue");
-    let score = scores.get(&team_name).copied().unwrap_or(0);
-}
+let team_name = String::from("Blue");
+let score = scores.get(&team_name).copied().unwrap_or(0);
 ```
 
 <a id="listagem-8-21"></a>
@@ -68,17 +64,15 @@ Dá para iterar sobre cada par chave-valor com um loop `for`, como em vetores:
 **Arquivo: src/main.rs**
 
 ```rust
-fn main() {
-    use std::collections::HashMap;
+use std::collections::HashMap;
 
-    let mut scores = HashMap::new();
+let mut scores = HashMap::new();
 
-    scores.insert(String::from("Blue"), 10);
-    scores.insert(String::from("Yellow"), 50);
+scores.insert(String::from("Blue"), 10);
+scores.insert(String::from("Yellow"), 50);
 
-    for (key, value) in &scores {
-        println!("{key}: {value}");
-    }
+for (key, value) in &scores {
+    println!("{key}: {value}");
 }
 ```
 
@@ -96,17 +90,15 @@ Para tipos que implementam a trait `Copy`, como `i32`, os valores são copiados 
 **Arquivo: src/main.rs**
 
 ```rust
-fn main() {
-    use std::collections::HashMap;
+use std::collections::HashMap;
 
-    let field_name = String::from("Favorite color");
-    let field_value = String::from("Blue");
+let field_name = String::from("Favorite color");
+let field_value = String::from("Blue");
 
-    let mut map = HashMap::new();
-    map.insert(field_name, field_value);
-    // field_name e field_value são inválidos neste ponto; tente usá-los e
-    // veja qual erro do compilador você obtém!
-}
+let mut map = HashMap::new();
+map.insert(field_name, field_value);
+// field_name and field_value are invalid at this point, try using them and
+// see what compiler error you get!
 ```
 
 <a id="listagem-8-22"></a>
@@ -130,16 +122,14 @@ Se inserirmos uma chave com um valor e depois inserirmos a mesma chave com outro
 **Arquivo: src/main.rs**
 
 ```rust
-fn main() {
-    use std::collections::HashMap;
+use std::collections::HashMap;
 
-    let mut scores = HashMap::new();
+let mut scores = HashMap::new();
 
-    scores.insert(String::from("Blue"), 10);
-    scores.insert(String::from("Blue"), 25);
+scores.insert(String::from("Blue"), 10);
+scores.insert(String::from("Blue"), 25);
 
-    println!("{scores:?}");
-}
+println!("{scores:?}");
 ```
 
 <a id="listagem-8-23"></a>
@@ -157,17 +147,15 @@ Hash maps têm a API `entry` para isso — ela recebe a chave a verificar. `entr
 **Arquivo: src/main.rs**
 
 ```rust
-fn main() {
-    use std::collections::HashMap;
+use std::collections::HashMap;
 
-    let mut scores = HashMap::new();
-    scores.insert(String::from("Blue"), 10);
+let mut scores = HashMap::new();
+scores.insert(String::from("Blue"), 10);
 
-    scores.entry(String::from("Yellow")).or_insert(50);
-    scores.entry(String::from("Blue")).or_insert(50);
+scores.entry(String::from("Yellow")).or_insert(50);
+scores.entry(String::from("Blue")).or_insert(50);
 
-    println!("{scores:?}");
-}
+println!("{scores:?}");
 ```
 
 <a id="listagem-8-24"></a>
@@ -185,20 +173,18 @@ Outro uso frequente é ler o valor de uma chave e atualizá-lo a partir do anter
 **Arquivo: src/main.rs**
 
 ```rust
-fn main() {
-    use std::collections::HashMap;
+use std::collections::HashMap;
 
-    let text = "hello world wonderful world";
+let text = "hello world wonderful world";
 
-    let mut map = HashMap::new();
+let mut map = HashMap::new();
 
-    for word in text.split_whitespace() {
-        let count = map.entry(word).or_insert(0);
-        *count += 1;
-    }
-
-    println!("{map:?}");
+for word in text.split_whitespace() {
+    let count = map.entry(word).or_insert(0);
+    *count += 1;
 }
+
+println!("{map:?}");
 ```
 
 <a id="listagem-8-25"></a>

@@ -25,13 +25,11 @@ Também faz sentido usar `expect` quando outra lógica garante um `Ok`, mas o co
 **Arquivo: src/main.rs**
 
 ```rust
-fn main() {
-    use std::net::IpAddr;
+use std::net::IpAddr;
 
-    let home: IpAddr = "127.0.0.1"
-        .parse()
-        .expect("Hardcoded IP address should be valid");
-}
+let home: IpAddr = "127.0.0.1"
+    .parse()
+    .expect("Hardcoded IP address should be valid");
 ```
 
 Criamos um `IpAddr` fazendo parse de uma string fixa no código. `127.0.0.1` é válido — `expect` aqui é razoável. Porém, uma string válida embutida não muda o retorno de `parse`: continua sendo `Result`, e o compilador exige tratar `Err` como possibilidade, porque não infere que esta string sempre será um IP válido. Se o endereço viesse do usuário e pudesse falhar, trataríamos `Result` de forma mais robusta. Mencionar na mensagem que o IP é hardcoded lembra de trocar `expect` por algo melhor se, no futuro, a fonte mudar.
@@ -61,42 +59,21 @@ Uma abordagem: fazer parse como `i32` (não só `u32`, para aceitar negativos) e
 **Arquivo: src/main.rs**
 
 ```rust
-use rand::Rng;
-use std::cmp::Ordering;
-use std::io;
+loop {
+    // --snip--
 
-fn main() {
-    println!("Guess the number!");
+    let guess: i32 = match guess.trim().parse() {
+        Ok(num) => num,
+        Err(_) => continue,
+    };
 
-    let secret_number = rand::thread_rng().gen_range(1..=100);
+    if guess < 1 || guess > 100 {
+        println!("The secret number will be between 1 and 100.");
+        continue;
+    }
 
-    loop {
-        println!("Please input your guess.");
-
-        let mut guess = String::new();
-
-        io::stdin()
-            .read_line(&mut guess)
-            .expect("Failed to read line");
-
-        let guess: i32 = match guess.trim().parse() {
-            Ok(num) => num,
-            Err(_) => continue,
-        };
-
-        if guess < 1 || guess > 100 {
-            println!("The secret number will be between 1 and 100.");
-            continue;
-        }
-
-        match guess.cmp(&secret_number) {
-            Ordering::Less => println!("Too small!"),
-            Ordering::Greater => println!("Too big!"),
-            Ordering::Equal => {
-                println!("You win!");
-                break;
-            }
-        }
+    match guess.cmp(&secret_number) {
+        // --snip--
     }
 }
 ```

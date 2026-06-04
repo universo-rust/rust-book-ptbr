@@ -15,9 +15,7 @@ Para criar um vetor vazio, usamos a função `Vec::new`, como na Listagem 8-1.
 **Arquivo: src/main.rs**
 
 ```rust
-fn main() {
-    let v: Vec<i32> = Vec::new();
-}
+let v: Vec<i32> = Vec::new();
 ```
 
 <a id="listagem-8-1"></a>
@@ -31,9 +29,7 @@ Na prática, você vai criar um `Vec<T>` já com valores iniciais, e o Rust infe
 **Arquivo: src/main.rs**
 
 ```rust
-fn main() {
-    let v = vec![1, 2, 3];
-}
+let v = vec![1, 2, 3];
 ```
 
 <a id="listagem-8-2"></a>
@@ -49,14 +45,12 @@ Para criar um vetor e ir adicionando elementos, usamos o método `push`, como na
 **Arquivo: src/main.rs**
 
 ```rust
-fn main() {
-    let mut v = Vec::new();
+let mut v = Vec::new();
 
-    v.push(5);
-    v.push(6);
-    v.push(7);
-    v.push(8);
-}
+v.push(5);
+v.push(6);
+v.push(7);
+v.push(8);
 ```
 
 <a id="listagem-8-3"></a>
@@ -74,17 +68,15 @@ A Listagem 8-4 mostra as duas formas de acessar um valor: indexação e `get`.
 **Arquivo: src/main.rs**
 
 ```rust
-fn main() {
-    let v = vec![1, 2, 3, 4, 5];
+let v = vec![1, 2, 3, 4, 5];
 
-    let third: &i32 = &v[2];
-    println!("The third element is {third}");
+let third: &i32 = &v[2];
+println!("The third element is {third}");
 
-    let third: Option<&i32> = v.get(2);
-    match third {
-        Some(third) => println!("The third element is {third}"),
-        None => println!("There is no third element."),
-    }
+let third: Option<&i32> = v.get(2);
+match third {
+    Some(third) => println!("The third element is {third}"),
+    None => println!("There is no third element."),
 }
 ```
 
@@ -99,12 +91,10 @@ O Rust oferece essas duas formas para que você escolha como o programa se compo
 **Arquivo: src/main.rs (Este código entra em pânico!)**
 
 ```rust
-fn main() {
-    let v = vec![1, 2, 3, 4, 5];
+let v = vec![1, 2, 3, 4, 5];
 
-    let does_not_exist = &v[100];
-    let does_not_exist = v.get(100);
-}
+let does_not_exist = &v[100];
+let does_not_exist = v.get(100);
 ```
 
 <a id="listagem-8-5"></a>
@@ -120,15 +110,13 @@ Quando o programa tem uma referência válida, o borrow checker aplica as regras
 **Arquivo: src/main.rs (Este código não compila!)**
 
 ```rust
-fn main() {
-    let mut v = vec![1, 2, 3, 4, 5];
+let mut v = vec![1, 2, 3, 4, 5];
 
-    let first = &v[0];
+let first = &v[0];
 
-    v.push(6);
+v.push(6);
 
-    println!("The first element is: {first}");
-}
+println!("The first element is: {first}");
 ```
 
 <a id="listagem-8-6"></a>
@@ -167,11 +155,9 @@ Para acessar cada elemento de um vetor em sequência, percorremos todos eles em 
 **Arquivo: src/main.rs**
 
 ```rust
-fn main() {
-    let v = vec![100, 32, 57];
-    for i in &v {
-        println!("{i}");
-    }
+let v = vec![100, 32, 57];
+for i in &v {
+    println!("{i}");
 }
 ```
 
@@ -184,11 +170,9 @@ Também podemos iterar sobre referências mutáveis a cada elemento de um vetor 
 **Arquivo: src/main.rs**
 
 ```rust
-fn main() {
-    let mut v = vec![100, 32, 57];
-    for i in &mut v {
-        *i += 50;
-    }
+let mut v = vec![100, 32, 57];
+for i in &mut v {
+    *i += 50;
 }
 ```
 
@@ -209,19 +193,17 @@ Por exemplo, imagine obter valores de uma linha de planilha em que algumas colun
 **Arquivo: src/main.rs**
 
 ```rust
-fn main() {
-    enum SpreadsheetCell {
-        Int(i32),
-        Float(f64),
-        Text(String),
-    }
-
-    let row = vec![
-        SpreadsheetCell::Int(3),
-        SpreadsheetCell::Text(String::from("blue")),
-        SpreadsheetCell::Float(10.12),
-    ];
+enum SpreadsheetCell {
+    Int(i32),
+    Float(f64),
+    Text(String),
 }
+
+let row = vec![
+    SpreadsheetCell::Int(3),
+    SpreadsheetCell::Text(String::from("blue")),
+    SpreadsheetCell::Float(10.12),
+];
 ```
 
 <a id="listagem-8-9"></a>
@@ -241,12 +223,8 @@ Como qualquer outra `struct`, um vetor é descartado quando sai de escopo, como 
 **Arquivo: src/main.rs**
 
 ```rust
-fn main() {
-    {
-        let v = vec![1, 2, 3, 4];
-
-        // faz algo com v
-    } // <- v sai de escopo e é descartado aqui
+{
+    let v = vec![1, 2, 3, 4];
 }
 ```
 

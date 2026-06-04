@@ -210,10 +210,6 @@ fn read_username_from_file() -> Result<String, io::Error> {
         Err(e) => Err(e),
     }
 }
-
-fn main() {
-    let username = read_username_from_file().expect("Unable to get username");
-}
 ```
 
 <a id="listagem-9-6"></a>
@@ -248,10 +244,6 @@ fn read_username_from_file() -> Result<String, io::Error> {
     username_file.read_to_string(&mut username)?;
     Ok(username)
 }
-
-fn main() {
-    let username = read_username_from_file().expect("Unable to get username");
-}
 ```
 
 <a id="listagem-9-7"></a>
@@ -281,10 +273,6 @@ fn read_username_from_file() -> Result<String, io::Error> {
 
     Ok(username)
 }
-
-fn main() {
-    let username = read_username_from_file().expect("Unable to get username");
-}
 ```
 
 <a id="listagem-9-8"></a>
@@ -303,10 +291,6 @@ use std::io;
 
 fn read_username_from_file() -> Result<String, io::Error> {
     fs::read_to_string("hello.txt")
-}
-
-fn main() {
-    let username = read_username_from_file().expect("Unable to get username");
 }
 ```
 
@@ -371,16 +355,6 @@ A mensagem também diz que `?` funciona com `Option<T>`. Como em `Result`, só e
 ```rust
 fn last_char_of_first_line(text: &str) -> Option<char> {
     text.lines().next()?.chars().last()
-}
-
-fn main() {
-    assert_eq!(
-        last_char_of_first_line("Hello, world\nHow are you today?"),
-        Some('d')
-    );
-
-    assert_eq!(last_char_of_first_line(""), None);
-    assert_eq!(last_char_of_first_line("\nhi"), None);
 }
 ```
 

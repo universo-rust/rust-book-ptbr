@@ -23,9 +23,7 @@ Muitas operações disponíveis em `Vec<T>` também funcionam com `String`, porq
 **Arquivo: src/main.rs**
 
 ```rust
-fn main() {
-    let mut s = String::new();
-}
+let mut s = String::new();
 ```
 
 <a id="listagem-8-11"></a>
@@ -37,14 +35,12 @@ Essa linha cria uma string vazia chamada `s`, pronta para receber dados. Muitas 
 **Arquivo: src/main.rs**
 
 ```rust
-fn main() {
-    let data = "initial contents";
+let data = "initial contents";
 
-    let s = data.to_string();
+let s = data.to_string();
 
-    // O método também funciona em um literal diretamente:
-    let s = "initial contents".to_string();
-}
+// The method also works on a literal directly:
+let s = "initial contents".to_string();
 ```
 
 <a id="listagem-8-12"></a>
@@ -58,9 +54,7 @@ Também podemos usar `String::from` para criar uma `String` a partir de um liter
 **Arquivo: src/main.rs**
 
 ```rust
-fn main() {
-    let s = String::from("initial contents");
-}
+let s = String::from("initial contents");
 ```
 
 <a id="listagem-8-13"></a>
@@ -74,19 +68,17 @@ Lembre-se: strings são UTF-8, então podemos armazenar qualquer texto corretame
 **Arquivo: src/main.rs**
 
 ```rust
-fn main() {
-    let hello = String::from("السلام عليكم");
-    let hello = String::from("Dobrý den");
-    let hello = String::from("Hello");
-    let hello = String::from("שלום");
-    let hello = String::from("नमस्ते");
-    let hello = String::from("こんにちは");
-    let hello = String::from("안녕하세요");
-    let hello = String::from("你好");
-    let hello = String::from("Olá");
-    let hello = String::from("Здравствуйте");
-    let hello = String::from("Hola");
-}
+let hello = String::from("السلام عليكم");
+let hello = String::from("Dobrý den");
+let hello = String::from("Hello");
+let hello = String::from("שלום");
+let hello = String::from("नमस्ते");
+let hello = String::from("こんにちは");
+let hello = String::from("안녕하세요");
+let hello = String::from("你好");
+let hello = String::from("Olá");
+let hello = String::from("Здравствуйте");
+let hello = String::from("Hola");
 ```
 
 <a id="listagem-8-14"></a>
@@ -106,10 +98,8 @@ Podemos fazer uma `String` crescer com o método `push_str`, que acrescenta uma 
 **Arquivo: src/main.rs**
 
 ```rust
-fn main() {
-    let mut s = String::from("foo");
-    s.push_str("bar");
-}
+let mut s = String::from("foo");
+s.push_str("bar");
 ```
 
 <a id="listagem-8-15"></a>
@@ -121,12 +111,10 @@ Depois dessas duas linhas, `s` contém `foobar`. O `push_str` recebe uma fatia d
 **Arquivo: src/main.rs**
 
 ```rust
-fn main() {
-    let mut s1 = String::from("foo");
-    let s2 = "bar";
-    s1.push_str(s2);
-    println!("s2 is {s2}");
-}
+let mut s1 = String::from("foo");
+let s2 = "bar";
+s1.push_str(s2);
+println!("s2 is {s2}");
 ```
 
 <a id="listagem-8-16"></a>
@@ -140,10 +128,8 @@ O método `push` recebe um único caractere e o adiciona à `String`. A Listagem
 **Arquivo: src/main.rs**
 
 ```rust
-fn main() {
-    let mut s = String::from("lo");
-    s.push('l');
-}
+let mut s = String::from("lo");
+s.push('l');
 ```
 
 <a id="listagem-8-17"></a>
@@ -159,11 +145,9 @@ Muitas vezes você quer juntar duas strings existentes. Uma forma é usar o oper
 **Arquivo: src/main.rs**
 
 ```rust
-fn main() {
-    let s1 = String::from("Hello, ");
-    let s2 = String::from("world!");
-    let s3 = s1 + &s2; // note que s1 foi movida aqui e não pode mais ser usada
-}
+let s1 = String::from("Hello, ");
+let s2 = String::from("world!");
+let s3 = s1 + &s2; // note s1 has been moved here and can no longer be used
 ```
 
 <a id="listagem-8-18"></a>
@@ -189,13 +173,11 @@ Para concatenar várias strings, o operador `+` fica incômodo:
 **Arquivo: src/main.rs**
 
 ```rust
-fn main() {
-    let s1 = String::from("tic");
-    let s2 = String::from("tac");
-    let s3 = String::from("toe");
+let s1 = String::from("tic");
+let s2 = String::from("tac");
+let s3 = String::from("toe");
 
-    let s = s1 + "-" + &s2 + "-" + &s3;
-}
+let s = s1 + "-" + &s2 + "-" + &s3;
 ```
 
 Aqui, `s` fica `tic-tac-toe`. Com tantos `+` e aspas, fica difícil enxergar o que está acontecendo. Para combinações mais elaboradas, use a macro `format!`:
@@ -203,13 +185,11 @@ Aqui, `s` fica `tic-tac-toe`. Com tantos `+` e aspas, fica difícil enxergar o q
 **Arquivo: src/main.rs**
 
 ```rust
-fn main() {
-    let s1 = String::from("tic");
-    let s2 = String::from("tac");
-    let s3 = String::from("toe");
+let s1 = String::from("tic");
+let s2 = String::from("tac");
+let s3 = String::from("toe");
 
-    let s = format!("{s1}-{s2}-{s3}");
-}
+let s = format!("{s1}-{s2}-{s3}");
 ```
 
 Esse código também define `s` como `tic-tac-toe`. A macro `format!` funciona como `println!`, mas em vez de imprimir na tela, retorna uma `String`. A versão com `format!` é bem mais legível — e o código gerado usa referências, então a chamada não toma ownership de nenhum parâmetro.
@@ -221,10 +201,8 @@ Em muitas linguagens, acessar caracteres individuais por índice é comum e vál
 **Arquivo: src/main.rs (Este código não compila!)**
 
 ```rust
-fn main() {
-    let s1 = String::from("hi");
-    let h = s1[0];
-}
+let s1 = String::from("hi");
+let h = s1[0];
 ```
 
 <a id="listagem-8-19"></a>
