@@ -2,6 +2,8 @@
 title: "Tipos genéricos, traits e lifetimes"
 chapter_code: 10-00
 slug: tipos-genericos-traits-e-lifetimes
+challenge_day: 12
+reading_minutes: 6
 ---
 
 # Tipos Genéricos, Traits e Lifetimes
