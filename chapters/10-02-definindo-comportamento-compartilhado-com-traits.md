@@ -316,13 +316,13 @@ fn returns_summarizable(switch: bool) -> impl Summary {
     if switch {
         NewsArticle {
             headline: String::from(
-                "Pinguins vencem o campeonato da Stanley Cup!",
+                "Penguins win the Stanley Cup Championship!",
             ),
-            location: String::from("Pittsburgh, PA, EUA"),
+            location: String::from("Pittsburgh, PA, USA"),
             author: String::from("Iceburgh"),
             content: String::from(
-                "Os Pittsburgh Penguins mais uma vez são o melhor \
-                 time de hóquei da NHL.",
+                "The Pittsburgh Penguins once again are the best \
+                 hockey team in the NHL.",
             ),
         }
     } else {
