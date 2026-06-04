@@ -2,6 +2,8 @@
 title: "Erros recuperáveis com `Result`"
 chapter_code: 09-02
 slug: erros-recuperaveis-com-result
+challenge_day: 11
+reading_minutes: 21
 ---
 
 # Erros Recuperáveis com `Result`
