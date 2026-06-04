@@ -156,21 +156,17 @@ Embora não estejamos mais definindo o método `summarize` em `NewsArticle` dire
 **Arquivo: src/main.rs**
 
 ```rust
-use aggregator::{self, NewsArticle, Summary};
-
-fn main() {
     let article = NewsArticle {
-        headline: String::from("Pinguins vencem o campeonato da Stanley Cup!"),
-        location: String::from("Pittsburgh, PA, EUA"),
+        headline: String::from("Penguins win the Stanley Cup Championship!"),
+        location: String::from("Pittsburgh, PA, USA"),
         author: String::from("Iceburgh"),
         content: String::from(
-            "Os Pittsburgh Penguins mais uma vez são o melhor \
-             time de hóquei da NHL.",
+            "The Pittsburgh Penguins once again are the best \
+             hockey team in the NHL.",
         ),
     };
 
-    println!("Nova matéria disponível! {}", article.summarize());
-}
+    println!("New article available! {}", article.summarize());
 ```
 
 Este código imprime `Nova matéria disponível! (Leia mais...)`.
