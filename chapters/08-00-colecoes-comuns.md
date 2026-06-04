@@ -14,6 +14,6 @@ A biblioteca padrão do Rust inclui várias estruturas de dados muito úteis, ch
 - Uma _string_ é uma coleção de caracteres. Já mencionamos o tipo `String` antes, mas aqui vamos falar dela em profundidade.
 - Um _hash map_ permite associar um valor a uma chave específica. É uma implementação particular da estrutura de dados mais geral chamada _map_.
 
-Para conhecer os demais tipos de coleção disponíveis na biblioteca padrão, consulte a documentação.
+Para conhecer os demais tipos de coleção disponíveis na biblioteca padrão, consulte a [documentação](https://doc.rust-lang.org/std/collections/index.html).
 
 Veremos como criar e atualizar vetores, strings e hash maps, e o que torna cada um especial.
