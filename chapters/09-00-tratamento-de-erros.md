@@ -2,6 +2,8 @@
 title: "Tratamento de erros"
 chapter_code: 09-00
 slug: tratamento-de-erros
+challenge_day: 11
+reading_minutes: 1
 ---
 
 # Tratamento de Erros
