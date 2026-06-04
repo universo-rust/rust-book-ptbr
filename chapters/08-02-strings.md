@@ -2,11 +2,13 @@
 title: "Strings"
 chapter_code: 08-02
 slug: strings
+challenge_day: 10
+reading_minutes: 17
 ---
 
 # Armazenando Texto Codificado em UTF-8 com Strings
 
-Falamos sobre strings no Capítulo 4; agora vamos mergulhar mais fundo. Rustáceos iniciantes costumam travar em strings por três motivos combinados: a tendência do Rust a tornar visíveis erros potenciais, strings serem uma estrutura de dados mais complexa do que muitos programadores imaginam, e UTF-8. Juntos, esses fatores podem parecer intimidantes quando você vem de outras linguagens.
+Falamos sobre strings no Capítulo 4; agora vamos mergulhar mais fundo. Rustáceos iniciantes costumam travar em strings por três motivos combinados: a tendência do Rust de tornar visíveis erros potenciais, strings serem uma estrutura de dados mais complexa do que muitos programadores imaginam, e UTF-8. Juntos, esses fatores podem parecer intimidantes quando você vem de outras linguagens.
 
 Abordamos strings no contexto de coleções porque elas são implementadas como uma coleção de bytes, com métodos extras para trabalhar com esse conteúdo como texto. Nesta seção, veremos as operações comuns a todo tipo de coleção — criar, atualizar e ler — aplicadas a `String`. Também veremos o que torna `String` diferente das demais coleções: indexar uma `String` é complicado porque pessoas e computadores interpretam esses dados de formas distintas.
 
@@ -261,9 +263,9 @@ Você já sabe que `answer` não será `З`, a primeira letra. Em UTF-8, o prime
 
 Para evitar valores inesperados e bugs difíceis de detectar, o Rust simplesmente não compila esse código — e elimina o mal-entendido cedo no desenvolvimento.
 
-#### Bytes, valores escalares e clusters de grafemas
+#### Bytes, valores escalares e grapheme clusters
 
-Há três formas relevantes de olhar strings em Rust: como bytes, como valores escalares e como clusters de grafemas (o mais próximo do que chamamos de _letras_).
+Há três formas relevantes de olhar strings em Rust: como bytes, como valores escalares e como *grapheme clusters* — o que o Unicode define como a unidade mais próxima do que o usuário enxerga como uma _letra_ na tela.
 
 A palavra hindi “नमस्ते”, escrita em Devanagari, é armazenada como um vetor de `u8` assim:
 
@@ -278,7 +280,7 @@ São 18 bytes — é assim que o computador guarda os dados. Como valores escala
 ['न', 'म', 'स', '्', 'त', 'े']
 ```
 
-Há seis valores `char`, mas o quarto e o sexto não são letras: são diacríticos que não fazem sentido sozinhos. Como clusters de grafemas, veríamos as quatro “letras” que um falante de hindi reconheceria na palavra:
+Há seis valores `char`, mas o quarto e o sexto não são letras: são diacríticos que não fazem sentido sozinhos. Como *grapheme clusters*, veríamos as quatro “letras” que um falante de hindi reconheceria na palavra:
 
 ```text
 ["न", "म", "स्", "ते"]
@@ -290,7 +292,7 @@ Outro motivo pelo qual o Rust não permite indexar uma `String` para obter um ca
 
 ### Fatiando strings
 
-Indexar uma string costuma ser má ideia porque não fica claro o que a operação deveria retornar: um byte, um caractere, um cluster de grafemas ou uma fatia de string. Se você realmente precisar de índices para criar fatias, o Rust exige que seja mais específico.
+Indexar uma string costuma ser má ideia porque não fica claro o que a operação deveria retornar: um byte, um caractere, um *grapheme cluster* ou uma fatia de string. Se você realmente precisar de índices para criar fatias, o Rust exige que seja mais específico.
 
 Em vez de `[]` com um único número, use `[]` com um intervalo para obter uma fatia de string com bytes específicos:
 
@@ -353,7 +355,7 @@ Esse código imprime os 4 bytes que compõem a string:
 
 Lembre-se: um valor escalar Unicode válido pode ocupar mais de 1 byte.
 
-Obter clusters de grafemas — como no Devanagari — é complexo; a biblioteca padrão não oferece isso. Há crates em [crates.io](https://crates.io/) se você precisar dessa funcionalidade.
+Obter *grapheme clusters* — como no Devanagari — é complexo; a biblioteca padrão não oferece isso. Há crates em [crates.io](https://crates.io/) se você precisar dessa funcionalidade.
 
 ### Lidando com as complexidades de strings
 
