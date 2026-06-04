@@ -133,7 +133,7 @@ fn longest(x: &str, y: &str) -> &str {
 
 [Listagem 10-19](#listagem-10-19): Uma função `main` que chama a função `longest` para encontrar o maior de dois slices de string
 
-Observe que queremos que a função receba slices de string, que são referências, em vez de `String`, porque não queremos que `longest` tome ownership de seus parâmetros. Consulte a seção String slices como parâmetros do Capítulo 4 para mais discussão sobre por que os parâmetros que usamos na Listagem 10-19 são os que queremos.
+Observe que queremos que a função receba slices de string, que são referências, em vez de `String`, porque não queremos que `longest` tome ownership de seus parâmetros. Consulte a seção [String slices como parâmetros](/livro/cap04-03-slices#string-slices-como-parâmetros) do Capítulo 4 para mais discussão sobre por que os parâmetros que usamos na Listagem 10-19 são os que queremos.
 
 Se tentarmos implementar a função `longest` como mostrado na Listagem 10-20, ela não compilará.
 
