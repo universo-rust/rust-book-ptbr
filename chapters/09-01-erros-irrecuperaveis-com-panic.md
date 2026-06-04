@@ -2,6 +2,8 @@
 title: "Erros irrecuperáveis com `panic!`"
 chapter_code: 09-01
 slug: erros-irrecuperaveis-com-panic
+challenge_day: 11
+reading_minutes: 7
 ---
 
 # Erros Irrecuperáveis com `panic!`
@@ -115,4 +117,4 @@ note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose bac
 
 Na Listagem 9-2, a linha 6 do backtrace aponta para o problema no nosso projeto: linha 4 de _src/main.rs_. Se não queremos pânico, a investigação começa na primeira linha que menciona um arquivo nosso. Na Listagem 9-1, onde provocamos o pânico de propósito, a correção é simples: não pedir um elemento fora do intervalo do vetor. Quando o código entrar em pânico no futuro, será preciso descobrir qual ação, com quais valores, causou o pânico — e o que deveria acontecer em vez disso.
 
-Voltaremos a `panic!` — e a quando usar ou não `panic!` para tratar erros — na seção Panic ou não panic, mais adiante neste capítulo. Em seguida, veremos como se recuperar de um erro com `Result`.
+Voltaremos a `panic!` — e a quando usar ou não `panic!` para tratar erros — na seção [Panic ou Não Panic](/livro/cap09-03-panic-ou-nao-panic), mais adiante neste capítulo. Em seguida, veremos como se recuperar de um erro com `Result`.
