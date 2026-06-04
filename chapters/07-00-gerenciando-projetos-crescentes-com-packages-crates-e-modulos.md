@@ -6,7 +6,7 @@ challenge_day: 8
 reading_minutes: 4
 ---
 
-# Packages, Crates e Módulos
+# Packages, crates e módulos
 
 À medida que você escreve programas maiores, organizar o código se torna cada vez mais importante. Ao agrupar funcionalidades relacionadas e separar o código em partes com responsabilidades distintas, fica mais claro onde encontrar a implementação de um recurso específico e onde fazer mudanças no funcionamento desse recurso.
 

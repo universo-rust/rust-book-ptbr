@@ -6,7 +6,7 @@ challenge_day: 12
 reading_minutes: 6
 ---
 
-# Tipos de Dados Genéricos
+# Tipos de dados genéricos
 
 Usamos generics para criar definições de itens como assinaturas de função ou structs, que podemos então usar com muitos tipos de dados concretos diferentes. Primeiro veremos como definir funções, structs, enums e métodos usando generics. Depois, discutiremos como generics afetam o desempenho do código.
 

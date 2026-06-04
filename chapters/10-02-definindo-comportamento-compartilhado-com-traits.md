@@ -4,7 +4,7 @@ chapter_code: 10-02
 slug: definindo-comportamento-compartilhado-com-traits
 ---
 
-# Definindo Comportamento Compartilhado com Traits
+# Definindo comportamento compartilhado com traits
 
 Uma _trait_ define a funcionalidade que um tipo particular tem e pode compartilhar com outros tipos. Podemos usar traits para definir comportamento compartilhado de forma abstrata. Podemos usar _trait bounds_ para especificar que um tipo genérico pode ser qualquer tipo que tenha determinado comportamento.
 

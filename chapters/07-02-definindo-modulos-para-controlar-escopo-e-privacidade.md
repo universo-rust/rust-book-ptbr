@@ -6,7 +6,7 @@ challenge_day: 8
 reading_minutes: 10
 ---
 
-# Controlar Escopo e Privacidade com Módulos
+# Controlar escopo e privacidade com módulos
 
 Nesta seção, vamos falar sobre módulos e outras partes do sistema de módulos, como os _caminhos_, que permitem nomear itens; a palavra-chave `use`, que traz um caminho para o escopo; e a palavra-chave `pub`, usada para tornar itens públicos. Também vamos discutir a palavra-chave `as`, packages externos e o operador glob.
 

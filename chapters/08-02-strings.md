@@ -6,7 +6,7 @@ challenge_day: 10
 reading_minutes: 17
 ---
 
-# Armazenando Texto Codificado em UTF-8 com Strings
+# Armazenando texto codificado em UTF-8 com strings
 
 Falamos sobre strings no Capítulo 4; agora vamos mergulhar mais fundo. Rustáceos iniciantes costumam travar em strings por três motivos combinados: a tendência do Rust de tornar visíveis erros potenciais, strings serem uma estrutura de dados mais complexa do que muitos programadores imaginam, e UTF-8. Juntos, esses fatores podem parecer intimidantes quando você vem de outras linguagens.
 

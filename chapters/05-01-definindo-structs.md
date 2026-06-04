@@ -6,7 +6,7 @@ challenge_day: 6
 reading_minutes: 18
 ---
 
-# Definindo e Instanciando Structs
+# Definindo e instanciando structs
 
 Structs são semelhantes às tuplas, discutidas na seção [O tipo tupla (tuple)](/livro/cap03-02-tipos-de-dados#o-tipo-tupla-tuple), pois ambas armazenam múltiplos valores relacionados. Assim como nas tuplas, os elementos de uma struct podem ter tipos diferentes. No entanto, diferentemente das tuplas, em uma struct você dá um nome para cada parte dos dados, tornando claro o significado de cada valor. Esses nomes tornam as structs mais flexíveis do que as tuplas: você não precisa depender da ordem dos dados para especificar ou acessar os valores de uma instância.
 

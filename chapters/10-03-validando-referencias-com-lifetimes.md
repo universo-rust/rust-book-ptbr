@@ -4,7 +4,7 @@ chapter_code: 10-03
 slug: validando-referencias-com-lifetimes
 ---
 
-# Validando Referências com Lifetimes
+# Validando referências com lifetimes
 
 Lifetimes são outro tipo de generic que já estamos usando. Em vez de garantir que um tipo tenha o comportamento que queremos, lifetimes garantem que referências sejam válidas enquanto precisarmos delas.
 

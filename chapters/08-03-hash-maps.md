@@ -6,7 +6,7 @@ challenge_day: 10
 reading_minutes: 13
 ---
 
-# Armazenando Chaves com Valores Associados em Hash Maps
+# Armazenando chaves com valores associados em Hash Maps
 
 A última das nossas coleções comuns é o hash map. O tipo `HashMap<K, V>` guarda um mapeamento de chaves do tipo `K` para valores do tipo `V`, usando uma _função de hash_ que define como esses pares ficam na memória. Muitas linguagens têm estruturas parecidas, mas com nomes diferentes — _hash_, _map_, _object_, _hash table_, _dictionary_, _array associativo_, entre outros.
 

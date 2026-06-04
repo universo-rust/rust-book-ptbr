@@ -6,7 +6,7 @@ challenge_day: 9
 reading_minutes: 20
 ---
 
-# Caminhos para Referenciar um Item na Árvore de Módulos
+# Caminhos para referenciar um item na árvore de módulos
 
 Para mostrar ao Rust onde encontrar um item na árvore de módulos, usamos um caminho da mesma forma que usamos caminhos ao navegar em um sistema de arquivos. Para chamar uma função, precisamos conhecer seu caminho.
 

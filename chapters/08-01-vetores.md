@@ -6,7 +6,7 @@ challenge_day: 10
 reading_minutes: 17
 ---
 
-# Armazenando Listas de Valores com Vetores
+# Armazenando listas de valores com vetores
 
 O primeiro tipo de coleção que veremos é `Vec<T>`, também conhecido como vetor. Com vetores, você armazena vários valores numa única estrutura de dados, com todos eles dispostos lado a lado na memória. Eles só aceitam valores do mesmo tipo. São úteis quando você tem uma lista de itens — as linhas de um arquivo de texto, os preços no carrinho de compras, e assim por diante.
 

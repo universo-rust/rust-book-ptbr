@@ -6,7 +6,7 @@ challenge_day: 11
 reading_minutes: 21
 ---
 
-# Erros Recuperáveis com `Result`
+# Erros recuperáveis com `Result`
 
 A maioria dos erros não é grave o bastante para derrubar o programa inteiro. Às vezes uma função falha por um motivo que dá para interpretar e corrigir. Se você tenta abrir um arquivo e a operação falha porque ele não existe, pode preferir criá-lo em vez de encerrar o processo.
 

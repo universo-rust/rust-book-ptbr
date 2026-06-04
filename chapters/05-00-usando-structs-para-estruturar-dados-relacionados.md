@@ -6,7 +6,7 @@ challenge_day: 6
 reading_minutes: 1
 ---
 
-# Usando Structs para Estruturar Dados Relacionados
+# Usando structs para estruturar dados relacionados
 
 Uma _struct_ é um tipo de dado personalizado que permite agrupar e nomear vários valores relacionados que formam um conjunto significativo. Se você está familiarizado com uma linguagem orientada a objetos, uma struct é semelhante aos atributos de dados de um objeto. Neste capítulo, vamos comparar e contrastar tuplas e structs para expandir o que você já aprendeu e mostrar em quais situações as structs são uma forma melhor de agrupar dados.
 

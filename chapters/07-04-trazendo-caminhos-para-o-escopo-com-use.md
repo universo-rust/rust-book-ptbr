@@ -6,7 +6,7 @@ challenge_day: 9
 reading_minutes: 11
 ---
 
-# Trazendo Caminhos para o Escopo com a Palavra-chave `use`
+# Trazendo caminhos para o escopo com a palavra-chave `use`
 
 Ter que escrever caminhos completos para chamar funções pode ser incômodo e repetitivo. Na Listagem 7-7, independentemente de termos escolhido o caminho absoluto ou relativo para a função `add_to_waitlist`, toda vez que quiséssemos chamá-la precisaríamos especificar `front_of_house` e `hosting` também. Felizmente, existe uma forma de simplificar isso: podemos criar uma vez um atalho para um caminho com a palavra-chave `use` e, depois, usar o nome mais curto no restante do escopo.
 

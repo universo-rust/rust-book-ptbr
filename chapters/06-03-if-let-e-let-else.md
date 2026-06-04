@@ -6,7 +6,7 @@ challenge_day: 8
 reading_minutes: 11
 ---
 
-# Controle de Fluxo Conciso com `if let` e `let...else`
+# Controle de fluxo conciso com `if let` e `let...else`
 
 A sintaxe `if let` permite combinar `if` e `let` de uma forma menos verbosa para lidar com valores que correspondem a um padrão enquanto ignora o restante. Considere o programa da Listagem 6-6 que faz `match` em um valor `Option<u8>` na variável `config_max`, mas só quer executar código se o valor for a variante `Some`.
 

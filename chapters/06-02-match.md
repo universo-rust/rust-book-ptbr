@@ -6,7 +6,7 @@ challenge_day: 8
 reading_minutes: 18
 ---
 
-# A Construção de Fluxo de Controle `match`
+# A construção de fluxo de controle `match`
 
 O Rust tem uma construção de fluxo de controle extremamente poderosa chamada `match` que permite comparar um valor contra uma série de padrões e então executar código com base em qual padrão corresponde. Padrões podem ser compostos de valores literais, nomes de variáveis, curingas e muitas outras coisas; o [Capítulo 19](/livro/cap19-00-padroes-e-matching) cobre todos os diferentes tipos de padrões e o que fazem. O poder de `match` vem da expressividade dos padrões e do fato de o compilador confirmar que todos os casos possíveis são tratados.
 

@@ -6,7 +6,7 @@ challenge_day: 11
 reading_minutes: 1
 ---
 
-# Tratamento de Erros
+# Tratamento de erros
 
 Erros fazem parte do software — e o Rust oferece vários recursos para quando algo dá errado. Em muitos casos, o compilador exige que você reconheça a possibilidade de erro e tome alguma providência antes de compilar. Esse requisito deixa o programa mais robusto: você descobre e trata falhas antes de levar o código para produção.
 

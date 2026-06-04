@@ -6,7 +6,7 @@ challenge_day: 11
 reading_minutes: 7
 ---
 
-# Erros Irrecuperáveis com `panic!`
+# Erros irrecuperáveis com `panic!`
 
 Às vezes algo dá errado no código e não há o que fazer. Nesses casos, o Rust oferece a macro `panic!`. Na prática, há duas formas de provocar um pânico: tomar uma ação que faz o programa entrar em pânico (como acessar um array além do fim) ou chamar `panic!` explicitamente. Em ambos os casos, o programa entra em pânico. Por padrão, isso imprime uma mensagem de falha, faz _unwind_, limpa a stack e encerra. Com uma variável de ambiente, você também pode pedir ao Rust que exiba a call stack quando o pânico ocorrer — o que facilita localizar a origem.
 

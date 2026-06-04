@@ -6,7 +6,7 @@ challenge_day: 8
 reading_minutes: 6
 ---
 
-# Packages e Crates
+# Packages e crates
 
 As primeiras partes do sistema de módulos que vamos abordar são packages e crates.
 

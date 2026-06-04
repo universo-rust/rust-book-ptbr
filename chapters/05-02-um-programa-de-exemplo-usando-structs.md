@@ -6,7 +6,7 @@ challenge_day: 6
 reading_minutes: 17
 ---
 
-# Um Programa de Exemplo Usando Structs
+# Um programa de exemplo usando structs
 
 Para entender quando poderíamos querer usar structs, vamos escrever um programa que calcula a área de um retângulo. Começaremos usando variáveis simples e depois refatoraremos o programa até usarmos structs.
 

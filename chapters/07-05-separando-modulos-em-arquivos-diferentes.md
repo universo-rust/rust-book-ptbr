@@ -6,7 +6,7 @@ challenge_day: 9
 reading_minutes: 5
 ---
 
-# Separando Módulos em Arquivos Diferentes
+# Separando módulos em arquivos diferentes
 
 Até agora, todos os exemplos deste capítulo definiam vários módulos em um único arquivo. Quando os módulos crescem, você pode querer mover suas definições para arquivos separados, facilitando a navegação no código.
 
