@@ -144,7 +144,7 @@ No `match` interno, checamos se `error.kind()` é `NotFound`. Se for, tentamos `
 
 `match` funciona, mas pode ficar verboso e nem sempre deixa a intenção clara. `Result<T, E>` traz métodos auxiliares para tarefas específicas. `unwrap` equivale ao `match` da Listagem 9-4: com `Ok`, devolve o valor interno; com `Err`, chama `panic!` por nós.
 
-**Arquivo: src/main.rs (Este código entra em pânico se `hello.txt` não existir!)**
+**Arquivo: src/main.rs**
 
 ```rust
 use std::fs::File;
@@ -163,7 +163,7 @@ called `Result::unwrap()` on an `Err` value: Os { code: 2, kind: NotFound, messa
 
 `expect` também permite escolher a mensagem de `panic!`. Com mensagens claras, fica mais fácil entender a intenção e rastrear a origem do pânico:
 
-**Arquivo: src/main.rs (Este código entra em pânico se `hello.txt` não existir!)**
+**Arquivo: src/main.rs**
 
 ```rust
 use std::fs::File;
