@@ -56,7 +56,7 @@ pub struct NewsArticle {
 
 impl Summary for NewsArticle {
     fn summarize(&self) -> String {
-        format!("{}, por {} ({})", self.headline, self.author, self.location)
+        format!("{}, by {} ({})", self.headline, self.author, self.location)
     }
 }
 
@@ -334,7 +334,7 @@ pub struct NewsArticle {
 
 impl Summary for NewsArticle {
     fn summarize(&self) -> String {
-        format!("{}, por {} ({})", self.headline, self.author, self.location)
+        format!("{}, by {} ({})", self.headline, self.author, self.location)
     }
 }
 
@@ -385,7 +385,7 @@ pub struct NewsArticle {
 
 impl Summary for NewsArticle {
     fn summarize(&self) -> String {
-        format!("{}, por {} ({})", self.headline, self.author, self.location)
+        format!("{}, by {} ({})", self.headline, self.author, self.location)
     }
 }
 
