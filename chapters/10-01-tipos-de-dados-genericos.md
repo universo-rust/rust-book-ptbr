@@ -2,6 +2,8 @@
 title: "Tipos de dados genéricos"
 chapter_code: 10-01
 slug: tipos-de-dados-genericos
+challenge_day: 12
+reading_minutes: 6
 ---
 
 # Tipos de Dados Genéricos
