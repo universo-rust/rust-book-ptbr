@@ -306,7 +306,7 @@ Rust tem uma anotação especial chamada trait `Copy` que podemos colocar em tip
 
 Rust não nos deixa anotar um tipo com `Copy` se o tipo, ou qualquer parte dele, implementou a trait `Drop`. Se o tipo precisa de algo especial quando o valor sai de escopo e adicionamos a anotação `Copy` a esse tipo, obteremos um erro em tempo de compilação. Para aprender como adicionar a anotação `Copy` ao seu tipo para implementar a trait, veja o [Apêndice C](/livro/cap22-03-traits-derivaveis).
 
-Então, quais tipos implementam a trait `Copy`? Você pode consultar a documentação do tipo em questão para ter certeza, mas, como regra geral, qualquer grupo de valores escalares simples pode implementar `Copy`, e nada que exija alocação ou seja alguma forma de recurso pode implementar `Copy`. Estes são alguns dos tipos que implementam `Copy`:
+Então, quais tipos implementam a trait `Copy`? Você pode consultar a documentação do tipo em questão para ter certeza, mas, como regra geral, qualquer conjunto de valores escalares simples pode implementar `Copy`, e nada que exija alocação, ou seja, qualquer tipo de recurso que pode implementar `Copy`. Aqui estão alguns dos tipos que implementam `Copy`:
 
 - Todos os tipos inteiros, como `u32`.
 - O tipo booleano `bool`, com os valores `true` e `false`.
