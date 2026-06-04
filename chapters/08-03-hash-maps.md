@@ -2,6 +2,8 @@
 title: "Hash maps"
 chapter_code: 08-03
 slug: hash-maps
+challenge_day: 10
+reading_minutes: 13
 ---
 
 # Armazenando Chaves com Valores Associados em Hash Maps
