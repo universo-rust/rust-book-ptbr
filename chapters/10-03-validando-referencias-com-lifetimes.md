@@ -59,7 +59,7 @@ For more information about this error, try `rustc --explain E0597`.
 error: could not compile `chapter10` (bin "chapter10") due to 1 previous error
 ```
 
-A mensagem de erro diz que a variável `x` “does not live long enough”. O motivo é que `x` estará fora de escopo quando o escopo interno terminar na linha 7. Mas `r` ainda é válida para o escopo externo; como seu escopo é maior, dizemos que ela “vive mais”. Se o Rust permitisse que este código funcionasse, `r` estaria referenciando memória que foi desalocada quando `x` saiu de escopo, e qualquer coisa que tentássemos fazer com `r` não funcionaria corretamente. Então, como o Rust determina que este código é inválido? Usa um borrow checker.
+A mensagem de erro diz que a variável `x` “não vive o suficiente”. O motivo é que `x` estará fora de escopo quando o escopo interno terminar na linha 7. Mas `r` ainda é válida para o escopo externo; como seu escopo é maior, dizemos que ela “vive mais”. Se o Rust permitisse que este código funcionasse, `r` estaria referenciando memória que foi desalocada quando `x` saiu de escopo, e qualquer coisa que tentássemos fazer com `r` não funcionaria corretamente. Então, como o Rust determina que este código é inválido? Usa um borrow checker.
 
 ### O borrow checker
 
