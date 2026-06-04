@@ -210,7 +210,7 @@ Agora que você sabe definir e implementar traits, podemos explorar como usá-la
 
 ```rust
 pub fn notify(item: &impl Summary) {
-    println!("Notícia urgente! {}", item.summarize());
+    println!("Breaking news! {}", item.summarize());
 }
 ```
 
@@ -222,7 +222,7 @@ A sintaxe `impl Trait` funciona para casos simples, mas é na verdade açúcar s
 
 ```rust
 pub fn notify<T: Summary>(item: &T) {
-    println!("Notícia urgente! {}", item.summarize());
+    println!("Breaking news! {}", item.summarize());
 }
 ```
 
