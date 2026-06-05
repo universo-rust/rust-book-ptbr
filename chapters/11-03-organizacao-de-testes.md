@@ -2,6 +2,8 @@
 title: "Organização de testes"
 chapter_code: 11-03
 slug: organizacao-de-testes
+challenge_day: 14
+reading_minutes: 13
 ---
 
 # Organização de testes
@@ -72,7 +74,7 @@ mod tests {
 
 [Listagem 11-12](#listagem-11-12): Testando uma função privada
 
-Observe que a função `internal_adder` não está marcada como `pub`. Testes são apenas código Rust, e o módulo `tests` é apenas mais um módulo. Como discutimos em “Caminhos para se referir a um item na árvore de módulos”, itens em módulos filhos podem usar os itens de seus módulos ancestrais. Neste teste, trazemos todos os itens pertencentes ao módulo pai de `tests` para o escopo com `use super::*`, e então o teste pode chamar `internal_adder`. Se você não acha que funções privadas devem ser testadas, não há nada em Rust que obrigue você a fazer isso.
+Observe que a função `internal_adder` não está marcada como `pub`. Testes são apenas código Rust, e o módulo `tests` é apenas mais um módulo. Como discutimos em [Caminhos para se referir a um item na árvore de módulos](/livro/cap07-03-caminhos-para-referenciar-um-item-na-arvore-de-modulos), itens em módulos filhos podem usar os itens de seus módulos ancestrais. Neste teste, trazemos todos os itens pertencentes ao módulo pai de `tests` para o escopo com `use super::*`, e então o teste pode chamar `internal_adder`. Se você não acha que funções privadas devem ser testadas, não há nada em Rust que obrigue você a fazer isso.
 
 ### Testes de integração
 
@@ -169,7 +171,7 @@ Esse comando executa apenas os testes no arquivo _tests/integration_test.rs_.
 
 À medida que você adiciona mais testes de integração, talvez queira criar mais arquivos no diretório _tests_ para ajudar a organizá-los; por exemplo, você pode agrupar as funções de teste pela funcionalidade que elas testam. Como mencionado antes, cada arquivo no diretório _tests_ é compilado como sua própria crate separada, o que é útil para criar escopos separados que imitam mais de perto a forma como usuários finais usarão sua crate. No entanto, isso significa que os arquivos no diretório _tests_ não compartilham o mesmo comportamento dos arquivos em _src_, como você aprendeu no Capítulo 7 ao ver como separar código em módulos e arquivos.
 
-O comportamento diferente dos arquivos do diretório _tests_ fica mais perceptível quando você tem um conjunto de funções auxiliares para usar em vários arquivos de teste de integração e tenta seguir os passos da seção “Separando módulos em arquivos diferentes”, do Capítulo 7, para extraí-las em um módulo comum. Por exemplo, se criarmos _tests/common.rs_ e colocarmos nele uma função chamada `setup`, podemos adicionar a `setup` algum código que queremos chamar a partir de várias funções de teste em vários arquivos de teste:
+O comportamento diferente dos arquivos do diretório _tests_ fica mais perceptível quando você tem um conjunto de funções auxiliares para usar em vários arquivos de teste de integração e tenta seguir os passos da seção [Separando módulos em arquivos diferentes](/livro/cap07-05-separando-modulos-em-arquivos-diferentes), do Capítulo 7, para extraí-las em um módulo comum. Por exemplo, se criarmos _tests/common.rs_ e colocarmos nele uma função chamada `setup`, podemos adicionar a `setup` algum código que queremos chamar a partir de várias funções de teste em vários arquivos de teste:
 
 **Arquivo: tests/common.rs**
 
