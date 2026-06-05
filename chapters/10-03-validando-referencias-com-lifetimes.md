@@ -496,23 +496,12 @@ Primeiro, usaremos um método chamado `level` cujo único parâmetro é referên
 **Arquivo: src/main.rs**
 
 ```rust
-struct ImportantExcerpt<'a> {
-    part: &'a str,
-}
-
 impl<'a> ImportantExcerpt<'a> {
     fn level(&self) -> i32 {
         3
     }
 }
 
-fn main() {
-    let novel = String::from("Chamo-me Ishmael. Há alguns anos...");
-    let first_sentence = novel.split('.').next().unwrap();
-    let i = ImportantExcerpt {
-        part: first_sentence,
-    };
-}
 ```
 
 A declaração do parâmetro de lifetime após `impl` e seu uso após o nome do tipo são obrigatórios, mas por causa da primeira regra de elisão, não somos obrigados a anotar o lifetime da referência a `self`.
@@ -522,10 +511,6 @@ Aqui está um exemplo em que a terceira regra de elisão de lifetime se aplica:
 **Arquivo: src/main.rs**
 
 ```rust
-struct ImportantExcerpt<'a> {
-    part: &'a str,
-}
-
 impl<'a> ImportantExcerpt<'a> {
     fn announce_and_return_part(&self, announcement: &str) -> &str {
         println!("Atenção, por favor: {announcement}");
@@ -533,13 +518,6 @@ impl<'a> ImportantExcerpt<'a> {
     }
 }
 
-fn main() {
-    let novel = String::from("Chamo-me Ishmael. Há alguns anos...");
-    let first_sentence = novel.split('.').next().unwrap();
-    let i = ImportantExcerpt {
-        part: first_sentence,
-    };
-}
 ```
 
 Há dois lifetimes de entrada, então o Rust aplica a primeira regra de elisão e dá a `&self` e `announcement` lifetimes próprios. Depois, como um dos parâmetros é `&self`, o tipo de retorno recebe o lifetime de `&self`, e todos os lifetimes foram contabilizados.
@@ -564,18 +542,6 @@ Vejamos brevemente a sintaxe de especificar parâmetros de tipo genérico, trait
 
 ```rust
 use std::fmt::Display;
-
-fn main() {
-    let string1 = String::from("abcd");
-    let string2 = "xyz";
-
-    let result = longest_with_an_announcement(
-        string1.as_str(),
-        string2,
-        "Hoje é aniversário de alguém!",
-    );
-    println!("A string mais longa é {result}");
-}
 
 fn longest_with_an_announcement<'a, T>(
     x: &'a str,
