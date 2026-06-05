@@ -501,7 +501,6 @@ impl<'a> ImportantExcerpt<'a> {
         3
     }
 }
-
 ```
 
 A declaração do parâmetro de lifetime após `impl` e seu uso após o nome do tipo são obrigatórios, mas por causa da primeira regra de elisão, não somos obrigados a anotar o lifetime da referência a `self`.
