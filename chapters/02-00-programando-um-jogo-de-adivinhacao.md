@@ -157,7 +157,7 @@ Em seguida, a linha `.read_line(&mut guess)` chama o método `read_line` no mani
 
 O símbolo `&` indica que esse argumento é uma referência, o que permite que várias partes do código acessem o mesmo dado sem precisar copiá-lo várias vezes na memória. Referências são um recurso mais avançado, e uma das grandes vantagens do Rust é justamente o quanto ele torna o uso de referências seguro e simples. Você não precisa entender todos esses detalhes para finalizar este programa. Por enquanto, o mais importante é saber que, assim como as variáveis, referências são imutáveis por padrão. Por isso, é necessário escrever `&mut guess` em vez de `&guess` para permitir que o valor seja modificado. (O Capítulo 4 explicará referências com mais detalhes.)
 
-### Tratando falha potencial com Result
+### Tratando potencial falha com Result
 
 Ainda estamos analisando essa linha de código. A próxima parte que vamos ver é este método:
 
@@ -521,7 +521,7 @@ O método `parse` em strings converte uma string em outro tipo. Aqui, o usamos p
 
 Adicionalmente, a anotação `u32` neste programa de exemplo e a comparação com `secret_number` significa que Rust inferirá que `secret_number` também deve ser um `u32`. Então, agora a comparação será entre dois valores do mesmo tipo!
 
-O método `parse` só funcionará em caracteres que podem logicamente ser convertidos em números e, portanto, pode facilmente causar erros. Se, por exemplo, a string contivesse `A👍%`, não haveria maneira de converter isso em um número. Como pode falhar, o método `parse` retorna um tipo `Result`, assim como o método `read_line` faz (discutido anteriormente em [Tratando falha potencial com Result](#tratando-falha-potencial-com-result)). Trataremos este `Result` da mesma forma usando o método `expect` novamente. Se `parse` retornar uma variante `Err` de `Result` porque não conseguiu criar um número a partir da string, a chamada `expect` travará o jogo e imprimirá a mensagem que damos a ela. Se `parse` puder converter com sucesso a string em um número, ele retornará a variante `Ok` de `Result`, e `expect` retornará o número que queremos do valor `Ok`.
+O método `parse` só funcionará em caracteres que podem logicamente ser convertidos em números e, portanto, pode facilmente causar erros. Se, por exemplo, a string contivesse `A👍%`, não haveria maneira de converter isso em um número. Como pode falhar, o método `parse` retorna um tipo `Result`, assim como o método `read_line` faz (discutido anteriormente em [Tratando potencial falha com Result](#tratando-potencial-falha-com-result)). Trataremos este `Result` da mesma forma usando o método `expect` novamente. Se `parse` retornar uma variante `Err` de `Result` porque não conseguiu criar um número a partir da string, a chamada `expect` travará o jogo e imprimirá a mensagem que damos a ela. Se `parse` puder converter com sucesso a string em um número, ele retornará a variante `Ok` de `Result`, e `expect` retornará o número que queremos do valor `Ok`.
 
 Vamos executar o programa agora:
 
