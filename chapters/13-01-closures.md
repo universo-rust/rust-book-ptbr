@@ -206,7 +206,7 @@ error: could not compile `closure-example` (bin "closure-example") due to 1 prev
 
 Na primeira vez que chamamos `example_closure` com o valor `String`, o compilador infere o tipo de `x` e o tipo de retorno da closure como `String`. Esses tipos ficam então fixados na closure em `example_closure`, e obtemos um erro de tipo quando tentamos usar um tipo diferente com a mesma closure.
 
-## Capturando Referências ou Movendo Posse
+## Capturando referências ou movendo posse
 
 Closures podem capturar valores de seu ambiente de três formas, que correspondem diretamente às três formas como uma função pode receber um parâmetro: emprestar imutavelmente, emprestar mutavelmente e tomar posse. A closure decidirá qual usar com base no que o corpo da função faz com os valores capturados.
 
@@ -304,7 +304,7 @@ fn main() {
 
 Criamos uma nova thread, passando à thread uma closure para executar como argumento. O corpo da closure imprime a lista. Na Listagem 13-4, a closure só capturava `list` usando uma referência imutável porque esse é o menor acesso a `list` necessário para imprimi-la. Neste exemplo, embora o corpo da closure ainda precise apenas de uma referência imutável, precisamos especificar que `list` deve ser movida para a closure colocando a palavra-chave `move` no início da definição da closure. Se a thread principal executasse mais operações antes de chamar `join` na nova thread, a nova thread poderia terminar antes do restante da thread principal, ou a thread principal poderia terminar primeiro. Se a thread principal mantivesse posse de `list` mas terminasse antes da nova thread e descartasse `list`, a referência imutável na thread seria inválida. Portanto, o compilador exige que `list` seja movida para a closure passada à nova thread para que a referência seja válida. Tente remover a palavra-chave `move` ou usar `list` na thread principal depois que a closure for definida para ver quais erros do compilador você obtém!
 
-## Movendo Valores Capturados para Fora de Closures
+## Movendo valores capturados para fora de closures
 
 Depois que uma closure capturou uma referência ou tomou posse de um valor do ambiente onde a closure é definida (afetando assim o que, se algo, é movido _para dentro_ da closure), o código no corpo da closure define o que acontece com as referências ou valores quando a closure é avaliada depois (afetando assim o que, se algo, é movido _para fora_ da closure).
 
