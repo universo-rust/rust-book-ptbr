@@ -4,7 +4,7 @@ chapter_code: 12-01
 slug: aceitando-argumentos-de-linha-de-comando
 ---
 
-# Aceitando Argumentos de Linha de Comando
+# Aceitando argumentos de linha de comando
 
 Vamos criar um novo projeto com `cargo new`, como sempre. Chamaremos nosso projeto de `minigrep` para distingui-lo da ferramenta `grep` que você talvez já tenha no seu sistema:
 

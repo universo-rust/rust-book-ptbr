@@ -4,7 +4,7 @@ chapter_code: 12-03
 slug: melhorando-tratamento-de-erros-e-modularidade
 ---
 
-# Refatorando para Melhorar Modularidade e Tratamento de Erros
+# Refatorando para melhorar modularidade e tratamento de erros
 
 Para melhorar nosso programa, vamos corrigir quatro problemas relacionados à estrutura do programa e à forma como ele lida com erros potenciais. Primeiro, nossa função `main` agora executa duas tarefas: analisa os argumentos e lê arquivos. À medida que nosso programa crescer, o número de tarefas separadas tratadas pela função `main` aumentará. Conforme uma função ganha responsabilidades, fica mais difícil raciocinar sobre ela, testá-la e alterá-la sem quebrar uma de suas partes. O melhor é separar a funcionalidade para que cada função seja responsável por uma tarefa.
 

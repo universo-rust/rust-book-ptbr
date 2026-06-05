@@ -4,7 +4,7 @@ chapter_code: 12-06
 slug: escrevendo-em-stderr-em-vez-de-stdout
 ---
 
-# Redirecionando Erros para Erro Padrão
+# Redirecionando erros para erro padrão
 
 No momento, estamos escrevendo toda a nossa saída no terminal usando a macro `println!`. Na maioria dos terminais, há dois tipos de saída: _saída padrão_ (`stdout`) para informações gerais e _erro padrão_ (`stderr`) para mensagens de erro. Essa distinção permite que os usuários escolham direcionar a saída bem-sucedida de um programa para um arquivo, mas ainda assim imprimir mensagens de erro na tela.
 

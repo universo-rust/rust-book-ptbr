@@ -4,7 +4,7 @@ chapter_code: 12-02
 slug: lendo-um-arquivo
 ---
 
-# Lendo um Arquivo
+# Lendo um arquivo
 
 Agora adicionaremos a funcionalidade para ler o arquivo especificado no argumento `file_path`. Primeiro, precisamos de um arquivo de exemplo para testar: usaremos um arquivo com uma pequena quantidade de texto distribuída em várias linhas, com algumas palavras repetidas. A Listagem 12-3 traz um poema de Emily Dickinson que servirá muito bem! Crie um arquivo chamado _poem.txt_ no nível raiz do seu projeto e insira o poema “I’m Nobody! Who are you?”
 

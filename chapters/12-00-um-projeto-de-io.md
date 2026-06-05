@@ -1,10 +1,10 @@
 ---
-title: "Um projeto de I/O"
+title: "Um projeto de I/O: construindo um programa de linha de comando"
 chapter_code: 12-00
 slug: um-projeto-de-io
 ---
 
-# Um Projeto de I/O: Construindo um Programa de Linha de Comando
+# Um projeto de I/O: construindo um programa de linha de comando
 
 Este capítulo recapitula muitas das habilidades que você aprendeu até agora e explora mais alguns recursos da biblioteca padrão. Vamos construir uma ferramenta de linha de comando que interage com arquivos e com a entrada e saída da linha de comando, praticando alguns dos conceitos de Rust que você já tem na bagagem.
 

@@ -4,7 +4,7 @@ chapter_code: 12-04
 slug: testando-a-funcionalidade-da-biblioteca
 ---
 
-# Adicionando Funcionalidade com Desenvolvimento Orientado a Testes
+# Adicionando funcionalidade com desenvolvimento orientado a testes
 
 Agora que temos a lógica de busca em _src/lib.rs_ separada da função `main`, ficou muito mais fácil escrever testes para a funcionalidade central do nosso código. Podemos chamar funções diretamente com vários argumentos e verificar valores de retorno sem precisar chamar nosso binário pela linha de comando.
 

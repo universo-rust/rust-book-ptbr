@@ -4,7 +4,7 @@ chapter_code: 12-05
 slug: trabalhando-com-variaveis-de-ambiente
 ---
 
-# Trabalhando com Variáveis de Ambiente
+# Trabalhando com variáveis de ambiente
 
 Vamos melhorar o binário `minigrep` adicionando um recurso extra: uma opção de busca sem diferenciar maiúsculas de minúsculas que o usuário pode ativar por meio de uma variável de ambiente. Poderíamos transformar esse recurso em uma opção de linha de comando e exigir que os usuários a informassem toda vez que quisessem aplicá-la, mas, ao torná-la uma variável de ambiente, permitimos que nossos usuários definam a variável uma vez e façam todas as buscas sem diferenciar maiúsculas de minúsculas naquela sessão de terminal.
 
