@@ -245,7 +245,7 @@ fn main() {
     {
         let string2 = String::from("xyz");
         let result = longest(string1.as_str(), string2.as_str());
-        println!("A string mais longa é {result}");
+        println!("A string mais longa é: {result}");
     }
 }
 
@@ -255,7 +255,7 @@ fn main() {
 
 [Listagem 10-22](#listagem-10-22): Usando a função `longest` com referências a valores `String` que têm lifetimes concretos diferentes
 
-Neste exemplo, `string1` é válida até o fim do escopo externo, `string2` é válida até o fim do escopo interno e `result` referencia algo válido até o fim do escopo interno. Execute este código e verá que o borrow checker aprova; compilará e imprimirá `A string longa é A string longa é longa`.
+Neste exemplo, `string1` é válida até o fim do escopo externo, `string2` é válida até o fim do escopo interno e `result` referencia algo válido até o fim do escopo interno. Execute este código e verá que o borrow checker aprova; compilará e imprimirá `A string longa é: A string longa é longa`.
 
 Em seguida, vamos tentar um exemplo que mostra que o lifetime da referência em `result` deve ser o menor lifetime dos dois argumentos. Moveremos a declaração da variável `result` para fora do escopo interno, mas deixaremos a atribuição do valor a `result` dentro do escopo com `string2`. Depois, moveremos o `println!` que usa `result` para fora do escopo interno, após o escopo interno ter terminado. O código da Listagem 10-23 não compilará.
 
