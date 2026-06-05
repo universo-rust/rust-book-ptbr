@@ -6,7 +6,7 @@ slug: escrevendo-testes-automatizados
 
 # Escrevendo testes automatizados
 
-Em seu ensaio de 1972, “The Humble Programmer”, Edsger W. Dijkstra disse que “program testing can be a very effective way to show the presence of bugs, but it is hopelessly inadequate for showing their absence.” Isso não significa que não devamos tentar testar tanto quanto pudermos!
+Em seu ensaio de 1972, “The Humble Programmer”, Edsger W. Dijkstra disse que “testes de programas podem ser uma maneira muito eficaz de mostrar a presença de bugs, mas são irremediavelmente inadequados para mostrar sua ausência.” Isso não significa que não devamos tentar testar tanto quanto pudermos!
 
 _Correção_ em nossos programas é a medida em que nosso código faz aquilo que pretendemos que ele faça. O Rust foi projetado com um alto grau de preocupação com a correção dos programas, mas correção é um assunto complexo e não é fácil de provar. O sistema de tipos do Rust assume uma enorme parte desse peso, mas o sistema de tipos não consegue detectar tudo. Por isso, o Rust inclui suporte para escrever testes de software automatizados.
 
