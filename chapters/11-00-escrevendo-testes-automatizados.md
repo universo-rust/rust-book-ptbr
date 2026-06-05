@@ -2,6 +2,8 @@
 title: "Escrevendo testes automatizados"
 chapter_code: 11-00
 slug: escrevendo-testes-automatizados
+challenge_day: 14
+reading_minutes: 3
 ---
 
 # Escrevendo testes automatizados
