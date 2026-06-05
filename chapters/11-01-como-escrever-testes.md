@@ -4,25 +4,25 @@ chapter_code: 11-01
 slug: como-escrever-testes
 ---
 
-# Como Escrever Testes
+# Como escrever testes
 
-_Testes_ são funções Rust que verificam se o código que não é teste está funcionando da maneira esperada. Os corpos das funções de teste normalmente executam estas três ações:
+_Testes_ são funções Rust que verificam se o código que não é de teste está funcionando da maneira esperada. O corpo de uma função de teste normalmente realiza estas três ações:
 
 - Configurar quaisquer dados ou estado necessários.
 - Executar o código que você quer testar.
-- Afirmar que os resultados são o que você espera.
+- Verificar se os resultados são os esperados.
 
-Vamos ver os recursos que o Rust fornece especificamente para escrever testes que realizam essas ações, incluindo o atributo `test`, algumas macros e o atributo `should_panic`.
+Vamos conhecer os recursos que o Rust fornece especificamente para escrever testes que realizam essas ações, incluindo o atributo `test`, algumas macros e o atributo `should_panic`.
 
 ### Estruturando funções de teste
 
-No mais simples, um teste em Rust é uma função anotada com o atributo `test`. Atributos são metadados sobre pedaços de código Rust; um exemplo é o atributo `derive` que usamos com structs no Capítulo 5. Para transformar uma função em função de teste, adicione `#[test]` na linha antes de `fn`. Quando você executa seus testes com o comando `cargo test`, o Rust compila um binário test runner que executa as funções anotadas e informa se cada função de teste passou ou falhou.
+Em sua forma mais simples, um teste em Rust é uma função anotada com o atributo `test`. Atributos são metadados sobre partes do código Rust; um exemplo é o atributo `derive` que usamos com structs no Capítulo 5. Para transformar uma função em uma função de teste, adicione `#[test]` na linha anterior a `fn`. Quando você executa seus testes com o comando `cargo test`, o Rust compila um binário executor de testes que executa as funções anotadas e informa se cada função de teste passou ou falhou.
 
-Sempre que criamos um novo projeto de biblioteca com Cargo, um módulo de teste com uma função de teste é gerado automaticamente para nós. Este módulo oferece um modelo para escrever seus testes, para que você não precise procurar a estrutura e a sintaxe exatas toda vez que iniciar um novo projeto. Você pode adicionar quantas funções de teste e módulos de teste adicionais quiser!
+Sempre que criamos um novo projeto de biblioteca com o Cargo, um módulo de teste com uma função de teste é gerado automaticamente para nós. Esse módulo oferece um modelo para escrever seus testes, para que você não precise procurar a estrutura e a sintaxe exatas toda vez que iniciar um novo projeto. Você pode adicionar quantas funções de teste e quantos módulos de teste adicionais quiser!
 
-Exploraremos alguns aspectos de como os testes funcionam experimentando com o teste modelo antes de testar código de verdade. Depois, escreveremos alguns testes do mundo real que chamam código que escrevemos e afirmam que seu comportamento está correto.
+Vamos explorar alguns aspectos de como os testes funcionam experimentando com o teste-modelo antes de realmente testar qualquer código. Depois, escreveremos alguns testes mais próximos do uso real, que chamam código que escrevemos e verificam se seu comportamento está correto.
 
-Vamos criar um novo projeto de biblioteca chamado `adder` que somará dois números:
+Vamos criar um novo projeto de biblioteca chamado `adder`, que somará dois números:
 
 ```console
 $ cargo new adder --lib
@@ -30,7 +30,7 @@ $ cargo new adder --lib
 $ cd adder
 ```
 
-O conteúdo do arquivo _src/lib.rs_ na sua biblioteca `adder` deve parecer com a Listagem 11-1.
+O conteúdo do arquivo _src/lib.rs_ na sua biblioteca `adder` deve ficar parecido com a Listagem 11-1.
 
 **Arquivo: src/lib.rs**
 
@@ -55,11 +55,11 @@ mod tests {
 
 [Listagem 11-1](#listagem-11-1): O código gerado automaticamente por `cargo new`
 
-O arquivo começa com uma função de exemplo `add` para que tenhamos algo para testar.
+O arquivo começa com uma função `add` de exemplo para que tenhamos algo para testar.
 
-Por enquanto, vamos focar apenas na função `it_works`. Observe a anotação `#[test]`: este atributo indica que esta é uma função de teste, então o test runner sabe que deve tratar esta função como teste. Também podemos ter funções que não são testes no módulo `tests` para ajudar a configurar cenários comuns ou realizar operações comuns, então sempre precisamos indicar quais funções são testes.
+Por enquanto, vamos nos concentrar apenas na função `it_works`. Observe a anotação `#[test]`: esse atributo indica que esta é uma função de teste, então o executor de testes sabe que deve tratá-la como um teste. Também podemos ter funções que não são testes no módulo `tests` para ajudar a configurar cenários comuns ou realizar operações comuns, por isso sempre precisamos indicar quais funções são testes.
 
-O corpo da função de exemplo usa a macro `assert_eq!` para afirmar que `result`, que contém o resultado de chamar `add` com 2 e 2, é igual a 4. Esta asserção serve como exemplo do formato de um teste típico. Vamos executá-lo para ver que este teste passa.
+O corpo da função de exemplo usa a macro `assert_eq!` para verificar que `result`, que contém o resultado de chamar `add` com 2 e 2, é igual a 4. Essa asserção serve como exemplo do formato de um teste típico. Vamos executá-lo para ver se esse teste passa.
 
 O comando `cargo test` executa todos os testes do nosso projeto, como mostrado na Listagem 11-2.
 
@@ -85,15 +85,15 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
 
 [Listagem 11-2](#listagem-11-2): A saída de executar o teste gerado automaticamente
 
-O Cargo compilou e executou o teste. Vemos a linha `running 1 test`. A linha seguinte mostra o nome da função de teste gerada, chamada `tests::it_works`, e que o resultado de executar esse teste é `ok`. O resumo geral `test result: ok.` significa que todos os testes passaram, e a parte que diz `1 passed; 0 failed` totaliza o número de testes que passaram ou falharam.
+O Cargo compilou e executou o teste. Vemos a linha `running 1 test`. A linha seguinte mostra o nome da função de teste gerada, chamada `tests::it_works`, e informa que o resultado da execução desse teste é `ok`. O resumo geral `test result: ok.` significa que todos os testes passaram, e a parte que diz `1 passed; 0 failed` totaliza o número de testes que passaram ou falharam.
 
-É possível marcar um teste como ignorado para que não execute em uma instância particular; cobriremos isso na seção Ignorando testes a menos que especificamente solicitado mais adiante neste capítulo. Como não fizemos isso aqui, o resumo mostra `0 ignored`. Também podemos passar um argumento ao comando `cargo test` para executar apenas testes cujo nome corresponda a uma string; isso é chamado de _filtragem_, e cobriremos na seção Executando um subconjunto de testes por nome. Aqui, não filtramos os testes executados, então o fim do resumo mostra `0 filtered out`.
+É possível marcar um teste como ignorado para que ele não seja executado em uma determinada ocasião; abordaremos isso na seção “Ignorando testes a menos que sejam solicitados especificamente”, mais adiante neste capítulo. Como não fizemos isso aqui, o resumo mostra `0 ignored`. Também podemos passar um argumento ao comando `cargo test` para executar apenas testes cujo nome corresponda a uma string; isso é chamado de _filtragem_, e abordaremos esse recurso na seção “Executando um subconjunto de testes por nome”. Aqui, não filtramos os testes executados, então o fim do resumo mostra `0 filtered out`.
 
-A estatística `0 measured` é para testes de benchmark que medem desempenho. Testes de benchmark, no momento em que escrevemos, estão disponíveis apenas no Rust nightly. Consulte a [documentação sobre testes de benchmark](https://doc.rust-lang.org/nightly/unstable-book/library-features/test.html) para saber mais.
+A estatística `0 measured` é para testes de benchmark, que medem desempenho. No momento em que escrevemos, testes de benchmark estão disponíveis apenas no Rust nightly. Consulte a [documentação sobre testes de benchmark](https://doc.rust-lang.org/nightly/unstable-book/library-features/test.html) para saber mais.
 
-A próxima parte da saída de teste, começando em `Doc-tests adder`, é para os resultados de quaisquer testes de documentação. Ainda não temos testes de documentação, mas o Rust pode compilar quaisquer exemplos de código que apareçam na documentação da nossa API. Este recurso ajuda a manter sua documentação e seu código sincronizados! Discutiremos como escrever testes de documentação na seção Comentários de documentação como testes do Capítulo 14. Por enquanto, ignoraremos a saída `Doc-tests`.
+A próxima parte da saída dos testes, começando em `Doc-tests adder`, mostra os resultados de quaisquer testes de documentação. Ainda não temos testes de documentação, mas o Rust pode compilar qualquer exemplo de código que apareça na documentação da nossa API. Esse recurso ajuda a manter sua documentação e seu código sincronizados! Discutiremos como escrever testes de documentação na seção “Comentários de documentação como testes” do Capítulo 14. Por enquanto, vamos ignorar a saída `Doc-tests`.
 
-Vamos começar a personalizar o teste às nossas necessidades. Primeiro, mude o nome da função `it_works` para um nome diferente, como `exploration`, assim:
+Vamos começar a personalizar o teste para nossas próprias necessidades. Primeiro, mude o nome da função `it_works` para um nome diferente, como `exploration`, assim:
 
 **Arquivo: src/lib.rs**
 
@@ -134,7 +134,7 @@ running 0 tests
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 ```
 
-Agora adicionaremos outro teste, mas desta vez faremos um teste que falha! Testes falham quando algo na função de teste entra em pânico. Cada teste é executado em uma nova thread, e quando a thread principal vê que uma thread de teste morreu, o teste é marcado como falha. No Capítulo 9, falamos que a forma mais simples de entrar em pânico é chamar a macro `panic!`. Insira o novo teste como função chamada `another`, para que seu arquivo _src/lib.rs_ fique como na Listagem 11-3.
+Agora adicionaremos outro teste, mas desta vez faremos um teste que falha! Testes falham quando algo na função de teste entra em pânico. Cada teste é executado em uma nova thread e, quando a thread principal percebe que uma thread de teste morreu, o teste é marcado como falho. No Capítulo 9, falamos que a forma mais simples de entrar em pânico é chamar a macro `panic!`. Insira o novo teste como uma função chamada `another`, para que seu arquivo _src/lib.rs_ fique como na Listagem 11-3.
 
 **Arquivo: src/lib.rs (Este código entra em pânico!)**
 
@@ -197,17 +197,17 @@ error: test failed, to rerun pass `--lib`
 
 [Listagem 11-4](#listagem-11-4): Resultados de teste quando um teste passa e outro falha
 
-Em vez de `ok`, a linha `test tests::another` mostra `FAILED`. Duas novas seções aparecem entre os resultados individuais e o resumo: a primeira exibe o motivo detalhado de cada falha de teste. Neste caso, obtemos os detalhes de que `tests::another` falhou porque entrou em pânico com a mensagem `Make this test fail` na linha 17 do arquivo _src/lib.rs_. A seção seguinte lista apenas os nomes de todos os testes que falharam, o que é útil quando há muitos testes e muita saída detalhada de falhas. Podemos usar o nome de um teste que falhou para executar apenas esse teste e depurá-lo mais facilmente; falaremos mais sobre formas de executar testes na seção Controlando como os testes são executados.
+Em vez de `ok`, a linha `test tests::another` mostra `FAILED`. Duas novas seções aparecem entre os resultados individuais e o resumo: a primeira exibe o motivo detalhado de cada falha de teste. Neste caso, obtemos os detalhes de que `tests::another` falhou porque entrou em pânico com a mensagem `Make this test fail` na linha 17 do arquivo _src/lib.rs_. A seção seguinte lista apenas os nomes de todos os testes que falharam, o que é útil quando há muitos testes e muita saída detalhada de falhas. Podemos usar o nome de um teste que falhou para executar apenas esse teste e depurá-lo com mais facilidade; falaremos mais sobre formas de executar testes na seção “Controlando como os testes são executados”.
 
-A linha de resumo aparece no final: no geral, nosso resultado de teste é `FAILED`. Tivemos um teste passando e um falhando.
+A linha de resumo aparece no final: no geral, nosso resultado de teste é `FAILED`. Tivemos um teste que passou e um teste que falhou.
 
-Agora que você viu como os resultados de teste parecem em cenários diferentes, vamos ver algumas macros além de `panic!` que são úteis em testes.
+Agora que você viu como os resultados dos testes aparecem em diferentes cenários, vamos conhecer algumas macros além de `panic!` que são úteis em testes.
 
 ### Verificando resultados com `assert!`
 
-A macro `assert!`, fornecida pela biblioteca padrão, é útil quando você quer garantir que alguma condição em um teste avalie para `true`. Damos à macro `assert!` um argumento que avalia para um booleano. Se o valor for `true`, nada acontece e o teste passa. Se o valor for `false`, a macro `assert!` chama `panic!` para fazer o teste falhar. Usar a macro `assert!` nos ajuda a verificar que nosso código está funcionando da forma que pretendemos.
+A macro `assert!`, fornecida pela biblioteca padrão, é útil quando você quer garantir que alguma condição em um teste seja avaliada como `true`. Passamos para a macro `assert!` um argumento que é avaliado como um booleano. Se o valor for `true`, nada acontece e o teste passa. Se o valor for `false`, a macro `assert!` chama `panic!` para fazer o teste falhar. Usar a macro `assert!` nos ajuda a verificar se nosso código está funcionando da maneira que pretendemos.
 
-No Capítulo 5, na Listagem 5-15, usamos uma struct `Rectangle` e um método `can_hold`, que repetimos aqui na Listagem 11-5. Vamos colocar este código no arquivo _src/lib.rs_ e então escrever alguns testes para ele usando a macro `assert!`.
+No Capítulo 5, na Listagem 5-15, usamos uma struct `Rectangle` e um método `can_hold`, que repetimos aqui na Listagem 11-5. Vamos colocar esse código no arquivo _src/lib.rs_ e então escrever alguns testes para ele usando a macro `assert!`.
 
 **Arquivo: src/lib.rs**
 
@@ -229,7 +229,7 @@ impl Rectangle {
 
 [Listagem 11-5](#listagem-11-5): A struct `Rectangle` e seu método `can_hold` do Capítulo 5
 
-O método `can_hold` retorna um booleano, o que significa que é um caso de uso perfeito para a macro `assert!`. Na Listagem 11-6, escrevemos um teste que exercita o método `can_hold` criando uma instância de `Rectangle` com largura 8 e altura 7 e afirmando que ela pode conter outra instância de `Rectangle` com largura 5 e altura 1.
+O método `can_hold` retorna um booleano, o que significa que ele é um caso perfeito para usar a macro `assert!`. Na Listagem 11-6, escrevemos um teste que exercita o método `can_hold` criando uma instância de `Rectangle` com largura 8 e altura 7 e verificando que ela consegue conter outra instância de `Rectangle` com largura 5 e altura 1.
 
 **Arquivo: src/lib.rs**
 
@@ -270,9 +270,9 @@ mod tests {
 
 [Listagem 11-6](#listagem-11-6): Um teste para `can_hold` que verifica se um retângulo maior pode de fato conter um menor
 
-Observe a linha `use super::*;` dentro do módulo `tests`. O módulo `tests` é um módulo regular que segue as regras de visibilidade usuais que cobrimos no Capítulo 7 na seção Caminhos para referenciar um item na árvore de módulos. Como o módulo `tests` é um módulo interno, precisamos trazer o código sob teste no módulo externo para o escopo do módulo interno. Usamos um glob aqui, então qualquer coisa que definimos no módulo externo está disponível para este módulo `tests`.
+Observe a linha `use super::*;` dentro do módulo `tests`. O módulo `tests` é um módulo comum que segue as regras de visibilidade usuais que abordamos no Capítulo 7, na seção “Caminhos para se referir a um item na árvore de módulos”. Como o módulo `tests` é um módulo interno, precisamos trazer o código sob teste, que está no módulo externo, para o escopo do módulo interno. Usamos um glob aqui, então qualquer coisa que definirmos no módulo externo fica disponível para esse módulo `tests`.
 
-Nomeamos nosso teste `larger_can_hold_smaller` e criamos as duas instâncias de `Rectangle` que precisamos. Depois, chamamos a macro `assert!` e passamos o resultado de chamar `larger.can_hold(&smaller)`. Esta expressão deve retornar `true`, então nosso teste deve passar. Vamos descobrir!
+Chamamos nosso teste de `larger_can_hold_smaller` e criamos as duas instâncias de `Rectangle` de que precisamos. Depois, chamamos a macro `assert!` e passamos o resultado da chamada `larger.can_hold(&smaller)`. Essa expressão deve retornar `true`, então nosso teste deve passar. Vamos conferir!
 
 ```console
 $ cargo test
@@ -292,11 +292,20 @@ running 0 tests
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 ```
 
-Passou! Vamos adicionar outro teste, desta vez afirmando que um retângulo menor não pode conter um maior:
+Passou! Vamos adicionar outro teste, desta vez verificando que um retângulo menor não pode conter um maior:
 
 **Arquivo: src/lib.rs**
 
 ```rust
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn larger_can_hold_smaller() {
+        // --snip--
+    }
+
     #[test]
     fn smaller_cannot_hold_larger() {
         let larger = Rectangle {
@@ -310,9 +319,10 @@ Passou! Vamos adicionar outro teste, desta vez afirmando que um retângulo menor
 
         assert!(!smaller.can_hold(&larger));
     }
+}
 ```
 
-Como o resultado correto da função `can_hold` neste caso é `false`, precisamos negar esse resultado antes de passá-lo à macro `assert!`. Assim, nosso teste passará se `can_hold` retornar `false`:
+Como o resultado correto da função `can_hold` neste caso é `false`, precisamos negar esse resultado antes de passá-lo para a macro `assert!`. Como consequência, nosso teste passará se `can_hold` retornar `false`:
 
 ```console
 $ cargo test
@@ -333,11 +343,12 @@ running 0 tests
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 ```
 
-Dois testes que passam! Agora vejamos o que acontece com os resultados dos testes quando introduzimos um bug no código. Mudaremos a implementação do método `can_hold` substituindo o sinal de maior (`>`) por menor (`<`) ao comparar as larguras:
+Dois testes passando! Agora vamos ver o que acontece com os resultados dos testes quando introduzimos um bug no código. Mudaremos a implementação do método `can_hold` substituindo o sinal de maior que (`>`) por um sinal de menor que (`<`) ao comparar as larguras:
 
-**Arquivo: src/lib.rs**
+**Arquivo: src/lib.rs (Este código não produz o comportamento desejado.)**
 
 ```rust
+// --snip--
 impl Rectangle {
     fn can_hold(&self, other: &Rectangle) -> bool {
         self.width < other.width && self.height > other.height
@@ -374,13 +385,13 @@ test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; 
 error: test failed, to rerun pass `--lib`
 ```
 
-Nossos testes pegaram o bug! Como `larger.width` é `8` e `smaller.width` é `5`, a comparação das larguras em `can_hold` agora retorna `false`: 8 não é menor que 5.
+Nossos testes encontraram o bug! Como `larger.width` é `8` e `smaller.width` é `5`, a comparação das larguras em `can_hold` agora retorna `false`: 8 não é menor que 5.
 
 ### Testando igualdade com `assert_eq!` e `assert_ne!`
 
-Uma forma comum de verificar funcionalidade é testar igualdade entre o resultado do código sob teste e o valor que você espera que o código retorne. Você poderia fazer isso usando a macro `assert!` e passando uma expressão com o operador `==`. Porém, este é um teste tão comum que a biblioteca padrão fornece um par de macros — `assert_eq!` e `assert_ne!` — para realizar este teste com mais conveniência. Essas macros comparam dois argumentos quanto à igualdade ou desigualdade, respectivamente. Elas também imprimirão os dois valores se a asserção falhar, o que facilita ver _por que_ o teste falhou; por outro lado, a macro `assert!` só indica que obteve valor `false` para a expressão `==`, sem imprimir os valores que levaram ao `false`.
+Uma forma comum de verificar uma funcionalidade é testar a igualdade entre o resultado do código sob teste e o valor que você espera que o código retorne. Você poderia fazer isso usando a macro `assert!` e passando uma expressão com o operador `==`. No entanto, esse é um teste tão comum que a biblioteca padrão fornece um par de macros, `assert_eq!` e `assert_ne!`, para realizá-lo de maneira mais conveniente. Essas macros comparam dois argumentos quanto à igualdade ou à desigualdade, respectivamente. Elas também imprimem os dois valores se a asserção falhar, o que facilita entender por que o teste falhou; em contraste, a macro `assert!` apenas indica que recebeu o valor `false` para a expressão `==`, sem imprimir os valores que levaram a esse resultado.
 
-Na Listagem 11-7, escrevemos uma função chamada `add_two` que adiciona `2` ao seu parâmetro e então testamos esta função usando a macro `assert_eq!`.
+Na Listagem 11-7, escrevemos uma função chamada `add_two` que adiciona `2` ao seu parâmetro e então testamos essa função usando a macro `assert_eq!`.
 
 **Arquivo: src/lib.rs**
 
@@ -425,11 +436,11 @@ running 0 tests
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 ```
 
-Criamos uma variável chamada `result` que contém o resultado de chamar `add_two(2)`. Depois, passamos `result` e `4` como argumentos à macro `assert_eq!`. A linha de saída deste teste é `test tests::it_adds_two ... ok`, e o texto `ok` indica que nosso teste passou!
+Criamos uma variável chamada `result` que contém o resultado de chamar `add_two(2)`. Depois, passamos `result` e `4` como argumentos para a macro `assert_eq!`. A linha de saída desse teste é `test tests::it_adds_two ... ok`, e o texto `ok` indica que nosso teste passou!
 
-Vamos introduzir um bug no código para ver como `assert_eq!` parece quando falha. Mude a implementação da função `add_two` para adicionar `3` em vez disso:
+Vamos introduzir um bug no código para ver como `assert_eq!` aparece quando falha. Mude a implementação da função `add_two` para adicionar `3` em vez de `2`:
 
-**Arquivo: src/lib.rs**
+**Arquivo: src/lib.rs (Este código não produz o comportamento desejado.)**
 
 ```rust
 pub fn add_two(a: u64) -> u64 {
@@ -467,19 +478,19 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; 
 error: test failed, to rerun pass `--lib`
 ```
 
-Nosso teste pegou o bug! O teste `tests::it_adds_two` falhou, e a mensagem nos diz que a asserção que falhou foi `left == right` e quais são os valores de `left` e `right`. Esta mensagem nos ajuda a começar a depurar: o argumento `left`, onde tínhamos o resultado de chamar `add_two(2)`, foi `5`, mas o argumento `right` foi `4`. Você pode imaginar que isso seria especialmente útil quando temos muitos testes em execução.
+Nosso teste encontrou o bug! O teste `tests::it_adds_two` falhou, e a mensagem nos diz que a asserção que falhou foi `left == right` e mostra quais são os valores de `left` e `right`. Essa mensagem nos ajuda a começar a depurar: o argumento `left`, onde tínhamos o resultado de chamar `add_two(2)`, foi `5`, mas o argumento `right` foi `4`. Você pode imaginar que isso seria especialmente útil quando há muitos testes em execução.
 
-Observe que em algumas linguagens e frameworks de teste, os parâmetros das funções de asserção de igualdade são chamados de `expected` e `actual`, e a ordem em que especificamos os argumentos importa. Porém, em Rust, eles são chamados de `left` e `right`, e a ordem em que especificamos o valor que esperamos e o valor que o código produz não importa. Poderíamos escrever a asserção neste teste como `assert_eq!(4, result)`, o que resultaria na mesma mensagem de falha que exibe `` assertion `left == right` failed ``.
+Observe que, em algumas linguagens e frameworks de teste, os parâmetros das funções de asserção de igualdade são chamados de `expected` e `actual`, e a ordem em que especificamos os argumentos importa. Em Rust, porém, eles são chamados de `left` e `right`, e a ordem em que especificamos o valor que esperamos e o valor produzido pelo código não importa. Poderíamos escrever a asserção neste teste como `assert_eq!(4, result)`, o que resultaria na mesma mensagem de falha exibindo `` assertion `left == right` failed ``.
 
-A macro `assert_ne!` passará se os dois valores que damos não forem iguais e falhará se forem iguais. Esta macro é mais útil para casos em que não temos certeza de qual será um valor, mas sabemos qual valor definitivamente _não_ deveria ser. Por exemplo, se estamos testando uma função que garantidamente altera sua entrada de alguma forma, mas a forma como a entrada é alterada depende do dia da semana em que executamos os testes, a melhor coisa a afirmar pode ser que a saída da função não é igual à entrada.
+A macro `assert_ne!` passa se os dois valores que fornecemos a ela não forem iguais e falha se forem iguais. Essa macro é mais útil nos casos em que não temos certeza de qual será um valor, mas sabemos qual valor ele definitivamente _não_ deve ser. Por exemplo, se estamos testando uma função que tem a garantia de alterar sua entrada de alguma forma, mas a maneira como a entrada é alterada depende do dia da semana em que executamos os testes, talvez a melhor asserção seja verificar que a saída da função não é igual à entrada.
 
-Por baixo dos panos, as macros `assert_eq!` e `assert_ne!` usam os operadores `==` e `!=`, respectivamente. Quando as asserções falham, essas macros imprimem seus argumentos usando formatação de debug, o que significa que os valores comparados devem implementar as traits `PartialEq` e `Debug`. Todos os tipos primitivos e a maioria dos tipos da biblioteca padrão implementam essas traits. Para structs e enums que você define, precisará implementar `PartialEq` para afirmar igualdade desses tipos. Também precisará implementar `Debug` para imprimir os valores quando a asserção falhar. Como ambas as traits são deriváveis, como mencionado na Listagem 5-12 do Capítulo 5, isso costuma ser tão simples quanto adicionar a anotação `#[derive(PartialEq, Debug)]` à definição da struct ou enum. Consulte o [Apêndice C, “Traits deriváveis”](/livro/cap22-03-traits-derivaveis), para mais detalhes sobre essas e outras traits deriváveis.
+Por baixo dos panos, as macros `assert_eq!` e `assert_ne!` usam os operadores `==` e `!=`, respectivamente. Quando as asserções falham, essas macros imprimem seus argumentos usando a formatação de debug, o que significa que os valores comparados devem implementar as traits `PartialEq` e `Debug`. Todos os tipos primitivos e a maioria dos tipos da biblioteca padrão implementam essas traits. Para structs e enums que você define, será necessário implementar `PartialEq` para verificar a igualdade desses tipos. Você também precisará implementar `Debug` para imprimir os valores quando a asserção falhar. Como ambas são traits deriváveis, conforme mencionado na Listagem 5-12 do Capítulo 5, isso normalmente é tão simples quanto adicionar a anotação `#[derive(PartialEq, Debug)]` à definição da struct ou do enum. Consulte o [Apêndice C, “Traits deriváveis”](/livro/cap22-03-traits-derivaveis), para mais detalhes sobre essas e outras traits deriváveis.
 
 ### Adicionando mensagens de falha personalizadas
 
-Você também pode adicionar uma mensagem personalizada para ser impressa com a mensagem de falha como argumentos opcionais das macros `assert!`, `assert_eq!` e `assert_ne!`. Quaisquer argumentos especificados após os argumentos obrigatórios são repassados à macro `format!` (discutida em Concatenando com `+` ou `format!` no Capítulo 8), então você pode passar uma string de formato que contém placeholders `{}` e valores para esses placeholders. Mensagens personalizadas são úteis para documentar o que uma asserção significa; quando um teste falha, você terá uma ideia melhor de qual é o problema no código.
+Você também pode adicionar uma mensagem personalizada para ser impressa junto com a mensagem de falha, usando argumentos opcionais nas macros `assert!`, `assert_eq!` e `assert_ne!`. Quaisquer argumentos especificados depois dos argumentos obrigatórios são repassados para a macro `format!` (discutida em “Concatenando com `+` ou `format!`” no Capítulo 8), então você pode passar uma string de formato que contenha placeholders `{}` e valores para preencher esses placeholders. Mensagens personalizadas são úteis para documentar o que uma asserção significa; quando um teste falhar, você terá uma ideia melhor de qual é o problema no código.
 
-Por exemplo, digamos que temos uma função que cumprimenta pessoas pelo nome e queremos testar que o nome que passamos à função aparece na saída:
+Por exemplo, digamos que temos uma função que cumprimenta pessoas pelo nome e queremos testar se o nome que passamos para a função aparece na saída:
 
 **Arquivo: src/lib.rs**
 
@@ -500,11 +511,11 @@ mod tests {
 }
 ```
 
-Os requisitos deste programa ainda não foram acordados, e temos bastante certeza de que o texto `Hello` no início da saudação mudará. Decidimos que não queremos ter de atualizar o teste quando os requisitos mudarem, então em vez de verificar igualdade exata com o valor retornado pela função `greeting`, apenas afirmaremos que a saída contém o texto do parâmetro de entrada.
+Os requisitos desse programa ainda não foram definidos, e temos bastante certeza de que o texto `Hello` no início da saudação mudará. Decidimos que não queremos ter que atualizar o teste quando os requisitos mudarem, então, em vez de verificar igualdade exata com o valor retornado pela função `greeting`, vamos apenas verificar que a saída contém o texto do parâmetro de entrada.
 
-Agora vamos introduzir um bug neste código mudando `greeting` para excluir `name` e ver como a falha de teste padrão parece:
+Agora vamos introduzir um bug nesse código alterando `greeting` para excluir `name` e ver como é a falha de teste padrão:
 
-**Arquivo: src/lib.rs**
+**Arquivo: src/lib.rs (Este código não produz o comportamento desejado.)**
 
 ```rust
 pub fn greeting(name: &str) -> String {
@@ -540,7 +551,7 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; 
 error: test failed, to rerun pass `--lib`
 ```
 
-Este resultado só indica que a asserção falhou e em qual linha a asserção está. Uma mensagem de falha mais útil imprimiria o valor da função `greeting`. Vamos adicionar uma mensagem de falha personalizada composta de uma string de formato com um placeholder preenchido com o valor real que obtivemos da função `greeting`:
+Esse resultado apenas indica que a asserção falhou e mostra em qual linha ela está. Uma mensagem de falha mais útil imprimiria o valor retornado pela função `greeting`. Vamos adicionar uma mensagem de falha personalizada composta por uma string de formato com um placeholder preenchido pelo valor real que obtivemos da função `greeting`:
 
 **Arquivo: src/lib.rs**
 
@@ -555,7 +566,7 @@ Este resultado só indica que a asserção falhou e em qual linha a asserção e
     }
 ```
 
-Agora, quando executarmos o teste, obteremos uma mensagem de erro mais informativa:
+Agora, quando executarmos o teste, receberemos uma mensagem de erro mais informativa:
 
 ```console
 $ cargo test
@@ -583,15 +594,15 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; 
 error: test failed, to rerun pass `--lib`
 ```
 
-Podemos ver o valor que realmente obtivemos na saída do teste, o que nos ajudaria a depurar o que aconteceu em vez do que esperávamos que acontecesse.
+Podemos ver na saída do teste o valor que realmente obtivemos, o que nos ajudaria a depurar o que aconteceu em vez de ficarmos apenas com o que esperávamos que acontecesse.
 
-### Verificando pânico com `should_panic`
+### Verificando pânicos com `should_panic`
 
-Além de verificar valores de retorno, é importante verificar que nosso código lida com condições de erro como esperamos. Por exemplo, considere o tipo `Guess` que criamos no Capítulo 9, na Listagem 9-13. Outro código que usa `Guess` depende da garantia de que instâncias de `Guess` conterão apenas valores entre 1 e 100. Podemos escrever um teste que garante que tentar criar uma instância de `Guess` com valor fora desse intervalo entra em pânico.
+Além de verificar valores de retorno, é importante verificar se nosso código lida com condições de erro da maneira que esperamos. Por exemplo, considere o tipo `Guess` que criamos no Capítulo 9, na Listagem 9-13. Outros códigos que usam `Guess` dependem da garantia de que instâncias de `Guess` conterão apenas valores entre 1 e 100. Podemos escrever um teste que garante que tentar criar uma instância de `Guess` com um valor fora desse intervalo causará um pânico.
 
 Fazemos isso adicionando o atributo `should_panic` à nossa função de teste. O teste passa se o código dentro da função entrar em pânico; o teste falha se o código dentro da função não entrar em pânico.
 
-A Listagem 11-8 mostra um teste que verifica que as condições de erro de `Guess::new` ocorrem quando esperamos.
+A Listagem 11-8 mostra um teste que verifica se as condições de erro de `Guess::new` acontecem quando esperamos que aconteçam.
 
 **Arquivo: src/lib.rs**
 
@@ -624,9 +635,9 @@ mod tests {
 
 <a id="listagem-11-8"></a>
 
-[Listagem 11-8](#listagem-11-8): Testando que uma condição causará `panic!`
+[Listagem 11-8](#listagem-11-8): Testando que uma condição causará um `panic!`
 
-Colocamos o atributo `#[should_panic]` após o atributo `#[test]` e antes da função de teste a que se aplica. Vejamos o resultado quando este teste passa:
+Colocamos o atributo `#[should_panic]` depois do atributo `#[test]` e antes da função de teste à qual ele se aplica. Vejamos o resultado quando esse teste passa:
 
 ```console
 $ cargo test
@@ -646,11 +657,12 @@ running 0 tests
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 ```
 
-Parece bom! Agora vamos introduzir um bug no código removendo a condição de que a função `new` entrará em pânico se o valor for maior que 100:
+Tudo certo! Agora vamos introduzir um bug no código removendo a condição que faz a função `new` entrar em pânico se o valor for maior que 100:
 
-**Arquivo: src/lib.rs**
+**Arquivo: src/lib.rs (Este código não produz o comportamento desejado.)**
 
 ```rust
+// --snip--
 impl Guess {
     pub fn new(value: i32) -> Guess {
         if value < 1 {
@@ -662,7 +674,7 @@ impl Guess {
 }
 ```
 
-Quando executamos o teste da Listagem 11-8, ele falhará:
+Quando executarmos o teste da Listagem 11-8, ele falhará:
 
 ```console
 $ cargo test
@@ -686,9 +698,9 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; 
 error: test failed, to rerun pass `--lib`
 ```
 
-Não obtemos uma mensagem muito útil neste caso, mas quando olhamos a função de teste, vemos que está anotada com `#[should_panic]`. A falha que obtivemos significa que o código na função de teste não causou pânico.
+Não recebemos uma mensagem muito útil nesse caso, mas, quando olhamos para a função de teste, vemos que ela está anotada com `#[should_panic]`. A falha que obtivemos significa que o código na função de teste não causou um pânico.
 
-Testes que usam `should_panic` podem ser imprecisos. Um teste `should_panic` passaria mesmo se o teste entrasse em pânico por um motivo diferente do que esperávamos. Para tornar testes `should_panic` mais precisos, podemos adicionar um parâmetro opcional `expected` ao atributo `should_panic`. O test harness garantirá que a mensagem de falha contenha o texto fornecido. Por exemplo, considere o código modificado para `Guess` na Listagem 11-9, em que a função `new` entra em pânico com mensagens diferentes dependendo de o valor ser muito pequeno ou muito grande.
+Testes que usam `should_panic` podem ser imprecisos. Um teste `should_panic` passaria mesmo se o teste entrasse em pânico por um motivo diferente daquele que esperávamos. Para tornar testes `should_panic` mais precisos, podemos adicionar um parâmetro opcional `expected` ao atributo `should_panic`. O sistema de testes garantirá que a mensagem de falha contenha o texto fornecido. Por exemplo, considere o código modificado para `Guess` na Listagem 11-9, em que a função `new` entra em pânico com mensagens diferentes dependendo de o valor ser pequeno demais ou grande demais.
 
 **Arquivo: src/lib.rs**
 
@@ -729,13 +741,14 @@ mod tests {
 
 [Listagem 11-9](#listagem-11-9): Testando `panic!` com mensagem de pânico contendo uma substring especificada
 
-Este teste passará porque o valor que colocamos no parâmetro `expected` do atributo `should_panic` é uma substring da mensagem com a qual a função `Guess::new` entra em pânico. Poderíamos ter especificado a mensagem de pânico inteira que esperamos, que neste caso seria `Guess value must be less than or equal to 100, got 200`. O que você escolhe especificar depende de quanto da mensagem de pânico é única ou dinâmica e de quão preciso você quer que seu teste seja. Neste caso, uma substring da mensagem de pânico é suficiente para garantir que o código na função de teste executa o caso `else if value > 100`.
+Esse teste passará porque o valor que colocamos no parâmetro `expected` do atributo `should_panic` é uma substring da mensagem com a qual a função `Guess::new` entra em pânico. Poderíamos ter especificado a mensagem de pânico inteira que esperamos, que nesse caso seria `Guess value must be less than or equal to 100, got 200`. O que você escolhe especificar depende de quanto da mensagem de pânico é único ou dinâmico e de quão preciso você quer que seu teste seja. Neste caso, uma substring da mensagem de pânico é suficiente para garantir que o código na função de teste execute o caso `else if value > 100`.
 
-Para ver o que acontece quando um teste `should_panic` com mensagem `expected` falha, vamos novamente introduzir um bug no código trocando os corpos dos blocos `if value < 1` e `else if value > 100`:
+Para ver o que acontece quando um teste `should_panic` com uma mensagem `expected` falha, vamos novamente introduzir um bug no código trocando os corpos dos blocos `if value < 1` e `else if value > 100`:
 
-**Arquivo: src/lib.rs**
+**Arquivo: src/lib.rs (Este código não produz o comportamento desejado.)**
 
 ```rust
+// --snip--
 impl Guess {
     pub fn new(value: i32) -> Guess {
         if value < 1 {
@@ -753,7 +766,7 @@ impl Guess {
 }
 ```
 
-Desta vez, quando executamos o teste `should_panic`, ele falhará:
+Desta vez, quando executarmos o teste `should_panic`, ele falhará:
 
 ```console
 $ cargo test
@@ -783,7 +796,7 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; 
 error: test failed, to rerun pass `--lib`
 ```
 
-A mensagem de falha indica que este teste de fato entrou em pânico como esperávamos, mas a mensagem de pânico não incluiu a string esperada `less than or equal to 100`. A mensagem de pânico que obtivemos neste caso foi `Guess value must be greater than or equal to 1, got 200`. Agora podemos começar a descobrir onde está nosso bug!
+A mensagem de falha indica que esse teste de fato entrou em pânico como esperávamos, mas que a mensagem de pânico não incluiu a string esperada `less than or equal to 100`. A mensagem de pânico que recebemos nesse caso foi `Guess value must be greater than or equal to 1, got 200`. Agora podemos começar a descobrir onde está o bug!
 
 ### Usando `Result<T, E>` em testes
 
@@ -813,10 +826,10 @@ mod tests {
 }
 ```
 
-A função `it_works` agora tem o tipo de retorno `Result<(), String>`. No corpo da função, em vez de chamar a macro `assert_eq!`, retornamos `Ok(())` quando o teste passa e um `Err` com um `String` dentro quando o teste falha.
+A função `it_works` agora tem o tipo de retorno `Result<(), String>`. No corpo da função, em vez de chamar a macro `assert_eq!`, retornamos `Ok(())` quando o teste passa e um `Err` contendo uma `String` quando o teste falha.
 
-Escrever testes para que retornem um `Result<T, E>` permite usar o operador `?` no corpo dos testes, o que pode ser uma forma conveniente de escrever testes que devem falhar se qualquer operação dentro deles retornar uma variante `Err`.
+Escrever testes de modo que eles retornem um `Result<T, E>` permite usar o operador `?` no corpo dos testes, o que pode ser uma forma conveniente de escrever testes que devem falhar se qualquer operação dentro deles retornar uma variante `Err`.
 
-Você não pode usar a anotação `#[should_panic]` em testes que usam `Result<T, E>`. Para afirmar que uma operação retorna uma variante `Err`, _não_ use o operador `?` no valor `Result<T, E>`. Em vez disso, use `assert!(value.is_err())`.
+Você não pode usar a anotação `#[should_panic]` em testes que usam `Result<T, E>`. Para verificar que uma operação retorna uma variante `Err`, _não_ use o operador `?` no valor `Result<T, E>`. Em vez disso, use `assert!(value.is_err())`.
 
-Agora que você conhece várias formas de escrever testes, vamos ver o que acontece quando executamos nossos testes e explorar as diferentes opções que podemos usar com `cargo test`.
+Agora que você conhece várias formas de escrever testes, vamos ver o que acontece quando os executamos e explorar as diferentes opções que podemos usar com `cargo test`.
