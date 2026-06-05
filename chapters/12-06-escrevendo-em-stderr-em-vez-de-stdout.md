@@ -16,13 +16,13 @@ Primeiro, vamos observar como o conteúdo impresso pelo `minigrep` está sendo e
 
 Espera-se que programas de linha de comando enviem mensagens de erro para o fluxo de erro padrão, para que ainda possamos ver mensagens de erro na tela mesmo se redirecionarmos o fluxo de saída padrão para um arquivo. Nosso programa atualmente não se comporta bem: estamos prestes a ver que ele salva a saída da mensagem de erro em um arquivo!
 
-Para demonstrar esse comportamento, executaremos o programa com `>` e o caminho do arquivo _output.txt_, para o qual queremos redirecionar o fluxo de saída padrão. Não passaremos nenhum argumento, o que deve causar um erro:
+Para demonstrar esse comportamento, executaremos o programa com `>` e o caminho do arquivo _saida.txt_, para o qual queremos redirecionar o fluxo de saída padrão. Não passaremos nenhum argumento, o que deve causar um erro:
 
 ```console
-$ cargo run > output.txt
+$ cargo run > saida.txt
 ```
 
-A sintaxe `>` diz ao shell para escrever o conteúdo da saída padrão em _output.txt_ em vez de escrevê-lo na tela. Não vimos a mensagem de erro esperada impressa na tela, então isso significa que ela deve ter ido parar no arquivo. Isto é o que _output.txt_ contém:
+A sintaxe `>` diz ao shell para escrever o conteúdo da saída padrão em _saida.txt_ em vez de escrevê-lo na tela. Não vimos a mensagem de erro esperada impressa na tela, então isso significa que ela deve ter ido parar no arquivo. Isto é o que _saida.txt_ contém:
 
 ```text
 Erro ao interpretar argumentos: argumentos insuficientes
@@ -59,21 +59,21 @@ fn main() {
 Agora vamos executar o programa novamente da mesma forma, sem argumentos e redirecionando a saída padrão com `>`:
 
 ```console
-$ cargo run > output.txt
+$ cargo run > saida.txt
 Erro ao interpretar argumentos: argumentos insuficientes
 ```
 
-Agora vemos o erro na tela, e _output.txt_ não contém nada, que é o comportamento que esperamos de programas de linha de comando.
+Agora vemos o erro na tela, e _saida.txt_ não contém nada, que é o comportamento que esperamos de programas de linha de comando.
 
 Vamos executar o programa novamente com argumentos que não causam erro, mas ainda redirecionando a saída padrão para um arquivo, assim:
 
 ```console
-$ cargo run -- te poema.txt > output.txt
+$ cargo run -- te poema.txt > saida.txt
 ```
 
-Não veremos nenhuma saída no terminal, e _output.txt_ conterá nossos resultados:
+Não veremos nenhuma saída no terminal, e _saida.txt_ conterá nossos resultados:
 
-**Arquivo: output.txt**
+**Arquivo: saida.txt**
 
 ```text
 Então somos um par — não conte!

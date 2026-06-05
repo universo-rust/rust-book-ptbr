@@ -21,7 +21,7 @@ mod tests {
 
     #[test]
     fn case_sensitive() {
-        let query = "dut";
+        let query = "seguro";
         let contents = "\
 Rust:
 seguro, rápido, produtivo.
@@ -52,7 +52,7 @@ Trabalho RÁPIDO.";
 
 [Listagem 12-20](#listagem-12-20): Adicionando um novo teste que falha para a função sem diferenciar maiúsculas de minúsculas que estamos prestes a adicionar
 
-Observe que também editamos o `contents` do teste antigo. Adicionamos uma nova linha com o texto `"Fita adesiva."`, que não contém a consulta `"dut"`. Alterar o teste antigo dessa forma ajuda a garantir que não quebremos acidentalmente a funcionalidade de busca sensível a maiúsculas e minúsculas que já implementamos. Esse teste deve passar agora e deve continuar passando enquanto trabalhamos na busca sem diferenciar maiúsculas de minúsculas.
+Observe que também editamos o `contents` do teste antigo. Adicionamos uma nova linha com o texto `"Fita adesiva."`, que não contém a consulta `"seguro"`. Alterar o teste antigo dessa forma ajuda a garantir que não quebremos acidentalmente a funcionalidade de busca sensível a maiúsculas e minúsculas que já implementamos. Esse teste deve passar agora e deve continuar passando enquanto trabalhamos na busca sem diferenciar maiúsculas de minúsculas.
 
 O novo teste para busca _sem diferenciar maiúsculas de minúsculas_ usa `"ráPIdo"` como consulta. Na função `search_case_insensitive` que estamos prestes a adicionar, a consulta `"ráPIdo"` deve corresponder à linha que contém `"rápido"` com capitalização diferente e também à linha `"Trabalho RÁPIDO."`, embora ambas tenham capitalização diferente da consulta. Esse é nosso teste que falha, e ele falhará ao compilar porque ainda não definimos a função `search_case_insensitive`. Sinta-se à vontade para adicionar uma implementação esqueleto que sempre retorna um vetor vazio, semelhante ao que fizemos para a função `search` na Listagem 12-16, para ver o teste compilar e falhar.
 

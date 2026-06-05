@@ -19,7 +19,7 @@ $ cd minigrep
 A primeira tarefa é fazer o `minigrep` aceitar seus dois argumentos de linha de comando: o caminho do arquivo e uma string a ser buscada. Ou seja, queremos conseguir executar nosso programa com `cargo run`, dois hífens para indicar que os argumentos seguintes são para o nosso programa, e não para o `cargo`, uma string a ser buscada e um caminho para o arquivo no qual pesquisar, assim:
 
 ```console
-$ cargo run -- searchstring example-filename.txt
+$ cargo run -- busca arquivo-exemplo.txt
 ```
 
 Neste momento, o programa gerado por `cargo new` não consegue processar os argumentos que passamos para ele. Algumas bibliotecas disponíveis em [crates.io](https://crates.io/) podem ajudar na escrita de programas que aceitam argumentos de linha de comando, mas, como você ainda está aprendendo esse conceito, vamos implementar essa capacidade por conta própria.
@@ -66,14 +66,14 @@ $ cargo run
 ```
 
 ```console
-$ cargo run -- needle haystack
+$ cargo run -- agulha palheiro
    Compiling minigrep v0.1.0 (file:///projects/minigrep)
     Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.57s
-     Running `target/debug/minigrep needle haystack`
+     Running `target/debug/minigrep agulha palheiro`
 [src/main.rs:5:5] args = [
     "target/debug/minigrep",
-    "needle",
-    "haystack",
+    "agulha",
+    "palheiro",
 ]
 ```
 
@@ -105,15 +105,15 @@ fn main() {
 
 Como vimos ao imprimir o vetor, o nome do programa ocupa o primeiro valor no vetor, em `args[0]`; portanto, começamos os argumentos no índice 1. O primeiro argumento que o `minigrep` recebe é a string que estamos buscando, então colocamos uma referência ao primeiro argumento na variável `query`. O segundo argumento será o caminho do arquivo, então colocamos uma referência ao segundo argumento na variável `file_path`.
 
-Imprimimos temporariamente os valores dessas variáveis para comprovar que o código está funcionando como pretendemos. Vamos executar este programa novamente com os argumentos `test` e `sample.txt`:
+Imprimimos temporariamente os valores dessas variáveis para comprovar que o código está funcionando como pretendemos. Vamos executar este programa novamente com os argumentos `teste` e `amostra.txt`:
 
 ```console
-$ cargo run -- test sample.txt
+$ cargo run -- teste amostra.txt
    Compiling minigrep v0.1.0 (file:///projects/minigrep)
     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.0s
-     Running `target/debug/minigrep test sample.txt`
-Buscando test
-No arquivo sample.txt
+     Running `target/debug/minigrep teste amostra.txt`
+Buscando teste
+No arquivo amostra.txt
 ```
 
 Ótimo, o programa está funcionando! Os valores dos argumentos de que precisamos estão sendo salvos nas variáveis corretas. Mais adiante, adicionaremos algum tratamento de erros para lidar com certas situações potencialmente problemáticas, como quando o usuário não fornece argumentos; por enquanto, vamos ignorar essa situação e trabalhar na adição da capacidade de ler arquivos.

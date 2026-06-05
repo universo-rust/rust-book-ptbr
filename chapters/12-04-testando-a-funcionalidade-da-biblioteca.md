@@ -38,7 +38,7 @@ mod tests {
 
     #[test]
     fn one_result() {
-        let query = "dut";
+        let query = "seguro";
         let contents = "\
 Rust:
 seguro, rápido, produtivo.
@@ -53,9 +53,9 @@ Escolha três.";
 
 [Listagem 12-15](#listagem-12-15): Criando um teste que falha para a função `search` com a funcionalidade que desejamos
 
-Este teste busca pela string `"dut"`. O texto em que estamos buscando tem três linhas, das quais apenas uma contém `"dut"` (observe que a barra invertida depois da aspas dupla de abertura diz ao Rust para não colocar um caractere de nova linha no início do conteúdo deste literal de string). Afirmamos que o valor retornado pela função `search` contém apenas a linha que esperamos.
+Este teste busca pela string `"seguro"`. O texto em que estamos buscando tem três linhas, das quais apenas uma contém `"seguro"` (observe que a barra invertida depois da aspas dupla de abertura diz ao Rust para não colocar um caractere de nova linha no início do conteúdo deste literal de string). Afirmamos que o valor retornado pela função `search` contém apenas a linha que esperamos.
 
-Se executarmos esse teste, ele falhará no momento porque a macro `unimplemented!` entra em pânico com a mensagem “not implemented”. De acordo com os princípios de TDD, daremos um pequeno passo: adicionar apenas código suficiente para que o teste não entre em pânico ao chamar a função, definindo a função `search` para sempre retornar um vetor vazio, como mostrado na Listagem 12-16. Então, o teste deve compilar e falhar porque um vetor vazio não corresponde a um vetor contendo a linha `"seguro, rápido, produtivo."`.
+Se executarmos esse teste, ele falhará no momento porque a macro `unimplemented!` entra em pânico com a mensagem “not implemented” (sempre em inglês, vinda da biblioteca padrão). De acordo com os princípios de TDD, daremos um pequeno passo: adicionar apenas código suficiente para que o teste não entre em pânico ao chamar a função, definindo a função `search` para sempre retornar um vetor vazio, como mostrado na Listagem 12-16. Então, o teste deve compilar e falhar porque um vetor vazio não corresponde a um vetor contendo a linha `"seguro, rápido, produtivo."`.
 
 **Arquivo: src/lib.rs**
 
@@ -70,7 +70,7 @@ mod tests {
 
     #[test]
     fn one_result() {
-        let query = "dut";
+        let query = "seguro";
         let contents = "\
 Rust:
 seguro, rápido, produtivo.
