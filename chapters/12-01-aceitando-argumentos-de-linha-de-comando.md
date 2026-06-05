@@ -2,6 +2,8 @@
 title: "Aceitando argumentos de linha de comando"
 chapter_code: 12-01
 slug: aceitando-argumentos-de-linha-de-comando
+challenge_day: 15
+reading_minutes: 11
 ---
 
 # Aceitando argumentos de linha de comando
