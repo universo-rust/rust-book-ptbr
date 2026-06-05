@@ -2,6 +2,8 @@
 title: "Como escrever testes"
 chapter_code: 11-01
 slug: como-escrever-testes
+challenge_day: 14
+reading_minutes: 35
 ---
 
 # Como escrever testes
@@ -91,7 +93,7 @@ O Cargo compilou e executou o teste. Vemos a linha `running 1 test`. A linha seg
 
 A estatística `0 measured` é para testes de benchmark, que medem desempenho. No momento em que escrevemos, testes de benchmark estão disponíveis apenas no Rust nightly. Consulte a [documentação sobre testes de benchmark](https://doc.rust-lang.org/nightly/unstable-book/library-features/test.html) para saber mais.
 
-A próxima parte da saída dos testes, começando em `Doc-tests adder`, mostra os resultados de quaisquer testes de documentação. Ainda não temos testes de documentação, mas o Rust pode compilar qualquer exemplo de código que apareça na documentação da nossa API. Esse recurso ajuda a manter sua documentação e seu código sincronizados! Discutiremos como escrever testes de documentação na seção “Comentários de documentação como testes” do Capítulo 14. Por enquanto, vamos ignorar a saída `Doc-tests`.
+A próxima parte da saída dos testes, começando em `Doc-tests adder`, mostra os resultados de quaisquer testes de documentação. Ainda não temos testes de documentação, mas o Rust pode compilar qualquer exemplo de código que apareça na documentação da nossa API. Esse recurso ajuda a manter sua documentação e seu código sincronizados! Discutiremos como escrever testes de documentação na seção [Comentários de documentação como testes](/livro/cap14-02-publicando-um-crate-no-crates-io#comentários-de-documentação-como-testes) do Capítulo 14. Por enquanto, vamos ignorar a saída `Doc-tests`.
 
 Vamos começar a personalizar o teste para nossas próprias necessidades. Primeiro, mude o nome da função `it_works` para um nome diferente, como `exploration`, assim:
 
@@ -197,7 +199,7 @@ error: test failed, to rerun pass `--lib`
 
 [Listagem 11-4](#listagem-11-4): Resultados de teste quando um teste passa e outro falha
 
-Em vez de `ok`, a linha `test tests::another` mostra `FAILED`. Duas novas seções aparecem entre os resultados individuais e o resumo: a primeira exibe o motivo detalhado de cada falha de teste. Neste caso, obtemos os detalhes de que `tests::another` falhou porque entrou em pânico com a mensagem `Make this test fail` na linha 17 do arquivo _src/lib.rs_. A seção seguinte lista apenas os nomes de todos os testes que falharam, o que é útil quando há muitos testes e muita saída detalhada de falhas. Podemos usar o nome de um teste que falhou para executar apenas esse teste e depurá-lo com mais facilidade; falaremos mais sobre formas de executar testes na seção “Controlando como os testes são executados”.
+Em vez de `ok`, a linha `test tests::another` mostra `FAILED`. Duas novas seções aparecem entre os resultados individuais e o resumo: a primeira exibe o motivo detalhado de cada falha de teste. Neste caso, obtemos os detalhes de que `tests::another` falhou porque entrou em pânico com a mensagem `Make this test fail` na linha 17 do arquivo _src/lib.rs_. A seção seguinte lista apenas os nomes de todos os testes que falharam, o que é útil quando há muitos testes e muita saída detalhada de falhas. Podemos usar o nome de um teste que falhou para executar apenas esse teste e depurá-lo com mais facilidade; falaremos mais sobre formas de executar testes na seção [Controlando como os testes são executados](/livro/cap11-02-controlando-como-os-testes-sao-executados).
 
 A linha de resumo aparece no final: no geral, nosso resultado de teste é `FAILED`. Tivemos um teste que passou e um teste que falhou.
 
@@ -270,7 +272,7 @@ mod tests {
 
 [Listagem 11-6](#listagem-11-6): Um teste para `can_hold` que verifica se um retângulo maior pode de fato conter um menor
 
-Observe a linha `use super::*;` dentro do módulo `tests`. O módulo `tests` é um módulo comum que segue as regras de visibilidade usuais que abordamos no Capítulo 7, na seção “Caminhos para se referir a um item na árvore de módulos”. Como o módulo `tests` é um módulo interno, precisamos trazer o código sob teste, que está no módulo externo, para o escopo do módulo interno. Usamos um glob aqui, então qualquer coisa que definirmos no módulo externo fica disponível para esse módulo `tests`.
+Observe a linha `use super::*;` dentro do módulo `tests`. O módulo `tests` é um módulo comum que segue as regras de visibilidade usuais que abordamos no Capítulo 7, na seção [Caminhos para se referir a um item na árvore de módulos](/livro/cap07-03-caminhos-para-referenciar-um-item-na-arvore-de-modulos). Como o módulo `tests` é um módulo interno, precisamos trazer o código sob teste, que está no módulo externo, para o escopo do módulo interno. Usamos um glob aqui, então qualquer coisa que definirmos no módulo externo fica disponível para esse módulo `tests`.
 
 Chamamos nosso teste de `larger_can_hold_smaller` e criamos as duas instâncias de `Rectangle` de que precisamos. Depois, chamamos a macro `assert!` e passamos o resultado da chamada `larger.can_hold(&smaller)`. Essa expressão deve retornar `true`, então nosso teste deve passar. Vamos conferir!
 
