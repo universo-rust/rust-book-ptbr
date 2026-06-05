@@ -2,6 +2,8 @@
 title: "Testando a funcionalidade da biblioteca"
 chapter_code: 12-04
 slug: testando-a-funcionalidade-da-biblioteca
+challenge_day: 16
+reading_minutes: 17
 ---
 
 # Adicionando funcionalidade com desenvolvimento orientado a testes
@@ -36,13 +38,13 @@ mod tests {
 
     #[test]
     fn one_result() {
-        let query = "duct";
+        let query = "dut";
         let contents = "\
 Rust:
-safe, fast, productive.
-Pick three.";
+seguro, rápido, produtivo.
+Escolha três.";
 
-        assert_eq!(vec!["safe, fast, productive."], search(query, contents));
+        assert_eq!(vec!["seguro, rápido, produtivo."], search(query, contents));
     }
 }
 ```
@@ -51,9 +53,9 @@ Pick three.";
 
 [Listagem 12-15](#listagem-12-15): Criando um teste que falha para a função `search` com a funcionalidade que desejamos
 
-Este teste busca pela string `"duct"`. O texto em que estamos buscando tem três linhas, das quais apenas uma contém `"duct"` (observe que a barra invertida depois da aspas dupla de abertura diz ao Rust para não colocar um caractere de nova linha no início do conteúdo deste literal de string). Afirmamos que o valor retornado pela função `search` contém apenas a linha que esperamos.
+Este teste busca pela string `"dut"`. O texto em que estamos buscando tem três linhas, das quais apenas uma contém `"dut"` (observe que a barra invertida depois da aspas dupla de abertura diz ao Rust para não colocar um caractere de nova linha no início do conteúdo deste literal de string). Afirmamos que o valor retornado pela função `search` contém apenas a linha que esperamos.
 
-Se executarmos esse teste, ele falhará no momento porque a macro `unimplemented!` entra em pânico com a mensagem “not implemented”. De acordo com os princípios de TDD, daremos um pequeno passo: adicionar apenas código suficiente para que o teste não entre em pânico ao chamar a função, definindo a função `search` para sempre retornar um vetor vazio, como mostrado na Listagem 12-16. Então, o teste deve compilar e falhar porque um vetor vazio não corresponde a um vetor contendo a linha `"safe, fast, productive."`.
+Se executarmos esse teste, ele falhará no momento porque a macro `unimplemented!` entra em pânico com a mensagem “not implemented”. De acordo com os princípios de TDD, daremos um pequeno passo: adicionar apenas código suficiente para que o teste não entre em pânico ao chamar a função, definindo a função `search` para sempre retornar um vetor vazio, como mostrado na Listagem 12-16. Então, o teste deve compilar e falhar porque um vetor vazio não corresponde a um vetor contendo a linha `"seguro, rápido, produtivo."`.
 
 **Arquivo: src/lib.rs**
 
@@ -68,13 +70,13 @@ mod tests {
 
     #[test]
     fn one_result() {
-        let query = "duct";
+        let query = "dut";
         let contents = "\
 Rust:
-safe, fast, productive.
-Pick three.";
+seguro, rápido, produtivo.
+Escolha três.";
 
-        assert_eq!(vec!["safe, fast, productive."], search(query, contents));
+        assert_eq!(vec!["seguro, rápido, produtivo."], search(query, contents));
     }
 }
 ```

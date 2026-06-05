@@ -21,27 +21,27 @@ mod tests {
 
     #[test]
     fn case_sensitive() {
-        let query = "duct";
+        let query = "dut";
         let contents = "\
 Rust:
-safe, fast, productive.
-Pick three.
-Duct tape.";
+seguro, rápido, produtivo.
+Escolha três.
+Fita Dut.";
 
-        assert_eq!(vec!["safe, fast, productive."], search(query, contents));
+        assert_eq!(vec!["seguro, rápido, produtivo."], search(query, contents));
     }
 
     #[test]
     fn case_insensitive() {
-        let query = "rUsT";
+        let query = "ráPIdo";
         let contents = "\
 Rust:
-safe, fast, productive.
-Pick three.
-Trust me.";
+seguro, rápido, produtivo.
+Escolha três.
+Trabalho RÁPIDO.";
 
         assert_eq!(
-            vec!["Rust:", "Trust me."],
+            vec!["seguro, rápido, produtivo.", "Trabalho RÁPIDO."],
             search_case_insensitive(query, contents)
         );
     }
@@ -52,9 +52,9 @@ Trust me.";
 
 [Listagem 12-20](#listagem-12-20): Adicionando um novo teste que falha para a função sem diferenciar maiúsculas de minúsculas que estamos prestes a adicionar
 
-Observe que também editamos o `contents` do teste antigo. Adicionamos uma nova linha com o texto `"Duct tape."`, usando um _D_ maiúsculo, que não deve corresponder à consulta `"duct"` quando estamos buscando de forma sensível a maiúsculas e minúsculas. Alterar o teste antigo dessa forma ajuda a garantir que não quebremos acidentalmente a funcionalidade de busca sensível a maiúsculas e minúsculas que já implementamos. Esse teste deve passar agora e deve continuar passando enquanto trabalhamos na busca sem diferenciar maiúsculas de minúsculas.
+Observe que também editamos o `contents` do teste antigo. Adicionamos uma nova linha com o texto `"Fita Dut."`, usando um _D_ maiúsculo, que não deve corresponder à consulta `"dut"` quando estamos buscando de forma sensível a maiúsculas e minúsculas. Alterar o teste antigo dessa forma ajuda a garantir que não quebremos acidentalmente a funcionalidade de busca sensível a maiúsculas e minúsculas que já implementamos. Esse teste deve passar agora e deve continuar passando enquanto trabalhamos na busca sem diferenciar maiúsculas de minúsculas.
 
-O novo teste para busca _sem diferenciar maiúsculas de minúsculas_ usa `"rUsT"` como consulta. Na função `search_case_insensitive` que estamos prestes a adicionar, a consulta `"rUsT"` deve corresponder à linha que contém `"Rust:"` com _R_ maiúsculo e também à linha `"Trust me."`, embora ambas tenham capitalização diferente da consulta. Esse é nosso teste que falha, e ele falhará ao compilar porque ainda não definimos a função `search_case_insensitive`. Sinta-se à vontade para adicionar uma implementação esqueleto que sempre retorna um vetor vazio, semelhante ao que fizemos para a função `search` na Listagem 12-16, para ver o teste compilar e falhar.
+O novo teste para busca _sem diferenciar maiúsculas de minúsculas_ usa `"ráPIdo"` como consulta. Na função `search_case_insensitive` que estamos prestes a adicionar, a consulta `"ráPIdo"` deve corresponder à linha que contém `"rápido"` com capitalização diferente e também à linha `"Trabalho RÁPIDO."`, embora ambas tenham capitalização diferente da consulta. Esse é nosso teste que falha, e ele falhará ao compilar porque ainda não definimos a função `search_case_insensitive`. Sinta-se à vontade para adicionar uma implementação esqueleto que sempre retorna um vetor vazio, semelhante ao que fizemos para a função `search` na Listagem 12-16, para ver o teste compilar e falhar.
 
 ### Implementando a função `search_case_insensitive`
 
@@ -84,9 +84,9 @@ pub fn search_case_insensitive<'a>(
 
 [Listagem 12-21](#listagem-12-21): Definindo a função `search_case_insensitive` para converter a consulta e a linha para minúsculas antes de compará-las
 
-Primeiro, convertemos a string `query` para minúsculas e a armazenamos em uma nova variável com o mesmo nome, sombreando a `query` original. Chamar `to_lowercase` na consulta é necessário para que, independentemente de a consulta do usuário ser `"rust"`, `"RUST"`, `"Rust"` ou `"rUsT"`, tratemos a consulta como se fosse `"rust"` e ignoremos a diferença entre maiúsculas e minúsculas. Embora `to_lowercase` lide com Unicode básico, ele não será 100 por cento preciso. Se estivéssemos escrevendo uma aplicação real, faríamos um pouco mais de trabalho aqui, mas esta seção trata de variáveis de ambiente, não de Unicode, então vamos deixar assim.
+Primeiro, convertemos a string `query` para minúsculas e a armazenamos em uma nova variável com o mesmo nome, sombreando a `query` original. Chamar `to_lowercase` na consulta é necessário para que, independentemente de a consulta do usuário ser `"rápido"`, `"RÁPIDO"`, `"Rápido"` ou `"ráPIdo"`, tratemos a consulta como se fosse `"rápido"` e ignoremos a diferença entre maiúsculas e minúsculas. Embora `to_lowercase` lide com Unicode básico, ele não será 100 por cento preciso. Se estivéssemos escrevendo uma aplicação real, faríamos um pouco mais de trabalho aqui, mas esta seção trata de variáveis de ambiente, não de Unicode, então vamos deixar assim.
 
-Observe que `query` agora é uma `String`, em vez de um slice de string, porque chamar `to_lowercase` cria novos dados em vez de referenciar dados existentes. Digamos que a consulta seja `"rUsT"`, por exemplo: esse slice de string não contém um `u` nem um `t` minúsculos para usarmos, então precisamos alocar uma nova `String` contendo `"rust"`. Quando passamos `query` como argumento para o método `contains` agora, precisamos adicionar um e comercial, porque a assinatura de `contains` é definida para receber um slice de string.
+Observe que `query` agora é uma `String`, em vez de um slice de string, porque chamar `to_lowercase` cria novos dados em vez de referenciar dados existentes. Digamos que a consulta seja `"ráPIdo"`, por exemplo: esse slice de string não contém um `i` nem um `d` minúsculos para usarmos, então precisamos alocar uma nova `String` contendo `"rápido"`. Quando passamos `query` como argumento para o método `contains` agora, precisamos adicionar um e comercial, porque a assinatura de `contains` é definida para receber um slice de string.
 
 Em seguida, adicionamos uma chamada a `to_lowercase` em cada `line` para converter todos os caracteres para minúsculas. Agora que convertemos `line` e `query` para minúsculas, encontraremos correspondências independentemente da capitalização da consulta.
 

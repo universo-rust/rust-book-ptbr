@@ -18,6 +18,8 @@ O quarto problema é que usamos `expect` para lidar com um erro e, se o usuário
 
 Vamos abordar esses quatro problemas refatorando nosso projeto.
 
+<a id="separando-responsabilidades-em-projetos-binarios"></a>
+
 ### Separando responsabilidades em projetos binários
 
 O problema organizacional de atribuir responsabilidade por várias tarefas à função `main` é comum em muitos projetos binários. Por isso, muitos programadores Rust consideram útil separar as responsabilidades de um programa binário quando a função `main` começa a ficar grande. Esse processo tem os seguintes passos:
@@ -338,7 +340,7 @@ Erro ao interpretar argumentos: argumentos insuficientes
 
 ### Extraindo lógica de `main`
 
-Agora que terminamos de refatorar a análise da configuração, vamos voltar à lógica do programa. Como afirmamos em “Separando responsabilidades em projetos binários”, vamos extrair uma função chamada `run`, que conterá toda a lógica atualmente na função `main` que não está envolvida em preparar a configuração nem em lidar com erros. Quando terminarmos, a função `main` será concisa e fácil de verificar por inspeção, e poderemos escrever testes para toda a outra lógica.
+Agora que terminamos de refatorar a análise da configuração, vamos voltar à lógica do programa. Como afirmamos em [“Separando responsabilidades em projetos binários”](#separando-responsabilidades-em-projetos-binarios), vamos extrair uma função chamada `run`, que conterá toda a lógica atualmente na função `main` que não está envolvida em preparar a configuração nem em lidar com erros. Quando terminarmos, a função `main` será concisa e fácil de verificar por inspeção, e poderemos escrever testes para toda a outra lógica.
 
 A Listagem 12-11 mostra a pequena melhoria incremental de extrair uma função `run`.
 
