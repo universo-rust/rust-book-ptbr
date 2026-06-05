@@ -10,7 +10,7 @@ Para melhorar nosso programa, vamos corrigir quatro problemas relacionados à es
 
 Esse problema também se conecta ao segundo: embora `query` e `file_path` sejam variáveis de configuração do nosso programa, variáveis como `contents` são usadas para executar a lógica do programa. Quanto mais longa `main` se tornar, mais variáveis precisaremos trazer para o escopo; quanto mais variáveis tivermos no escopo, mais difícil será acompanhar o propósito de cada uma. É melhor agrupar as variáveis de configuração em uma única estrutura para deixar claro qual é o propósito delas.
 
-O terceiro problema é que usamos `expect` para imprimir uma mensagem de erro quando a leitura do arquivo falha, mas a mensagem de erro apenas imprime `Should have been able to read the file`. Ler um arquivo pode falhar de várias formas: por exemplo, o arquivo pode estar ausente, ou talvez não tenhamos permissão para abri-lo. Neste momento, independentemente da situação, imprimiríamos a mesma mensagem de erro para tudo, o que não daria nenhuma informação útil ao usuário!
+O terceiro problema é que usamos `expect` para imprimir uma mensagem de erro quando a leitura do arquivo falha, mas a mensagem de erro apenas imprime `deveria ter conseguido ler o arquivo`. Ler um arquivo pode falhar de várias formas: por exemplo, o arquivo pode estar ausente, ou talvez não tenhamos permissão para abri-lo. Neste momento, independentemente da situação, imprimiríamos a mesma mensagem de erro para tudo, o que não daria nenhuma informação útil ao usuário!
 
 O quarto problema é que usamos `expect` para lidar com um erro e, se o usuário executar nosso programa sem especificar argumentos suficientes, receberá um erro `index out of bounds` do Rust que não explica claramente o problema. Seria melhor se todo o código de tratamento de erros estivesse em um só lugar, para que futuros mantenedores tivessem apenas um ponto do código para consultar se a lógica de tratamento de erros precisasse mudar. Ter todo o código de tratamento de erros em um só lugar também ajudará a garantir que imprimamos mensagens significativas para nossos usuários finais.
 
@@ -48,13 +48,13 @@ fn main() {
 
     let (query, file_path) = parse_config(&args);
 
-    println!("Searching for {query}");
-    println!("In file {file_path}");
+    println!("Buscando {query}");
+    println!("No arquivo {file_path}");
 
     let contents = fs::read_to_string(file_path)
-        .expect("Should have been able to read the file");
+        .expect("deveria ter conseguido ler o arquivo");
 
-    println!("With text:\n{contents}");
+    println!("Com o texto:\n{contents}");
 }
 
 fn parse_config(args: &[String]) -> (&str, &str) {
@@ -92,13 +92,13 @@ fn main() {
 
     let config = parse_config(&args);
 
-    println!("Searching for {}", config.query);
-    println!("In file {}", config.file_path);
+    println!("Buscando {}", config.query);
+    println!("No arquivo {}", config.file_path);
 
     let contents = fs::read_to_string(config.file_path)
-        .expect("Should have been able to read the file");
+        .expect("deveria ter conseguido ler o arquivo");
 
-    println!("With text:\n{contents}");
+    println!("Com o texto:\n{contents}");
 }
 
 struct Config {
@@ -147,13 +147,13 @@ fn main() {
 
     let config = Config::new(&args);
 
-    println!("Searching for {}", config.query);
-    println!("In file {}", config.file_path);
+    println!("Buscando {}", config.query);
+    println!("No arquivo {}", config.file_path);
 
     let contents = fs::read_to_string(config.file_path)
-        .expect("Should have been able to read the file");
+        .expect("deveria ter conseguido ler o arquivo");
 
-    println!("With text:\n{contents}");
+    println!("Com o texto:\n{contents}");
 }
 
 struct Config {
@@ -204,7 +204,7 @@ Na Listagem 12-8, adicionamos uma verificação na função `new` que confirma s
 impl Config {
     fn new(args: &[String]) -> Config {
         if args.len() < 3 {
-            panic!("not enough arguments");
+            panic!("argumentos insuficientes");
         }
 
         let query = args[1].clone();
@@ -230,7 +230,7 @@ $ cargo run
      Running `target/debug/minigrep`
 
 thread 'main' panicked at src/main.rs:26:13:
-not enough arguments
+argumentos insuficientes
 note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 ```
 
@@ -248,7 +248,7 @@ A Listagem 12-9 mostra as mudanças que precisamos fazer no valor de retorno da 
 impl Config {
     fn build(args: &[String]) -> Result<Config, &'static str> {
         if args.len() < 3 {
-            return Err("not enough arguments");
+            return Err("argumentos insuficientes");
         }
 
         let query = args[1].clone();
@@ -284,17 +284,17 @@ fn main() {
     let args: Vec<String> = env::args().collect();
 
     let config = Config::build(&args).unwrap_or_else(|err| {
-        println!("Problem parsing arguments: {err}");
+        println!("Erro ao interpretar argumentos: {err}");
         process::exit(1);
     });
 
-    println!("Searching for {}", config.query);
-    println!("In file {}", config.file_path);
+    println!("Buscando {}", config.query);
+    println!("No arquivo {}", config.file_path);
 
     let contents = fs::read_to_string(config.file_path)
-        .expect("Should have been able to read the file");
+        .expect("deveria ter conseguido ler o arquivo");
 
-    println!("With text:\n{contents}");
+    println!("Com o texto:\n{contents}");
 }
 
 struct Config {
@@ -305,7 +305,7 @@ struct Config {
 impl Config {
     fn build(args: &[String]) -> Result<Config, &'static str> {
         if args.len() < 3 {
-            return Err("not enough arguments");
+            return Err("argumentos insuficientes");
         }
 
         let query = args[1].clone();
@@ -320,7 +320,7 @@ impl Config {
 
 [Listagem 12-10](#listagem-12-10): Saindo com código de erro se construir um `Config` falhar
 
-Nesta listagem, usamos um método que ainda não abordamos em detalhes: `unwrap_or_else`, definido em `Result<T, E>` pela biblioteca padrão. Usar `unwrap_or_else` nos permite definir um tratamento de erro personalizado, sem `panic!`. Se o `Result` for um valor `Ok`, o comportamento desse método é semelhante ao de `unwrap`: ele retorna o valor interno que `Ok` envolve. Porém, se o valor for um `Err`, esse método chama o código na closure, que é uma função anônima que definimos e passamos como argumento para `unwrap_or_else`. Abordaremos closures em mais detalhes no [Capítulo 13](/livro/cap13-00-recursos-funcionais-iterators-e-closures). Por enquanto, você só precisa saber que `unwrap_or_else` passará o valor interno do `Err`, que neste caso é o literal de string estático `"not enough arguments"` que adicionamos na Listagem 12-9, para nossa closure no argumento `err` que aparece entre as barras verticais. O código na closure pode então usar o valor `err` quando for executado.
+Nesta listagem, usamos um método que ainda não abordamos em detalhes: `unwrap_or_else`, definido em `Result<T, E>` pela biblioteca padrão. Usar `unwrap_or_else` nos permite definir um tratamento de erro personalizado, sem `panic!`. Se o `Result` for um valor `Ok`, o comportamento desse método é semelhante ao de `unwrap`: ele retorna o valor interno que `Ok` envolve. Porém, se o valor for um `Err`, esse método chama o código na closure, que é uma função anônima que definimos e passamos como argumento para `unwrap_or_else`. Abordaremos closures em mais detalhes no [Capítulo 13](/livro/cap13-00-recursos-funcionais-iterators-e-closures). Por enquanto, você só precisa saber que `unwrap_or_else` passará o valor interno do `Err`, que neste caso é o literal de string estático `"argumentos insuficientes"` que adicionamos na Listagem 12-9, para nossa closure no argumento `err` que aparece entre as barras verticais. O código na closure pode então usar o valor `err` quando for executado.
 
 Adicionamos uma nova linha `use` para trazer `process` da biblioteca padrão para o escopo. O código na closure que será executado no caso de erro tem apenas duas linhas: imprimimos o valor `err` e então chamamos `process::exit`. A função `process::exit` interromperá o programa imediatamente e retornará o número passado como código de status de saída. Isso é semelhante ao tratamento baseado em `panic!` que usamos na Listagem 12-8, mas não obtemos toda a saída extra. Vamos testar:
 
@@ -329,7 +329,7 @@ $ cargo run
    Compiling minigrep v0.1.0 (file:///projects/minigrep)
     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.48s
      Running `target/debug/minigrep`
-Problem parsing arguments: not enough arguments
+Erro ao interpretar argumentos: argumentos insuficientes
 ```
 
 Ótimo! Essa saída é muito mais amigável para nossos usuários.
@@ -351,21 +351,21 @@ fn main() {
     let args: Vec<String> = env::args().collect();
 
     let config = Config::build(&args).unwrap_or_else(|err| {
-        println!("Problem parsing arguments: {err}");
+        println!("Erro ao interpretar argumentos: {err}");
         process::exit(1);
     });
 
-    println!("Searching for {}", config.query);
-    println!("In file {}", config.file_path);
+    println!("Buscando {}", config.query);
+    println!("No arquivo {}", config.file_path);
 
     run(config);
 }
 
 fn run(config: Config) {
     let contents = fs::read_to_string(config.file_path)
-        .expect("Should have been able to read the file");
+        .expect("deveria ter conseguido ler o arquivo");
 
-    println!("With text:\n{contents}");
+    println!("Com o texto:\n{contents}");
 }
 
 struct Config {
@@ -376,7 +376,7 @@ struct Config {
 impl Config {
     fn build(args: &[String]) -> Result<Config, &'static str> {
         if args.len() < 3 {
-            return Err("not enough arguments");
+            return Err("argumentos insuficientes");
         }
 
         let query = args[1].clone();
@@ -409,12 +409,12 @@ fn main() {
     let args: Vec<String> = env::args().collect();
 
     let config = Config::build(&args).unwrap_or_else(|err| {
-        println!("Problem parsing arguments: {err}");
+        println!("Erro ao interpretar argumentos: {err}");
         process::exit(1);
     });
 
-    println!("Searching for {}", config.query);
-    println!("In file {}", config.file_path);
+    println!("Buscando {}", config.query);
+    println!("No arquivo {}", config.file_path);
 
     run(config);
 }
@@ -422,7 +422,7 @@ fn main() {
 fn run(config: Config) -> Result<(), Box<dyn Error>> {
     let contents = fs::read_to_string(config.file_path)?;
 
-    println!("With text:\n{contents}");
+    println!("Com o texto:\n{contents}");
 
     Ok(())
 }
@@ -435,7 +435,7 @@ struct Config {
 impl Config {
     fn build(args: &[String]) -> Result<Config, &'static str> {
         if args.len() < 3 {
-            return Err("not enough arguments");
+            return Err("argumentos insuficientes");
         }
 
         let query = args[1].clone();
@@ -461,7 +461,7 @@ Terceiro, a função `run` agora retorna um valor `Ok` no caso de sucesso. Decla
 Quando você executa este código, ele compilará, mas exibirá um aviso:
 
 ```console
-$ cargo run -- the poem.txt
+$ cargo run -- o poema.txt
    Compiling minigrep v0.1.0 (file:///projects/minigrep)
 warning: unused `Result` that must be used
   --> src/main.rs:19:5
@@ -478,19 +478,19 @@ help: use `let _ = ...` to ignore the resulting value
 
 warning: `minigrep` (bin "minigrep") generated 1 warning
     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.71s
-     Running `target/debug/minigrep the poem.txt`
-Searching for the
-In file poem.txt
-With text:
-I'm nobody! Who are you?
-Are you nobody, too?
-Then there's a pair of us - don't tell!
-They'd banish us, you know.
+     Running `target/debug/minigrep o poema.txt`
+Buscando o
+No arquivo poema.txt
+Com o texto:
+Não sou ninguém! Quem é você?
+Você também não é ninguém?
+Então somos um par — não conte!
+Eles nos baniriam, sabe.
 
-How dreary to be somebody!
-How public, like a frog
-To tell your name the livelong day
-To an admiring bog!
+Que tedioso ser alguém!
+Que exposto, como um sapo
+Dizer o seu nome o dia inteiro
+A um pântano admirador!
 ```
 
 Rust nos diz que nosso código ignorou o valor `Result` e que o valor `Result` pode indicar que ocorreu um erro. Mas não estamos verificando se houve ou não um erro, e o compilador nos lembra que provavelmente queríamos ter algum código de tratamento de erros aqui! Vamos corrigir esse problema agora.
@@ -503,7 +503,7 @@ Vamos verificar erros e tratá-los usando uma técnica semelhante à que usamos 
 
 ```rust
     if let Err(e) = run(config) {
-        println!("Application error: {e}");
+        println!("Erro na aplicação: {e}");
         process::exit(1);
     }
 ```

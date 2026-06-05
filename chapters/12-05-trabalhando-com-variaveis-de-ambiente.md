@@ -167,7 +167,7 @@ Por fim, precisamos verificar a variável de ambiente. As funções para trabalh
 impl Config {
     fn build(args: &[String]) -> Result<Config, &'static str> {
         if args.len() < 3 {
-            return Err("not enough arguments");
+            return Err("argumentos insuficientes");
         }
 
         let query = args[1].clone();
@@ -194,27 +194,28 @@ Usamos o método `is_ok` no `Result` para verificar se a variável de ambiente e
 
 Passamos o valor na variável `ignore_case` para a instância de `Config` para que a função `run` possa ler esse valor e decidir se chama `search_case_insensitive` ou `search`, como implementamos na Listagem 12-22.
 
-Vamos tentar! Primeiro, executaremos nosso programa sem a variável de ambiente definida e com a consulta `to`, que deve corresponder a qualquer linha que contenha a palavra _to_ em minúsculas:
+Vamos tentar! Primeiro, executaremos nosso programa sem a variável de ambiente definida e com a consulta `te`, que deve corresponder a qualquer linha que contenha essas letras em sequência:
 
 ```console
-$ cargo run -- to poem.txt
+$ cargo run -- te poema.txt
    Compiling minigrep v0.1.0 (file:///projects/minigrep)
     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.0s
-     Running `target/debug/minigrep to poem.txt`
-Are you nobody, too?
-How dreary to be somebody!
+     Running `target/debug/minigrep te poema.txt`
+Então somos um par — não conte!
+Que tedioso ser alguém!
+Dizer o seu nome o dia inteiro
 ```
 
-Parece que ainda funciona! Agora vamos executar o programa com `IGNORE_CASE` definida como `1`, mas com a mesma consulta `to`:
+Parece que ainda funciona! Agora vamos executar o programa com `IGNORE_CASE` definida como `1`, mas com a mesma consulta `te`:
 
 ```console
-$ IGNORE_CASE=1 cargo run -- to poem.txt
+$ IGNORE_CASE=1 cargo run -- te poema.txt
 ```
 
 Se você estiver usando PowerShell, precisará definir a variável de ambiente e executar o programa como comandos separados:
 
 ```console
-PS> $Env:IGNORE_CASE=1; cargo run -- to poem.txt
+PS> $Env:IGNORE_CASE=1; cargo run -- te poema.txt
 ```
 
 Isso fará `IGNORE_CASE` persistir pelo restante da sessão do shell. Pode ser removida com o cmdlet `Remove-Item`:
@@ -223,16 +224,15 @@ Isso fará `IGNORE_CASE` persistir pelo restante da sessão do shell. Pode ser r
 PS> Remove-Item Env:IGNORE_CASE
 ```
 
-Devemos obter linhas que contêm _to_ e que podem ter letras maiúsculas:
+Devemos obter as mesmas linhas — neste poema, todas as ocorrências de `te` já estão em minúsculas. Se o texto tivesse `Te` ou `TE`, elas também seriam encontradas com `IGNORE_CASE` definida:
 
 ```console
-Are you nobody, too?
-How dreary to be somebody!
-To tell your name the livelong day
-To an admiring bog!
+Então somos um par — não conte!
+Que tedioso ser alguém!
+Dizer o seu nome o dia inteiro
 ```
 
-Excelente, também obtivemos linhas contendo _To_! Nosso programa `minigrep` agora pode fazer buscas sem diferenciar maiúsculas de minúsculas, controladas por uma variável de ambiente. Agora você sabe como gerenciar opções definidas usando argumentos de linha de comando ou variáveis de ambiente.
+Excelente! Nosso programa `minigrep` agora pode fazer buscas sem diferenciar maiúsculas de minúsculas, controladas por uma variável de ambiente. Agora você sabe como gerenciar opções definidas usando argumentos de linha de comando ou variáveis de ambiente.
 
 Alguns programas permitem argumentos _e_ variáveis de ambiente para a mesma configuração. Nesses casos, os programas decidem que um ou outro tem precedência. Como outro exercício por conta própria, tente controlar a sensibilidade a maiúsculas e minúsculas por meio de um argumento de linha de comando ou de uma variável de ambiente. Decida se o argumento de linha de comando ou a variável de ambiente deve ter precedência se o programa for executado com uma opção definida para ser sensível a maiúsculas e minúsculas e outra definida para ignorar essa diferença.
 

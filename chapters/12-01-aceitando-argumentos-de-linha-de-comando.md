@@ -94,8 +94,8 @@ fn main() {
     let query = &args[1];
     let file_path = &args[2];
 
-    println!("Searching for {query}");
-    println!("In file {file_path}");
+    println!("Buscando {query}");
+    println!("No arquivo {file_path}");
 }
 ```
 
@@ -112,8 +112,8 @@ $ cargo run -- test sample.txt
    Compiling minigrep v0.1.0 (file:///projects/minigrep)
     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.0s
      Running `target/debug/minigrep test sample.txt`
-Searching for test
-In file sample.txt
+Buscando test
+No arquivo sample.txt
 ```
 
 Ótimo, o programa está funcionando! Os valores dos argumentos de que precisamos estão sendo salvos nas variáveis corretas. Mais adiante, adicionaremos algum tratamento de erros para lidar com certas situações potencialmente problemáticas, como quando o usuário não fornece argumentos; por enquanto, vamos ignorar essa situação e trabalhar na adição da capacidade de ler arquivos.

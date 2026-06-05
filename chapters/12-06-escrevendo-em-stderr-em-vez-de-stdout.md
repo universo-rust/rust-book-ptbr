@@ -25,7 +25,7 @@ $ cargo run > output.txt
 A sintaxe `>` diz ao shell para escrever o conteúdo da saída padrão em _output.txt_ em vez de escrevê-lo na tela. Não vimos a mensagem de erro esperada impressa na tela, então isso significa que ela deve ter ido parar no arquivo. Isto é o que _output.txt_ contém:
 
 ```text
-Problem parsing arguments: not enough arguments
+Erro ao interpretar argumentos: argumentos insuficientes
 ```
 
 Sim, nossa mensagem de erro está sendo impressa na saída padrão. É muito mais útil que mensagens de erro como essa sejam impressas no erro padrão, para que apenas os dados de uma execução bem-sucedida acabem no arquivo. Vamos mudar isso.
@@ -41,12 +41,12 @@ fn main() {
     let args: Vec<String> = env::args().collect();
 
     let config = Config::build(&args).unwrap_or_else(|err| {
-        eprintln!("Problem parsing arguments: {err}");
+        eprintln!("Erro ao interpretar argumentos: {err}");
         process::exit(1);
     });
 
     if let Err(e) = run(config) {
-        eprintln!("Application error: {e}");
+        eprintln!("Erro na aplicação: {e}");
         process::exit(1);
     }
 }
@@ -60,7 +60,7 @@ Agora vamos executar o programa novamente da mesma forma, sem argumentos e redir
 
 ```console
 $ cargo run > output.txt
-Problem parsing arguments: not enough arguments
+Erro ao interpretar argumentos: argumentos insuficientes
 ```
 
 Agora vemos o erro na tela, e _output.txt_ não contém nada, que é o comportamento que esperamos de programas de linha de comando.
@@ -68,7 +68,7 @@ Agora vemos o erro na tela, e _output.txt_ não contém nada, que é o comportam
 Vamos executar o programa novamente com argumentos que não causam erro, mas ainda redirecionando a saída padrão para um arquivo, assim:
 
 ```console
-$ cargo run -- to poem.txt > output.txt
+$ cargo run -- te poema.txt > output.txt
 ```
 
 Não veremos nenhuma saída no terminal, e _output.txt_ conterá nossos resultados:
@@ -76,8 +76,9 @@ Não veremos nenhuma saída no terminal, e _output.txt_ conterá nossos resultad
 **Arquivo: output.txt**
 
 ```text
-Are you nobody, too?
-How dreary to be somebody!
+Então somos um par — não conte!
+Que tedioso ser alguém!
+Dizer o seu nome o dia inteiro
 ```
 
 Isso demonstra que agora estamos usando a saída padrão para saídas bem-sucedidas e o erro padrão para saídas de erro, conforme apropriado.

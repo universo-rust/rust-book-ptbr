@@ -220,35 +220,35 @@ Nosso teste passou, então sabemos que funciona!
 
 Neste ponto, poderíamos considerar oportunidades de refatorar a implementação da função `search`, mantendo os testes passando para preservar a mesma funcionalidade. O código da função `search` não está tão ruim, mas não aproveita alguns recursos úteis de iterators. Voltaremos a este exemplo no [Capítulo 13](/livro/cap13-00-recursos-funcionais-iterators-e-closures), onde exploraremos iterators em detalhes e veremos como melhorá-lo.
 
-Agora o programa inteiro deve funcionar! Vamos testá-lo, primeiro com uma palavra que deve retornar exatamente uma linha do poema de Emily Dickinson: _frog_.
+Agora o programa inteiro deve funcionar! Vamos testá-lo, primeiro com uma palavra que deve retornar exatamente uma linha do poema de Emily Dickinson: _sapo_.
 
 ```console
-$ cargo run -- frog poem.txt
+$ cargo run -- sapo poema.txt
    Compiling minigrep v0.1.0 (file:///projects/minigrep)
     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.38s
-     Running `target/debug/minigrep frog poem.txt`
-How public, like a frog
+     Running `target/debug/minigrep sapo poema.txt`
+Que exposto, como um sapo
 ```
 
-Legal! Agora vamos tentar uma palavra que corresponderá a várias linhas, como _body_:
+Legal! Agora vamos tentar uma palavra que corresponderá a várias linhas, como _guém_:
 
 ```console
-$ cargo run -- body poem.txt
+$ cargo run -- guém poema.txt
    Compiling minigrep v0.1.0 (file:///projects/minigrep)
     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.0s
-     Running `target/debug/minigrep body poem.txt`
-I'm nobody! Who are you?
-Are you nobody, too?
-How dreary to be somebody!
+     Running `target/debug/minigrep guém poema.txt`
+Não sou ninguém! Quem é você?
+Você também não é ninguém?
+Que tedioso ser alguém!
 ```
 
 E, por fim, vamos garantir que não obtemos nenhuma linha quando buscamos uma palavra que não aparece em lugar nenhum do poema, como _monomorphization_:
 
 ```console
-$ cargo run -- monomorphization poem.txt
+$ cargo run -- monomorphization poema.txt
    Compiling minigrep v0.1.0 (file:///projects/minigrep)
     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.0s
-     Running `target/debug/minigrep monomorphization poem.txt`
+     Running `target/debug/minigrep monomorphization poema.txt`
 ```
 
 Excelente! Construímos nossa própria mini versão de uma ferramenta clássica e aprendemos muito sobre como estruturar aplicações. Também aprendemos um pouco sobre entrada e saída de arquivos, lifetimes, testes e análise de linha de comando.
