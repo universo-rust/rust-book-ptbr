@@ -2,6 +2,8 @@
 title: "Mais sobre Cargo e Crates.io"
 chapter_code: 14-00
 slug: mais-sobre-cargo-e-crates-io
+challenge_day: 18
+reading_minutes: 1
 ---
 
 # Mais sobre Cargo e Crates.io
