@@ -107,37 +107,11 @@ Como com variáveis, podemos adicionar anotações de tipo se quisermos aumentar
 **Arquivo: src/main.rs**
 
 ```rust
-use std::thread;
-use std::time::Duration;
-
-fn generate_workout(intensity: u32, random_number: u32) {
-    let expensive_closure = |num: u32| -> u32 {
-        println!("calculating slowly...");
-        thread::sleep(Duration::from_secs(2));
-        num
-    };
-
-    if intensity < 25 {
-        println!("Today, do {} pushups!", expensive_closure(intensity));
-        println!("Next, do {} situps!", expensive_closure(intensity));
-    } else {
-        if random_number == 3 {
-            println!("Take a break today! Remember to stay hydrated!");
-        } else {
-            println!(
-                "Today, run for {} minutes!",
-                expensive_closure(intensity)
-            );
-        }
-    }
-}
-
-fn main() {
-    let simulated_user_specified_value = 10;
-    let simulated_random_number = 7;
-
-    generate_workout(simulated_user_specified_value, simulated_random_number);
-}
+let expensive_closure = |num: u32| -> u32 {
+    println!("calculating slowly...");
+    thread::sleep(Duration::from_secs(2));
+    num
+};
 ```
 
 <a id="listagem-13-2"></a>
@@ -160,12 +134,10 @@ Para definições de closure, o compilador inferirá um tipo concreto para cada 
 **Arquivo: src/main.rs (Este código não compila!)**
 
 ```rust
-fn main() {
-    let example_closure = |x| x;
+let example_closure = |x| x;
 
-    let s = example_closure(String::from("hello"));
-    let n = example_closure(5);
-}
+let s = example_closure(String::from("hello"));
+let n = example_closure(5);
 ```
 
 <a id="listagem-13-3"></a>
@@ -208,7 +180,7 @@ error: could not compile `closure-example` (bin "closure-example") due to 1 prev
 
 Na primeira vez que chamamos `example_closure` com o valor `String`, o compilador infere o tipo de `x` e o tipo de retorno da closure como `String`. Esses tipos ficam então fixados na closure em `example_closure`, e obtemos um erro de tipo quando tentamos usar um tipo diferente com a mesma closure.
 
-## Capturando referências ou movendo posse
+## Capturando referências ou movendo ownership
 
 Closures podem capturar valores de seu ambiente de três formas, que correspondem diretamente às três formas como uma função pode receber um parâmetro: emprestar imutavelmente, emprestar mutavelmente e tomar posse. A closure decidirá qual usar com base no que o corpo da função faz com os valores capturados.
 
