@@ -2,6 +2,8 @@
 title: "Workspaces do Cargo"
 chapter_code: 14-03
 slug: workspaces-do-cargo
+challenge_day: 18
+reading_minutes: 8
 ---
 
 # Workspaces do Cargo
