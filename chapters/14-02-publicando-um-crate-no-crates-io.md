@@ -2,6 +2,8 @@
 title: "Publicando um crate no Crates.io"
 chapter_code: 14-02
 slug: publicando-um-crate-no-crates-io
+challenge_day: 18
+reading_minutes: 20
 ---
 
 # Publicando um crate no Crates.io
@@ -362,7 +364,7 @@ Parabéns! Você agora compartilhou seu código com a comunidade Rust, e qualque
 
 ## Publicando uma nova versão de um crate existente
 
-Quando você fez mudanças no seu crate e está pronto para lançar uma nova versão, altera o valor `version` especificado no seu _Cargo.toml_ e republica. Use as [regras de Versionamento Semântico](https://semver.org/) para decidir qual é o próximo número de versão apropriado, com base nos tipos de mudanças que fez. Depois, execute `cargo publish` para enviar a nova versão.
+Quando você fez mudanças no seu crate e está pronto para lançar uma nova versão, altera o valor `version` especificado no seu _Cargo.toml_ e republica. Use as [regras de versionamento semântico](https://semver.org/) para decidir qual é o próximo número de versão apropriado, com base nos tipos de mudanças que fez. Depois, execute `cargo publish` para enviar a nova versão.
 
 ## Depreciando versões do Crates.io
 
