@@ -18,7 +18,7 @@ Na Listagem 12-6, adicionamos código que pegava um slice de valores `String` e 
 impl Config {
     fn build(args: &[String]) -> Result<Config, &'static str> {
         if args.len() < 3 {
-            return Err("not enough arguments");
+            return Err("argumentos insuficientes");
         }
 
         let query = args[1].clone();
@@ -103,7 +103,7 @@ impl Config {
         mut args: impl Iterator<Item = String>,
     ) -> Result<Config, &'static str> {
         if args.len() < 3 {
-            return Err("not enough arguments");
+            return Err("argumentos insuficientes");
         }
 
         let query = args[1].clone();
@@ -145,12 +145,12 @@ impl Config {
 
         let query = match args.next() {
             Some(arg) => arg,
-            None => return Err("Didn't get a query string"),
+            None => return Err("string de consulta não informada"),
         };
 
         let file_path = match args.next() {
             Some(arg) => arg,
-            None => return Err("Didn't get a file path"),
+            None => return Err("caminho do arquivo não informado"),
         };
 
         let ignore_case = env::var("IGNORE_CASE").is_ok();
