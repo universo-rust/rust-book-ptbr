@@ -2,6 +2,8 @@
 title: "Personalizando builds com release profiles"
 chapter_code: 14-01
 slug: personalizando-builds-com-release-profiles
+challenge_day: 18
+reading_minutes: 2
 ---
 
 # Personalizando builds com release profiles
