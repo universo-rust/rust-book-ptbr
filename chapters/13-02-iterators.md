@@ -4,7 +4,7 @@ chapter_code: 13-02
 slug: processando-uma-serie-de-itens-com-iterators
 ---
 
-# Processando uma Série de Itens com Iterators
+# Processando uma série de itens com iterators
 
 O padrão iterator permite executar alguma tarefa em uma sequência de itens, um por vez. Um iterator é responsável pela lógica de iterar sobre cada item e determinar quando a sequência terminou. Quando você usa iterators, não precisa reimplementar essa lógica você mesmo.
 
@@ -50,7 +50,7 @@ Em linguagens que não têm iterators fornecidos pelas bibliotecas padrão, voc�
 
 Iterators cuidam de toda essa lógica para você, reduzindo código repetitivo que você poderia errar. Iterators dão mais flexibilidade para usar a mesma lógica com muitos tipos diferentes de sequências, não apenas estruturas de dados que você pode indexar, como vetores. Vamos examinar como iterators fazem isso.
 
-## A Trait `Iterator` e o Método `next`
+## A trait `Iterator` e o método `next`
 
 Todos os iterators implementam uma trait chamada `Iterator`, definida na biblioteca padrão. A definição da trait se parece com isto:
 
@@ -97,7 +97,7 @@ Note que precisamos tornar `v1_iter` mutável: chamar o método `next` em um ite
 
 Também note que os valores que obtemos das chamadas a `next` são referências imutáveis aos valores no vetor. O método `iter` produz um iterator sobre referências imutáveis. Se quisermos criar um iterator que toma posse de `v1` e retorna valores owned, podemos chamar `into_iter` em vez de `iter`. Da mesma forma, se quisermos iterar sobre referências mutáveis, podemos chamar `iter_mut` em vez de `iter`.
 
-## Métodos que Consomem o Iterator
+## Métodos que consomem o iterator
 
 A trait `Iterator` tem vários métodos diferentes com implementações padrão fornecidas pela biblioteca padrão; você pode conhecer esses métodos consultando a documentação da API da biblioteca padrão para a trait `Iterator`. Alguns desses métodos chamam o método `next` em sua definição, por isso você precisa implementar o método `next` ao implementar a trait `Iterator`.
 
@@ -127,7 +127,7 @@ mod tests {
 
 Não podemos usar `v1_iter` depois da chamada a `sum`, porque `sum` toma posse do iterator em que é chamado.
 
-## Métodos que Produzem Outros Iterators
+## Métodos que produzem outros iterators
 
 _Adapters de iterator_ são métodos definidos na trait `Iterator` que não consomem o iterator. Em vez disso, produzem iterators diferentes alterando algum aspecto do iterator original.
 
@@ -196,7 +196,7 @@ Como `map` recebe uma closure, podemos especificar qualquer operação que queir
 
 Você pode encadear várias chamadas a adapters de iterator para executar ações complexas de forma legível. Mas como todos os iterators são lazy, você precisa chamar um dos métodos adapter consumidores para obter resultados das chamadas a adapters de iterator.
 
-## Closures que Capturam o Ambiente
+## Closures que capturam o ambiente
 
 Muitos adapters de iterator recebem closures como argumentos, e comumente as closures que especificaremos como argumentos para adapters de iterator serão closures que capturam seu ambiente.
 

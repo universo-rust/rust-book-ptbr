@@ -6,7 +6,7 @@ challenge_day: 17
 reading_minutes: 2
 ---
 
-# Recursos de Linguagens Funcionais: Iterators e Closures
+# Recursos de linguagens funcionais: iterators e closures
 
 O design do Rust se inspirou em muitas linguagens e técnicas existentes, e uma influência significativa é a _programação funcional_. Programar em estilo funcional costuma incluir usar funções como valores, passando-as como argumentos, retornando-as de outras funções, atribuindo-as a variáveis para execução posterior e assim por diante.
 

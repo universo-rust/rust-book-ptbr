@@ -10,7 +10,7 @@ reading_minutes: 25
 
 As closures do Rust são funções anônimas que você pode salvar em uma variável ou passar como argumentos para outras funções. Você pode criar a closure em um lugar e depois chamá-la em outro para avaliá-la em um contexto diferente. Diferente de funções, closures podem capturar valores do escopo em que são definidas. Demonstraremos como esses recursos de closures permitem reutilização de código e personalização de comportamento.
 
-## Capturando o Ambiente
+## Capturando o ambiente
 
 Primeiro examinaremos como podemos usar closures para capturar valores do ambiente em que são definidas para uso posterior. Aqui está o cenário: de vez em quando, nossa empresa de camisetas dá uma camiseta exclusiva de edição limitada para alguém da nossa lista de e-mails como promoção. As pessoas na lista podem opcionalmente adicionar sua cor favorita ao perfil. Se a pessoa escolhida para uma camiseta grátis tiver a cor favorita definida, ela recebe essa cor. Se a pessoa não especificou uma cor favorita, recebe a cor que a empresa tem em maior quantidade no momento.
 
@@ -96,7 +96,7 @@ The user with preference None gets Blue
 
 Um aspecto interessante aqui é que passamos uma closure que chama `self.most_stocked()` na instância atual de `Inventory`. A biblioteca padrão não precisou saber nada sobre os tipos `Inventory` ou `ShirtColor` que definimos, nem sobre a lógica que queremos usar neste cenário. A closure captura uma referência imutável à instância `self` de `Inventory` e a passa junto com o código que especificamos para o método `unwrap_or_else`. Funções, por outro lado, não conseguem capturar seu ambiente dessa forma.
 
-## Inferindo e Anotando Tipos de Closure
+## Inferindo e anotando tipos de closure
 
 Há mais diferenças entre funções e closures. Closures geralmente não exigem que você anote os tipos dos parâmetros ou do valor de retorno como funções `fn` fazem. Anotações de tipo são exigidas em funções porque os tipos fazem parte de uma interface explícita exposta aos seus usuários. Definir esta interface rigidamente é importante para garantir que todos concordem sobre quais tipos de valores uma função usa e retorna. Closures, por outro lado, não são usadas em uma interface exposta assim: são armazenadas em variáveis e usadas sem nomeá-las nem expô-las aos usuários da nossa biblioteca.
 

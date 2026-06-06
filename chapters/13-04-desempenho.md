@@ -4,7 +4,7 @@ chapter_code: 13-04
 slug: desempenho-em-loops-vs-iterators
 ---
 
-# Desempenho em Loops vs. Iterators
+# Desempenho em loops vs. iterators
 
 Para decidir se deve usar loops ou iterators, você precisa saber qual implementação é mais rápida: a versão da função `search` com um loop `for` explícito ou a versão com iterators.
 

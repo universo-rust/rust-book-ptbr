@@ -4,11 +4,11 @@ chapter_code: 13-03
 slug: melhorando-nosso-projeto-de-io
 ---
 
-# Melhorando Nosso Projeto de I/O
+# Melhorando nosso projeto de I/O
 
 Com este novo conhecimento sobre iterators, podemos melhorar o projeto de I/O do Capítulo 12 usando iterators para tornar partes do código mais claras e concisas. Vamos ver como iterators podem melhorar nossa implementação da função `Config::build` e da função `search`.
 
-## Removendo um `clone` Usando um Iterator
+## Removendo um `clone` usando um iterator
 
 Na Listagem 12-6, adicionamos código que pegava um slice de valores `String` e criava uma instância da struct `Config` indexando o slice e clonando os valores, permitindo que a struct `Config` possua esses valores. Na Listagem 13-17, reproduzimos a implementação da função `Config::build` como estava na Listagem 12-23.
 
@@ -47,7 +47,7 @@ Com nosso novo conhecimento sobre iterators, podemos mudar a função `build` pa
 
 Quando `Config::build` receber posse do iterator e parar de usar operações de indexação que emprestam, poderemos mover os valores `String` do iterator para `Config` em vez de chamar `clone` e fazer uma nova alocação.
 
-### Usando o Iterator Retornado Diretamente
+### Usando o iterator retornado diretamente
 
 Abra o arquivo _src/main.rs_ do seu projeto de I/O, que deve se parecer com isto:
 
@@ -130,7 +130,7 @@ Atualizamos a assinatura da função `Config::build` para que o parâmetro `args
 
 Como estamos tomando posse de `args` e vamos mutar `args` iterando sobre ele, podemos adicionar a palavra-chave `mut` na especificação do parâmetro `args` para torná-lo mutável.
 
-### Usando Métodos da Trait `Iterator`
+### Usando métodos da trait `Iterator`
 
 Em seguida, corrigiremos o corpo de `Config::build`. Como `args` implementa a trait `Iterator`, sabemos que podemos chamar o método `next` nele! A Listagem 13-20 atualiza o código da Listagem 12-23 para usar o método `next`.
 
@@ -170,7 +170,7 @@ impl Config {
 
 Lembre-se de que o primeiro valor no valor de retorno de `env::args` é o nome do programa. Queremos ignorar isso e ir para o próximo valor, então primeiro chamamos `next` e não fazemos nada com o valor de retorno. Depois, chamamos `next` para obter o valor que queremos colocar no campo `query` de `Config`. Se `next` retornar `Some`, usamos um `match` para extrair o valor. Se retornar `None`, significa que não foram dados argumentos suficientes, e retornamos cedo com um valor `Err`. Fazemos a mesma coisa para o valor `file_path`.
 
-## Deixando o Código Mais Claro com Adapters de Iterator
+## Deixando o código mais claro com adapters de iterator
 
 Também podemos aproveitar iterators na função `search` do nosso projeto de I/O, reproduzida aqui na Listagem 13-21 como estava na Listagem 12-19.
 
@@ -215,7 +215,7 @@ Lembre-se de que o propósito da função `search` é retornar todas as linhas e
 
 Para uma melhoria adicional, retorne um iterator da função `search` removendo a chamada a `collect` e mudando o tipo de retorno para `impl Iterator<Item = &'a str>` para que a função se torne um adapter de iterator. Note que você também precisará atualizar os testes! Pesquise em um arquivo grande usando sua ferramenta `minigrep` antes e depois de fazer essa mudança para observar a diferença de comportamento. Antes desta mudança, o programa não imprimirá nenhum resultado até ter coletado todos os resultados, mas depois da mudança, os resultados serão impressos conforme cada linha correspondente for encontrada, porque o loop `for` na função `run` pode aproveitar a preguiça do iterator.
 
-## Escolhendo entre Loops e Iterators
+## Escolhendo entre loops e iterators
 
 A próxima pergunta lógica é qual estilo você deve escolher no seu próprio código e por quê: a implementação original na Listagem 13-21 ou a versão que usa iterators na Listagem 13-22 (assumindo que estamos coletando todos os resultados antes de retorná-los em vez de retornar o iterator). A maioria dos programadores Rust prefere o estilo com iterator. É um pouco mais difícil de pegar o jeito no começo, mas depois que você se acostuma com os vários adapters de iterator e o que eles fazem, iterators podem ser mais fáceis de entender. Em vez de mexer com os vários pedaços de loop e construção de novos vetores, o código foca no objetivo de alto nível do loop. Isso abstrai parte do código comum para que seja mais fácil ver os conceitos únicos deste código, como a condição de filtragem que cada elemento do iterator deve passar.
 
