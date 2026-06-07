@@ -199,6 +199,6 @@ fn returns_initialized_closure(init: i32) -> Box<dyn Fn(i32) -> i32> {
 
 [Listagem 20-34](#listagem-20-34): Criando um `Vec<T>` de closures definidas por funções que retornam `Box<dyn Fn>` para que tenham o mesmo tipo
 
-Este código compilará sem problemas. Para mais sobre trait objects, consulte a seção Usando trait objects para abstrair comportamento compartilhado do Capítulo 18.
+Este código compilará sem problemas. Para mais sobre trait objects, consulte a seção [Usando trait objects para abstrair comportamento compartilhado](/livro/cap18-02-usando-trait-objects-para-abstrair-comportamento-compartilhado) do Capítulo 18.
 
 Em seguida, vamos olhar macros!

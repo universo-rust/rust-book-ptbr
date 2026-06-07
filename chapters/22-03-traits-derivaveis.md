@@ -60,7 +60,7 @@ Um exemplo de quando `Ord` é necessária é ao armazenar valores em um `BTreeSe
 
 ### `Clone` e `Copy` para duplicar valores
 
-A trait `Clone` permite criar explicitamente uma cópia profunda de um valor, e o processo de duplicação pode envolver executar código arbitrário e copiar dados no heap. Consulte a seção [“Variáveis e dados interagindo com Clone”](/livro/cap04-01-o-que-e-ownership#variáveis-e-dados-interagindo-com-clone) do Capítulo 4 para mais informações sobre `Clone`.
+A trait `Clone` permite criar explicitamente uma cópia profunda de um valor, e o processo de duplicação pode envolver executar código arbitrário e copiar dados na heap. Consulte a seção [“Variáveis e dados interagindo com Clone”](/livro/cap04-01-o-que-e-ownership#variáveis-e-dados-interagindo-com-clone) do Capítulo 4 para mais informações sobre `Clone`.
 
 Derivar `Clone` implementa o método `clone`, que, quando implementado para o tipo inteiro, chama `clone` em cada uma das partes do tipo. Isso significa que todos os campos ou valores no tipo também devem implementar `Clone` para derivar `Clone`.
 

@@ -349,7 +349,7 @@ Toda a lógica que gerencia as contagens e o descarte de valores está embutida 
 
 ## Resumo
 
-Este capítulo cobriu como usar smart pointers para fazer garantias e trocas diferentes daquelas que o Rust faz por padrão com referências comuns. O tipo `Box<T>` tem um tamanho conhecido e aponta para dados alocados no heap. O tipo `Rc<T>` rastreia o número de referências a dados no heap para que os dados possam ter vários donos. O tipo `RefCell<T>` com sua interior mutability nos dá um tipo que podemos usar quando precisamos de um tipo imutável, mas precisamos mudar um valor interior desse tipo; ele também impõe as regras de borrowing em tempo de execução em vez de tempo de compilação.
+Este capítulo cobriu como usar smart pointers para fazer garantias e trocas diferentes daquelas que o Rust faz por padrão com referências comuns. O tipo `Box<T>` tem um tamanho conhecido e aponta para dados alocados no heap. O tipo `Rc<T>` rastreia o número de referências a dados na heap para que os dados possam ter vários donos. O tipo `RefCell<T>` com sua interior mutability nos dá um tipo que podemos usar quando precisamos de um tipo imutável, mas precisamos mudar um valor interior desse tipo; ele também impõe as regras de borrowing em tempo de execução em vez de tempo de compilação.
 
 Também discutimos as traits `Deref` e `Drop`, que habilitam grande parte da funcionalidade de smart pointers. Exploramos ciclos de referência que podem causar vazamentos de memória e como evitá-los usando `Weak<T>`.
 

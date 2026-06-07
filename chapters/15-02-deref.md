@@ -78,7 +78,7 @@ A principal diferença entre a Listagem 15-7 e a Listagem 15-6 é que aqui defin
 
 Vamos construir um tipo wrapper semelhante ao tipo `Box<T>` fornecido pela biblioteca padrão para experimentar como tipos smart pointer se comportam diferente de referências por padrão. Depois, veremos como adicionar a capacidade de usar o operador de dereferência.
 
-> **Nota:** Há uma grande diferença entre o tipo `MyBox<T>` que estamos prestes a construir e o `Box<T>` real: nossa versão não armazenará seus dados no heap. Estamos focando este exemplo em `Deref`, então onde os dados estão realmente armazenados é menos importante que o comportamento semelhante a ponteiro.
+> **Nota:** Há uma grande diferença entre o tipo `MyBox<T>` que estamos prestes a construir e o `Box<T>` real: nossa versão não armazenará seus dados na heap. Estamos focando este exemplo em `Deref`, então onde os dados estão realmente armazenados é menos importante que o comportamento semelhante a ponteiro.
 
 O tipo `Box<T>` é definido como uma tuple struct com um elemento, então a Listagem 15-8 define um tipo `MyBox<T>` da mesma forma. Também definiremos uma função `new` para corresponder à função `new` definida em `Box<T>`.
 
