@@ -116,7 +116,7 @@ b rc count after changing a = 2
 a rc count after changing a = 2
 ```
 
-A contagem de referências das instâncias `Rc<List>` em `a` e `b` é 2 depois que mudamos a lista em `a` para apontar para `b`. No final de `main`, o Rust descarta a variável `b`, o que diminui a contagem de referências da instância `Rc<List>` de `b` de 2 para 1. A memória que `Rc<List>` tem no heap não será descartada neste ponto porque sua contagem de referências é 1, não 0. Depois, o Rust descarta `a`, o que diminui a contagem de referências da instância `Rc<List>` de `a` de 2 para 1 também. A memória desta instância também não pode ser descartada, porque a outra instância `Rc<List>` ainda se refere a ela. A memória alocada para a lista permanecerá não coletada para sempre. Para visualizar este ciclo de referência, criamos o diagrama na Figura 15-4.
+A contagem de referências das instâncias `Rc<List>` em `a` e `b` é 2 depois que mudamos a lista em `a` para apontar para `b`. No final de `main`, o Rust descarta a variável `b`, o que diminui a contagem de referências da instância `Rc<List>` de `b` de 2 para 1. A memória que `Rc<List>` tem na heap não será descartada neste ponto porque sua contagem de referências é 1, não 0. Depois, o Rust descarta `a`, o que diminui a contagem de referências da instância `Rc<List>` de `a` de 2 para 1 também. A memória desta instância também não pode ser descartada, porque a outra instância `Rc<List>` ainda se refere a ela. A memória alocada para a lista permanecerá não coletada para sempre. Para visualizar este ciclo de referência, criamos o diagrama na Figura 15-4.
 
 ![Um retângulo 'a' apontando para um retângulo com 5. Um retângulo 'b' apontando para um retângulo com 10. O retângulo com 5 aponta para o com 10, e o com 10 aponta de volta para o com 5, criando um ciclo.](https://doc.rust-lang.org/book/img/trpl15-04.svg)
 
@@ -349,7 +349,7 @@ Toda a lógica que gerencia as contagens e o descarte de valores está embutida 
 
 ## Resumo
 
-Este capítulo cobriu como usar smart pointers para fazer garantias e trocas diferentes daquelas que o Rust faz por padrão com referências comuns. O tipo `Box<T>` tem um tamanho conhecido e aponta para dados alocados no heap. O tipo `Rc<T>` rastreia o número de referências a dados na heap para que os dados possam ter vários donos. O tipo `RefCell<T>` com sua interior mutability nos dá um tipo que podemos usar quando precisamos de um tipo imutável, mas precisamos mudar um valor interior desse tipo; ele também impõe as regras de borrowing em tempo de execução em vez de tempo de compilação.
+Este capítulo cobriu como usar smart pointers para fazer garantias e trocas diferentes daquelas que o Rust faz por padrão com referências comuns. O tipo `Box<T>` tem um tamanho conhecido e aponta para dados alocados na heap. O tipo `Rc<T>` rastreia o número de referências a dados na heap para que os dados possam ter vários donos. O tipo `RefCell<T>` com sua interior mutability nos dá um tipo que podemos usar quando precisamos de um tipo imutável, mas precisamos mudar um valor interior desse tipo; ele também impõe as regras de borrowing em tempo de execução em vez de tempo de compilação.
 
 Também discutimos as traits `Deref` e `Drop`, que habilitam grande parte da funcionalidade de smart pointers. Exploramos ciclos de referência que podem causar vazamentos de memória e como evitá-los usando `Weak<T>`.
 

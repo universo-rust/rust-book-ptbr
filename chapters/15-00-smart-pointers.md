@@ -18,7 +18,7 @@ Smart pointers costumam ser implementados usando structs. Diferente de uma struc
 
 Dado que o padrão smart pointer é um padrão de design geral usado frequentemente em Rust, este capítulo não cobrirá todos os smart pointers existentes. Muitas bibliotecas têm seus próprios smart pointers, e você pode até escrever os seus. Cobriremos os smart pointers mais comuns na biblioteca padrão:
 
-- `Box<T>`, para alocar valores no heap
+- `Box<T>`, para alocar valores na heap
 - `Rc<T>`, um tipo de contagem de referências que permite múltipla posse
 - `Ref<T>` e `RefMut<T>`, acessados por `RefCell<T>`, um tipo que impõe as regras de borrowing em tempo de execução em vez de tempo de compilação
 
