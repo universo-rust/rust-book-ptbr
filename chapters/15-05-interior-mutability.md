@@ -4,7 +4,7 @@ chapter_code: 15-05
 slug: refcell-e-o-padrao-de-interior-mutability
 ---
 
-# `RefCell<T>` e o padrão de interior mutability
+# `RefCell<T>` e o Interior Mutability Pattern
 
 _Interior mutability_ é um padrão de design em Rust que permite mutar dados mesmo quando há referências imutáveis a esses dados; normalmente, esta ação é proibida pelas regras de borrowing. Para mutar dados, o padrão usa código `unsafe` dentro de uma estrutura de dados para flexibilizar as regras usuais do Rust que governam mutação e borrowing. Código unsafe indica ao compilador que estamos verificando as regras manualmente em vez de confiar no compilador para verificá-las por nós; discutiremos código unsafe com mais detalhes no Capítulo 20.
 
