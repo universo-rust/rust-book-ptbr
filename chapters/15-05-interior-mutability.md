@@ -2,6 +2,8 @@
 title: "`RefCell<T>` e o padrão de interior mutability"
 chapter_code: 15-05
 slug: refcell-e-o-padrao-de-interior-mutability
+challenge_day: 20
+reading_minutes: 25
 ---
 
 # `RefCell<T>` e o Interior Mutability Pattern
