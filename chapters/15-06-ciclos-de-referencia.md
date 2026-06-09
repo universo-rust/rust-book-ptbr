@@ -33,8 +33,6 @@ impl List {
         }
     }
 }
-
-fn main() {}
 ```
 
 <a id="listagem-15-25"></a>
