@@ -6,7 +6,7 @@ slug: ciclos-de-referencia-podem-vazar-memoria
 
 # Ciclos de referência podem vazar memória
 
-As garantias de segurança de memória do Rust tornam difícil, mas não impossível, criar acidentalmente memória que nunca é limpa (conhecida como _memory leak_). Impedir vazamentos de memória por completo não é uma das garantias do Rust, o que significa que vazamentos de memória são memory safe em Rust. Podemos ver que o Rust permite vazamentos de memória usando `Rc<T>` e `RefCell<T>`: é possível criar referências em que itens se referem uns aos outros em um ciclo. Isso cria vazamentos de memória porque a contagem de referências de cada item no ciclo nunca chegará a 0, e os valores nunca serão descartados.
+As garantias de segurança de memória do Rust tornam difícil, mas não impossível, a criação acidental de memória que nunca é liberada (conhecida como _memory leak_). Impedir completamente os vazamentos de memória não é uma das garantias do Rust, o que significa que os vazamentos de memória são seguros em Rust. Podemos ver que o Rust permite vazamentos de memória usando `Rc` e `RefCell`: é possível criar referências onde os itens se referem uns aos outros em um ciclo. Isso cria vazamentos de memória porque a contagem de referências de cada item no ciclo nunca chegará a 0 e os valores nunca serão descartados.
 
 ## Criando um ciclo de referência
 
