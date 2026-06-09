@@ -18,7 +18,7 @@ Aqui, construiremos um programa que tem uma thread para gerar valores e enviá-l
 
 Primeiro, na Listagem 16-6, criaremos um channel, mas não faremos nada com ele.
 
-**Arquivo: src/main.rs**
+**Arquivo: src/main.rs (Este código não compila!)**
 
 ```rust
 use std::sync::mpsc;
