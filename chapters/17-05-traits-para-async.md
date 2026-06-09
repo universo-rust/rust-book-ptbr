@@ -115,65 +115,41 @@ Use a macro `pin!` para _fixar_ (_pin_) valores: `Pin` garante que não se movem
 
 Await vira `poll`; o erro falava em `Unpin`. Pontos de await viram máquina de estados; o compilador garante borrowing. Ao _mover_ a future (ex.: para `Vec` em `join_all`), move-se a máquina de estados. Futures de blocos `async` podem ter referências internas a si mesmas (Figura 17-4).
 
-<figure>
+![Tabela representando future fut1 com valores 0 e 1 e seta da terceira linha de volta à segunda, referência interna.](https://doc.rust-lang.org/book/img/trpl17-04.svg)
 
-<img src="https://doc.rust-lang.org/book/img/trpl17-04.svg" class="center" alt="Tabela representando future fut1 com valores 0 e 1 e seta da terceira linha de volta à segunda, referência interna." />
-
-<figcaption>Figura 17-4: Um tipo de dados autorreferencial</figcaption>
-
-</figure>
+*Figura 17-4: Um tipo de dados autorreferencial*
 
 Por padrão, objeto com referência a si mesmo é inseguro mover: referências apontam para endereços reais (Figura 17-5). Mover a estrutura deixa referências internas inválidas — memória pode ser reutilizada.
 
-<figure>
+![fut1 invalidado e fut2 com ponteiro para local antigo de fut1.](https://doc.rust-lang.org/book/img/trpl17-05.svg)
 
-<img src="https://doc.rust-lang.org/book/img/trpl17-05.svg" class="center" alt="fut1 invalidado e fut2 com ponteiro para local antigo de fut1." />
-
-<figcaption>Figura 17-5: Resultado inseguro de mover tipo autorreferencial</figcaption>
-
-</figure>
+*Figura 17-5: Resultado inseguro de mover tipo autorreferencial*
 
 Atualizar todas as referências ao mover seria caro. Garantir que a estrutura _não se move na memória_ evita isso — o que o borrow checker já faz em código seguro.
 
 `Pin` garante isso: `Pin<Box<SomeType>>` fixa o valor `SomeType`, não o ponteiro `Box` (Figura 17-6).
 
-<figure>
+![Pin apontando via Box para future fut autorreferencial fixada.](https://doc.rust-lang.org/book/img/trpl17-06.svg)
 
-<img src="https://doc.rust-lang.org/book/img/trpl17-06.svg" class="center" alt="Pin apontando via Box para future fut autorreferencial fixada." />
-
-<figcaption>Figura 17-6: Fixar um `Box` que aponta para future autorreferencial</figcaption>
-
-</figure>
+*Figura 17-6: Fixar um `Box` que aponta para future autorreferencial*
 
 O `Box` pode se mover; o que importa é o destino dos dados (Figura 17-7). O tipo autorreferencial em si não pode se mover enquanto estiver fixado.
 
-<figure>
+![Pin agora via b2 em vez de b1; dados em pinned inalterados.](https://doc.rust-lang.org/book/img/trpl17-07.svg)
 
-<img src="https://doc.rust-lang.org/book/img/trpl17-07.svg" class="center" alt="Pin agora via b2 em vez de b1; dados em pinned inalterados." />
-
-<figcaption>Figura 17-7: Mover o `Box` que aponta para future autorreferencial fixada</figcaption>
-
-</figure>
+*Figura 17-7: Mover o `Box` que aponta para future autorreferencial fixada*
 
 A maioria dos tipos pode mover com segurança mesmo atrás de `Pin`. Só precisamos de pinning com referências internas. Primitivos não têm. `Vec` move livremente. `String` implementa `Unpin` (Figura 17-8).
 
-<figure>
+![Pin apontando para String hello; borda tracejada indica Unpin.](https://doc.rust-lang.org/book/img/trpl17-08.svg)
 
-<img src="https://doc.rust-lang.org/book/img/trpl17-08.svg" class="center" alt="Pin apontando para String hello; borda tracejada indica Unpin." />
-
-<figcaption>Figura 17-8: Fixar `String`; linha tracejada indica `Unpin` — não está realmente fixada</figcaption>
-
-</figure>
+*Figura 17-8: Fixar `String`; linha tracejada indica `Unpin` — não está realmente fixada*
 
 Com `Unpin`, podemos substituir o conteúdo no mesmo endereço (Figura 17-9) sem violar o contrato de `Pin`.
 
-<figure>
+![Pin apontando de s1 para s2 goodbye.](https://doc.rust-lang.org/book/img/trpl17-09.svg)
 
-<img src="https://doc.rust-lang.org/book/img/trpl17-09.svg" class="center" alt="Pin apontando de s1 para s2 goodbye." />
-
-<figcaption>Figura 17-9: Substituir `String` por outra no mesmo lugar na memória</figcaption>
-
-</figure>
+*Figura 17-9: Substituir `String` por outra no mesmo lugar na memória*
 
 `Unpin` é trait marcador (como `Send`/`Sync` no Capítulo 16): sem métodos; informa que o tipo _não_ precisa das garantias especiais de pinning. `Unpin` é o caso normal; `!Unpin` é o especial. Só importa com ponteiro fixado como `Pin<&mut SomeType>`.
 

@@ -18,8 +18,9 @@ Este é o nosso plano para construir o servidor web:
 4. Criar uma resposta HTTP adequada.
 5. Melhorar a taxa de transferência do nosso servidor com um pool de threads.
 
-<img src="https://doc.rust-lang.org/book/img/trpl21-01.png" class="center" alt="Captura de tela de navegador em 127.0.0.1:7878 com página Hello! Hi from Rust" style="width: 50%;" />
-<figcaption>Figura 21-1: Nosso projeto final compartilhado</figcaption>
+![Captura de tela de navegador em 127.0.0.1:7878 com página Hello! Hi from Rust](https://doc.rust-lang.org/book/img/trpl21-01.png)
+
+*Figura 21-1: Nosso projeto final compartilhado*
 
 Antes de começarmos, devemos mencionar dois detalhes. Primeiro, o método que usaremos não será a melhor forma de construir um servidor web com Rust. Membros da comunidade publicaram vários crates prontos para produção disponíveis em [crates.io](https://crates.io/) que fornecem implementações de servidor web e pool de threads mais completas do que a que construiremos. No entanto, nossa intenção neste capítulo é ajudá-lo a aprender, não tomar o caminho fácil. Como Rust é uma linguagem de programação de sistemas, podemos escolher o nível de abstração com o qual queremos trabalhar e podemos ir a um nível mais baixo do que seria possível ou prático em outras linguagens.
 

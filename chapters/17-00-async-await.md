@@ -16,7 +16,7 @@ Agora digamos que você está baixando um vídeo compartilhado por outra pessoa,
 
 A exportação de vídeo é um exemplo de operação _limitada por CPU_ ou _limitada por computação_. É limitada pela velocidade de processamento de dados potencial da CPU ou GPU e por quanto dessa velocidade pode ser dedicada à operação. O download de vídeo é um exemplo de operação _limitada por E/S_, porque é limitada pela velocidade de _entrada e saída_ do computador: só pode ir tão rápido quanto os dados forem enviados pela rede.
 
-Nos dois casos, as interrupções invisíveis do sistema operacional oferecem uma forma de concorrência. Essa concorrência acontece apenas no nível do programa inteiro: o sistema operacional interrompe um programa para outros fazerem trabalho. Em muitos casos, porque entendemos nossos programas em um nível muito mais granular que o sistema operacional, podemos ver oportunidades de concorrência que o sistema operacional não vê.
+Nos dois casos, as interrupções invisíveis do sistema operacional oferecem uma forma de concorrência. Essa concorrência acontece apenas no nível do programa inteiro: o sistema operacional interrompe um programa para outros fazerem trabalho. Em muitos casos, porque entendemos nossos programas em um nível muito mais granular que o sistema operacional, podemos identificar oportunidades de concorrência que o sistema operacional não consegue ver.
 
 Por exemplo, se estamos construindo uma ferramenta para gerenciar downloads de arquivos, devemos poder escrever o programa de modo que iniciar um download não trave a interface, e os usuários possam iniciar vários downloads ao mesmo tempo. Muitas APIs do sistema operacional para interagir com a rede são _bloqueantes_: bloqueiam o progresso do programa até os dados estarem completamente prontos.
 
@@ -40,39 +40,27 @@ Pense nas formas diferentes de uma equipe dividir o trabalho em um projeto de so
 
 Quando uma pessoa trabalha em várias tarefas diferentes antes de qualquer uma terminar, isso é _concorrência_. Uma forma de implementar concorrência é semelhante a ter dois projetos diferentes abertos no computador: quando você se entedia ou trava em um, muda para o outro. Você é uma só pessoa, então não pode avançar nas duas tarefas exatamente ao mesmo tempo, mas pode multitarefar, progredindo em uma de cada vez alternando entre elas (veja a Figura 17-1).
 
-<figure>
+![Diagrama com caixas empilhadas rotuladas Tarefa A e Tarefa B, com losangos representando subtarefas. Setas de A1 a B1, B1 a A2, A2 a B2, B2 a A3, A3 a A4 e A4 a B3. As setas entre as subtarefas cruzam as caixas entre a Tarefa A e a Tarefa B.](https://doc.rust-lang.org/book/img/trpl17-01.svg)
 
-<img src="https://doc.rust-lang.org/book/img/trpl17-01.svg" class="center" alt="Diagrama com caixas empilhadas Tarefa A e Tarefa B, com losangos representando subtarefas. Setas de A1 a B1, B1 a A2, A2 a B2, B2 a A3, A3 a A4 e A4 a B3." />
-
-<figcaption>Figura 17-1: Um fluxo de trabalho concorrente, alternando entre a Tarefa A e a Tarefa B</figcaption>
-
-</figure>
+*Figura 17-1: Um fluxo de trabalho concorrente, alternando entre a Tarefa A e a Tarefa B*
 
 Quando a equipe divide um grupo de tarefas fazendo cada membro assumir uma tarefa e trabalhar sozinho nela, isso é _paralelismo_. Cada pessoa da equipe pode progredir exatamente ao mesmo tempo (veja a Figura 17-2).
 
-<figure>
+![Diagrama com caixas empilhadas rotuladas Tarefa A e Tarefa B, com losangos representando subtarefas. Setas de A1 a A2, A2 a A3, A3 a A4, B1 a B2 e B2 a B3. Nenhuma seta cruza entre as caixas da Tarefa A e da Tarefa B.](https://doc.rust-lang.org/book/img/trpl17-02.svg)
 
-<img src="https://doc.rust-lang.org/book/img/trpl17-02.svg" class="center" alt="Diagrama com caixas Tarefa A e Tarefa B. Setas de A1 a A2, A2 a A3, A3 a A4, B1 a B2 e B2 a B3, sem cruzar entre as caixas." />
-
-<figcaption>Figura 17-2: Um fluxo de trabalho paralelo, em que o trabalho na Tarefa A e na Tarefa B ocorre de forma independente</figcaption>
-
-</figure>
+*Figura 17-2: Um fluxo de trabalho paralelo, em que o trabalho na Tarefa A e na Tarefa B ocorre de forma independente*
 
 Nos dois fluxos, pode ser preciso coordenar entre tarefas diferentes. Talvez você achasse que a tarefa de um membro era totalmente independente do trabalho dos outros, mas na verdade depende de outra pessoa terminar a tarefa dela primeiro. Parte do trabalho poderia ser feita em paralelo, mas parte era de fato _serial_: só podia acontecer em série, uma tarefa depois da outra, como na Figura 17-3.
 
-<figure>
+![Diagrama com caixas empilhadas rotuladas Tarefa A e Tarefa B, com losangos representando subtarefas. Na Tarefa A, setas de A1 a A2, de A2 a um par de linhas verticais grossas como símbolo de pausa, e desse símbolo a A3. Na Tarefa B, setas de B1 a B2, B2 a B3, B3 a A3 e B3 a B4.](https://doc.rust-lang.org/book/img/trpl17-03.svg)
 
-<img src="https://doc.rust-lang.org/book/img/trpl17-03.svg" class="center" alt="Diagrama com Tarefa A e Tarefa B. Em A, setas de A1 a A2, de A2 a um símbolo de pausa, e desse símbolo a A3. Em B, setas de B1 a B2, B2 a B3, B3 a A3 e B3 a B4." />
-
-<figcaption>Figura 17-3: Um fluxo parcialmente paralelo, em que A e B avançam de forma independente até A3 depender do resultado de B3</figcaption>
-
-</figure>
+*Figura 17-3: Um fluxo de trabalho parcialmente paralelo, em que o trabalho nas Tarefas A e B ocorre de forma independente até A3 ficar bloqueada aguardando os resultados de B3*
 
 Da mesma forma, você pode perceber que uma de suas tarefas depende de outra sua. Agora seu trabalho concorrente também ficou serial.
 
 Paralelismo e concorrência também podem se cruzar. Se você descobre que um colega está travado até você terminar uma tarefa, provavelmente concentrará todos os esforços nela para “desbloquear” o colega. Você e seu colega deixam de trabalhar em paralelo e também deixam de trabalhar de forma concorrente nas próprias tarefas.
 
-As mesmas dinâmicas aparecem em software e hardware. Em uma máquina com um único núcleo de CPU, a CPU só pode fazer uma operação por vez, mas ainda pode trabalhar de forma concorrente. Com threads, processos e async, o computador pode pausar uma atividade e mudar para outras antes de voltar à primeira. Em uma máquina com vários núcleos, também pode haver paralelismo: um núcleo executa uma tarefa enquanto outro executa outra completamente diferente, e essas operações acontecem ao mesmo tempo.
+As mesmas dinâmicas aparecem em software e hardware. Em uma máquina com um único núcleo de CPU, a CPU só pode executar uma operação por vez, mas ainda pode trabalhar de forma concorrente. Com ferramentas como threads, processos e async, o computador pode pausar uma atividade e mudar para outras antes de eventualmente voltar à primeira. Em uma máquina com vários núcleos, também pode haver paralelismo: um núcleo executa uma tarefa enquanto outro executa outra completamente diferente, e essas operações acontecem ao mesmo tempo.
 
 Executar código async em Rust costuma acontecer de forma concorrente. Dependendo do hardware, do sistema operacional e do runtime async que usamos (falaremos de runtimes em breve), essa concorrência também pode usar paralelismo por baixo dos panos.
 
