@@ -2,6 +2,8 @@
 title: "Concorrência extensível com `Send` e `Sync`"
 chapter_code: 16-04
 slug: concorrencia-extensivel-com-send-e-sync
+challenge_day: 21
+reading_minutes: 6
 ---
 
 # Concorrência extensível com `Send` e `Sync`
