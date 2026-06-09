@@ -2,6 +2,8 @@
 title: "Estado compartilhado"
 chapter_code: 16-03
 slug: estado-compartilhado
+challenge_day: 21
+reading_minutes: 16
 ---
 
 # Concorrência de estado compartilhado
