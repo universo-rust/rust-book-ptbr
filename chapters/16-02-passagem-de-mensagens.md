@@ -214,11 +214,8 @@ Mencionamos anteriormente que `mpsc` era um acrônimo de _multiple producer, sin
 **Arquivo: src/main.rs**
 
 ```rust
-use std::sync::mpsc;
-use std::thread;
-use std::time::Duration;
+    // --snip--
 
-fn main() {
     let (tx, rx) = mpsc::channel();
 
     let tx1 = tx.clone();
@@ -253,7 +250,8 @@ fn main() {
     for received in rx {
         println!("Got: {received}");
     }
-}
+
+    // --snip--
 ```
 
 <a id="listagem-16-11"></a>
