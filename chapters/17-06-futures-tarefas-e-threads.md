@@ -52,7 +52,7 @@ fn main() {
 
 [Listagem 17-25](#listagem-17-25): Enviando mensagens com código bloqueante em uma thread e aguardando as mensagens em um bloco async
 
-Começamos criando um channel async. Em seguida, criamos uma thread que assume ownership do lado de envio do channel usando a palavra-chave `move`. Dentro da thread, enviamos os números de 1 a 10, dormindo por um segundo entre cada envio. Por fim, executamos uma future criada com um bloco async passado para `trpl::block_on`, como fizemos ao longo de todo o capítulo. Nessa future, aguardamos as mensagens, assim como nos outros exemplos de passagem de mensagens que vimos.
+Começamos criando um channel async. Em seguida, criamos uma thread que assume ownership do lado de envio do channel usando a palavra-chave `move`. Dentro da thread, enviamos os números de 1 a 10, com `sleep` de um segundo entre cada envio. Por fim, executamos uma future criada com um bloco async passado para `trpl::block_on`, como fizemos ao longo de todo o capítulo. Nessa future, aguardamos as mensagens, assim como nos outros exemplos de passagem de mensagens que vimos.
 
 Voltando ao cenário com que abrimos o capítulo, imagine executar um conjunto de tarefas de codificação de vídeo em uma thread dedicada, porque codificação de vídeo é limitada por CPU, mas notificar a interface de usuário de que essas operações terminaram usando um channel async. Há incontáveis exemplos desse tipo de combinação em casos de uso reais.
 

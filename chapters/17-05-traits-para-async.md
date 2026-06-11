@@ -73,7 +73,7 @@ Se o Rust compilasse `await` exatamente para esse código, porém, cada `await` 
 
 Na seção ["Enviando dados entre duas tarefas com passagem de mensagens"](/livro/cap17-02-aplicando-concorrencia-com-async#enviando-dados-entre-duas-tarefas-com-passagem-de-mensagens), descrevemos a espera em `rx.recv`. A chamada `recv` retorna uma future, e aguardar essa future faz _poll_ nela. Observamos que o runtime pausa a future até que ela esteja pronta com `Some(message)` ou com `None`, quando o channel fecha. Com uma compreensão mais detalhada da trait `Future`, especialmente de `Future::poll`, podemos ver como isso funciona. O runtime sabe que a future ainda não está pronta quando ela retorna `Poll::Pending`. Do mesmo modo, o runtime sabe que a future _está_ pronta e pode avançar quando `poll` retorna `Poll::Ready(Some(message))` ou `Poll::Ready(None)`.
 
-Os detalhes exatos de como um runtime faz isso ficam fora do escopo deste livro, mas a ideia central é esta: o runtime faz _poll_ em cada future sob sua responsabilidade e coloca a future para dormir novamente quando ela ainda não está pronta.
+Os detalhes exatos de como um runtime faz isso ficam fora do escopo deste livro, mas a ideia central é esta: o runtime faz _poll_ em cada future sob sua responsabilidade e coloca a future em espera novamente quando ela ainda não está pronta.
 
 ## O tipo `Pin` e a trait `Unpin`
 

@@ -129,7 +129,7 @@ Agora o trabalho das duas futures fica intercalado:
 
 A future `a` ainda roda por um tempo antes de entregar o controle a `b`, porque ela chama `slow` antes de chamar `trpl::sleep` pela primeira vez. Depois disso, as futures alternam sempre que uma delas chega a um ponto de `await`. Neste exemplo, fizemos isso depois de cada chamada a `slow`, mas poderíamos dividir o trabalho da forma que fizesse mais sentido para o nosso programa.
 
-Na verdade, porém, não queremos _dormir_ aqui: queremos avançar o mais rápido possível. Só precisamos devolver o controle ao runtime. Podemos fazer isso diretamente com a função `trpl::yield_now`. Na Listagem 17-17, substituímos todas as chamadas a `trpl::sleep` por `trpl::yield_now`.
+Na verdade, porém, não queremos usar `sleep` aqui: queremos avançar o mais rápido possível. Só precisamos devolver o controle ao runtime. Podemos fazer isso diretamente com a função `trpl::yield_now`. Na Listagem 17-17, substituímos todas as chamadas a `trpl::sleep` por `trpl::yield_now`.
 
 **Arquivo: src/main.rs**
 
@@ -165,7 +165,7 @@ trpl::select(a, b).await;
 
 [Listagem 17-17](#listagem-17-17): Usando `yield_now` para permitir que as operações alternem progresso
 
-Esse código deixa a intenção mais clara e pode ser bem mais rápido que usar `sleep`, porque temporizadores como o usado por `sleep` normalmente têm um limite de granularidade. A versão de `sleep` que estamos usando, por exemplo, sempre dorme por pelo menos um milissegundo, mesmo que passemos uma `Duration` de um nanossegundo. E computadores modernos são _rápidos_: eles conseguem fazer muita coisa em um milissegundo!
+Esse código deixa a intenção mais clara e pode ser bem mais rápido que usar `sleep`, porque temporizadores como o usado por `sleep` normalmente têm um limite de granularidade. A versão de `sleep` que estamos usando, por exemplo, sempre espera pelo menos um milissegundo, mesmo que passemos uma `Duration` de um nanossegundo. E computadores modernos são _rápidos_: eles conseguem fazer muita coisa em um milissegundo!
 
 Isso significa que async pode ser útil até em tarefas limitadas por CPU, dependendo do que mais o programa está fazendo, porque oferece uma ferramenta prática para estruturar as relações entre partes diferentes do programa. O custo é o overhead da máquina de estados async. Essa é uma forma de _multitarefa cooperativa_: cada future tem o poder de decidir quando entrega o controle por meio de pontos de `await`. Por isso, cada future também tem a responsabilidade de não bloquear por tempo demais. Em alguns sistemas operacionais embarcados escritos em Rust, esse é o _único_ tipo de multitarefa disponível!
 

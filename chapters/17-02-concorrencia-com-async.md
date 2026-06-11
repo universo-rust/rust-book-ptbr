@@ -188,7 +188,7 @@ O método síncrono `Receiver::recv`, de `std::sync::mpsc`, bloqueia até recebe
 
 Observe duas coisas nesse exemplo. Primeiro, a mensagem chega imediatamente. Segundo, embora estejamos usando uma future, ainda não há concorrência. Tudo na listagem acontece em sequência, como aconteceria se não houvesse futures envolvidas.
 
-Vamos resolver a primeira parte enviando uma sequência de mensagens e dormindo entre elas, como mostra a Listagem 17-10.
+Vamos resolver a primeira parte enviando uma sequência de mensagens e fazendo `sleep` entre elas, como mostra a Listagem 17-10.
 
 **Arquivo: src/main.rs**
 
@@ -273,7 +273,7 @@ Com o código atualizado da Listagem 17-11, as mensagens são impressas em inter
 O programa ainda não termina, porém, por causa da interação entre o loop `while let` e `trpl::join`:
 
 - A future retornada por `trpl::join` só termina quando as duas futures passadas para ela terminam.
-- A future `tx_fut` termina quando acaba de dormir depois de enviar a última mensagem de `vals`.
+- A future `tx_fut` termina quando conclui o `sleep` após enviar a última mensagem de `vals`.
 - A future `rx_fut` não termina até o loop `while let` terminar.
 - O loop `while let` não termina até `rx.recv` retornar `None`.
 - Aguardar `rx.recv` só retorna `None` quando a outra ponta do channel é fechada.
