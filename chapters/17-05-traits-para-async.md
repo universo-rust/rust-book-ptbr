@@ -82,10 +82,10 @@ Na Listagem 17-13, usamos a macro `trpl::join!` para aguardar três futures. Por
 **Arquivo: src/main.rs (Este código não compila!)**
 
 ```rust
-        let futures: Vec<Box<dyn Future<Output = ()>>> =
-            vec![Box::new(tx1_fut), Box::new(rx_fut), Box::new(tx_fut)];
+let futures: Vec<Box<dyn Future<Output = ()>>> =
+    vec![Box::new(tx1_fut), Box::new(rx_fut), Box::new(tx_fut)];
 
-        trpl::join_all(futures).await;
+trpl::join_all(futures).await;
 ```
 
 <a id="listagem-17-23"></a>
@@ -198,44 +198,44 @@ Agora sabemos o suficiente para entender os erros daquela chamada a `join_all` d
 ```rust
 use std::pin::{Pin, pin};
 
-        let tx1_fut = pin!(async move {
-            let vals = vec![
-                String::from("hi"),
-                String::from("from"),
-                String::from("the"),
-                String::from("future"),
-            ];
+let tx1_fut = pin!(async move {
+    let vals = vec![
+        String::from("hi"),
+        String::from("from"),
+        String::from("the"),
+        String::from("future"),
+    ];
 
-            for val in vals {
-                tx1.send(val).unwrap();
-                trpl::sleep(Duration::from_secs(1)).await;
-            }
-        });
+    for val in vals {
+        tx1.send(val).unwrap();
+        trpl::sleep(Duration::from_secs(1)).await;
+    }
+});
 
-        let rx_fut = pin!(async {
-            while let Some(value) = rx.recv().await {
-                println!("received '{value}'");
-            }
-        });
+let rx_fut = pin!(async {
+    while let Some(value) = rx.recv().await {
+        println!("received '{value}'");
+    }
+});
 
-        let tx_fut = pin!(async move {
-            let vals = vec![
-                String::from("more"),
-                String::from("messages"),
-                String::from("for"),
-                String::from("you"),
-            ];
+let tx_fut = pin!(async move {
+    let vals = vec![
+        String::from("more"),
+        String::from("messages"),
+        String::from("for"),
+        String::from("you"),
+    ];
 
-            for val in vals {
-                tx.send(val).unwrap();
-                trpl::sleep(Duration::from_secs(1)).await;
-            }
-        });
+    for val in vals {
+        tx.send(val).unwrap();
+        trpl::sleep(Duration::from_secs(1)).await;
+    }
+});
 
-        let futures: Vec<Pin<&mut dyn Future<Output = ()>>> =
-            vec![tx1_fut, rx_fut, tx_fut];
+let futures: Vec<Pin<&mut dyn Future<Output = ()>>> =
+    vec![tx1_fut, rx_fut, tx_fut];
 
-        trpl::join_all(futures).await;
+trpl::join_all(futures).await;
 ```
 
 <a id="listagem-17-24"></a>

@@ -103,9 +103,9 @@ Vimos na Listagem 18-11 que queremos poder chamar um método chamado `add_text` 
 **Arquivo: src/lib.rs**
 
 ```rust
-    pub fn add_text(&mut self, text: &str) {
-        self.content.push_str(text);
-    }
+pub fn add_text(&mut self, text: &str) {
+    self.content.push_str(text);
+}
 ```
 
 <a id="listagem-18-13"></a>
@@ -121,9 +121,9 @@ Mesmo depois de chamarmos `add_text` e adicionarmos algum conteúdo ao post, ain
 **Arquivo: src/lib.rs**
 
 ```rust
-    pub fn content(&self) -> &str {
-        ""
-    }
+pub fn content(&self) -> &str {
+    ""
+}
 ```
 
 <a id="listagem-18-14"></a>
@@ -139,11 +139,11 @@ Agora precisamos adicionar a funcionalidade de solicitar revisão de um post, o 
 **Arquivo: src/lib.rs**
 
 ```rust
-    pub fn request_review(&mut self) {
-        if let Some(s) = self.state.take() {
-            self.state = Some(s.request_review())
-        }
+pub fn request_review(&mut self) {
+    if let Some(s) = self.state.take() {
+        self.state = Some(s.request_review())
     }
+}
 
 trait State {
     fn request_review(self: Box<Self>) -> Box<dyn State>;
@@ -191,11 +191,11 @@ O método `approve` será parecido com `request_review`: ele definirá `state` c
 **Arquivo: src/lib.rs**
 
 ```rust
-    pub fn approve(&mut self) {
-        if let Some(s) = self.state.take() {
-            self.state = Some(s.approve())
-        }
+pub fn approve(&mut self) {
+    if let Some(s) = self.state.take() {
+        self.state = Some(s.approve())
     }
+}
 
 trait State {
     fn request_review(self: Box<Self>) -> Box<dyn State>;
@@ -248,9 +248,9 @@ Agora precisamos atualizar o método `content` em `Post`. Queremos que o valor r
 **Arquivo: src/lib.rs (Este código não compila!)**
 
 ```rust
-    pub fn content(&self) -> &str {
-        self.state.as_ref().unwrap().content(self)
-    }
+pub fn content(&self) -> &str {
+    self.state.as_ref().unwrap().content(self)
+}
 ```
 
 <a id="listagem-18-17"></a>

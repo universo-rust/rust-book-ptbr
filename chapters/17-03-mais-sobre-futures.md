@@ -32,26 +32,26 @@ Na Listagem 17-15, usamos `slow` para imitar esse tipo de trabalho limitado por 
 **Arquivo: src/main.rs**
 
 ```rust
-        let a = async {
-            println!("'a' started.");
-            slow("a", 30);
-            slow("a", 10);
-            slow("a", 20);
-            trpl::sleep(Duration::from_millis(50)).await;
-            println!("'a' finished.");
-        };
+let a = async {
+    println!("'a' started.");
+    slow("a", 30);
+    slow("a", 10);
+    slow("a", 20);
+    trpl::sleep(Duration::from_millis(50)).await;
+    println!("'a' finished.");
+};
 
-        let b = async {
-            println!("'b' started.");
-            slow("b", 75);
-            slow("b", 10);
-            slow("b", 15);
-            slow("b", 350);
-            trpl::sleep(Duration::from_millis(50)).await;
-            println!("'b' finished.");
-        };
+let b = async {
+    println!("'b' started.");
+    slow("b", 75);
+    slow("b", 10);
+    slow("b", 15);
+    slow("b", 350);
+    trpl::sleep(Duration::from_millis(50)).await;
+    println!("'b' finished.");
+};
 
-        trpl::select(a, b).await;
+trpl::select(a, b).await;
 ```
 
 <a id="listagem-17-15"></a>
@@ -80,33 +80,33 @@ Já conseguimos ver esse tipo de passagem de controle na Listagem 17-15: se remo
 **Arquivo: src/main.rs**
 
 ```rust
-        let one_ms = Duration::from_millis(1);
+let one_ms = Duration::from_millis(1);
 
-        let a = async {
-            println!("'a' started.");
-            slow("a", 30);
-            trpl::sleep(one_ms).await;
-            slow("a", 10);
-            trpl::sleep(one_ms).await;
-            slow("a", 20);
-            trpl::sleep(one_ms).await;
-            println!("'a' finished.");
-        };
+let a = async {
+    println!("'a' started.");
+    slow("a", 30);
+    trpl::sleep(one_ms).await;
+    slow("a", 10);
+    trpl::sleep(one_ms).await;
+    slow("a", 20);
+    trpl::sleep(one_ms).await;
+    println!("'a' finished.");
+};
 
-        let b = async {
-            println!("'b' started.");
-            slow("b", 75);
-            trpl::sleep(one_ms).await;
-            slow("b", 10);
-            trpl::sleep(one_ms).await;
-            slow("b", 15);
-            trpl::sleep(one_ms).await;
-            slow("b", 350);
-            trpl::sleep(one_ms).await;
-            println!("'b' finished.");
-        };
+let b = async {
+    println!("'b' started.");
+    slow("b", 75);
+    trpl::sleep(one_ms).await;
+    slow("b", 10);
+    trpl::sleep(one_ms).await;
+    slow("b", 15);
+    trpl::sleep(one_ms).await;
+    slow("b", 350);
+    trpl::sleep(one_ms).await;
+    println!("'b' finished.");
+};
 
-        trpl::select(a, b).await;
+trpl::select(a, b).await;
 ```
 
 <a id="listagem-17-16"></a>
@@ -134,31 +134,31 @@ Na verdade, porém, não queremos _dormir_ aqui: queremos avançar o mais rápid
 **Arquivo: src/main.rs**
 
 ```rust
-        let a = async {
-            println!("'a' started.");
-            slow("a", 30);
-            trpl::yield_now().await;
-            slow("a", 10);
-            trpl::yield_now().await;
-            slow("a", 20);
-            trpl::yield_now().await;
-            println!("'a' finished.");
-        };
+let a = async {
+    println!("'a' started.");
+    slow("a", 30);
+    trpl::yield_now().await;
+    slow("a", 10);
+    trpl::yield_now().await;
+    slow("a", 20);
+    trpl::yield_now().await;
+    println!("'a' finished.");
+};
 
-        let b = async {
-            println!("'b' started.");
-            slow("b", 75);
-            trpl::yield_now().await;
-            slow("b", 10);
-            trpl::yield_now().await;
-            slow("b", 15);
-            trpl::yield_now().await;
-            slow("b", 350);
-            trpl::yield_now().await;
-            println!("'b' finished.");
-        };
+let b = async {
+    println!("'b' started.");
+    slow("b", 75);
+    trpl::yield_now().await;
+    slow("b", 10);
+    trpl::yield_now().await;
+    slow("b", 15);
+    trpl::yield_now().await;
+    slow("b", 350);
+    trpl::yield_now().await;
+    println!("'b' finished.");
+};
 
-        trpl::select(a, b).await;
+trpl::select(a, b).await;
 ```
 
 <a id="listagem-17-17"></a>
@@ -180,17 +180,17 @@ A Listagem 17-18 mostra como esperamos que esse `timeout` funcione com uma futur
 **Arquivo: src/main.rs (Este código não compila!)**
 
 ```rust
-        let slow = async {
-            trpl::sleep(Duration::from_secs(5)).await;
-            "Finally finished"
-        };
+let slow = async {
+    trpl::sleep(Duration::from_secs(5)).await;
+    "Finally finished"
+};
 
-        match timeout(slow, Duration::from_secs(2)).await {
-            Ok(message) => println!("Succeeded with '{message}'"),
-            Err(duration) => {
-                println!("Failed after {} seconds", duration.as_secs())
-            }
-        }
+match timeout(slow, Duration::from_secs(2)).await {
+    Ok(message) => println!("Succeeded with '{message}'"),
+    Err(duration) => {
+        println!("Failed after {} seconds", duration.as_secs())
+    }
+}
 ```
 
 <a id="listagem-17-18"></a>

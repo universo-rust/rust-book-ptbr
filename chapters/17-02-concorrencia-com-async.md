@@ -65,19 +65,19 @@ Esta versão para assim que o loop `for` do bloco async principal termina, porqu
 **Arquivo: src/main.rs**
 
 ```rust
-        let handle = trpl::spawn_task(async {
-            for i in 1..10 {
-                println!("hi number {i} from the first task!");
-                trpl::sleep(Duration::from_millis(500)).await;
-            }
-        });
+let handle = trpl::spawn_task(async {
+    for i in 1..10 {
+        println!("hi number {i} from the first task!");
+        trpl::sleep(Duration::from_millis(500)).await;
+    }
+});
 
-        for i in 1..5 {
-            println!("hi number {i} from the second task!");
-            trpl::sleep(Duration::from_millis(500)).await;
-        }
+for i in 1..5 {
+    println!("hi number {i} from the second task!");
+    trpl::sleep(Duration::from_millis(500)).await;
+}
 
-        handle.await.unwrap();
+handle.await.unwrap();
 ```
 
 <a id="listagem-17-7"></a>
@@ -111,21 +111,21 @@ Na seção "Aguardando todas as threads terminarem", do Capítulo 16, mostramos 
 **Arquivo: src/main.rs**
 
 ```rust
-        let fut1 = async {
-            for i in 1..10 {
-                println!("hi number {i} from the first task!");
-                trpl::sleep(Duration::from_millis(500)).await;
-            }
-        };
+let fut1 = async {
+    for i in 1..10 {
+        println!("hi number {i} from the first task!");
+        trpl::sleep(Duration::from_millis(500)).await;
+    }
+};
 
-        let fut2 = async {
-            for i in 1..5 {
-                println!("hi number {i} from the second task!");
-                trpl::sleep(Duration::from_millis(500)).await;
-            }
-        };
+let fut2 = async {
+    for i in 1..5 {
+        println!("hi number {i} from the second task!");
+        trpl::sleep(Duration::from_millis(500)).await;
+    }
+};
 
-        trpl::join(fut1, fut2).await;
+trpl::join(fut1, fut2).await;
 ```
 
 <a id="listagem-17-8"></a>
@@ -167,13 +167,13 @@ Compartilhar dados entre futures também deve parecer familiar: vamos usar passa
 **Arquivo: src/main.rs**
 
 ```rust
-        let (tx, mut rx) = trpl::channel();
+let (tx, mut rx) = trpl::channel();
 
-        let val = String::from("hi");
-        tx.send(val).unwrap();
+let val = String::from("hi");
+tx.send(val).unwrap();
 
-        let received = rx.recv().await.unwrap();
-        println!("received '{received}'");
+let received = rx.recv().await.unwrap();
+println!("received '{received}'");
 ```
 
 <a id="listagem-17-9"></a>
@@ -193,23 +193,23 @@ Vamos resolver a primeira parte enviando uma sequência de mensagens e dormindo 
 **Arquivo: src/main.rs**
 
 ```rust
-        let (tx, mut rx) = trpl::channel();
+let (tx, mut rx) = trpl::channel();
 
-        let vals = vec![
-            String::from("hi"),
-            String::from("from"),
-            String::from("the"),
-            String::from("future"),
-        ];
+let vals = vec![
+    String::from("hi"),
+    String::from("from"),
+    String::from("the"),
+    String::from("future"),
+];
 
-        for val in vals {
-            tx.send(val).unwrap();
-            trpl::sleep(Duration::from_millis(500)).await;
-        }
+for val in vals {
+    tx.send(val).unwrap();
+    trpl::sleep(Duration::from_millis(500)).await;
+}
 
-        while let Some(value) = rx.recv().await {
-            println!("received '{value}'");
-        }
+while let Some(value) = rx.recv().await {
+    println!("received '{value}'");
+}
 ```
 
 <a id="listagem-17-10"></a>
@@ -237,29 +237,29 @@ Para obter o comportamento desejado, em que o atraso de `sleep` acontece entre u
 **Arquivo: src/main.rs**
 
 ```rust
-        let (tx, mut rx) = trpl::channel();
+let (tx, mut rx) = trpl::channel();
 
-        let tx_fut = async {
-            let vals = vec![
-                String::from("hi"),
-                String::from("from"),
-                String::from("the"),
-                String::from("future"),
-            ];
+let tx_fut = async {
+    let vals = vec![
+        String::from("hi"),
+        String::from("from"),
+        String::from("the"),
+        String::from("future"),
+    ];
 
-            for val in vals {
-                tx.send(val).unwrap();
-                trpl::sleep(Duration::from_millis(500)).await;
-            }
-        };
+    for val in vals {
+        tx.send(val).unwrap();
+        trpl::sleep(Duration::from_millis(500)).await;
+    }
+};
 
-        let rx_fut = async {
-            while let Some(value) = rx.recv().await {
-                println!("received '{value}'");
-            }
-        };
+let rx_fut = async {
+    while let Some(value) = rx.recv().await {
+        println!("received '{value}'");
+    }
+};
 
-        trpl::join(tx_fut, rx_fut).await;
+trpl::join(tx_fut, rx_fut).await;
 ```
 
 <a id="listagem-17-11"></a>
@@ -288,29 +288,29 @@ Na Listagem 17-12, mudamos o bloco usado para enviar mensagens de `async` para `
 **Arquivo: src/main.rs**
 
 ```rust
-        let (tx, mut rx) = trpl::channel();
+let (tx, mut rx) = trpl::channel();
 
-        let tx_fut = async move {
-            let vals = vec![
-                String::from("hi"),
-                String::from("from"),
-                String::from("the"),
-                String::from("future"),
-            ];
+let tx_fut = async move {
+    let vals = vec![
+        String::from("hi"),
+        String::from("from"),
+        String::from("the"),
+        String::from("future"),
+    ];
 
-            for val in vals {
-                tx.send(val).unwrap();
-                trpl::sleep(Duration::from_millis(500)).await;
-            }
-        };
+    for val in vals {
+        tx.send(val).unwrap();
+        trpl::sleep(Duration::from_millis(500)).await;
+    }
+};
 
-        let rx_fut = async {
-            while let Some(value) = rx.recv().await {
-                println!("received '{value}'");
-            }
-        };
+let rx_fut = async {
+    while let Some(value) = rx.recv().await {
+        println!("received '{value}'");
+    }
+};
 
-        trpl::join(tx_fut, rx_fut).await;
+trpl::join(tx_fut, rx_fut).await;
 ```
 
 <a id="listagem-17-12"></a>
@@ -326,44 +326,44 @@ Esse channel async também é um channel de vários produtores, então podemos c
 **Arquivo: src/main.rs**
 
 ```rust
-        let (tx, mut rx) = trpl::channel();
+let (tx, mut rx) = trpl::channel();
 
-        let tx1 = tx.clone();
-        let tx1_fut = async move {
-            let vals = vec![
-                String::from("hi"),
-                String::from("from"),
-                String::from("the"),
-                String::from("future"),
-            ];
+let tx1 = tx.clone();
+let tx1_fut = async move {
+    let vals = vec![
+        String::from("hi"),
+        String::from("from"),
+        String::from("the"),
+        String::from("future"),
+    ];
 
-            for val in vals {
-                tx1.send(val).unwrap();
-                trpl::sleep(Duration::from_millis(500)).await;
-            }
-        };
+    for val in vals {
+        tx1.send(val).unwrap();
+        trpl::sleep(Duration::from_millis(500)).await;
+    }
+};
 
-        let rx_fut = async {
-            while let Some(value) = rx.recv().await {
-                println!("received '{value}'");
-            }
-        };
+let rx_fut = async {
+    while let Some(value) = rx.recv().await {
+        println!("received '{value}'");
+    }
+};
 
-        let tx_fut = async move {
-            let vals = vec![
-                String::from("more"),
-                String::from("messages"),
-                String::from("for"),
-                String::from("you"),
-            ];
+let tx_fut = async move {
+    let vals = vec![
+        String::from("more"),
+        String::from("messages"),
+        String::from("for"),
+        String::from("you"),
+    ];
 
-            for val in vals {
-                tx.send(val).unwrap();
-                trpl::sleep(Duration::from_millis(1500)).await;
-            }
-        };
+    for val in vals {
+        tx.send(val).unwrap();
+        trpl::sleep(Duration::from_millis(1500)).await;
+    }
+};
 
-        trpl::join!(tx1_fut, tx_fut, rx_fut);
+trpl::join!(tx1_fut, tx_fut, rx_fut);
 ```
 
 <a id="listagem-17-13"></a>
