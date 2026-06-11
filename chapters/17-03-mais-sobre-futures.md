@@ -2,6 +2,8 @@
 title: "Mais sobre futures"
 chapter_code: 17-03
 slug: mais-sobre-futures
+challenge_day: 22
+reading_minutes: 10
 ---
 
 # Entregando controle ao runtime
