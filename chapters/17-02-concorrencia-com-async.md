@@ -106,7 +106,7 @@ Até aqui, parece que async e threads nos dão resultados parecidos, apenas com 
 
 A diferença mais importante é que não precisamos criar outra thread do sistema operacional para fazer isso. Na verdade, neste exemplo nem precisamos criar uma tarefa separada. Como blocos `async` são compilados para futures anônimas, podemos colocar cada loop em seu próprio bloco `async` e pedir ao runtime que execute ambos até o fim usando a função `trpl::join`.
 
-Na seção "Aguardando todas as threads terminarem", do Capítulo 16, mostramos como usar o método `join` no tipo `JoinHandle` retornado por `std::thread::spawn`. A função `trpl::join` é parecida, mas trabalha com futures. Quando passamos duas futures para ela, recebemos uma nova future cuja saída é uma tupla com a saída de cada uma das futures originais, depois que ambas terminarem. Assim, na Listagem 17-8, usamos `trpl::join` para esperar `fut1` e `fut2` terminarem. Não aguardamos `fut1` e `fut2` separadamente; aguardamos a nova future produzida por `trpl::join`. Ignoramos o resultado porque ele é apenas uma tupla com dois valores unitários.
+Na seção ["Esperando todas as threads terminarem"](/livro/cap16-01-usando-threads-para-executar-codigo-simultaneamente#esperando-todas-as-threads-terminarem), do Capítulo 16, mostramos como usar o método `join` no tipo `JoinHandle` retornado por `std::thread::spawn`. A função `trpl::join` é parecida, mas trabalha com futures. Quando passamos duas futures para ela, recebemos uma nova future cuja saída é uma tupla com a saída de cada uma das futures originais, depois que ambas terminarem. Assim, na Listagem 17-8, usamos `trpl::join` para esperar `fut1` e `fut2` terminarem. Não aguardamos `fut1` e `fut2` separadamente; aguardamos a nova future produzida por `trpl::join`. Ignoramos o resultado porque ele é apenas uma tupla com dois valores unitários.
 
 **Arquivo: src/main.rs**
 
@@ -162,7 +162,7 @@ Como desafio extra, tente prever qual será a saída de cada caso antes de execu
 
 ## Enviando dados entre duas tarefas com passagem de mensagens
 
-Compartilhar dados entre futures também deve parecer familiar: vamos usar passagem de mensagens de novo, agora com versões assíncronas dos tipos e funções. Seguiremos um caminho um pouco diferente daquele da seção "Transferir dados entre threads com passagem de mensagens", no Capítulo 16, para destacar algumas diferenças importantes entre a concorrência baseada em threads e a concorrência baseada em futures. Na Listagem 17-9, começamos com um único bloco `async`, sem criar uma tarefa separada como fizemos ao criar uma thread separada.
+Compartilhar dados entre futures também deve parecer familiar: vamos usar passagem de mensagens de novo, agora com versões assíncronas dos tipos e funções. Seguiremos um caminho um pouco diferente daquele da seção ["Transferir dados entre threads com passagem de mensagens"](/livro/cap16-02-transferir-dados-entre-threads-com-passagem-de-mensagens), no Capítulo 16, para destacar algumas diferenças importantes entre a concorrência baseada em threads e a concorrência baseada em futures. Na Listagem 17-9, começamos com um único bloco `async`, sem criar uma tarefa separada como fizemos ao criar uma thread separada.
 
 **Arquivo: src/main.rs**
 
@@ -218,7 +218,7 @@ while let Some(value) = rx.recv().await {
 
 Além de enviar as mensagens, precisamos recebê-las. Neste caso, como sabemos quantas mensagens virão, poderíamos fazer isso manualmente chamando `rx.recv().await` quatro vezes. No mundo real, porém, normalmente esperamos uma quantidade desconhecida de mensagens, então precisamos continuar aguardando até descobrir que não há mais nenhuma.
 
-Na Listagem 16-10, usamos um loop `for` para processar todos os itens recebidos de um channel síncrono. Rust ainda não tem uma forma de usar `for` diretamente com uma sequência de itens produzida de modo assíncrono; por isso, usamos um tipo de loop que ainda não vimos: o loop condicional `while let`. Ele é a versão em loop da construção `if let` que vimos na seção "Fluxo de controle conciso com `if let` e `let...else`", no Capítulo 6. O loop continua executando enquanto o padrão especificado continuar casando com o valor.
+Na Listagem 16-10, usamos um loop `for` para processar todos os itens recebidos de um channel síncrono. Rust ainda não tem uma forma de usar `for` diretamente com uma sequência de itens produzida de modo assíncrono; por isso, usamos um tipo de loop que ainda não vimos: o loop condicional `while let`. Ele é a versão em loop da construção `if let` que vimos na seção ["Fluxo de controle conciso com `if let` e `let...else`"](/livro/cap06-03-if-let-e-let-else), no Capítulo 6. O loop continua executando enquanto o padrão especificado continuar casando com o valor.
 
 A chamada `rx.recv` produz uma future, que aguardamos com `await`. O runtime pausa essa future até que ela esteja pronta. Quando uma mensagem chega, a future resolve para `Some(message)`, uma vez para cada mensagem recebida. Quando o channel fecha, independentemente de alguma mensagem ter chegado ou não, a future resolve para `None`, indicando que não há mais valores e que devemos parar de fazer _polling_, isto é, parar de aguardar.
 
@@ -281,7 +281,7 @@ O programa ainda não termina, porém, por causa da interação entre o loop `wh
 - Não chamamos `rx.close` em lugar nenhum, e `tx` só será descartado quando o bloco async mais externo, passado para `trpl::block_on`, terminar.
 - Esse bloco não pode terminar porque está esperando `trpl::join` completar, o que nos leva de volta ao primeiro item desta lista.
 
-No momento, o bloco async em que enviamos as mensagens apenas empresta `tx`, porque enviar uma mensagem não exige ownership. Mas, se pudéssemos mover `tx` para dentro desse bloco async, ele seria descartado quando o bloco terminasse. Na seção "Capturando referências ou movendo ownership", do Capítulo 13, você aprendeu a usar a palavra-chave `move` com closures; e, como discutimos na seção "Usando closures `move` com threads", do Capítulo 16, muitas vezes precisamos mover dados para dentro de closures ao trabalhar com threads. A mesma dinâmica básica vale para blocos async, então `move` funciona com blocos `async` da mesma forma que funciona com closures.
+No momento, o bloco async em que enviamos as mensagens apenas empresta `tx`, porque enviar uma mensagem não exige ownership. Mas, se pudéssemos mover `tx` para dentro desse bloco async, ele seria descartado quando o bloco terminasse. Na seção ["Capturando referências ou movendo ownership"](/livro/cap13-01-closures#capturando-referencias-ou-movendo-ownership), do Capítulo 13, você aprendeu a usar a palavra-chave `move` com closures; e, como discutimos na seção ["Usando closures `move` com threads"](/livro/cap16-01-usando-threads-para-executar-codigo-simultaneamente#usando-closures-move-com-threads), do Capítulo 16, muitas vezes precisamos mover dados para dentro de closures ao trabalhar com threads. A mesma dinâmica básica vale para blocos async, então `move` funciona com blocos `async` da mesma forma que funciona com closures.
 
 Na Listagem 17-12, mudamos o bloco usado para enviar mensagens de `async` para `async move`.
 
