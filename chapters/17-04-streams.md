@@ -2,6 +2,8 @@
 title: "Streams: futures em sequência"
 chapter_code: 17-04
 slug: streams-futures-em-sequencia
+challenge_day: 23
+reading_minutes: 4
 ---
 
 # Streams: futures em sequência
