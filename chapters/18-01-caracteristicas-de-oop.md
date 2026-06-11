@@ -6,21 +6,21 @@ slug: caracteristicas-de-linguagens-orientadas-a-objetos
 
 # Características de linguagens orientadas a objetos
 
-Não há consenso na comunidade sobre quais recursos uma linguagem precisa ter para ser considerada orientada a objetos. Rust é influenciada por muitos paradigmas, incluindo POO; por exemplo, exploramos recursos vindos da programação funcional no Capítulo 13. Argumentavelmente, linguagens POO compartilham certas características — objetos, encapsulamento e herança. Vejamos o que cada uma significa e se Rust as suporta.
+Não há consenso na comunidade de programação sobre quais recursos uma linguagem precisa ter para ser considerada orientada a objetos. Rust é influenciada por muitos paradigmas de programação, incluindo POO; por exemplo, no Capítulo 13 exploramos recursos vindos da programação funcional. De modo geral, linguagens orientadas a objetos costumam compartilhar algumas características: objetos, encapsulamento e herança. Vamos ver o que cada uma dessas características significa e se Rust oferece suporte a elas.
 
 ## Objetos contêm dados e comportamento
 
-O livro _Design Patterns: Elements of Reusable Object-Oriented Software_, de Erich Gamma, Richard Helm, Ralph Johnson e John Vlissides (Addison-Wesley, 1994), conhecido como livro da _Gang of Four_, é um catálogo de padrões de design orientados a objetos. Define POO assim:
+O livro _Design Patterns: Elements of Reusable Object-Oriented Software_, de Erich Gamma, Richard Helm, Ralph Johnson e John Vlissides (Addison-Wesley, 1994), conhecido informalmente como o livro da _Gang of Four_, é um catálogo de padrões de design orientados a objetos. Ele define POO desta forma:
 
-> Programas orientados a objetos são feitos de objetos. Um **objeto** empacota dados e os procedimentos que operam sobre esses dados. Os procedimentos costumam ser chamados de **métodos** ou **operações**.
+> Programas orientados a objetos são formados por objetos. Um **objeto** empacota tanto dados quanto os procedimentos que operam sobre esses dados. Esses procedimentos normalmente são chamados de **métodos** ou **operações**.
 
-Por essa definição, Rust é orientada a objetos: structs e enums têm dados, e blocos `impl` fornecem métodos. Embora structs e enums com métodos não sejam _chamados_ de objetos, oferecem a mesma funcionalidade segundo a definição da Gang of Four.
+Usando essa definição, Rust é orientada a objetos: structs e enums têm dados, e blocos `impl` fornecem métodos para structs e enums. Embora structs e enums com métodos não sejam _chamados_ de objetos, eles oferecem a mesma funcionalidade segundo a definição de objeto da Gang of Four.
 
 ## Encapsulamento que esconde detalhes de implementação
 
-Outro aspecto associado à POO é _encapsulamento_: detalhes de implementação de um objeto não são acessíveis ao código que o usa. A interação só pode ocorrer pela API pública; código externo não deve alterar dados ou comportamento internos diretamente. Isso permite refatorar o interior sem mudar quem usa o objeto.
+Outro aspecto frequentemente associado à POO é a ideia de _encapsulamento_, que significa que os detalhes de implementação de um objeto não ficam acessíveis ao código que usa esse objeto. Portanto, a única forma de interagir com um objeto deve ser por meio de sua API pública; o código que usa o objeto não deveria conseguir alcançar seus detalhes internos e alterar dados ou comportamento diretamente. Isso permite que a pessoa programadora altere e refatore o interior do objeto sem precisar mudar o código que o utiliza.
 
-Vimos como controlar encapsulamento no Capítulo 7: `pub` decide o que é público; o resto é privado por padrão. Podemos definir `AveragedCollection` com um vetor de `i32` e um campo com a média em cache. A Listagem 18-1 define a struct.
+Discutimos como controlar encapsulamento no Capítulo 7: podemos usar a palavra-chave `pub` para decidir quais módulos, tipos, funções e métodos do nosso código devem ser públicos, enquanto todo o resto é privado por padrão. Por exemplo, podemos definir uma struct `AveragedCollection` com um campo que contém um vetor de valores `i32`. A struct também pode ter um campo que contém a média dos valores no vetor, o que significa que a média não precisa ser calculada sob demanda sempre que alguém precisar dela. Em outras palavras, `AveragedCollection` manterá a média calculada em cache para nós. A Listagem 18-1 mostra a definição da struct `AveragedCollection`.
 
 **Arquivo: src/lib.rs**
 
@@ -33,9 +33,9 @@ pub struct AveragedCollection {
 
 <a id="listagem-18-1"></a>
 
-[Listagem 18-1](#listagem-18-1): Struct `AveragedCollection` que mantém lista de inteiros e média dos itens
+[Listagem 18-1](#listagem-18-1): Struct `AveragedCollection` que mantém uma lista de inteiros e a média dos itens na coleção
 
-A struct é `pub`, mas os campos permanecem privados. Queremos que, ao adicionar ou remover da lista, a média seja atualizada. Implementamos `add`, `remove` e `average` na Listagem 18-2.
+A struct é marcada como `pub`, para que outros códigos possam usá-la, mas seus campos continuam privados. Isso é importante neste caso porque queremos garantir que, sempre que um valor for adicionado à lista ou removido dela, a média também seja atualizada. Fazemos isso implementando os métodos `add`, `remove` e `average` na struct, como mostra a Listagem 18-2.
 
 **Arquivo: src/lib.rs**
 
@@ -70,34 +70,34 @@ impl AveragedCollection {
 
 <a id="listagem-18-2"></a>
 
-[Listagem 18-2](#listagem-18-2): Implementações públicas de `add`, `remove` e `average` em `AveragedCollection`
+[Listagem 18-2](#listagem-18-2): Implementações públicas dos métodos `add`, `remove` e `average` em `AveragedCollection`
 
-`add`, `remove` e `average` são as únicas formas de acessar ou modificar dados. `add` e `remove` chamam o método privado `update_average`.
+Os métodos públicos `add`, `remove` e `average` são as únicas formas de acessar ou modificar os dados de uma instância de `AveragedCollection`. Quando um item é adicionado a `list` com o método `add`, ou removido com o método `remove`, as implementações desses métodos chamam o método privado `update_average`, que também atualiza o campo `average`.
 
-Deixamos `list` e `average` privados para código externo não alterar `list` diretamente — senão `average` poderia dessincronizar. `average` só lê o campo.
+Mantemos os campos `list` e `average` privados para que código externo não consiga adicionar nem remover itens diretamente do campo `list`; caso contrário, o campo `average` poderia ficar fora de sincronia quando `list` mudasse. O método `average` retorna o valor do campo `average`, permitindo que código externo leia a média, mas não a modifique.
 
-Com encapsulamento, podemos mudar a estrutura interna (ex.: `HashSet<i32>` em vez de `Vec<i32>`) mantendo as assinaturas públicas. Se `list` fosse público, quem alterasse `list` diretamente precisaria mudar porque `HashSet` e `Vec` têm APIs diferentes.
+Como encapsulamos os detalhes de implementação da struct `AveragedCollection`, podemos mudar aspectos internos no futuro com facilidade, como a estrutura de dados usada. Por exemplo, poderíamos usar um `HashSet<i32>` em vez de um `Vec<i32>` para o campo `list`. Enquanto as assinaturas dos métodos públicos `add`, `remove` e `average` continuassem as mesmas, o código que usa `AveragedCollection` não precisaria mudar. Se `list` fosse público, isso não seria necessariamente verdade: `HashSet<i32>` e `Vec<i32>` têm métodos diferentes para adicionar e remover itens, então o código externo provavelmente teria que mudar se estivesse modificando `list` diretamente.
 
-Se encapsulamento for requisito para POO, Rust atende. `pub` ou não em cada parte permite encapsular detalhes.
+Se encapsulamento for uma característica obrigatória para que uma linguagem seja considerada orientada a objetos, então Rust atende a esse requisito. A possibilidade de usar ou não `pub` em diferentes partes do código permite encapsular detalhes de implementação.
 
 ## Herança como sistema de tipos e compartilhamento de código
 
-_Herança_ é um mecanismo pelo qual um objeto herda elementos da definição de outro, ganhando dados e comportamento do pai sem redefini-los.
+_Herança_ é um mecanismo pelo qual um objeto pode herdar elementos da definição de outro objeto, ganhando os dados e o comportamento do objeto pai sem que você precise defini-los novamente.
 
-Se herança for obrigatória para POO, Rust não é orientada a objetos: não há como definir struct que herde campos e métodos do pai sem macro.
+Se uma linguagem precisa ter herança para ser orientada a objetos, então Rust não é essa linguagem. Não há uma forma de definir uma struct que herde os campos e as implementações de métodos de uma struct pai sem usar uma macro.
 
-Se você está acostumado à herança, há alternativas em Rust conforme o motivo.
+No entanto, se você está acostumado a ter herança na sua caixa de ferramentas de programação, pode usar outras soluções em Rust, dependendo do motivo que o levaria a buscar herança em primeiro lugar.
 
-Um motivo é reutilizar código: implementar comportamento num tipo e reutilizar noutro. Em Rust, de forma limitada, com implementações padrão de métodos de trait — como `summarize` na trait `Summary` na Listagem 10-14. Qualquer tipo que implemente `Summary` tem `summarize` sem código extra, parecido com classe pai e filha. Podemos sobrescrever ao implementar a trait, como filho sobrescrevendo método herdado.
+Você escolheria herança por dois motivos principais. Um deles é reutilização de código: você implementa um comportamento específico para um tipo, e a herança permite reutilizar essa implementação em outro tipo. Em Rust, dá para fazer isso de forma limitada usando implementações padrão de métodos de traits, como vimos na Listagem 10-14 ao adicionar uma implementação padrão do método `summarize` à trait `Summary`. Qualquer tipo que implementasse a trait `Summary` teria o método `summarize` disponível sem código adicional. Isso é parecido com uma classe pai que tem a implementação de um método e uma classe filha que herda essa implementação. Também podemos sobrescrever a implementação padrão de `summarize` ao implementar a trait `Summary`, o que é parecido com uma classe filha sobrescrevendo a implementação de um método herdado de uma classe pai.
 
-Outro motivo é o sistema de tipos: filho usado onde o pai é esperado — _polimorfismo_, substituir objetos em tempo de execução se compartilham características.
+O outro motivo para usar herança está relacionado ao sistema de tipos: permitir que um tipo filho seja usado nos mesmos lugares que o tipo pai. Isso também é chamado de _polimorfismo_, que significa poder substituir vários objetos uns pelos outros em tempo de execução se eles compartilharem certas características.
 
 > ### Polimorfismo
 >
-> Para muitas pessoas, polimorfismo é sinônimo de herança. É um conceito mais geral: código que funciona com dados de vários tipos. Em herança, esses tipos são em geral subclasses.
+> Para muitas pessoas, polimorfismo é sinônimo de herança. Mas, na verdade, polimorfismo é um conceito mais geral: código que consegue trabalhar com dados de múltiplos tipos. No caso da herança, esses tipos normalmente são subclasses.
 >
-> Rust usa generics para abstrair tipos possíveis e trait bounds para impor o que devem fornecer — às vezes chamado de _polimorfismo paramétrico limitado_.
+> Rust usa generics para abstrair diferentes tipos possíveis e trait bounds para impor restrições sobre o que esses tipos precisam fornecer. Às vezes, isso é chamado de _polimorfismo paramétrico limitado_.
 
-Rust escolheu trade-offs diferentes ao não oferecer herança. Herança pode compartilhar mais código do que o necessário; subclasses herdam tudo do pai, reduzindo flexibilidade, e podem expor métodos que não fazem sentido no filho. Algumas linguagens só permitem _herança simples_, limitando ainda mais o design.
+Rust escolheu um conjunto diferente de tradeoffs ao não oferecer herança. Herança muitas vezes corre o risco de compartilhar mais código do que o necessário. Subclasses nem sempre deveriam compartilhar todas as características da classe pai, mas com herança acabam compartilhando. Isso pode tornar o design de um programa menos flexível. Também abre a possibilidade de chamar em subclasses métodos que não fazem sentido ou que causam erros porque não se aplicam àquela subclasse. Além disso, algumas linguagens permitem apenas _herança simples_, ou seja, uma subclasse só pode herdar de uma classe, o que restringe ainda mais a flexibilidade do design.
 
-Por isso Rust usa trait objects em vez de herança para polimorfismo em tempo de execução. Vejamos como funcionam.
+Por esses motivos, Rust adota uma abordagem diferente: usa trait objects em vez de herança para alcançar polimorfismo em tempo de execução. Vamos ver como trait objects funcionam.

@@ -6,13 +6,13 @@ slug: refutabilidade-se-um-padrao-pode-falhar-ao-casar
 
 # Refutabilidade: se um padrão pode falhar ao casar
 
-Padrões vêm em duas formas: refutáveis e irrefutáveis. Padrões que casarão com qualquer valor possível passado são _irrefutáveis_. Um exemplo seria `x` na instrução `let x = 5;`, porque `x` casa com qualquer coisa e, portanto, não pode falhar ao casar. Padrões que podem falhar ao casar para algum valor possível são _refutáveis_. Um exemplo seria `Some(x)` na expressão `if let Some(x) = a_value`, porque se o valor na variável `a_value` for `None` em vez de `Some`, o padrão `Some(x)` não casará.
+Padrões existem em duas formas: refutáveis e irrefutáveis. Padrões que casam com qualquer valor possível recebido são _irrefutáveis_. Um exemplo é `x` na instrução `let x = 5;`, porque `x` casa com qualquer coisa e, portanto, não pode falhar ao casar. Padrões que podem falhar para algum valor possível são _refutáveis_. Um exemplo é `Some(x)` na expressão `if let Some(x) = a_value`, porque, se o valor na variável `a_value` for `None` em vez de `Some`, o padrão `Some(x)` não casará.
 
-Parâmetros de função, instruções `let` e loops `for` só podem aceitar padrões irrefutáveis porque o programa não pode fazer nada significativo quando os valores não casam. As expressões `if let` e `while let` e a instrução `let...else` aceitam padrões refutáveis e irrefutáveis, mas o compilador avisa contra padrões irrefutáveis porque, por definição, elas são destinadas a lidar com possível falha: A funcionalidade de uma condicional está em sua capacidade de se comportar de forma diferente dependendo do sucesso ou da falha.
+Parâmetros de função, instruções `let` e loops `for` só podem aceitar padrões irrefutáveis, porque o programa não teria nada significativo a fazer quando os valores não casassem. Expressões `if let` e `while let`, assim como instruções `let...else`, aceitam padrões refutáveis e irrefutáveis, mas o compilador avisa contra padrões irrefutáveis nesses contextos porque, por definição, eles foram feitos para lidar com uma possível falha. A utilidade de uma condicional está justamente em poder agir de forma diferente dependendo do sucesso ou da falha.
 
-Em geral, você não deveria precisar se preocupar com a distinção entre padrões refutáveis e irrefutáveis; no entanto, você precisa estar familiarizado com o conceito de refutabilidade para poder responder quando vê-lo em uma mensagem de erro. Nesses casos, você precisará mudar ou o padrão ou a construção com a qual está usando o padrão, dependendo do comportamento pretendido do código.
+Em geral, você não precisa se preocupar muito com a diferença entre padrões refutáveis e irrefutáveis. No entanto, precisa estar familiarizado com o conceito de refutabilidade para saber como responder quando ele aparecer em uma mensagem de erro. Nesses casos, você precisará mudar o padrão ou a construção em que está usando o padrão, dependendo do comportamento pretendido para o código.
 
-Vamos ver um exemplo do que acontece quando tentamos usar um padrão refutável onde Rust exige um padrão irrefutável e vice-versa. A Listagem 19-8 mostra uma instrução `let`, mas para o padrão, especificamos `Some(x)`, um padrão refutável. Como você pode esperar, este código não compilará.
+Vamos ver o que acontece quando tentamos usar um padrão refutável onde Rust exige um padrão irrefutável, e vice-versa. A Listagem 19-8 mostra uma instrução `let`, mas usamos `Some(x)` como padrão, que é refutável. Como você talvez espere, esse código não compila.
 
 **Arquivo: src/main.rs (Este código não compila!)**
 
@@ -27,7 +27,7 @@ fn main() {
 
 [Listagem 19-8](#listagem-19-8): Tentativa de usar um padrão refutável com `let`
 
-Se `some_option_value` fosse um valor `None`, ele falharia ao casar com o padrão `Some(x)`, o que significa que o padrão é refutável. No entanto, a instrução `let` só pode aceitar um padrão irrefutável porque não há nada válido que o código possa fazer com um valor `None`. Em tempo de compilação, Rust reclamará que tentamos usar um padrão refutável onde um padrão irrefutável é exigido:
+Se `some_option_value` fosse um valor `None`, ele não casaria com o padrão `Some(x)`, o que significa que o padrão é refutável. Porém, a instrução `let` só pode aceitar um padrão irrefutável, porque não há nada válido que o código possa fazer com um valor `None`. Em tempo de compilação, Rust reclamará que tentamos usar um padrão refutável onde um padrão irrefutável é exigido:
 
 ```console
 $ cargo run
@@ -50,9 +50,9 @@ For more information about this error, try `rustc --explain E0005`.
 error: could not compile `patterns` (bin "patterns") due to 1 previous error
 ```
 
-Como não cobrimos (e não poderíamos cobrir!) todo valor válido com o padrão `Some(x)`, Rust corretamente produz um erro de compilador.
+Como não cobrimos, e nem poderíamos cobrir, todos os valores válidos com o padrão `Some(x)`, Rust corretamente produz um erro de compilação.
 
-Se temos um padrão refutável onde um padrão irrefutável é necessário, podemos corrigir mudando o código que usa o padrão: Em vez de usar `let`, podemos usar `let...else`. Então, se o padrão não casar, o código entre chaves tratará o valor. A Listagem 19-9 mostra como corrigir o código da Listagem 19-8.
+Se temos um padrão refutável onde um padrão irrefutável é necessário, podemos corrigir o problema mudando a construção que usa o padrão. Em vez de `let`, podemos usar `let...else`. Assim, se o padrão não casar, o código entre chaves tratará o valor. A Listagem 19-9 mostra como corrigir o código da Listagem 19-8.
 
 **Arquivo: src/main.rs**
 
@@ -69,7 +69,7 @@ fn main() {
 
 [Listagem 19-9](#listagem-19-9): Usando `let...else` e um bloco com padrões refutáveis em vez de `let`
 
-Demos uma saída ao código! Este código é perfeitamente válido, embora signifique que não podemos usar um padrão irrefutável sem receber um aviso. Se dermos a `let...else` um padrão que sempre casará, como `x`, como mostrado na Listagem 19-10, o compilador emitirá um aviso.
+Demos uma saída ao código! Esse código é perfeitamente válido, embora isso também signifique que não podemos usar um padrão irrefutável sem receber um aviso. Se passarmos a `let...else` um padrão que sempre casa, como `x`, como mostra a Listagem 19-10, o compilador emitirá um aviso.
 
 **Arquivo: src/main.rs**
 
@@ -105,6 +105,6 @@ warning: `patterns` (bin "patterns") generated 1 warning
      Running `target/debug/patterns`
 ```
 
-Por essa razão, braços de match devem usar padrões refutáveis, exceto o último braço, que deve casar com quaisquer valores restantes com um padrão irrefutável. Rust nos permite usar um padrão irrefutável em um `match` com apenas um braço, mas esta sintaxe não é particularmente útil e poderia ser substituída por uma instrução `let` mais simples.
+Por essa razão, braços de `match` devem usar padrões refutáveis, exceto o último braço, que deve casar com quaisquer valores restantes usando um padrão irrefutável. Rust permite usar um padrão irrefutável em um `match` com apenas um braço, mas essa sintaxe não é particularmente útil e poderia ser substituída por uma instrução `let` mais simples.
 
-Agora que você sabe onde usar padrões e a diferença entre padrões refutáveis e irrefutáveis, vamos cobrir toda a sintaxe que podemos usar para criar padrões.
+Agora que você sabe onde usar padrões e entende a diferença entre padrões refutáveis e irrefutáveis, vamos cobrir toda a sintaxe que podemos usar para criar padrões.

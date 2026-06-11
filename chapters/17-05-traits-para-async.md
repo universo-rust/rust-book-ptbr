@@ -6,11 +6,11 @@ slug: um-olhar-mais-de-perto-nas-traits-para-async
 
 # Um olhar mais de perto nas traits para async
 
-Ao longo do capítulo usamos `Future`, `Stream` e `StreamExt` de várias formas. Evitamos detalhes de implementação — suficiente para o dia a dia. Às vezes você precisa entender `Pin` e `Unpin`; esta seção cobre o essencial. O mergulho profundo fica para outra documentação.
+Ao longo deste capítulo, usamos as traits `Future`, `Stream` e `StreamExt` de várias maneiras. Até agora, porém, evitamos entrar demais nos detalhes de como elas funcionam ou de como se encaixam, e isso basta na maior parte do trabalho diário com Rust. Às vezes, entretanto, você encontrará situações em que precisará entender um pouco melhor essas traits, além do tipo `Pin` e da trait `Unpin`. Nesta seção, vamos nos aprofundar o suficiente para ajudar nesses casos, deixando o mergulho _realmente_ profundo para outras documentações.
 
 ## A trait `Future`
 
-Definição em Rust:
+Vamos começar olhando com mais atenção para a trait `Future`. Esta é a definição dela em Rust:
 
 ```rust
 use std::pin::Pin;
@@ -23,9 +23,9 @@ pub trait Future {
 }
 ```
 
-`Output` é o que a future resolve (como `Item` em `Iterator`). `poll` recebe `Pin<&mut Self>` e `Context`, e retorna `Poll<Self::Output>`.
+Essa definição inclui vários tipos novos e também uma sintaxe que ainda não vimos, então vamos analisá-la por partes.
 
-`Poll`:
+Primeiro, o tipo associado `Output`, de `Future`, indica para qual valor a future resolve. Ele é análogo ao tipo associado `Item` da trait `Iterator`. Segundo, `Future` tem o método `poll`, que recebe uma referência especial `Pin` como parâmetro `self`, uma referência mutável para um tipo `Context` e retorna um `Poll<Self::Output>`. Falaremos mais sobre `Pin` e `Context` daqui a pouco. Por enquanto, vamos nos concentrar no retorno do método, o tipo `Poll`:
 
 ```rust
 pub enum Poll<T> {
@@ -34,11 +34,11 @@ pub enum Poll<T> {
 }
 ```
 
-Parecido com `Option`, mas `Pending` significa que a future ainda tem trabalho; o chamador verifica de novo depois. `Ready(T)` significa conclusão.
+O tipo `Poll` lembra `Option`: ele tem uma variante com valor, `Ready(T)`, e uma sem valor, `Pending`. Mas o significado é bem diferente. A variante `Pending` indica que a future ainda tem trabalho a fazer, então quem chamou precisará verificar novamente mais tarde. A variante `Ready` indica que a `Future` terminou seu trabalho e que o valor `T` está disponível.
 
-> **Nota:** É raro chamar `poll` diretamente. Depois de `Ready`, não chame `poll` de novo na maioria das futures (muitas entram em pânico). Futures seguras para poll de novo dizem isso na documentação — como `Iterator::next`.
+> **Nota:** É raro precisar chamar `poll` diretamente. Se você precisar, lembre-se de que, para a maioria das futures, quem chama não deve chamar `poll` de novo depois que a future retorna `Ready`. Muitas futures entram em pânico se forem consultadas novamente depois de ficarem prontas. Futures que podem ser consultadas de novo com segurança dizem isso explicitamente na documentação. Isso é parecido com o comportamento de `Iterator::next`.
 
-`await` compila para chamadas a `poll`. A Listagem 17-4, ao imprimir o título de uma URL, vira algo como (não exatamente):
+Quando você vê código usando `await`, o Rust o compila, por baixo dos panos, para código que chama `poll`. Se voltarmos à Listagem 17-4, em que imprimimos o título de uma página para uma única URL depois que ele ficou disponível, o Rust compila aquilo para algo parecido, embora não exatamente igual, com isto:
 
 ```rust
 match page_title(url).poll() {
@@ -47,12 +47,12 @@ match page_title(url).poll() {
         None => println!("{url} had no title"),
     }
     Pending => {
-        // Mas o que colocar aqui?
+        // Mas o que entra aqui?
     }
 }
 ```
 
-Com `Pending`, precisamos tentar de novo em loop até `Ready`:
+O que devemos fazer quando a future ainda está `Pending`? Precisamos de alguma forma de tentar de novo, e de novo, e de novo, até que a future finalmente esteja pronta. Em outras palavras, precisaríamos de um loop:
 
 ```rust
 let mut page_title_fut = page_title(url);
@@ -69,15 +69,15 @@ loop {
 }
 ```
 
-Se fosse exatamente isso, cada `await` bloquearia — o oposto do objetivo. O loop precisa ceder controle a algo que pause esta future, rode outras e volte depois: o runtime async.
+Se o Rust compilasse `await` exatamente para esse código, porém, cada `await` seria bloqueante, justamente o contrário do que queremos! Em vez disso, o Rust garante que o loop possa entregar o controle para algo capaz de pausar o trabalho dessa future, executar outras futures e verificar esta novamente mais tarde. Como vimos, esse algo é um runtime async, e esse trabalho de escalonamento e coordenação é uma das principais responsabilidades dele.
 
-Em Enviando dados entre duas tarefas com passagem de mensagens, `rx.recv` retorna future; `await` faz poll. O runtime pausa até `Some(message)` ou `None`. Com `Future::poll`: `Poll::Pending` = não pronto; `Poll::Ready(Some(...))` ou `Poll::Ready(None)` = pronto para avançar.
+Na seção ["Enviando dados entre duas tarefas com passagem de mensagens"](/livro/cap17-02-aplicando-concorrencia-com-async#enviando-dados-entre-duas-tarefas-com-passagem-de-mensagens), descrevemos a espera em `rx.recv`. A chamada `recv` retorna uma future, e aguardar essa future faz _poll_ nela. Observamos que o runtime pausa a future até que ela esteja pronta com `Some(message)` ou com `None`, quando o channel fecha. Com uma compreensão mais detalhada da trait `Future`, especialmente de `Future::poll`, podemos ver como isso funciona. O runtime sabe que a future ainda não está pronta quando ela retorna `Poll::Pending`. Do mesmo modo, o runtime sabe que a future _está_ pronta e pode avançar quando `poll` retorna `Poll::Ready(Some(message))` ou `Poll::Ready(None)`.
 
-Os detalhes do runtime estão além deste livro; o essencial: o runtime _poll_ cada future sob sua responsabilidade e a recoloca quando não está pronta.
+Os detalhes exatos de como um runtime faz isso ficam fora do escopo deste livro, mas a ideia central é esta: o runtime faz _poll_ em cada future sob sua responsabilidade e coloca a future para dormir novamente quando ela ainda não está pronta.
 
 ## O tipo `Pin` e a trait `Unpin`
 
-Na Listagem 17-13 usamos `join!` para três futures. É comum ter um `Vec` de futures com tamanho só conhecido em runtime. Mudemos a Listagem 17-13 para colocar três futures num `Vec` e chamar `trpl::join_all` (Listagem 17-23) — que ainda não compila.
+Na Listagem 17-13, usamos a macro `trpl::join!` para aguardar três futures. Porém, é comum termos uma coleção, como um vetor, contendo um número de futures que só será conhecido em tempo de execução. Vamos alterar a Listagem 17-13 para o código da Listagem 17-23, colocando as três futures em um vetor e chamando `trpl::join_all`, que ainda não compila.
 
 **Arquivo: src/main.rs (Este código não compila!)**
 
@@ -90,11 +90,13 @@ Na Listagem 17-13 usamos `join!` para três futures. É comum ter um `Vec` de fu
 
 <a id="listagem-17-23"></a>
 
-[Listagem 17-23](#listagem-17-23): Aguardando futures numa coleção
+[Listagem 17-23](#listagem-17-23): Aguardando futures em uma coleção
 
-Cada future em `Box` como _trait object_ (como em Retornar erros de `run` no Capítulo 12; trait objects no Capítulo 18). Tipos anônimos de cada bloco `async` são enums diferentes do compilador, mesmo com `Output = ()`.
+Colocamos cada future dentro de um `Box` para transformá-las em _trait objects_, assim como fizemos na seção "Retornando erros de `run`", no Capítulo 12. Vamos estudar trait objects em detalhe no Capítulo 18. Usar trait objects nos permite tratar as futures anônimas produzidas por esses blocos como se fossem do mesmo tipo, porque todas implementam a trait `Future`.
 
-Erro relevante:
+Isso pode surpreender. Afinal, nenhum dos blocos async retorna nada, então cada um produz uma `Future<Output = ()>`. Mas lembre-se: `Future` é uma trait, e o compilador cria um enum único para cada bloco async, mesmo quando eles têm tipos de saída idênticos. Do mesmo modo que não podemos colocar duas structs diferentes escritas à mão em um `Vec` sem algum tipo comum, também não podemos misturar enums diferentes gerados pelo compilador.
+
+Depois, passamos a coleção de futures para `trpl::join_all` e aguardamos o resultado. O código, porém, não compila. Esta é a parte relevante da mensagem de erro:
 
 ```text
 error[E0277]: `dyn Future<Output = ()>` cannot be unpinned
@@ -107,53 +109,89 @@ error[E0277]: `dyn Future<Output = ()>` cannot be unpinned
            consider using `Box::pin` if you need to access the pinned value outside of the current scope
 ```
 
-Use a macro `pin!` para _fixar_ (_pin_) valores: `Pin` garante que não se movem na memória. `dyn Future<Output = ()>` precisa de `Unpin`, que não tem.
+A observação nessa mensagem diz que devemos usar a macro `pin!` para _fixar_ os valores. Fixar um valor significa colocá-lo dentro do tipo `Pin`, que garante que esse valor não será movido na memória. A mensagem de erro diz que isso é necessário porque `dyn Future<Output = ()>` precisa implementar a trait `Unpin`, mas não implementa.
 
-`join_all` retorna `JoinAll<F>` com `F: Future`. `await` direto fixa a future implicitamente. Aqui construímos `JoinAll` passando a coleção; `Box<T>` implementa `Future` só se `T` for future `Unpin`.
+A função `trpl::join_all` retorna uma struct chamada `JoinAll`. Essa struct é genérica sobre um tipo `F`, que precisa implementar a trait `Future`. Quando aguardamos uma future diretamente com `await`, a future é fixada implicitamente. Por isso, não precisamos usar `pin!` em todo lugar em que queremos aguardar futures.
 
-`Future::poll` exige `self: Pin<&mut Self>`. `Pin` envolve referências e smart pointers; não é ponteiro nem conta referências — ferramenta do compilador.
+Aqui, porém, não estamos aguardando uma future diretamente. Em vez disso, construímos uma nova future, `JoinAll`, passando uma coleção de futures para `join_all`. A assinatura de `join_all` exige que os tipos dos itens na coleção implementem `Future`, e `Box<T>` só implementa `Future` se o `T` que ele envolve for uma future que também implementa `Unpin`.
 
-Await vira `poll`; o erro falava em `Unpin`. Pontos de await viram máquina de estados; o compilador garante borrowing. Ao _mover_ a future (ex.: para `Vec` em `join_all`), move-se a máquina de estados. Futures de blocos `async` podem ter referências internas a si mesmas (Figura 17-4).
+Isso é muita coisa para absorver! Para entender de verdade, vamos aprofundar um pouco mais como a trait `Future` funciona, especialmente em relação a pinning. Veja de novo a definição da trait `Future`:
 
-![Tabela representando future fut1 com valores 0 e 1 e seta da terceira linha de volta à segunda, referência interna.](https://doc.rust-lang.org/book/img/trpl17-04.svg)
+```rust
+use std::pin::Pin;
+use std::task::{Context, Poll};
+
+pub trait Future {
+    type Output;
+
+    fn poll(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output>;
+}
+```
+
+O parâmetro `cx` e o tipo `Context` são a chave para o runtime saber quando deve verificar uma determinada future sem deixar de ser preguiçoso. Mais uma vez, os detalhes disso ficam fora do escopo deste capítulo, e você normalmente só precisa pensar neles ao escrever uma implementação personalizada de `Future`. Vamos nos concentrar no tipo de `self`, porque esta é a primeira vez que vemos um método em que `self` tem uma anotação de tipo. Uma anotação de tipo para `self` funciona como anotações em outros parâmetros de função, mas com duas diferenças importantes:
+
+- Ela diz ao Rust qual deve ser o tipo de `self` para que o método possa ser chamado.
+- Ela não pode ser qualquer tipo. Está restrita ao tipo em que o método foi implementado, a uma referência ou smart pointer para esse tipo, ou a um `Pin` envolvendo uma referência para esse tipo.
+
+Veremos mais sobre essa sintaxe no [Capítulo 18](/livro/cap18-00-recursos-de-oop). Por enquanto, basta saber que, se quisermos fazer _poll_ em uma future para verificar se ela está `Pending` ou `Ready(Output)`, precisamos de uma referência mutável envolvida por `Pin` para esse tipo.
+
+`Pin` é um envoltório para tipos parecidos com ponteiros, como `&`, `&mut`, `Box` e `Rc`. Tecnicamente, `Pin` funciona com tipos que implementam as traits `Deref` ou `DerefMut`, mas na prática isso equivale a trabalhar com referências e smart pointers. `Pin` não é um ponteiro em si e não tem um comportamento próprio como `Rc` e `Arc` têm com contagem de referências; ele é apenas uma ferramenta que o compilador pode usar para impor restrições ao uso de ponteiros.
+
+Lembrar que `await` é implementado em termos de chamadas a `poll` começa a explicar a mensagem de erro que vimos antes, mas a mensagem falava de `Unpin`, não de `Pin`. Então qual é exatamente a relação entre `Pin` e `Unpin`, e por que `Future` precisa que `self` esteja em um tipo `Pin` para chamar `poll`?
+
+Lembre-se de que, como vimos antes neste capítulo, uma sequência de pontos de `await` em uma future é compilada para uma máquina de estados. O compilador garante que essa máquina de estados siga todas as regras normais de segurança de Rust, incluindo borrowing e ownership. Para isso, o Rust analisa quais dados são necessários entre um ponto de `await` e o próximo ponto de `await`, ou o fim do bloco async. Em seguida, cria uma variante correspondente na máquina de estados compilada. Cada variante recebe o acesso necessário aos dados usados naquele trecho do código-fonte, seja assumindo ownership desses dados, seja obtendo uma referência mutável ou imutável para eles.
+
+Até aqui, tudo bem: se errarmos alguma regra de ownership ou referências dentro de um bloco async, o borrow checker avisará. Quando queremos mover a future correspondente a esse bloco, como ao colocá-la em um `Vec` para passá-la a `join_all`, a situação fica mais delicada.
+
+Mover uma future, seja inserindo-a em uma estrutura de dados para usá-la com `join_all`, seja retornando-a de uma função, significa mover a máquina de estados que o Rust criou para nós. Ao contrário da maioria dos outros tipos em Rust, as futures criadas para blocos async podem acabar tendo referências para si mesmas nos campos de alguma variante, como mostra a ilustração simplificada da Figura 17-4.
+
+![Tabela representando uma future fut1 com valores 0 e 1 e uma seta da terceira linha de volta para a segunda, indicando uma referência interna.](https://doc.rust-lang.org/book/img/trpl17-04.svg)
 
 *Figura 17-4: Um tipo de dados autorreferencial*
 
-Por padrão, objeto com referência a si mesmo é inseguro mover: referências apontam para endereços reais (Figura 17-5). Mover a estrutura deixa referências internas inválidas — memória pode ser reutilizada.
+Por padrão, qualquer objeto que tenha uma referência para si mesmo é inseguro de mover, porque referências sempre apontam para o endereço real de memória daquilo a que se referem, como na Figura 17-5. Se você mover a estrutura de dados, essas referências internas continuarão apontando para o local antigo. Esse local agora é inválido: seu valor não será atualizado quando você alterar a estrutura, e, mais importante, o computador fica livre para reutilizar aquela memória para outra finalidade. Você poderia acabar lendo dados completamente sem relação com o objeto original.
 
-![fut1 invalidado e fut2 com ponteiro para local antigo de fut1.](https://doc.rust-lang.org/book/img/trpl17-05.svg)
+![Uma future fut1 invalidada e uma future fut2 com ponteiro para o local antigo de fut1.](https://doc.rust-lang.org/book/img/trpl17-05.svg)
 
-*Figura 17-5: Resultado inseguro de mover tipo autorreferencial*
+*Figura 17-5: O resultado inseguro de mover um tipo de dados autorreferencial*
 
-Atualizar todas as referências ao mover seria caro. Garantir que a estrutura _não se move na memória_ evita isso — o que o borrow checker já faz em código seguro.
+Em teoria, o compilador Rust poderia tentar atualizar todas as referências para um objeto sempre que ele fosse movido, mas isso poderia adicionar bastante custo de desempenho, especialmente se uma rede inteira de referências precisasse ser atualizada. Se, em vez disso, pudermos garantir que a estrutura de dados em questão _não se move na memória_, não precisamos atualizar nenhuma referência. É exatamente para isso que o borrow checker de Rust existe: em código seguro, ele impede que você mova qualquer item enquanto há uma referência ativa para ele.
 
-`Pin` garante isso: `Pin<Box<SomeType>>` fixa o valor `SomeType`, não o ponteiro `Box` (Figura 17-6).
+`Pin` se apoia nessa ideia para nos dar a garantia exata de que precisamos. Quando _fixamos_ um valor envolvendo um ponteiro para esse valor em `Pin`, ele não pode mais ser movido. Assim, se você tem `Pin<Box<SomeType>>`, na verdade fixa o valor `SomeType`, _não_ o ponteiro `Box`. A Figura 17-6 ilustra esse processo.
 
-![Pin apontando via Box para future fut autorreferencial fixada.](https://doc.rust-lang.org/book/img/trpl17-06.svg)
+![Um Pin apontando por meio de Box para uma future autorreferencial fixada.](https://doc.rust-lang.org/book/img/trpl17-06.svg)
 
-*Figura 17-6: Fixar um `Box` que aponta para future autorreferencial*
+*Figura 17-6: Fixando um `Box` que aponta para uma future autorreferencial*
 
-O `Box` pode se mover; o que importa é o destino dos dados (Figura 17-7). O tipo autorreferencial em si não pode se mover enquanto estiver fixado.
+Na verdade, o ponteiro `Box` ainda pode se mover livremente. Lembre-se: o que importa é garantir que os dados finais referenciados permaneçam no mesmo lugar. Se um ponteiro se move, mas _os dados para os quais ele aponta_ continuam no mesmo lugar, como na Figura 17-7, não há problema potencial. O ponto principal é que o tipo autorreferencial em si não pode se mover, porque ele continua fixado.
 
-![Pin agora via b2 em vez de b1; dados em pinned inalterados.](https://doc.rust-lang.org/book/img/trpl17-07.svg)
+![Um Pin agora apontando por b2 em vez de b1, com os dados fixados permanecendo no mesmo lugar.](https://doc.rust-lang.org/book/img/trpl17-07.svg)
 
-*Figura 17-7: Mover o `Box` que aponta para future autorreferencial fixada*
+*Figura 17-7: Movendo um `Box` que aponta para uma future autorreferencial fixada*
 
-A maioria dos tipos pode mover com segurança mesmo atrás de `Pin`. Só precisamos de pinning com referências internas. Primitivos não têm. `Vec` move livremente. `String` implementa `Unpin` (Figura 17-8).
+No entanto, a maioria dos tipos é perfeitamente segura de mover, mesmo quando está atrás de um ponteiro `Pin`. Só precisamos pensar em pinning quando os itens têm referências internas. Valores primitivos, como números e booleanos, são seguros porque obviamente não têm referências internas. O mesmo vale para a maioria dos tipos que você costuma usar em Rust. Você pode mover um `Vec`, por exemplo, sem se preocupar.
 
-![Pin apontando para String hello; borda tracejada indica Unpin.](https://doc.rust-lang.org/book/img/trpl17-08.svg)
+Precisamos de uma forma de dizer ao compilador que não há problema em mover valores nesses casos. É aí que entra `Unpin`.
 
-*Figura 17-8: Fixar `String`; linha tracejada indica `Unpin` — não está realmente fixada*
+`Unpin` é uma trait marcadora, parecida com as traits `Send` e `Sync` que vimos no Capítulo 16, e por isso não tem funcionalidade própria. Traits marcadoras existem apenas para informar ao compilador que é seguro usar um tipo em determinado contexto. `Unpin` informa ao compilador que um tipo específico _não_ precisa manter garantias especiais sobre poder ou não ser movido com segurança.
 
-Com `Unpin`, podemos substituir o conteúdo no mesmo endereço (Figura 17-9) sem violar o contrato de `Pin`.
+Assim como acontece com `Send` e `Sync`, o compilador implementa `Unpin` automaticamente para todos os tipos em que consegue provar que isso é seguro. O caso especial, também semelhante a `Send` e `Sync`, ocorre quando `Unpin` _não_ é implementado para um tipo. A notação para isso é `impl !Unpin for SomeType`, em que `SomeType` é o nome de um tipo que _precisa_ manter essas garantias para ser seguro sempre que um ponteiro para ele é usado em um `Pin`.
 
-![Pin apontando de s1 para s2 goodbye.](https://doc.rust-lang.org/book/img/trpl17-09.svg)
+Em outras palavras, há duas ideias importantes na relação entre `Pin` e `Unpin`. Primeiro, `Unpin` é o caso "normal", e `!Unpin` é o caso especial. Segundo, o fato de um tipo implementar `Unpin` ou `!Unpin` _só_ importa quando estamos usando um ponteiro fixado para esse tipo, como `Pin<&mut SomeType>`.
 
-*Figura 17-9: Substituir `String` por outra no mesmo lugar na memória*
+Para deixar isso mais concreto, pense em uma `String`: ela tem um tamanho e os caracteres Unicode que a compõem. Podemos envolver uma `String` em `Pin`, como mostra a Figura 17-8. Porém, `String` implementa `Unpin` automaticamente, assim como a maioria dos outros tipos em Rust.
 
-`Unpin` é trait marcador (como `Send`/`Sync` no Capítulo 16): sem métodos; informa que o tipo _não_ precisa das garantias especiais de pinning. `Unpin` é o caso normal; `!Unpin` é o especial. Só importa com ponteiro fixado como `Pin<&mut SomeType>`.
+![Um Pin apontando para uma String hello; a borda tracejada indica que String implementa Unpin.](https://doc.rust-lang.org/book/img/trpl17-08.svg)
 
-Correção na Listagem 17-24: `pin!` em cada future e tipo `Vec<Pin<&mut dyn Future<Output = ()>>>`.
+*Figura 17-8: Fixando uma `String`; a linha tracejada indica que `String` implementa `Unpin` e, portanto, não está realmente presa*
+
+Como resultado, podemos fazer coisas que seriam ilegais se `String` implementasse `!Unpin`, como substituir uma string por outra exatamente no mesmo local da memória, como na Figura 17-9. Isso não viola o contrato de `Pin`, porque `String` não tem referências internas que a tornem insegura de mover. É justamente por isso que ela implementa `Unpin`, e não `!Unpin`.
+
+![Um Pin apontando de s1 para s2 goodbye.](https://doc.rust-lang.org/book/img/trpl17-09.svg)
+
+*Figura 17-9: Substituindo uma `String` por outra completamente diferente na memória*
+
+Agora sabemos o suficiente para entender os erros daquela chamada a `join_all` da Listagem 17-23. Inicialmente, tentamos mover as futures produzidas por blocos async para dentro de um `Vec<Box<dyn Future<Output = ()>>>`, mas, como vimos, essas futures podem ter referências internas e por isso não implementam `Unpin` automaticamente. Depois de fixá-las, podemos passar o tipo `Pin` resultante para o `Vec`, confiantes de que os dados internos das futures _não_ serão movidos. A Listagem 17-24 mostra como corrigir o código chamando a macro `pin!` onde cada uma das três futures é definida e ajustando o tipo do trait object.
 
 **Arquivo: src/main.rs**
 
@@ -204,17 +242,21 @@ use std::pin::{Pin, pin};
 
 [Listagem 17-24](#listagem-17-24): Fixando futures para movê-las para o vetor
 
-Compila e roda; podemos juntar número variável de futures em runtime.
+Esse exemplo agora compila e roda, e poderíamos adicionar ou remover futures do vetor em tempo de execução e aguardá-las todas juntas.
 
-`Pin` e `Unpin` importam mais para bibliotecas de baixo nível e runtimes. Em erros do dia a dia, você já tem uma pista de como corrigir.
+`Pin` e `Unpin` são importantes principalmente para construir bibliotecas de baixo nível ou para implementar um runtime, mais do que para código Rust do dia a dia. Ainda assim, quando essas traits aparecerem em mensagens de erro, agora você terá uma ideia melhor de como corrigir seu código.
 
-> **Nota:** `Pin`/`Unpin` permitem tipos autorreferenciais seguros em Rust. Aparecem sobretudo em async, mas também noutros contextos. Detalhes em [`std::pin`](https://doc.rust-lang.org/std/pin/index.html) e nos capítulos [2](https://rust-lang.github.io/async-book/02_execution/01_chapter.html) e [4](https://rust-lang.github.io/async-book/04_pinning/01_chapter.html) de [_Asynchronous Programming in Rust_](https://rust-lang.github.io/async-book/).
+> **Nota:** A combinação de `Pin` e `Unpin` permite implementar com segurança toda uma classe de tipos complexos em Rust que seriam difíceis justamente por serem autorreferenciais. Tipos que exigem `Pin` aparecem com mais frequência em Rust async hoje, mas, de vez em quando, você também pode encontrá-los em outros contextos.
+>
+> Os detalhes de como `Pin` e `Unpin` funcionam, e das regras que eles precisam manter, são explicados extensamente na documentação da API de [`std::pin`](https://doc.rust-lang.org/std/pin/index.html). Se quiser aprender mais, esse é um ótimo ponto de partida.
+>
+> Para entender ainda melhor como tudo funciona por baixo dos panos, veja os capítulos [2](https://rust-lang.github.io/async-book/02_execution/01_chapter.html) e [4](https://rust-lang.github.io/async-book/04_pinning/01_chapter.html) de [_Asynchronous Programming in Rust_](https://rust-lang.github.io/async-book/).
 
 ## A trait `Stream`
 
-`Stream` ainda não está na biblioteca padrão; a definição comum vem do crate `futures`.
+Agora que você tem uma noção mais profunda das traits `Future`, `Pin` e `Unpin`, podemos voltar nossa atenção para a trait `Stream`. Como você aprendeu antes neste capítulo, streams são parecidos com iterators assíncronos. Diferentemente de `Iterator` e `Future`, porém, `Stream` ainda não tem uma definição na biblioteca padrão no momento em que este texto foi escrito, embora exista uma definição muito comum no crate `futures`, usada em todo o ecossistema.
 
-De `Iterator`: sequência via `next` → `Option<Item>`. De `Future`: prontidão no tempo via `poll` → `Poll<Output>`. `Stream` une os dois:
+Vamos revisar as definições de `Iterator` e `Future` antes de ver como uma trait `Stream` pode juntar as duas ideias. De `Iterator`, temos a ideia de uma sequência: seu método `next` fornece um `Option<Item>`. De `Future`, temos a ideia de prontidão ao longo do tempo: seu método `poll` fornece um `Poll<Output>`. Para representar uma sequência de itens que ficam prontos ao longo do tempo, definimos uma trait `Stream` que reúne essas características:
 
 ```rust
 use std::pin::Pin;
@@ -230,11 +272,13 @@ trait Stream {
 }
 ```
 
-`Item` como em `Iterator` (zero a muitos itens); diferente de `Future` (um `Output`, mesmo que `()`).
+A trait `Stream` define um tipo associado chamado `Item`, que indica o tipo dos itens produzidos pelo stream. Isso é parecido com `Iterator`, em que pode haver de zero a muitos itens, e diferente de `Future`, em que sempre há um único `Output`, mesmo que esse output seja o tipo unitário `()`.
 
-`poll_next` combina `poll` e `next`; retorno `Poll<Option<Item>>`: `Poll` para prontidão, `Option` para fim da sequência.
+`Stream` também define um método para obter esses itens. Chamamos esse método de `poll_next` para deixar claro que ele faz _poll_ da mesma forma que `Future::poll` e produz uma sequência de itens da mesma forma que `Iterator::next`. O tipo de retorno combina `Poll` com `Option`. O tipo externo é `Poll`, porque precisamos verificar prontidão, como em uma future. O tipo interno é `Option`, porque precisamos sinalizar se ainda existem mais mensagens, como em um iterator.
 
-Em Streams: futures em sequência usamos `next` e `StreamExt`, não `poll_next` direto — como `await` em vez de `poll` manual.
+Algo muito parecido com essa definição provavelmente acabará fazendo parte da biblioteca padrão de Rust. Enquanto isso, ela faz parte do conjunto de ferramentas da maioria dos runtimes, então você pode contar com esse padrão, e tudo que discutimos aqui costuma se aplicar.
+
+Nos exemplos da seção ["Streams: futures em sequência"](/livro/cap17-04-streams-futures-em-sequencia), porém, não usamos `poll_next` nem `Stream` diretamente. Em vez disso, usamos `next` e `StreamExt`. Poderíamos trabalhar diretamente com a API `poll_next`, escrevendo à mão nossas próprias máquinas de estado para `Stream`, assim como _poderíamos_ trabalhar com futures diretamente por meio do método `poll`. Mas usar `await` é muito mais agradável, e a trait `StreamExt` fornece o método `next` para permitir isso:
 
 ```rust
 trait StreamExt: Stream {
@@ -246,16 +290,16 @@ trait StreamExt: Stream {
 }
 ```
 
-> **Nota:** A definição real no `trpl` difere um pouco em versões de Rust sem funções async em traits:
+> **Nota:** A definição real que usamos antes neste capítulo é um pouco diferente, porque dá suporte a versões de Rust que ainda não aceitavam funções async em traits. Por isso, ela se parece com isto:
 >
 > ```rust
 > fn next(&mut self) -> Next<'_, Self> where Self: Unpin;
 > ```
 >
-> O tipo `Next` implementa `Future` para `await` funcionar.
+> O tipo `Next` é uma `struct` que implementa `Future` e permite nomear o tempo de vida da referência a `self` com `Next<'_, Self>`, para que `await` possa funcionar com esse método.
 
-`StreamExt` concentra métodos úteis; é implementada automaticamente para todo `Stream`, separada para evoluir APIs de conveniência sem mudar a trait base.
+A trait `StreamExt` também é onde ficam todos os métodos interessantes disponíveis para streams. `StreamExt` é implementada automaticamente para todo tipo que implementa `Stream`, mas as duas traits são definidas separadamente para permitir que a comunidade evolua as APIs de conveniência sem afetar a trait fundamental.
 
-No `trpl`, `StreamExt::next` tem implementação padrão que chama `Stream::poll_next` corretamente — ao criar seu tipo de stream, implemente só `Stream` e use `StreamExt` por cima.
+Na versão de `StreamExt` usada pelo crate `trpl`, a trait não apenas define o método `next`, como também fornece uma implementação padrão de `next` que lida corretamente com os detalhes de chamar `Stream::poll_next`. Isso significa que, mesmo quando você precisar escrever seu próprio tipo de dado em streaming, você _só_ precisará implementar `Stream`; quem usar seu tipo poderá usar `StreamExt` e seus métodos automaticamente.
 
-Para fechar: como futures (incluindo streams), tarefas e threads se encaixam.
+Isso é tudo que vamos cobrir sobre os detalhes de mais baixo nível dessas traits. Para concluir, vamos pensar em como futures, incluindo streams, tarefas e threads se encaixam.
