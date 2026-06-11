@@ -12,7 +12,7 @@ Em muitos casos, as APIs de concorrência com async são muito parecidas com as 
 
 ## Criando uma nova tarefa com `spawn_task`
 
-A primeira operação em Criando uma nova thread com `spawn` foi contar em duas threads. Faremos o mesmo com async. O crate `trpl` oferece `spawn_task`, parecido com `thread::spawn`, e `sleep`, versão async de `thread::sleep` (Listagem 17-6).
+A primeira operação em [Criando uma nova thread com `spawn`](/livro/cap16-01-usando-threads-para-executar-codigo-simultaneamente#criando-uma-nova-thread-com-spawn) foi contar em duas threads. Faremos o mesmo com async. O crate `trpl` oferece `spawn_task`, parecido com `thread::spawn`, e `sleep`, versão async de `thread::sleep` (Listagem 17-6).
 
 **Arquivo: src/main.rs**
 
